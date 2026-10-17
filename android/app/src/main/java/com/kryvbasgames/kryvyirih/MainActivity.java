@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -20,6 +22,9 @@ public class MainActivity extends Activity {
   static final String LOCAL = "https://appassets.androidplatform.net/assets/index.html";
   WebView web;
   boolean fellBack = false;
+  boolean loaded = false;
+  final Handler h = new Handler(Looper.getMainLooper());
+  void fallBack() { if (fellBack) return; fellBack = true; web.stopLoading(); web.loadUrl(LOCAL); }
 
   @Override protected void onCreate(Bundle saved) {
     super.onCreate(saved);
@@ -45,10 +50,17 @@ public class MainActivity extends Activity {
         return true;
       }
       @Override public void onReceivedError(WebView v, WebResourceRequest r, WebResourceError e) {
-        if (r.isForMainFrame() && !fellBack) { fellBack = true; v.loadUrl(LOCAL); }
+        if (r.isForMainFrame()) fallBack();
+      }
+      @Override public void onReceivedHttpError(WebView v, WebResourceRequest r, WebResourceResponse resp) {
+        if (r.isForMainFrame() && resp.getStatusCode() >= 400) fallBack();
+      }
+      @Override public void onPageFinished(WebView v, String url) {
+        if (url != null && (url.startsWith(GAME) || url.startsWith(LOCAL))) loaded = true;
       }
     });
     if (saved != null) web.restoreState(saved); else web.loadUrl(GAME);
+    h.postDelayed(new Runnable() { public void run() { if (!loaded) fallBack(); } }, 10000);
   }
   @Override protected void onSaveInstanceState(Bundle out) { super.onSaveInstanceState(out); web.saveState(out); }
   @Override protected void onPause() { super.onPause(); web.onPause(); }
