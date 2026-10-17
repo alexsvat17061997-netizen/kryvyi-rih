@@ -242,6 +242,26 @@ body.h-ny::before{content:'';position:fixed;top:0;left:0;right:0;height:14px;z-i
 @keyframes twinkle{50%{filter:brightness(1.6) saturate(1.4)}}
 body.h-indep::before{content:'';position:fixed;top:0;left:0;right:0;height:6px;z-index:44;background:linear-gradient(180deg,#1E5BB8 50%,#F2C230 50%);pointer-events:none}
 @media (prefers-reduced-motion:reduce){body.h-ny::before{animation:none}}
+
+#mgov{position:fixed;inset:0;z-index:65;background:rgba(15,17,45,.75);display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;padding:16px 12px}
+.mgbox{background:var(--bg);color:var(--text);width:100%;max-width:440px;border-radius:14px;padding:12px 14px 14px;border:2px solid var(--sun);margin:auto 0;zoom:var(--fz,1)}
+.mghead{display:flex;justify-content:space-between;align-items:center;font:800 17px var(--display)}.mgskip{background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:4px 10px;font:600 12px var(--body)}
+.mgintro{font-size:14px;color:var(--muted);margin:6px 0 10px}.mgmsg{font-weight:700;text-align:center;min-height:22px;margin-top:10px}
+.mgcv{display:block;margin:0 auto;border-radius:10px;touch-action:none;user-select:none}.mgstage .btn{margin-top:10px}
+.mgctrl{display:flex;gap:8px}.mgctrl .btn{flex:1;font-size:16px;padding:14px;touch-action:none;user-select:none}
+.mgseller{background:var(--panel);border-radius:10px;padding:10px;margin-bottom:12px}.mgbar{position:relative;height:34px;background:var(--line);border-radius:17px;overflow:hidden}
+.mgzone{position:absolute;top:0;bottom:0;background:#4CAF50}.mgmark{position:absolute;top:-2px;bottom:-2px;width:6px;margin-left:-3px;background:var(--ind);border-radius:3px}
+.mgwater{position:relative;height:150px;border-radius:12px;background:linear-gradient(#2E3576,#1a6b8f);overflow:hidden}.mgbob{position:absolute;left:12px;top:8px;font-size:30px}
+.mgfloat{position:absolute;left:50%;top:58%;width:22px;height:30px;margin-left:-11px;border-radius:50% 50% 40% 40%;background:linear-gradient(#E4502E 50%,#fff 50%);animation:bob 1.6s ease-in-out infinite;transition:transform .1s}
+.mgfloat.bite{animation:none;transform:translateY(18px) scaleY(.6);box-shadow:0 0 0 10px rgba(255,255,255,.25)}.mgfloat.caught{animation:none;transform:translateY(-30px) rotate(20deg)}.mgfloat.scare{animation:none;transform:translateX(12px)}
+@keyframes bob{50%{transform:translateY(5px)}}.mgfinfo{text-align:center;margin-top:8px}
+.mgreact{display:block;width:100%;height:190px;border-radius:14px;border:0;font:800 22px var(--display);color:#fff;touch-action:manipulation}.mgreact.wait{background:var(--ind)}.mgreact.go{background:#2e9e4f}
+.mgpen .seg{margin-bottom:10px}.mgpen .seg button{padding:12px 4px}.mgq{font-weight:700;font-size:16px}.mgtbar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:6px 0 10px}.mgtbar i{display:block;height:100%;width:100%;background:var(--sun)}
+.mgquiz .btn{margin-top:6px}.qok{background:#4CAF50!important;color:#fff!important}.qbad{background:var(--ver)!important;color:#fff!important}
+.mgbid{display:flex;align-items:center;justify-content:center;gap:14px}.mgbid b{font:800 30px var(--display);min-width:90px;text-align:center}.mgbid .btn{width:auto;flex:0 0 76px}
+.mgtag{display:inline-block;margin-left:6px;font-size:11px;font-weight:700;background:var(--sun);color:#1F2350;border-radius:6px;padding:1px 6px;vertical-align:middle}
+.mgbtn{border:2px dashed var(--sun)!important}
+.mgquiz .btn-choice{background:var(--panel);border:1px solid var(--line);text-align:center;padding:12px}
 </style>
 </head>
 <body>
@@ -1124,7 +1144,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">Kryvbas Games · патч 1.032</p>`;return;}
+    <p class="foot">Kryvbas Games · патч 1.033</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -1450,7 +1470,7 @@ function render(){
   famSync();
   setTimeout(saveGame,0);
   const _cp=(S.players&&S.players[S.turn])||null;
-  ({oblig:renderOblig,free:renderFree,result:renderResult,go:renderGo,budget:renderBudget,intro:renderIntro,payweek:renderPayweek,payday:renderPayday,morning:renderMorning,group:renderGroup,handoff:renderHandoff,turn:renderTurn,travel:renderTravel,haggle:renderHaggle,loan:renderLoan,evening:renderEvening}[S.phase]||(()=>{}))();
+  ({mg:renderMgPhase,mgres:renderMgPhase,oblig:renderOblig,free:renderFree,result:renderResult,go:renderGo,budget:renderBudget,intro:renderIntro,payweek:renderPayweek,payday:renderPayday,morning:renderMorning,group:renderGroup,handoff:renderHandoff,turn:renderTurn,travel:renderTravel,haggle:renderHaggle,loan:renderLoan,evening:renderEvening}[S.phase]||(()=>{}))();
   if(S.phase==='end')renderEnd();
   if(_cp){const was=PREV&&PREV.id===_cp.id&&PREV.g===S._g?PREV:null;if(was){const dm=_cp.money-was.money,dn=_cp.nerves-was.nerves;if(dm>0||dn>0)snd('coin');else if(dm<0||dn<0)snd('loss');}PREV={id:_cp.id,g:S._g,money:_cp.money,nerves:_cp.nerves,happy:_cp.happy};}
   if(S.phase==='done')app.innerHTML=S.endHTML;
@@ -2007,6 +2027,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  ${setRow('mus','🎵','Гімн Кривого Рогу','на головному екрані й у фіналі',!musicOff())}
  ${setRow('talk','💬','Репліки персонажів','бульбашки з коментарями',talkOn())}
  ${setRow('amb','🌧','Фонові звуки','дощ, вітер, ринок, діти, стадіон…',lsG('kr-amb')!=='0')}
+ ${setRow('mg','🎮','Міні-ігри','торг, рибалка, Скарік, парашут, ігри в кімнаті',!mgOff())}
  <div class="setgrp"><b>🔉 Гучність фону</b><div class="seg">${[['0.35','Тихо'],['0.6','Середньо'],['0.9','Гучно']].map(([v,l])=>`<button data-s="ambv" data-v="${v}" aria-pressed="${(lsG('kr-ambv')||'0.6')===v}">${l}</button>`).join('')}</div></div>
  <div class="setgrp"><b>🔤 Розмір тексту</b><div class="seg">${Object.keys(FZ).map(k=>`<button data-s="fz" data-v="${k}" aria-pressed="${fz===k}">${FZ[k]}</button>`).join('')}</div></div>
  <div class="setgrp"><b>🎓 Навчання</b><p>Підказки на перших кроках гри.</p><button class="btn btn-ghost" data-s="tut">${lsG('kr-tut')==='done'?'Показати навчання ще раз':'Навчання увімкнене'}</button></div>
@@ -2015,7 +2036,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">Kryvbas Games · патч 1.032<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">Kryvbas Games · патч 1.033<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -2028,6 +2049,7 @@ function settingsClick(e){e.stopPropagation();const ov=document.getElementById('
  if(s==='mus'){lsS('kr-music',musicOff()?'1':'0');_musGest=true;}
  if(s==='talk')lsS('kr-talk',talkOn()?'0':'1');
  if(s==='amb')lsS('kr-amb',lsG('kr-amb')==='0'?'1':'0');
+ if(s==='mg')lsS('kr-mg',mgOff()?'1':'0');
  if(s==='ambv')lsS('kr-ambv',b.dataset.v);
  if(s==='fz'){lsS('kr-fz',b.dataset.v);applyFz();}
  if(s==='tut'){lsS('kr-tut','');lsS('kr-tutseen','[]');}
@@ -2099,9 +2121,9 @@ function netBC(){let ch=null,me=null;
   close(){try{ch&&ch.close();}catch(e){}}};}
 function mkNet(){return urlP('net')==='bc'?netBC():netPeer();}
 // --- права: хто що може натиснути ---
-const R_GLOBAL=['morning','evening','payday','payweek','intro','group','end','done'];
+const R_GLOBAL=['morning','evening','payday','payweek','intro','group','end','done','mg','mgres'];
 const R_LOCAL=['ruslan','talk','mute','shareimg','share','settings','room'];
-function canAct(dev,ds){if(!S||!S.room)return true;const own=i=>S.room.owners[i]===dev;const isHost=dev===S.room.host;
+function canAct(dev,ds){if(!S||!S.room)return true;if(ds.act==='mgin')return S.room.owners.includes(dev);const own=i=>S.room.owners[i]===dev;const isHost=dev===S.room.host;
  if(ds.eve!==undefined)return own(+ds.eve);
  if(ds.sk!==undefined)return own(+ds.sk);
  if(ds.repay!==undefined){const d=(S.debts||[])[+ds.repay];return !!d&&(own(d.from)||isHost);}
@@ -2109,7 +2131,7 @@ function canAct(dev,ds){if(!S||!S.room)return true;const own=i=>S.room.owners[i]
  if(ds.act==='menu'||ds.act==='again')return isHost;
  if(R_GLOBAL.includes(S.phase))return isHost;
  return own(S.turn);}
-function whoActs(){if(!S||!S.room)return '';if(R_GLOBAL.includes(S.phase)){const hi=S.room.owners.indexOf(S.room.host);return 'ведучий'+(hi>=0?' ('+CHARS[S.players[hi].id].name+')':'');}
+function whoActs(){if(!S||!S.room)return '';if(S.phase==='mg')return 'усі гравці';if(R_GLOBAL.includes(S.phase)){const hi=S.room.owners.indexOf(S.room.host);return 'ведучий'+(hi>=0?' ('+CHARS[S.players[hi].id].name+')':'');}
  const p=S.players[S.turn];return p?CHARS[p.id].name:'';}
 function myTurnNow(){return S&&S.room&&!R_GLOBAL.includes(S.phase)&&S.room.owners[S.turn]===myDev();}
 function rToast(t){let el=document.getElementById('rtoast');if(!el){el=document.createElement('div');el.id='rtoast';el.className='rtoast';document.body.appendChild(el);}
@@ -2137,7 +2159,7 @@ function hostMsg(dev,m){if(!m||!ROOM)return;
   if(m.char&&ROOM.seats.some(x=>x!==s&&x.char===m.char)){NET.send(dev,{t:'toast',msg:'Цього персонажа вже взяли'});return;}
   s.char=m.char||null;hostLobby();refreshBehind();return;}
  if(m.t==='leave'){if(S&&S.room){const s=ROOM.seats.find(x=>x.dev===dev);if(s)s.online=false;}else ROOM.seats=ROOM.seats.filter(x=>x.dev!==dev);hostLobby();refreshBehind();return;}
- if(m.t==='click'&&S&&S.room){if(!canAct(dev,m.ds)){NET.send(dev,{t:'toast',msg:'Зараз не твій хід'});return;}simClick(m.ds);}}
+ if(m.t==='click'&&S&&S.room){window._mgDev=dev;if(!canAct(dev,m.ds)){NET.send(dev,{t:'toast',msg:'Зараз не твій хід'});return;}simClick(m.ds);}}
 function simClick(ds){SIM=true;try{const b=document.createElement('button');Object.keys(ds||{}).forEach(k=>{b.dataset[k]=ds[k];});b.style.display='none';app.appendChild(b);b.click();}finally{SIM=false;}}
 function roomStart(){const seats=ROOM.seats.filter(s=>s.char);if(seats.length<2)return rToast('Потрібно щонайменше 2 гравці з персонажами');
  ROOM.seats=seats;const o=ROOM.opts;
@@ -2364,6 +2386,181 @@ function holDecor(){if(!document.body||!document.body.classList)return;const h=S
  renderSetup=function(){_rs.apply(this,arguments);if(!ROOM&&!ROOMUI&&(setup.step||'title')==='title')holDecor();try{ambTick();}catch(e){}};}
 
 if(document.addEventListener)document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('button[data-travel="tram"]');if(b)tramBell();},true);
+
+// === 1.033: міні-ігри ===
+function mgOff(){return lsG('kr-mg')==='0';}
+let MG=null;
+function mgOpen(title,intro,run,onDone,opts){opts=opts||{};mgClose(true);const ov=document.createElement('div');ov.id='mgov';
+ ov.innerHTML=`<div class="mgbox"><div class="mghead"><b>🎮 ${title}</b>${opts.noSkip?'':'<button class="mgskip" data-mgx="1">Пропустити</button>'}</div><p class="mgintro">${intro}</p><div class="mgstage"></div><div class="mgmsg" aria-live="polite"></div></div>`;
+ document.body.appendChild(ov);document.body.classList.add('noscroll');const stage=ov.querySelector('.mgstage'),msg=ov.querySelector('.mgmsg');let finished=false;
+ const done=(r,text)=>{if(finished)return;finished=true;if(MG&&MG.cleanup)try{MG.cleanup();}catch(e){}msg.innerHTML=text||'';
+  setTimeout(()=>{mgClose();onDone(r);},text?1600:50);};
+ MG={ov,cleanup:null};ov.addEventListener('click',e=>{if(e.target.closest('[data-mgx]')){e.stopPropagation();done(null);}});
+ try{MG.cleanup=run(stage,done,msg);}catch(e){done(null);}}
+function mgClose(silent){const ov=document.getElementById('mgov');if(MG&&MG.cleanup&&silent)try{MG.cleanup();}catch(e){}if(ov)ov.remove();MG=null;document.body.classList.remove('noscroll');}
+function mgCanvas(stage,w,h){const c=document.createElement('canvas');const dpr=Math.min(2,window.devicePixelRatio||1);c.width=w*dpr;c.height=h*dpr;c.style.width='100%';c.style.maxWidth=w+'px';c.style.aspectRatio=w+'/'+h;c.className='mgcv';stage.appendChild(c);const x=c.getContext('2d');x.scale(dpr,dpr);return {c,x};}
+function rafLoop(fn){let id,last=performance.now(),dead=false;const step=t=>{if(dead)return;const dt=Math.min(50,t-last)/16.67;last=t;if(fn(dt,t)===false)return;id=requestAnimationFrame(step);};id=requestAnimationFrame(step);return ()=>{dead=true;cancelAnimationFrame(id);};}
+function vib(ms){try{navigator.vibrate&&navigator.vibrate(ms);}catch(e){}}
+// --- 1. Встигни на Скарік ---
+function mgTram(stage,done,msg){const W=320,H=180,{c,x}=mgCanvas(stage,W,H);const T=8.5,D=1000;let t=0,dist=0,y=0,vy=0,slow=0,hits=0,obs=[],nextOb=40;
+ const jump=e=>{if(e)e.preventDefault();if(y===0){vy=-7.2;snd&&0;}};c.addEventListener('pointerdown',jump);
+ const btn=document.createElement('button');btn.className='btn btn-main';btn.textContent='Стрибок! ⤴';btn.addEventListener('pointerdown',jump);stage.appendChild(btn);
+ const stop=rafLoop(dt=>{t+=dt/60;const sp=(slow>0?1.1:2.75)*dt;slow=Math.max(0,slow-dt/60);dist+=sp;
+  vy+=0.42*dt;y=Math.min(0,y+vy*dt);if(y===0)vy=0;
+  nextOb-=sp;if(nextOb<=0&&dist<D-120){obs.push({x:W+10,w:24+Math.random()*18,k:Math.random()<0.5?'pud':'pot'});nextOb=70+Math.random()*90;}
+  obs.forEach(o=>o.x-=sp);obs=obs.filter(o=>o.x>-60);
+  obs.forEach(o=>{if(!o.hit&&o.x<62&&o.x+o.w>44&&y>-10){o.hit=1;hits++;slow=0.6;vib(60);}});
+  // малюємо
+  const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#5A3A8A');g.addColorStop(1,'#E4502E');x.fillStyle=g;x.fillRect(0,0,W,H);
+  x.fillStyle='#2E3576';for(let i=0;i<8;i++){const bx=((i*60-dist*0.3)%480+480)%480-60;x.fillRect(bx,60+(i%3)*12,44,90);}
+  x.fillStyle='#3a3f5c';x.fillRect(0,150,W,30);x.fillStyle='#F5E7CF';for(let i=0;i<8;i++){x.fillRect(((i*50-dist)%400+400)%400-40,163,22,3);}
+  obs.forEach(o=>{x.fillStyle=o.k==='pud'?'#4FA3D9':'#1b1d2e';x.beginPath();x.ellipse(o.x+o.w/2,152,o.w/2,5,0,0,7);x.fill();});
+  const rem=D-dist;if(rem<260){x.font='46px serif';x.fillText('🚋',40+rem+20,148);}
+  x.font='30px serif';x.save();x.translate(38,148+y);x.scale(-1,1);x.fillText(hits&&slow>0?'💦':'🏃',-30,0);x.restore();
+  x.fillStyle='rgba(0,0,0,.35)';x.fillRect(10,10,W-20,10);x.fillStyle=t>T*0.75?'#E4502E':'#F2A93B';x.fillRect(10,10,(W-20)*Math.max(0,1-t/T),10);
+  x.fillStyle='#fff';x.font='bold 12px sans-serif';x.fillText('Скарік відходить через '+Math.max(0,T-t).toFixed(1)+' с',12,36);
+  if(dist>=D){done(true,'✅ Встиг! Сідаєш у Скарік, і він їде як годинник.');return false;}
+  if(t>=T){done(false,'❌ Двері зачинилися перед носом. Доведеться пішки.');return false;}});
+ return ()=>{stop();c.removeEventListener('pointerdown',jump);};}
+// --- 2. Торг на ринку ---
+function mgHaggle(stage,done){const w=document.createElement('div');w.className='mghag';const z0=0.2+Math.random()*0.5,zw=0.2;
+ w.innerHTML=`<div class="mgseller">🧕 «Дешевше не віддам! Ну… хіба трошки.»</div><div class="mgbar"><div class="mgzone" style="left:${z0*100}%;width:${zw*100}%"></div><div class="mgmark"></div></div><button class="btn btn-main">Стоп! Моя ціна!</button>`;
+ stage.appendChild(w);const mk=w.querySelector('.mgmark');let ph=Math.random()*6,pos=0,stopped=false,sp=0.055;
+ const stop=rafLoop(dt=>{ph+=sp*dt;sp+=0.00012*dt;pos=(Math.sin(ph)+1)/2;mk.style.left=(pos*100)+'%';});
+ w.querySelector('button').addEventListener('click',e=>{e.stopPropagation();if(stopped)return;stopped=true;stop();const ok=pos>=z0&&pos<=z0+zw;vib(ok?40:120);
+  done(ok,ok?'✅ «Ех, забирай! Тільки нікому не кажи, за скільки.»':'❌ «Та йди вже! Знайшовся тут торгаш.»');});
+ return stop;}
+// --- 3. Рибалка ---
+function mgFish(stage,done,msg,mode){const need=mode==='risk'?2:99,dur=mode==='risk'?12:15;const w=document.createElement('div');w.className='mgfish';
+ w.innerHTML=`<div class="mgwater"><div class="mgbob">🎣</div><div class="mgfloat"></div></div><div class="mgfinfo">Риб: <b>0</b> · <span>${dur}</span> с</div><button class="btn btn-main">Підсікай!</button>`;
+ stage.appendChild(w);const fl=w.querySelector('.mgfloat'),cnt=w.querySelector('b'),tm=w.querySelector('span');let fish=0,state='wait',until=performance.now()+1200+Math.random()*2800,t0=performance.now(),over=false;
+ const finish=()=>{if(over)return;over=true;stop();const ok=fish>=Math.min(need,99);done(mode==='risk'?fish>=need:fish,mode==='risk'?(fish>=need?'✅ Клює! Відро вже не порожнє.':'❌ Сьогодні риба розумніша за тебе.'):(fish?`🎣 Улов: ${fish} ${fish===1?'рибина':fish<5?'рибини':'риб'}!`:'🎣 Жодної. Зате тиша.'));};
+ const stop=rafLoop(()=>{const now=performance.now();const left=dur-(now-t0)/1000;tm.textContent=Math.max(0,left).toFixed(0);if(left<=0){finish();return false;}
+  if(state==='wait'&&now>=until){state='bite';until=now+650;fl.classList.add('bite');vib(80);}
+  else if(state==='bite'&&now>=until){state='wait';fl.classList.remove('bite');until=now+1000+Math.random()*2500;}
+  if(mode==='risk'&&fish>=need){finish();return false;}});
+ w.querySelector('button').addEventListener('click',e=>{e.stopPropagation();if(over)return;const now=performance.now();
+  if(state==='bite'){fish++;cnt.textContent=fish;state='wait';fl.classList.remove('bite');fl.classList.add('caught');setTimeout(()=>fl.classList.remove('caught'),400);until=now+900+Math.random()*2500;vib(30);}
+  else{fl.classList.add('scare');setTimeout(()=>fl.classList.remove('scare'),300);until=now+1600+Math.random()*2000;}});
+ return ()=>{stop();};}
+// --- 4. Парашут ---
+function mgPara(stage,done){const W=300,H=340,{c,x}=mgCanvas(stage,W,H);let px=40+Math.random()*220,py=10,vx=0,wind=(Math.random()-0.5)*0.6,L=0,R=0,t=0;const tx=40+Math.random()*220;
+ const ctr=document.createElement('div');ctr.className='mgctrl';ctr.innerHTML='<button class="btn btn-ghost" data-d="-1">◀ Ліворуч</button><button class="btn btn-ghost" data-d="1">Праворуч ▶</button>';stage.appendChild(ctr);
+ ctr.querySelectorAll('button').forEach(b=>{const d=+b.dataset.d;const on=e=>{e.preventDefault();if(d<0)L=1;else R=1;},off=()=>{if(d<0)L=0;else R=0;};b.addEventListener('pointerdown',on);b.addEventListener('pointerup',off);b.addEventListener('pointerleave',off);b.addEventListener('pointercancel',off);});
+ const stop=rafLoop(dt=>{t+=dt/60;if(Math.random()<0.01*dt)wind=(Math.random()-0.5)*0.9;vx+=((R-L)*0.09+wind*0.02)*dt;vx*=Math.pow(0.95,dt);px=Math.max(10,Math.min(W-10,px+vx*dt));py+=0.95*dt;
+  const g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,'#F2A93B');g.addColorStop(1,'#5A3A8A');x.fillStyle=g;x.fillRect(0,0,W,H);
+  x.fillStyle='#6b8f4e';x.fillRect(0,H-30,W,30);x.fillStyle='#fff';x.beginPath();x.arc(tx,H-22,24,0,7);x.fill();x.fillStyle='#E4502E';x.beginPath();x.arc(tx,H-22,14,0,7);x.fill();x.fillStyle='#fff';x.beginPath();x.arc(tx,H-22,5,0,7);x.fill();
+  x.fillStyle='rgba(255,255,255,.8)';x.font='bold 12px sans-serif';x.fillText('Вітер '+(wind>0?'→':'←').repeat(1+Math.round(Math.abs(wind)*4)),10,20);
+  x.font='34px serif';x.fillText('🪂',px-17,py+20);
+  if(py>=H-48){const d=Math.abs(px-tx);stop();done(d<=12?2:d<=35?1:0,d<=12?'🎯 В яблучко! Інструктор аплодує.':d<=35?'✅ Поруч із мішенню. Непогано!':'❌ Приземлення на город. Бабуся вже біжить з віником.');return false;}});
+ return stop;}
+// --- прив'язка до подій ---
+function mgKindOfChoice(c){if(!c||!c.risk)return null;const l=c.l||'';if(/торгу/i.test(l))return 'haggle';if(/вудк|рибал/i.test(l))return 'fish';if(/парашут/i.test(l))return 'para';return null;}
+function mgDispatch(ds){if(ROOM&&ROOM.role==='guest'&&S&&S.room){NET.send('host',{t:'click',ds});return;}simClick(ds);}
+function mgRunChoice(i,kind){const T={haggle:['Торг на ринку','Зупини стрілку в зеленій зоні, і ціна твоя.',(s,d)=>mgHaggle(s,d)],
+  fish:['Рибалка','Чекай, поки поплавок пірне, і тоді тисни «Підсікай!». Треба впіймати 2 риби.',(s,d,m)=>mgFish(s,d,m,'risk')],
+  para:['Стрибок з парашутом','Керуй куполом і сідай на мішень.',(s,d)=>mgPara(s,d)]}[kind];
+ mgOpen(T[0],T[1],T[2],r=>{if(r==null){mgDispatch({choice:String(i)});return;}const win=kind==='para'?r>=1:!!r;mgDispatch({choice:String(i),mgr:win?'0':'0.9999'});});}
+function mgRunTram(){mgOpen('Встигни на Скарік','Тисни «Стрибок!», щоб перестрибувати калюжі та ями. Встигнеш — Скарік точно не зламається.',(s,d,m)=>mgTram(s,d,m),r=>{if(r==null)return;mgDispatch(r?{travel:'tram',mgr:'0.9999'}:{travel:'walk'});});}
+function mgRunBonus(kind){if(kind==='fish')mgOpen('Рибалка','Чекай, поки поплавок пірне, і тисни «Підсікай!». Що впіймаєш — продаси на ринку.',(s,d,m)=>mgFish(s,d,m,'bonus'),r=>{if(r==null)return;mgDispatch({act:'mgbonus',k:'fish',s:String(r)});});
+ else mgOpen('Стрибок з парашутом','Керуй куполом і сідай точно на мішень.',(s,d)=>mgPara(s,d),r=>{if(r==null)return;mgDispatch({act:'mgbonus',k:'para',s:String(r)});});}
+function mgBonusApply(k,s){const p=cur();if(!p||!S.res||S.res.mgDone)return;S.res.mgDone=1;s=+s||0;let d,t;
+ if(k==='fish'){const n=Math.min(6,s);d={m:n*40,h:n>=3?1:0};t=n?`🎣 Наловив ${n} риб і продав на ринку: ${fmt(d)}`:'🎣 Не клювало. Зате відпочив.';}
+ else{d=s>=2?{h:2}:s===1?{h:1}:{n:-1};t=s>=2?'🎯 Приземлення в яблучко: '+fmt(d):s===1?'🪂 Поруч з мішенню: '+fmt(d):'🥔 Приземлення на город: '+fmt(d);}
+ apply(p,d);S.res.t+=' '+t;S.last=nm(p)+': '+t;render();}
+// --- спільні ігри в кімнаті ---
+const QUIZ=[['Рік першої документальної згадки про Кривий Ріг?',['1775','1881','1919','1959'],0],['Скільки кілометрів тягнеться місто з півночі на південь?',['Близько 126','Близько 40','Близько 75','Близько 200'],0],
+ ['На яких річках стоїть Кривий Ріг?',['Інгулець і Саксагань','Дніпро і Самара','Інгул і Буг','Ворскла і Псел'],0],['Скільки районів у Кривому Розі?',['7','5','9','12'],0],
+ ['У якому році відбувся перший рейс швидкісного трамвая?',['1986','1975','1999','1968'],0],['Скільки станцій має криворізький метротрам?',['11','6','15','20'],0],
+ ['Скільки станцій метротраму підземні?',['4','1','7','Жодної'],0],['Яка особливість руху на метротрамі?',['Лівосторонній рух','Їде без водія','Ходить тільки вночі','Має канатну тягу'],0],
+ ['Як у народі звуть швидкісний трамвай?',['Скарік','Метрик','Трамчик','Швидкий'],0],['З якого року міський транспорт безкоштовний для мешканців?',['2022','2015','2010','2024'],0],
+ ['Що видобувають у Кривбасі?',['Залізну руду','Вугілля','Сіль','Нафту'],0],['Що означає абревіатура ГЗК?',['Гірничо-збагачувальний комбінат','Головний залізничний комплекс','Гірський заповідний край','Газовий заводський котел'],0],
+ ['Найбільший металургійний комбінат міста — це…',['Криворіжсталь','Азовсталь','Запоріжсталь','Дніпросталь'],0],['У якому році засновано ФК «Кривбас»?',['1959','1991','1975','2003'],0],
+ ['Яке водосховище є в Кривому Розі?',['Карачунівське','Київське','Каховське','Печенізьке'],0],['Чим Кривий Ріг відомий у Європі?',['Одне з найдовших міст','Найвищий хмарочос','Найбільший порт','Найстаріший університет'],0],
+ ['Скільки років виповнилося місту у 2025 році?',['250','100','175','300'],0],['Коли традиційно святкують День міста?',['Остання субота травня','1 вересня','Перша неділя липня','25 грудня'],0],
+ ['За легендою, місто назване на честь…',['Козака Рога, кривого на одне око','Кривого рогу оленя','Кривої річки','Купця Кривошеєва'],0],['Який з цих районів є в Кривому Розі?',['Тернівський','Оболонський','Шевченківський','Приморський'],0],
+ ['Довжина колії метротраму — приблизно…',['18 км','5 км','40 км','2 км'],0],['Іменем кого названо міський театр драми та музичної комедії?',['Тараса Шевченка','Лесі Українки','Івана Франка','Миколи Гоголя'],0]];
+const LOTS=[{t:'Велосипед кума',x:'Майже новий, тільки дзвоник не дзвонить.',v:300,item:'bike'},{t:'Павербанк з ТЦ',x:'Тримає заряд, як бабуся таємниці.',v:250,item:'power'},
+ {t:'Два квитки на Кривбас',x:'Центральна трибуна, поруч з ультрасами.',v:200,d:{h:3}},{t:'Мішок картоплі з дачі',x:'Вечері на тиждень вперед дешевші.',v:150,item:'jars'},
+ {t:'Абонемент у спортзал',x:'Ще пів року дійсний. Колишній власник «передумав».',v:280,item:'gym'},{t:'Шахтарський ліхтар',x:'Світить так, що видно Інгулецький район.',v:150,item:'lamp'}];
+function balW(n){const a=n%10,b=n%100;return a===1&&b!==11?'бал':a>=2&&a<=4&&(b<12||b>14)?'бали':'балів';}
+const MG_KINDS=['react','pen','quiz','auction'];
+function mgTitle(k){return {react:'🚐 Остання маршрутка',pen:'⚽ Пенальті один на один',quiz:'❓ Вікторина про Кривий Ріг',auction:'🛒 Аукціон на ринку'}[k];}
+function groupMgStart(){S.mgL=S.mgL&&S.mgL.length?S.mgL:shuffle(MG_KINDS);const k=S.mgL.shift();const n=S.players.length;
+ S.mg={id:Date.now()+'-'+Math.floor(Math.random()*1e4),k,inputs:{},until:Date.now()+(k==='quiz'?55000:k==='react'?20000:40000),prev:S.phase};
+ if(k==='react')S.mg.delay=2000+Math.floor(Math.random()*4000);
+ if(k==='quiz'){S.quizUsed=S.quizUsed||[];let pool=QUIZ.map((q,i)=>i).filter(i=>!S.quizUsed.includes(i));if(pool.length<3){S.quizUsed=[];pool=QUIZ.map((q,i)=>i);}S.mg.q=shuffle(pool).slice(0,3);S.quizUsed.push(...S.mg.q);
+  S.mg.opt=S.mg.q.map(i=>shuffle([0,1,2,3]));}
+ if(k==='auction')S.mg.lot=Math.floor(Math.random()*LOTS.length);
+ S.phase='mg';}
+let _mgTimer=null;
+function hostMgTick(){clearTimeout(_mgTimer);if(!S||S.phase!=='mg'||!S.mg)return;const all=S.room.owners.every((d,i)=>S.players[i].collector||S.mg.inputs[d]!=null);
+ if(all||Date.now()>=S.mg.until)return groupMgResolve();_mgTimer=setTimeout(hostMgTick,Math.min(1000,S.mg.until-Date.now()+50));}
+function hostMgIn(dev,v){if(!S||S.phase!=='mg'||!S.mg||S.mg.inputs[dev]!=null)return;S.mg.inputs[dev]=v;render();hostMgTick();}
+function groupMgResolve(){const m=S.mg;const ow=S.room.owners;const P=S.players;const lines=[];const eff=(i,d,t)=>{if(P[i].collector)return;apply(P[i],d);lines.push(`<b>${nm(P[i])}</b>: ${t}${fmt(d)?', '+fmt(d):''}`);};
+ const inp=i=>m.inputs[ow[i]];
+ if(m.k==='react'){const r=P.map((p,i)=>({i,v:inp(i)})).filter(o=>!P[o.i].collector);const ok=r.filter(o=>o.v&&o.v.ms>0).sort((a,b)=>a.v.ms-b.v.ms);
+  r.forEach(o=>{if(ok[0]&&o.i===ok[0].i)eff(o.i,{n:1,h:1},`перший! Сів у маршрутку (${o.v.ms} мс)`);else if(o.v&&o.v.ms===-1)eff(o.i,{n:-1,h:-1},'вибіг на дорогу раніше часу');else if(o.v&&o.v.ms>0)eff(o.i,{n:-1},`не встиг (${o.v.ms} мс), чекав наступну`);else eff(o.i,{n:-1},'проґавив маршрутку');});}
+ if(m.k==='pen'){const n=P.length,g=P.map(()=>0);for(let i=0;i<n;i++){const k=(i+1)%n;const a=inp(i),b=inp(k);const kick=a?a.kick:Math.floor(Math.random()*3),dive=b?b.dive:Math.floor(Math.random()*3);
+   const goal=kick!==dive;if(goal)g[i]++;lines.push(`${nm(P[i])} б'є ${['⬅','⬆','➡'][kick]} · ${nm(P[k])} стрибає ${['⬅','⬆','➡'][dive]} → ${goal?'⚽ ГОЛ!':'🧤 сейв!'}`);}
+  const mx=Math.max(...g),allEq=g.every(x=>x===mx);P.forEach((p,i)=>{if(allEq)eff(i,{h:1},mx?'нічия, всі забили — гарний футбол':'нічия, всі воротарі в ударі');else if(g[i]===mx)eff(i,{h:2,n:1},'найкращий бомбардир');else eff(i,{},g[i]?'забив, але мало':'без голів');});}
+ if(m.k==='quiz'){const sc=P.map((p,i)=>{const a=inp(i)||[];let s=0,c=0;a.forEach((x,j)=>{if(x&&x.a===QUIZ[m.q[j]][2]){c++;s+=100+Math.max(0,Math.round((12000-x.ms)/120));}});return {s,c};});
+  const mx=Math.max(...sc.map(x=>x.s));P.forEach((p,i)=>{const x=sc[i];if(x.s===mx&&mx>0)eff(i,{m:100,h:2},`знавець Кривого Рогу! ${x.c} з 3, ${x.s} ${balW(x.s)}, приз від мерії`);else if(x.c)eff(i,{h:1},`${x.c} з 3, ${x.s} ${balW(x.s)}`);else eff(i,{n:-1},'0 з 3. Треба частіше читати «Все рівно»');});}
+ if(m.k==='auction'){const L=LOTS[m.lot];const bids=P.map((p,i)=>({i,b:Math.min(p.money,Math.max(0,(inp(i)||{}).bid||0)),t:(inp(i)||{}).t||9e15})).filter(o=>o.b>0).sort((a,b)=>b.b-a.b||a.t-b.t);
+  if(!bids.length)lines.push('Ніхто не поставив. Лот забрав перекупник з Соцміста.');else{const w=bids[0];const p=P[w.i];p.money-=w.b;if(L.item)giveItem(p,L.item);if(L.d)apply(p,L.d);
+   lines.push(`<b>${nm(p)}</b> виграє «${L.t}» за ${w.b} грн${L.item?' '+ITEMS[L.item].ic:''}${L.d?', '+fmt(L.d):''}`);bids.slice(1).forEach(o=>lines.push(`${nm(P[o.i])}: ставка ${o.b} грн — не вистачило`));}}
+ const c=checkCollapse();if(c.length)lines.push(c.join('. '));m.lines=lines;m.done=1;S.phase='mgres';render();}
+function renderMgPhase(){const m=S.mg;if(!m)return;const host=!S.room||S.room.host===myDev();
+ if(S.phase==='mgres'){app.innerHTML=cardWrap('cover','Гра на всіх',mgTitle(m.k),`<p>${m.lines.join('</p><p>')}</p>${host?'<button class="btn btn-main" data-act="mgok">Далі</button>':'<p class="note">Чекаємо, поки ведучий продовжить…</p>'}`);return;}
+ const st=S.players.map((p,i)=>`<p style="margin:4px 0">${m.inputs[S.room.owners[i]]!=null?'✅':'⏳'} ${nm(p)}</p>`).join('');const mine=m.inputs[myDev()]!=null;
+ app.innerHTML=cardWrap('cover','Гра на всіх!',mgTitle(m.k),`<p>Усі грають одночасно, кожен на своєму телефоні.</p>${st}${mine?'<p class="note">Твій хід зараховано. Чекаємо інших…</p>':'<button class="btn btn-main" data-mgopen="1">Грати!</button>'}`);
+ if(!mine&&(!MG||MG.id!==m.id))setTimeout(()=>mgGroupOpen(),200);
+ if(host)hostMgTick();}
+function mgSubmit(v){if(ROOM&&ROOM.role==='guest'){NET.send('host',{t:'click',ds:{act:'mgin',v:JSON.stringify(v)}});}else hostMgIn(myDev(),v);}
+function mgGroupOpen(){const m=S&&S.mg;if(!m||S.phase!=='mg'||m.inputs[myDev()]!=null||document.getElementById('mgov'))return;const me=S.room.owners.indexOf(myDev());if(me<0)return;
+ const sub=v=>{mgSubmit(v);};const id=m.id;
+ if(m.k==='react')mgOpen('Остання маршрутка','Стоїш на зупинці. Щойно побачиш маршрутку — тисни! Раніше часу не можна.',(stage,done)=>{const b=document.createElement('button');b.className='mgreact wait';b.textContent='Чекаємо… 🕐';stage.appendChild(b);
+   let go=0;const tm=setTimeout(()=>{go=performance.now();b.className='mgreact go';b.textContent='🚐 МАРШРУТКА! ТИСНИ!';vib(100);},m.delay);
+   b.addEventListener('pointerdown',e=>{e.preventDefault();if(!go){clearTimeout(tm);done({ms:-1},'❌ Вибіг на дорогу раніше часу!');}else{const ms=Math.round(performance.now()-go);done({ms},`⏱ ${ms} мс`);}});return ()=>clearTimeout(tm);},r=>sub(r||{ms:0}),{noSkip:true});
+ if(m.k==='pen'){const n=S.players.length,tgt=S.players[(me+1)%n],sh=S.players[(me-1+n)%n];
+  mgOpen('Пенальті один на один',`Ти б'єш по воротах, де стоїть <b>${nm(tgt)}</b>, а сам стоїш на воротах проти <b>${nm(sh)}</b>. Обирай таємно!`,(stage,done)=>{let kick=null,dive=null;const w=document.createElement('div');w.className='mgpen';
+   const row=(t,k)=>`<p><b>${t}</b></p><div class="seg">${['⬅ Ліво','⬆ Центр','➡ Право'].map((l,i)=>`<button data-${k}="${i}">${l}</button>`).join('')}</div>`;
+   w.innerHTML=row('⚽ Куди б\'єш?','kick')+row('🧤 Куди стрибаєш?','dive')+'<button class="btn btn-main" disabled>Готово</button>';stage.appendChild(w);const ok=w.querySelector('.btn-main');
+   w.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;e.stopPropagation();if(b.dataset.kick!=null){kick=+b.dataset.kick;w.querySelectorAll('[data-kick]').forEach(x=>x.setAttribute('aria-pressed',x===b));}
+    if(b.dataset.dive!=null){dive=+b.dataset.dive;w.querySelectorAll('[data-dive]').forEach(x=>x.setAttribute('aria-pressed',x===b));}ok.disabled=kick==null||dive==null;if(b===ok&&!ok.disabled)done({kick,dive},'✅ Вибір зроблено. Чекаємо суперників…');});return null;},r=>sub(r||{kick:Math.floor(Math.random()*3),dive:Math.floor(Math.random()*3)}),{noSkip:true});}
+ if(m.k==='quiz')mgOpen('Вікторина про Кривий Ріг','3 питання, по 12 секунд на кожне. Чим швидше правильна відповідь, тим більше балів.',(stage,done)=>{const ans=[];let j=0,t0=0,tm=null;const w=document.createElement('div');w.className='mgquiz';stage.appendChild(w);
+   const show=()=>{if(j>=3)return done(ans,'✅ Відповіді прийнято!');const q=QUIZ[m.q[j]],o=m.opt[j];t0=performance.now();w.innerHTML=`<p class="mgq">${j+1}/3. ${q[0]}</p><div class="mgtbar"><i></i></div>${o.map(k=>`<button class="btn btn-choice" data-a="${k}">${q[1][k]}</button>`).join('')}`;
+    const bar=w.querySelector('.mgtbar i');bar.style.transition='width 12s linear';requestAnimationFrame(()=>requestAnimationFrame(()=>bar.style.width='0%'));
+    tm=setTimeout(()=>{ans.push(null);j++;show();},12000);};
+   w.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b)return;e.stopPropagation();clearTimeout(tm);const a=+b.dataset.a,q=QUIZ[m.q[j]];ans.push({a,ms:Math.round(performance.now()-t0)});
+    b.classList.add(a===q[2]?'qok':'qbad');w.querySelectorAll('[data-a]').forEach(x=>{x.disabled=true;if(+x.dataset.a===q[2])x.classList.add('qok');});j++;setTimeout(show,900);});show();return ()=>clearTimeout(tm);},r=>sub(r||[]),{noSkip:true});
+ if(m.k==='auction'){const L=LOTS[m.lot];const p=S.players[me];
+  mgOpen('Аукціон на ринку',`Лот: <b>${L.t}</b>${L.item?' '+ITEMS[L.item].ic:''}. ${L.x} На ринку коштує ${L.v} грн. Ставки таємні, виграє найбільша.`,(stage,done)=>{let bid=Math.min(p.money,Math.round(L.v*0.4/10)*10);const w=document.createElement('div');w.className='mgauc';
+   w.innerHTML=`<div class="mgbid"><button class="btn btn-ghost" data-b="-50">−50</button><b>${bid}</b><button class="btn btn-ghost" data-b="50">+50</button></div><p style="text-align:center;color:var(--muted);margin:8px 0 0">У тебе ${p.money} грн</p><button class="btn btn-main" data-ok="1">Ставлю!</button><button class="btn btn-ghost" data-pass="1">Пас</button>`;
+   stage.appendChild(w);const out=w.querySelector('b');const t0=performance.now();
+   w.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;e.stopPropagation();if(b.dataset.b){bid=Math.max(0,Math.min(Math.max(0,p.money),bid+(+b.dataset.b)));out.textContent=bid;}
+    if(b.dataset.ok)done({bid,t:Math.round(performance.now()-t0)},'✅ Ставку зроблено: '+bid+' грн');if(b.dataset.pass)done({bid:0},'Пас.');});return null;},r=>sub(r||{bid:0}),{noSkip:true});}
+ if(MG)MG.id=id;}
+// --- перехоплення кліків (window capture: раніше за кімнату) ---
+window.addEventListener&&window.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('button');if(!b||b.disabled)return;const ds=b.dataset;
+ if(ds.mgr!=null){const v=+ds.mgr;const R=Math.random;let used=false;Math.random=function(){if(!used){used=true;Math.random=R;return v;}return R();};setTimeout(()=>{if(!used&&Math.random!==R)Math.random=R;},0);return;}
+ if(ds.act==='mgin'){e.stopImmediatePropagation();e.preventDefault();if(SIM)hostMgIn(window._mgDev,JSON.parse(ds.v||'null'));return;}
+ if(ds.act==='mgbonus'){e.stopImmediatePropagation();e.preventDefault();if(SIM||!S.room)mgBonusApply(ds.k,ds.s);return;}
+ if(ds.act==='mgok'){e.stopImmediatePropagation();e.preventDefault();if(S.room&&!canAct(SIM?(window._mgDev||myDev()):myDev(),ds))return;if(ROOM&&ROOM.role==='guest'&&!SIM){NET.send('host',{t:'click',ds:{act:'mgok'}});return;}
+  if(S.phase==='mgres'){S.phase=S.mg.prev||'handoff';S.mg=null;render();window.scrollTo(0,0);}return;}
+ if(ds.mgopen){e.stopImmediatePropagation();mgGroupOpen();return;}
+ if(SIM||!S||mgOff())return;
+ if(ds.mg){e.stopImmediatePropagation();e.preventDefault();if(S.room&&!myTurnNow())return rToast('Зараз не твій хід');if(ds.mg==='tram')mgRunTram();else mgRunBonus(ds.mg);return;}
+ if(ds.choice!=null&&S.phase==='turn'&&S.ev&&!ds.mgr){const c=S.ev.c[+ds.choice];const k=mgKindOfChoice(c);if(!k)return;if(S.room&&!canAct(myDev(),ds))return;e.stopImmediatePropagation();e.preventDefault();mgRunChoice(+ds.choice,k);}
+},true);
+// --- кнопки міні-ігор на екранах ---
+function mgDecor(){if(!S||mgOff()||!app.querySelector)return;
+ if(S.phase==='travel'){const t=app.querySelector('button[data-travel="tram"]');if(t&&!app.querySelector('[data-mg="tram"]'))t.insertAdjacentHTML('beforebegin','<button class="btn btn-choice mgbtn" data-mg="tram">🏃 Наздогнати Скарік <small>🎮 міні-гра: встигнеш — їдеш без поломок, ні — пішки</small></button>');}
+ if(S.phase==='turn'&&S.ev)app.querySelectorAll('button[data-choice]').forEach(b=>{if(mgKindOfChoice(S.ev.c[+b.dataset.choice])&&!b.querySelector('.mgtag'))b.insertAdjacentHTML('beforeend','<span class="mgtag">🎮 міні-гра</span>');});
+ if(S.phase==='result'&&S.res&&!S.res.mgDone){const tt=S.res.title||'';const k=/рибалк/i.test(tt)?'fish':/стрибок з парашутом|тандем-стрибок/i.test(tt)?'para':null;const ok=app.querySelector('button[data-act="resok"]');
+  if(k&&ok&&!app.querySelector('[data-mg]'))ok.insertAdjacentHTML('beforebegin',`<button class="btn btn-choice mgbtn" data-mg="${k}">${k==='fish'?'🎣 Порибалити по-справжньому':'🪂 Керувати стрибком самому'} <small>🎮 міні-гра: ${k==='fish'?'улов продаси на ринку':'влучиш у мішень — більше щастя'}</small></button>`);}}
+{const _r=render;render=function(){_r.apply(this,arguments);try{if(MG&&MG.id&&(!S||S.phase!=='mg'||!S.mg||S.mg.id!==MG.id))mgClose(true);mgDecor();}catch(e){}};}
+{const _am=afterMorning;afterMorning=function(){_am.apply(this,arguments);if(S&&S.room&&!S.weekend&&S.day>0&&S.phase==='handoff'&&Math.random()<0.5)groupMgStart();};}
 
 render();
 </script>
