@@ -1,0 +1,23 @@
+plugins { id 'com.android.application' }
+android {
+  namespace 'com.kryvbasgames.kryvyirih'
+  compileSdk 34
+  defaultConfig {
+    applicationId 'com.kryvbasgames.kryvyirih'
+    minSdk 24
+    targetSdk 34
+    versionCode((System.getenv('VCODE') ?: '1').toInteger())
+    versionName '1.029'
+  }
+  signingConfigs {
+    shared {
+      storeFile file('kryvbas-test.keystore')
+      storePassword 'kryvbas-test'
+      keyAlias 'kryvbas'
+      keyPassword 'kryvbas-test'
+    }
+  }
+  buildTypes { release { minifyEnabled false; signingConfig signingConfigs.shared } }
+  compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+}
+dependencies { implementation 'androidx.webkit:webkit:1.11.0' }

@@ -1,0 +1,40 @@
+name: Зібрати APK
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Вкласти гру в застосунок
+        run: |
+          mkdir -p android/app/src/main/assets
+          cp index.html manifest.webmanifest sw.js icon-*.png apple-touch-icon.png android/app/src/main/assets/
+      - name: Зібрати
+        working-directory: android
+        env:
+          VCODE: ${{ github.run_number }}
+        run: gradle assembleRelease --no-daemon --stacktrace
+      - run: cp android/app/build/outputs/apk/release/app-release.apk KryvyiRih.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: KryvyiRih-apk
+          path: KryvyiRih.apk
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: Кривий Ріг — збірка ${{ github.run_number }}
+          body: Встановіть KryvyiRih.apk на Android. Якщо гра вже стоїть, просто встановіть поверх.
+          files: KryvyiRih.apk
+          make_latest: true
