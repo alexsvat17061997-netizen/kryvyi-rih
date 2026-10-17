@@ -266,6 +266,12 @@ body.h-indep::before{content:'';position:fixed;top:0;left:0;right:0;height:6px;z
 #agegate{position:fixed;inset:0;z-index:80;background:rgba(10,10,20,.88);display:flex;align-items:center;justify-content:center;padding:16px}
 .agebox{background:var(--bg);color:var(--text);max-width:420px;width:100%;border-radius:14px;padding:18px 16px;border:3px solid var(--ver);text-align:center;zoom:var(--fz,1)}
 .agebox h2{font-size:19px;margin:8px 0}.agebox p{font-size:15px;margin:8px 0}.age18{display:inline-block;font:800 34px var(--display);color:#fff;background:var(--ver);border-radius:50%;width:74px;height:74px;line-height:74px}
+
+.mgbox.shake2{animation:shk .09s infinite}@keyframes shk{0%{transform:translate(0,0)}25%{transform:translate(var(--sh,3px),calc(var(--sh,3px)*-1))}50%{transform:translate(calc(var(--sh,3px)*-1),var(--sh,3px))}75%{transform:translate(var(--sh,3px),var(--sh,3px))}}
+@media (prefers-reduced-motion:reduce){.mgbox.shake2{animation:none}}
+.dscreen{background:#111;color:#7CFC7C;font:700 34px monospace;text-align:center;border-radius:10px;padding:10px;min-height:56px;letter-spacing:6px}.dscreen.derr{background:#5a1010}.dcur{animation:blink 1s steps(2) infinite}@keyframes blink{50%{opacity:0}}
+.dtime{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin:8px 0}.dtime i{display:block;height:100%;background:var(--ver)}
+.dpad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.dpad button{font:800 26px var(--display);padding:14px 0;border-radius:12px;border:2px solid var(--line);background:var(--panel);color:var(--text);touch-action:manipulation}.dpad button:last-child{grid-column:2}
 </style>
 </head>
 <body>
@@ -1148,7 +1154,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">Kryvbas Games · патч 1.035</p>`;return;}
+    <p class="foot">Kryvbas Games · патч 1.036</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2040,7 +2046,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">Kryvbas Games · патч 1.035<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">Kryvbas Games · патч 1.036<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -2906,6 +2912,45 @@ if(document.addEventListener)document.addEventListener('click',e=>{const b=e.tar
 {const _gm=guestMsg;guestMsg=function(m){_gm.apply(this,arguments);if(m&&((m.t==='lobby'&&m.opts&&m.opts.hard)||(m.t==='state'&&m.S&&m.S.hard))&&lsG('kr-18')!=='1'&&!document.getElementById('agegate'))ageGate(()=>{},()=>roomLeave());};}
 
 fixImgs();
+
+// === 1.036: міні-гра «Набери 102» (хардкор) ===
+const DTMF={1:[697,1209],2:[697,1336],3:[697,1477],4:[770,1209],5:[770,1336],6:[770,1477],7:[852,1209],8:[852,1336],9:[852,1477],0:[941,1336]};
+function sfxCtx(){if(muted())return null;try{return ambCtx();}catch(e){return null;}}
+function toneDTMF(d){const c=sfxCtx();if(!c)return;const t=c.currentTime,g=c.createGain();g.gain.setValueAtTime(0.12,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.18);g.connect(c.destination);
+ DTMF[d].forEach(f=>{const o=c.createOscillator();o.frequency.value=f;o.connect(g);o.start(t);o.stop(t+0.2);});}
+function heartbeat(rate){const c=sfxCtx();if(!c)return;[0,0.22].forEach((dt,i)=>{const t=c.currentTime+dt,o=c.createOscillator(),g=c.createGain();o.frequency.setValueAtTime(70,t);o.frequency.exponentialRampToValueAtTime(40,t+0.15);
+ g.gain.setValueAtTime(i?0.35:0.5,t);g.gain.exponentialRampToValueAtTime(0.001,t+0.18);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+0.2);});}
+function sirenSnd(){const c=sfxCtx();if(!c)return;const t=c.currentTime,o=c.createOscillator(),g=c.createGain();o.type='sawtooth';o.frequency.setValueAtTime(650,t);
+ for(let i=0;i<4;i++){o.frequency.linearRampToValueAtTime(1300,t+i*0.5+0.25);o.frequency.linearRampToValueAtTime(650,t+i*0.5+0.5);}
+ g.gain.setValueAtTime(0.0001,t);g.gain.linearRampToValueAtTime(0.06,t+0.1);g.gain.setValueAtTime(0.06,t+1.7);g.gain.linearRampToValueAtTime(0.0001,t+2);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+2.05);}
+function busySnd(){const c=sfxCtx();if(!c)return;for(let i=0;i<4;i++){const t=c.currentTime+i*0.5,o=c.createOscillator(),g=c.createGain();o.frequency.value=425;g.gain.setValueAtTime(0.1,t);g.gain.setValueAtTime(0.0001,t+0.25);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+0.26);}}
+function mgDial(stage,done,num,secs){const w=document.createElement('div');w.className='mgdial';let typed='',over=false;const t0=performance.now();
+ w.innerHTML=`<div class="dscreen"><span class="dnum"></span><span class="dcur">|</span></div><div class="dtime"><i></i></div><div class="dpad"></div><button class="btn btn-ghost dclr">⌫ Стерти</button>`;
+ stage.appendChild(w);const pad=w.querySelector('.dpad'),scr=w.querySelector('.dnum'),bar=w.querySelector('.dtime i');
+ const layout=()=>{const ds=shuffle(['1','2','3','4','5','6','7','8','9','0']);pad.innerHTML=ds.map(d=>`<button data-d="${d}">${d}</button>`).join('');};layout();
+ const box=document.getElementById('mgov').querySelector('.mgbox');box.classList.add('shake2');
+ let nextBeat=0;const stop=rafLoop(()=>{const el=(performance.now()-t0)/1000,left=secs-el;bar.style.width=Math.max(0,left/secs*100)+'%';
+  box.style.setProperty('--sh',(2+el/secs*7).toFixed(1)+'px');
+  if(el>=nextBeat){heartbeat();vib(30);nextBeat=el+Math.max(0.35,0.9-el/secs*0.6);}
+  if(left<=0&&!over){over=true;box.classList.remove('shake2');busySnd();done(false,'📵 Не встиг додзвонитися. Дорогоцінний час втрачено.');return false;}});
+ pad.addEventListener('pointerdown',e=>{const b=e.target.closest('[data-d]');if(!b||over)return;e.preventDefault();const d=b.dataset.d;toneDTMF(d);vib(15);
+  typed+=d;if(!num.startsWith(typed)){typed='';scr.textContent='';w.querySelector('.dscreen').classList.add('derr');setTimeout(()=>w.querySelector('.dscreen').classList.remove('derr'),250);layout();return;}
+  scr.textContent=typed;if(typed===num){over=true;stop();box.classList.remove('shake2');sirenSnd();done(true,`📞 ${num}: «Виїжджаємо!» Допомога вже в дорозі.`);return;}layout();});
+ w.querySelector('.dclr').addEventListener('click',e=>{e.stopPropagation();typed='';scr.textContent='';});
+ return ()=>{stop();box.classList.remove('shake2');};}
+function dialKind(c){if(!S||!S.hard||!c)return null;const l=c.l||'';if(/заяв/i.test(l))return null;if(/101|пожеж/i.test(l))return '101';if(/поліці/i.test(l))return '102';if(/швидк|103/i.test(l))return '103';return null;}
+function V2(p,m,f){return CHARS[p.id]&&CHARS[p.id].g==='f'?f:m;}
+const DIALN={'101':'пожежників','102':'поліцію','103':'швидку'};
+window.addEventListener&&window.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('button[data-choice]');if(!b||b.disabled||SIM||mgOff()||!S||S.phase!=='turn'||!S.ev)return;
+ const ds=b.dataset;if(ds.dial!=null)return;const i=+ds.choice,c=S.ev.c[i],num=dialKind(c);if(!num)return;if(S.room&&!canAct(myDev(),ds))return;
+ e.stopImmediatePropagation();e.preventDefault();
+ mgOpen('Набери '+num,`Руки трусяться, цифри скачуть. Швидко набери <b>${num}</b>, щоб викликати ${DIALN[num]}!`,(s,d)=>mgDial(s,d,num,6),r=>{mgDispatch({choice:String(i),dial:r==null?'':r?'1':'0'});},{noSkip:false});},true);
+window.addEventListener&&window.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('button[data-dial]');if(!b)return;if(SIM||!S.room){S._dial=b.dataset.dial;}},true);
+{const _sr=setRes;setRes=function(c,d){const v=S._dial;S._dial=null;if(v==='1'||v==='0'){const p=cur();const x=v==='1'?{n:1,h:1}:{n:-1};apply(p,x);d=Object.assign({},d);['n','h'].forEach(k=>{if(x[k])d[k]=(d[k]||0)+x[k];});
+  _sr.call(this,c,d);const pp=cur();S.res.t+=v==='1'?' '+V2(pp,'Додзвонився','Додзвонилася')+' з першого разу — допомога приїхала вчасно.':' Поки тремтячими пальцями '+V2(pp,'набирав','набирала')+' номер, минули дорогоцінні хвилини.';return;}
+ return _sr.apply(this,arguments);};}
+function dialDecor(){if(!S||!S.hard||mgOff()||S.phase!=='turn'||!S.ev||!app.querySelectorAll)return;app.querySelectorAll('button[data-choice]').forEach(b=>{const n=dialKind(S.ev.c[+b.dataset.choice]);if(n&&!b.querySelector('.mgtag'))b.insertAdjacentHTML('beforeend',`<span class="mgtag">📞 набери ${n}</span>`);});}
+{const _r=render;render=function(){_r.apply(this,arguments);try{dialDecor();}catch(e){}};}
 
 render();
 </script>
