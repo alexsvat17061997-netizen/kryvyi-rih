@@ -219,6 +219,19 @@ body.noscroll{overflow:hidden}
 .tutb{display:flex;gap:8px}.tutb .btn{flex:1;margin-top:10px;padding:10px 6px;font-size:14px}.tut .btn-ghost{color:#F5E7CF;border-color:rgba(245,231,207,.5)}
 @keyframes tutin{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.tut{animation:none}}
+
+.rbanner{display:flex;align-items:center;gap:8px;justify-content:space-between;background:var(--ind);color:#F5E7CF;border-radius:10px;padding:8px 10px 8px 12px;margin:0 0 10px;font-size:14px}
+.rbanner.mine{background:var(--ver)}.rbanner b{color:var(--sun)}.rbanner.mine b{color:#fff}
+.rbanner button{background:transparent;color:#F5E7CF;border:1px solid rgba(245,231,207,.6);border-radius:8px;padding:4px 10px;font:600 13px var(--body);cursor:pointer}
+.rtoast{position:fixed;left:50%;bottom:calc(76px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);background:var(--text);color:var(--bg);padding:10px 16px;border-radius:999px;font:600 14px var(--body);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:70;max-width:90vw;text-align:center}
+.rtoast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.rcodebig{text-align:center;background:var(--panel);border:2px dashed var(--ver);border-radius:12px;padding:10px;margin:0 0 12px}.rcodebig small{display:block;color:var(--muted)}.rcodebig b{font:800 40px/1.1 var(--display);letter-spacing:6px;color:var(--ver)}
+.rcode{width:100%;font:800 28px var(--display);letter-spacing:8px;text-align:center;padding:10px;border-radius:10px;border:2px solid var(--line);background:var(--bg);color:var(--text);margin:8px 0 0}
+.rseat{display:flex;align-items:center;gap:10px;margin:8px 0}.rseat img,.rseat .ph{width:40px;height:40px;border-radius:6px;object-fit:cover;border:2px solid var(--ver)}.rseat small{color:var(--muted)}
+.rchars{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px}
+.rch{background:var(--panel);border:2px solid var(--line);border-radius:8px;padding:4px;color:var(--text);font:600 11px/1.2 var(--body);cursor:pointer}
+.rch img,.rch .ph{width:100%;aspect-ratio:1;object-fit:cover;border-radius:5px;display:block;margin-bottom:3px;font-size:20px}
+.rch[aria-pressed=true]{border-color:var(--ver);box-shadow:0 0 0 2px var(--ver)}.rch:disabled{opacity:.35}
 </style>
 </head>
 <body>
@@ -1099,8 +1112,9 @@ function renderSetup(){
     <button class="btn btn-main" data-act="newgame">Нова гра</button>
     <button class="btn btn-choice" data-act="dailyplay" style="text-align:center">🗓 Тиждень дня #${dayNo()}<small>однаковий для всіх сьогодні, порівняйся з друзями</small></button>
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
+    <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">Kryvbas Games · патч 1.029</p>`;return;}
+    <p class="foot">Kryvbas Games · патч 1.030</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -1989,7 +2003,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">Kryvbas Games · патч 1.029</p></div>`;}
+ <p class="foot">Kryvbas Games · патч 1.030</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -2033,6 +2047,160 @@ function tutTick(){if(!S||!tutOn()||!app.insertAdjacentHTML)return;const ph=S.ph
  renderSetup=function(){_rs.apply(this,arguments);setFab();};}
 if(document.addEventListener)document.addEventListener('click',e=>{const b=e.target&&e.target.closest&&e.target.closest('[data-act="settings"]');if(b){e.stopPropagation();e.preventDefault();settingsOpen();}},true);
 if(typeof location!=='undefined'&&(location.protocol==='https:'||location.hostname==='localhost')&&typeof navigator!=='undefined'&&navigator.serviceWorker&&!/claude/.test(location.host)){window.addEventListener&&window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{});});}
+
+// === 1.030: кімнати за кодом (кожен грає зі свого телефона) ===
+let ROOM=null,NET=null,SIM=false;
+function urlP(k){try{return new URLSearchParams(location.search).get(k);}catch(e){return null;}}
+function myDev(){let d=urlP('dev')||lsG('kr-dev');if(!d){d='d'+Math.random().toString(36).slice(2,10);lsS('kr-dev',d);}return d;}
+const PEER_CFG={config:{iceServers:[{urls:'stun:stun.l.google.com:19302'},{urls:'stun:stun1.l.google.com:19302'},
+ {urls:'turn:openrelay.metered.ca:80',username:'openrelayproject',credential:'openrelayproject'},
+ {urls:'turn:openrelay.metered.ca:443',username:'openrelayproject',credential:'openrelayproject'},
+ {urls:'turn:openrelay.metered.ca:443?transport=tcp',username:'openrelayproject',credential:'openrelayproject'}]}};
+function loadPeer(){if(window.Peer)return Promise.resolve();const src=['https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js','https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js'];
+ return new Promise((res,rej)=>{let i=0;const tryOne=()=>{if(i>=src.length)return rej('load');const s=document.createElement('script');s.src=src[i++];s.onload=()=>window.Peer?res():tryOne();s.onerror=tryOne;document.head.appendChild(s);};tryOne();});}
+// --- транспорт: PeerJS (справжній) або BroadcastChannel (?net=bc, для тестів) ---
+function netPeer(){const conns={};let peer=null,conn=null;
+ return {kind:'peer',
+  host(code,cb){loadPeer().then(()=>{peer=new Peer('kryvbas-kr-'+code,PEER_CFG);
+   peer.on('open',()=>cb.status('open'));peer.on('disconnected',()=>{try{peer.reconnect();}catch(e){}});
+   peer.on('error',e=>cb.error(e.type||'error'));
+   peer.on('connection',c=>{c.on('data',m=>{if(m&&m.t==='hello'){conns[m.dev]=c;c._dev=m.dev;}cb.msg(c._dev,m);});
+    c.on('close',()=>{if(c._dev&&conns[c._dev]===c){delete conns[c._dev];cb.left(c._dev);}});});},()=>cb.error('load'));},
+  join(code,dev,cb){loadPeer().then(()=>{peer=new Peer(undefined,PEER_CFG);peer.on('error',e=>cb.error(e.type||'error'));
+   peer.on('open',()=>{conn=peer.connect('kryvbas-kr-'+code,{reliable:true,serialization:'json'});
+    conn.on('open',()=>{conn.send({t:'hello',dev});cb.status('open');});conn.on('data',m=>cb.msg('host',m));conn.on('close',()=>cb.status('lost'));});},()=>cb.error('load'));},
+  send(dev,m){const c=dev==='host'?conn:conns[dev];if(c&&c.open)try{c.send(m);}catch(e){}},
+  all(m){Object.values(conns).forEach(c=>{if(c.open)try{c.send(m);}catch(e){}});},
+  close(){try{peer&&peer.destroy();}catch(e){}}};}
+function netBC(){let ch=null,me=null;
+ return {kind:'bc',
+  host(code,cb){ch=new BroadcastChannel('kr-room-'+code);me='host';ch.onmessage=e=>{const d=e.data;if(d.to==='host')cb.msg(d.from,d.m);};setTimeout(()=>cb.status('open'),10);},
+  join(code,dev,cb){ch=new BroadcastChannel('kr-room-'+code);me=dev;ch.onmessage=e=>{const d=e.data;if(d.to===dev||d.to==='*')cb.msg('host',d.m);};
+   setTimeout(()=>{ch.postMessage({to:'host',from:dev,m:{t:'hello',dev}});cb.status('open');},30);},
+  send(dev,m){ch&&ch.postMessage(me==='host'?{to:dev,m}:{to:'host',from:me,m});},
+  all(m){ch&&ch.postMessage({to:'*',m});},
+  close(){try{ch&&ch.close();}catch(e){}}};}
+function mkNet(){return urlP('net')==='bc'?netBC():netPeer();}
+// --- права: хто що може натиснути ---
+const R_GLOBAL=['morning','evening','payday','payweek','intro','group','end','done'];
+const R_LOCAL=['ruslan','talk','mute','shareimg','share','settings','room'];
+function canAct(dev,ds){if(!S||!S.room)return true;const own=i=>S.room.owners[i]===dev;const isHost=dev===S.room.host;
+ if(ds.eve!==undefined)return own(+ds.eve);
+ if(ds.sk!==undefined)return own(+ds.sk);
+ if(ds.repay!==undefined){const d=(S.debts||[])[+ds.repay];return !!d&&(own(d.from)||isHost);}
+ if(ds.forgive!==undefined){const d=(S.debts||[])[+ds.forgive];return !!d&&(own(d.to)||isHost);}
+ if(ds.act==='menu'||ds.act==='again')return isHost;
+ if(R_GLOBAL.includes(S.phase))return isHost;
+ return own(S.turn);}
+function whoActs(){if(!S||!S.room)return '';if(R_GLOBAL.includes(S.phase)){const hi=S.room.owners.indexOf(S.room.host);return 'ведучий'+(hi>=0?' ('+CHARS[S.players[hi].id].name+')':'');}
+ const p=S.players[S.turn];return p?CHARS[p.id].name:'';}
+function myTurnNow(){return S&&S.room&&!R_GLOBAL.includes(S.phase)&&S.room.owners[S.turn]===myDev();}
+function rToast(t){let el=document.getElementById('rtoast');if(!el){el=document.createElement('div');el.id='rtoast';el.className='rtoast';document.body.appendChild(el);}
+ el.textContent=t;el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('on'),2200);}
+// --- ведучий ---
+function newCode(){return String(10000+Math.floor(Math.random()*90000));}
+function roomHost(code,seats,cont){ROOM={role:'host',code:code||newCode(),dev:myDev(),seats:seats||[{dev:myDev(),char:null,online:true}],opts:{W:1,hard:false,season:'mid'},status:'conn',err:null};
+ NET=mkNet();const tries={n:0};
+ const cb={status(s){ROOM.status=s;refreshBehind();},
+  error(t){if(t==='unavailable-id'&&!cont&&tries.n++<5){NET.close();ROOM.code=newCode();NET=mkNet();NET.host(ROOM.code,cb);return;}
+   if(t==='unavailable-id'&&cont){ROOM.status='conn';setTimeout(()=>{NET.close();NET=mkNet();NET.host(ROOM.code,cb);},5000);return;}
+   ROOM.err=t==='load'?'Немає інтернету або сервіс кімнат недоступний. Перевірте зʼєднання.':t==='network'||t==='server-error'?'Немає зʼєднання із сервісом кімнат. Спробуйте ще раз.':null;if(ROOM.err)ROOM.status='err';refreshBehind();},
+  msg(dev,m){hostMsg(dev,m);},left(dev){const s=ROOM.seats.find(x=>x.dev===dev);if(s){s.online=false;hostLobby();refreshBehind();}}};
+ NET.host(ROOM.code,cb);refreshBehind();}
+function hostLobby(){if(ROOM&&ROOM.role==='host'&&NET)NET.all({t:'lobby',code:ROOM.code,seats:ROOM.seats,opts:ROOM.opts,started:!!(S&&S.room)});}
+let _lastSent=null;function stripS(){if(!S||!S.room)return null;const o=Object.assign({},S);delete o.deck;return o;}
+function hostState(force){if(!(ROOM&&ROOM.role==='host'&&NET))return;const s=stripS();const j=JSON.stringify(s);if(!force&&j===_lastSent)return;_lastSent=j;NET.all({t:'state',S:s});}
+function hostMsg(dev,m){if(!m||!ROOM)return;
+ if(m.t==='hello'){let s=ROOM.seats.find(x=>x.dev===dev);
+  if(!s){if(S&&S.room){NET.send(dev,{t:'deny',msg:'Гра в цій кімнаті вже йде. Дочекайтеся наступної.'});return;}
+   if(ROOM.seats.length>=4){NET.send(dev,{t:'deny',msg:'Кімната повна: максимум 4 гравці.'});return;}
+   s={dev,char:null,online:true};ROOM.seats.push(s);}
+  s.online=true;hostLobby();NET.send(dev,{t:'state',S:stripS()});refreshBehind();return;}
+ if(m.t==='pick'){if(S&&S.room)return;const s=ROOM.seats.find(x=>x.dev===dev);if(!s)return;
+  if(m.char&&ROOM.seats.some(x=>x!==s&&x.char===m.char)){NET.send(dev,{t:'toast',msg:'Цього персонажа вже взяли'});return;}
+  s.char=m.char||null;hostLobby();refreshBehind();return;}
+ if(m.t==='leave'){if(S&&S.room){const s=ROOM.seats.find(x=>x.dev===dev);if(s)s.online=false;}else ROOM.seats=ROOM.seats.filter(x=>x.dev!==dev);hostLobby();refreshBehind();return;}
+ if(m.t==='click'&&S&&S.room){if(!canAct(dev,m.ds)){NET.send(dev,{t:'toast',msg:'Зараз не твій хід'});return;}simClick(m.ds);}}
+function simClick(ds){SIM=true;try{const b=document.createElement('button');Object.keys(ds||{}).forEach(k=>{b.dataset[k]=ds[k];});b.style.display='none';app.appendChild(b);b.click();}finally{SIM=false;}}
+function roomStart(){const seats=ROOM.seats.filter(s=>s.char);if(seats.length<2)return rToast('Потрібно щонайменше 2 гравці з персонажами');
+ ROOM.seats=seats;const o=ROOM.opts;
+ Object.assign(setup,{count:seats.length,picked:seats.map(s=>s.char),W:o.W,hard:!!o.hard,iron:false,family:false,season:o.season,daily:false,pets:{},breeds:{},budget:false,rulesSeen:true,focus:null});
+ startGame();S.room={code:ROOM.code,host:ROOM.dev,owners:seats.map(s=>s.dev)};render();window.scrollTo(0,0);}
+// --- гість ---
+function roomJoin(code){code=String(code||'').replace(/\D/g,'');if(code.length!==5)return rToast('Код кімнати — 5 цифр');
+ lsS('kr-lastroom',code);ROOM={role:'guest',code,dev:myDev(),seats:[],opts:{},status:'conn',err:null,lobby:false};NET=mkNet();
+ const cb={status(s){if(!ROOM)return;if(s==='lost'){ROOM.status='lost';refreshBehind();setTimeout(()=>{if(ROOM&&ROOM.status==='lost'){NET.close();NET=mkNet();NET.join(ROOM.code,ROOM.dev,cb);}},4000);return;}ROOM.status=s;refreshBehind();},
+  error(t){if(!ROOM)return;if(t==='peer-unavailable'){if(ROOM.lobby||ROOM.wasIn){ROOM.status='lost';setTimeout(()=>{if(ROOM&&ROOM.status==='lost'){NET.close();NET=mkNet();NET.join(ROOM.code,ROOM.dev,cb);}},4000);}else{ROOM.status='err';ROOM.err='Кімнату не знайдено. Перевірте код.';}}
+   else if(t==='load'){ROOM.status='err';ROOM.err='Немає інтернету або сервіс кімнат недоступний.';}
+   else if(t==='network'||t==='server-error'){ROOM.status='err';ROOM.err='Немає зʼєднання із сервісом кімнат. Спробуйте ще раз.';}
+   refreshBehind();},
+  msg(_,m){guestMsg(m);}};
+ NET.join(code,ROOM.dev,cb);refreshBehind();}
+function guestMsg(m){if(!m||!ROOM)return;
+ if(m.t==='lobby'){ROOM.seats=m.seats;ROOM.opts=m.opts;ROOM.lobby=true;ROOM.wasIn=true;ROOM.status='open';if(!S)refreshBehind();return;}
+ if(m.t==='deny'){ROOM.status='err';ROOM.err=m.msg;NET.close();refreshBehind();return;}
+ if(m.t==='toast'){rToast(m.msg);return;}
+ if(m.t==='state'){const was=myTurnNow();S=m.S;ROOM.wasIn=true;refreshBehind();
+  if(S&&!was&&myTurnNow()){rToast('Твій хід!');try{navigator.vibrate&&navigator.vibrate(150);}catch(e){}try{snd('coin');}catch(e){}window.scrollTo(0,0);}}}
+function roomLeave(){if(!ROOM)return;if(ROOM.role==='guest'&&NET)NET.send('host',{t:'leave'});if(ROOM.role==='host'&&NET)NET.all({t:'deny',msg:'Ведучий закрив кімнату.'});
+ setTimeout(()=>{NET&&NET.close();NET=null;},300);if(ROOM.role==='guest'||(S&&S.room))S=null;ROOM=null;setup.step='title';refreshBehind();}
+// --- екрани кімнати ---
+function seatName(s,i){return (s.dev===myDev()?'Ти':'Гравець '+(i+1))+(s.online===false?' · офлайн':'');}
+function roomHTML(){const me=myDev();
+ if(!ROOM)return `<div class="stephead"><h2>🌐 Грати з друзями</h2></div>
+  <p class="intro">Кожен грає зі свого телефона. Один створює кімнату й диктує код, інші вводять його в себе. Потрібен інтернет.</p>
+  <button class="btn btn-main" data-r="create">Створити кімнату</button>
+  <div class="detail" style="margin-top:14px"><h3>Маю код</h3><input id="rcode" class="rcode" inputmode="numeric" maxlength="5" placeholder="5 цифр" autocomplete="off" value="${lsG('kr-lastroom')||''}"><button class="btn btn-main" data-r="join">Увійти в кімнату</button></div>
+  <button class="btn btn-ghost" data-r="back" style="margin-top:10px">← Назад</button>`;
+ if(ROOM.status==='err')return `<div class="stephead"><h2>🌐 Кімната</h2></div><p class="intro">⚠️ ${ROOM.err||'Щось пішло не так.'}</p><button class="btn btn-main" data-r="leave">Назад</button>`;
+ if(ROOM.status==='conn'||(ROOM.role==='guest'&&!ROOM.lobby))return `<div class="stephead"><h2>🌐 Кімната ${ROOM.code}</h2></div><p class="intro">⏳ Зʼєднуюся…</p><button class="btn btn-ghost" data-r="leave">Скасувати</button>`;
+ const host=ROOM.role==='host';const seats=ROOM.seats;const mine=seats.find(s=>s.dev===me)||{};const taken=seats.filter(s=>s.dev!==me).map(s=>s.char);
+ const ids=Object.keys(CHARS).filter(id=>!locked(id));const o=ROOM.opts||{};
+ const lost=ROOM.status==='lost'?'<p class="note" style="color:var(--ver);font-weight:600">Зʼєднання з ведучим втрачено. Пробую ще…</p>':'';
+ return `<div class="stephead"><h2>🌐 Кімната</h2></div>
+ <div class="rcodebig"><small>${host?'Продиктуй друзям код:':'Код кімнати:'}</small><b>${ROOM.code}</b></div>${lost}
+ <div class="detail"><h3>Гравці (${seats.length} з 4)</h3>${seats.map((s,i)=>`<div class="rseat">${s.char?portrait(s.char):'<span class="ph" style="width:40px;height:40px;font-size:18px">?</span>'}<span><b>${seatName(s,i)}</b>${i===0?' 👑':''}<br><small>${s.char?CHARS[s.char].name:'обирає персонажа…'}</small></span></div>`).join('')}</div>
+ <p style="margin:14px 0 6px"><b>Твій персонаж:</b></p><div class="rchars">${ids.map(id=>{const t=taken.includes(id);return `<button class="rch" data-r="pick" data-c="${id}" aria-pressed="${mine.char===id}" ${t?'disabled':''}>${portrait(id)}<span>${CHARS[id].name}</span></button>`;}).join('')}</div>
+ ${host?`<div class="detail"><h3>Налаштування гри</h3><div class="seg">${[[1,'Тиждень'],[2,'2 тижні'],[4,'Місяць']].map(([w,l])=>`<button data-r="w" data-v="${w}" aria-pressed="${o.W===w}">${l}</button>`).join('')}</div>
+  <div class="seg">${[['summer','☀️ Літо'],['mid','🍂 Осінь'],['winter','❄️ Зима']].map(([k,l])=>`<button data-r="season" data-v="${k}" aria-pressed="${o.season===k}">${l}</button>`).join('')}</div>
+  <div class="seg"><button data-r="hard" aria-pressed="${!!o.hard}">🔥 Хардкор: ${o.hard?'так':'ні'}</button></div></div>
+  <button class="btn btn-main" data-r="start" ${seats.filter(s=>s.char).length<2?'disabled':''}>Почати гру</button><p class="note" style="text-align:center">Почати можна, коли щонайменше 2 гравці оберуть персонажів.</p>`
+ :`<p class="note" style="text-align:center">${({1:'Тиждень',2:'2 тижні',4:'Місяць'})[o.W]||''} · ${({summer:'літо',mid:'осінь',winter:'зима'})[o.season]||''}${o.hard?' · хардкор':''}<br>Чекаємо, поки ведучий почне гру…</p>`}
+ <button class="btn btn-ghost" data-r="leave" style="margin-top:10px">${host?'Закрити кімнату':'Вийти з кімнати'}</button>`;}
+function roomBanner(){if(!S||!S.room||!ROOM)return '';const mine=myTurnNow();const lost=ROOM.status==='lost';
+ const off=ROOM.role==='host'?ROOM.seats.filter(s=>s.online===false).length:0;
+ return `<div class="rbanner ${mine?'mine':''}"><span>🌐 ${ROOM.code} · ${lost?'⚠️ немає звʼязку, пробую…':mine?'<b>Твій хід!</b>':'Зараз: <b>'+whoActs()+'</b>'}${off?' · офлайн: '+off:''}</span><button data-r="leave" aria-label="Вийти з кімнати">Вийти</button></div>`;}
+function roomClick(e){const b=e.target.closest&&e.target.closest('[data-r]');if(!b)return false;const r=b.dataset.r;e.stopPropagation();e.preventDefault();
+ if(r==='create')roomHost();
+ else if(r==='join'){const i=document.getElementById('rcode');roomJoin(i&&i.value);}
+ else if(r==='back'){setup.step='title';ROOMUI=false;refreshBehind();}
+ else if(r==='leave'){if(S&&S.room&&!confirm(ROOM&&ROOM.role==='host'?'Закрити кімнату для всіх?':'Вийти з кімнати?'))return true;roomLeave();ROOMUI=false;}
+ else if(r==='pick'){const c=b.dataset.c;const s=ROOM.seats.find(x=>x.dev===myDev());const nc=s&&s.char===c?null:c;if(c==='rukha'&&nc)playRuslan();
+  if(ROOM.role==='host'){if(s)s.char=nc;hostLobby();refreshBehind();}else{if(s)s.char=nc;NET.send('host',{t:'pick',char:nc});refreshBehind();}}
+ else if(r==='w'){ROOM.opts.W=+b.dataset.v;hostLobby();refreshBehind();}
+ else if(r==='season'){ROOM.opts.season=b.dataset.v;hostLobby();refreshBehind();}
+ else if(r==='hard'){ROOM.opts.hard=!ROOM.opts.hard;hostLobby();refreshBehind();}
+ else if(r==='start')roomStart();
+ return true;}
+let ROOMUI=false;
+if(document.addEventListener)document.addEventListener('click',e=>{
+ if(roomClick(e))return;
+ const ra=e.target.closest&&e.target.closest('[data-act="room"]');if(ra){e.stopPropagation();e.preventDefault();ROOMUI=true;refreshBehind();window.scrollTo(0,0);return;}
+ if(SIM||!S||!S.room||!ROOM)return;const b=e.target.closest&&e.target.closest('#app button');if(!b||b.disabled)return;const ds=Object.assign({},b.dataset);
+ if(ds.help||R_LOCAL.includes(ds.act)||!Object.keys(ds).length)return;
+ if(!canAct(myDev(),ds)){e.stopPropagation();e.preventDefault();rToast(ds.act==='menu'||ds.act==='again'?'Нову гру запускає ведучий':'Зараз хід: '+whoActs());return;}
+ if(ROOM.role==='guest'){e.stopPropagation();e.preventDefault();NET.send('host',{t:'click',ds});b.disabled=true;b.style.opacity='.6';}
+},true);
+{const _r=render,_rs=renderSetup,_sg=saveGame;
+ saveGame=function(){if(ROOM&&ROOM.role==='guest')return;return _sg.apply(this,arguments);};
+ render=function(){if(S&&S.room&&!ROOM&&S.room.host===myDev()){const seats=S.room.owners.map((d,i)=>({dev:d,char:S.players[i].id,online:d===myDev()}));roomHost(S.room.code,seats,true);return;}
+  if(S&&S.room&&ROOM&&ROOM.role==='host'&&S.phase==='handoff'){_r.apply(this,arguments);setTimeout(()=>{if(S&&S.phase==='handoff')simClick({act:'beginturn'});},0);return;}
+  _r.apply(this,arguments);
+  if(S&&S.room&&app.insertAdjacentHTML)app.insertAdjacentHTML('afterbegin',roomBanner());
+  if(ROOM&&ROOM.role==='host')hostState();};
+ renderSetup=function(){if(ROOM||ROOMUI){app.innerHTML=roomHTML();setFab();if(ROOM&&ROOM.role==='host'&&!S)hostState();try{musicTick();}catch(e){}return;}_rs.apply(this,arguments);};}
+
+{const _st=startGame;startGame=function(){const pr=S&&S.room;_st.apply(this,arguments);if(pr&&ROOM&&ROOM.role==='host'&&S){S.room=pr;render();}};}
 
 render();
 </script>
