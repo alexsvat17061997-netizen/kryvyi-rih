@@ -384,6 +384,16 @@ body.h-indep::before{content:'';position:fixed;top:0;left:0;right:0;height:6px;z
 .ljwho{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 12px}.ljp{display:flex;flex-direction:column;align-items:center;font-size:11px;max-width:70px;text-align:center}.ljp img,.ljp .ph{width:44px;height:44px;border-radius:8px;object-fit:cover}
 .ljgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.ljc{display:flex;flex-direction:column;align-items:center;gap:4px;border:2px solid var(--line);background:var(--panel);border-radius:10px;padding:8px 4px;font:inherit;font-size:12px;color:var(--text);cursor:pointer}
 .ljc img,.ljc .ph{width:52px;height:52px;border-radius:8px;object-fit:cover}.ljc[aria-pressed="true"]{border-color:var(--ver);background:rgba(232,93,4,.12)}.ljc:disabled{opacity:.35}
+main{width:calc(100vw / var(--fz,1));max-width:calc(480px / var(--fz,1));box-sizing:border-box}
+.who{flex-wrap:wrap}.who>div{flex:1 1 150px;min-width:0}.who h2{overflow-wrap:break-word}
+.map .pin,.map .dlabel,.map button.pin{zoom:calc(1 / var(--fz,1))}
+.setbox,.mgbox,.socbox{width:calc((100vw - 24px) / var(--fz,1));max-width:calc(440px / var(--fz,1))}.agebox{width:calc((100vw - 24px) / var(--fz,1));max-width:calc(420px / var(--fz,1))}
+.sethead{display:flex;align-items:center;gap:10px}.setback{flex:none;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:14px;padding:7px 12px;font:inherit;font-weight:600;font-size:14px;cursor:pointer}.sethead h2{margin:0;font-size:18px;min-width:0}
+.topback{display:inline-flex;align-items:center;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:14px;padding:8px 14px;font:inherit;font-weight:600;font-size:14px;cursor:pointer;margin:0 0 10px}
+.minibar{display:flex;align-items:center;gap:10px;margin:0 0 10px}.minibar img,.minibar .ph{width:40px;height:40px;border-radius:6px;object-fit:cover;border:2px solid var(--ver)}.minibar b{font-size:15px}.minibar span{font-size:13px;color:var(--muted);flex:1}
+#phfab{display:none!important}
+.counts{flex-wrap:wrap}.counts button{min-width:70px}
+.setbox .sethead h2{font-size:17px!important;white-space:normal;line-height:1.2}
 </style>
 </head>
 <body>
@@ -1266,7 +1276,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">Kryvbas Games · патч 1.047</p>`;return;}
+    <p class="foot">Kryvbas Games · патч 1.048</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2144,7 +2154,7 @@ function progImport(code){code=(code||'').trim().replace(/\s+/g,'');if(!/^KR1-/.
 // --- вікно налаштувань ---
 function setRow(id,ic,t,sub,on){return `<button class="setrow" data-s="${id}" aria-pressed="${on}"><span class="si">${ic}</span><span class="st">${t}<small>${sub}</small></span><span class="sw ${on?'on':''}"></span></button>`;}
 function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
- return `<div class="setbox" role="dialog" aria-modal="true" aria-label="Налаштування"><div class="sethead"><h2>⚙ Налаштування</h2><button class="setx" data-s="close" aria-label="Закрити">✕</button></div>
+ return `<div class="setbox" role="dialog" aria-modal="true" aria-label="Налаштування"><div class="sethead"><button class="setback" data-s="close">← Назад</button><h2>⚙ Налаштування</h2></div>
  ${setRow('snd','🔊','Звуки гри','монетки, кліки, голоси',!muted())}
  ${setRow('mus','🎵','Гімн Кривого Рогу','на головному екрані й у фіналі',!musicOff())}
  ${setRow('talk','💬','Репліки персонажів','бульбашки з коментарями',talkOn())}
@@ -2158,7 +2168,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">Kryvbas Games · патч 1.047<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">Kryvbas Games · патч 1.048<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -4116,7 +4126,7 @@ function askExit(){if(!inGame())return exitToMenu();const room=!!S.room;
  confirmBox(room?'Вийти з кімнати?':'Вийти в меню?',room?'Ти покинеш кімнату. Друзі гратимуть далі без тебе.':(S.iron?'⚔️ Залізний режим: цю гру не можна буде продовжити.':'Гру збережено. Повернутися можна кнопкою «Продовжити гру».'),room?'Вийти з кімнати':'🏠 Вийти в меню',exitToMenu);}
 window.askExit=askExit;
 function rulesOpen(){let ov=document.getElementById('rulov');if(!ov){ov=document.createElement('div');ov.id='rulov';document.body.appendChild(ov);}
- ov.innerHTML=`<div class="setbox"><div class="sethead"><h2>📖 Як грати</h2><button class="setx" data-rl="x" aria-label="Закрити">✕</button></div>${rulesHTML(true)}<button class="btn btn-main" data-rl="x" style="margin-top:10px">Повернутися до гри</button></div>`;
+ ov.innerHTML=`<div class="setbox"><div class="sethead"><button class="setback" data-rl="x">← Назад</button><h2>📖 Як грати</h2></div>${rulesHTML(true)}<button class="btn btn-main" data-rl="x" style="margin-top:10px">Повернутися до гри</button></div>`;
  ov.style.display='flex';document.body.classList.add('noscroll');ov.onclick=e=>{if(e.target===ov||e.target.closest('[data-rl]')){ov.remove();document.body.classList.remove('noscroll');}};}
 // кнопки в ⚙ налаштуваннях
 {const _sh=settingsHTML;settingsHTML=function(msg){let h=_sh.apply(this,arguments);if(!inGame())return h;
@@ -4124,7 +4134,7 @@ function rulesOpen(){let ov=document.getElementById('rulov');if(!ov){ov=document
  return h.replace('</div>',`</div>${add}`);};}
 {const _sc=settingsClick;settingsClick=function(e){const b=e.target.closest&&e.target.closest('[data-s]');if(b&&b.dataset.s==='exit'){e.stopPropagation();settingsClose();return askExit();}if(b&&b.dataset.s==='rules'){e.stopPropagation();settingsClose();return rulesOpen();}return _sc.apply(this,arguments);};}
 // «Назад» угорі в альбомі
-{const _rs=renderSetup;renderSetup=function(){const r=_rs.apply(this,arguments);try{if(setup.step==='collection'&&app.querySelector&&!app.querySelector('.topback')){const h=app.querySelector('.stephead');if(h)h.insertAdjacentHTML('afterbegin','<button class="topback" data-step="title" aria-label="Назад">← Назад</button>');}}catch(e){}return r;};}
+
 // системна кнопка «Назад» (Android, браузер): спершу закриває відкрите, потім питає про вихід
 const PREV={rules:'title',collection:'title',modes:'rules',chars:()=>setup.daily?'title':'modes'};
 function guard(){try{if(!history.state||!history.state.kr)history.pushState({kr:1},'');}catch(e){}}
@@ -4193,6 +4203,24 @@ function lateHTML(){const me=(S.room.pend||[]).find(x=>x.dev===myDev());const tk
 document.addEventListener&&document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-late]');if(!b||b.disabled||!NET)return;e.stopPropagation();e.preventDefault();NET.send('host',{t:'latepick',char:b.dataset.late});rToast('Обрано: '+CHARS[b.dataset.late].name);},true);
 // у фінальній історії
 {const _st=storyText;storyText=function(){let t=_st.apply(this,arguments);try{const J=S.players.filter(p=>p.joined!=null);if(J.length)t+='\n'+J.map(p=>`🆕 ${nm(p)} ${CHARS[p.id].g==='f'?'приєдналася':'приєднався'} у ${DN[p.joined%5]}`).join('\n');}catch(e){}return t;};}
+})();
+
+
+// === 1.048: Зручність — «Назад» угорі, телефон завжди біля фото ===
+(function(){
+const BACK=/^(←\s*)?(Назад|Скасувати)$/;
+function topBack(){if(!app||!app.querySelectorAll)return;if(S&&S.players&&S.room&&S.room.owners&&S.room.owners.includes&&typeof myDev==='function'&&S.room.owners.includes(myDev()))return;
+ const bs=[...app.querySelectorAll('button')].filter(b=>BACK.test((b.textContent||'').trim())&&!b.closest('.phone'));if(!bs.length)return;const b=bs[0];bs.slice(1).forEach(x=>x.remove());
+ if(b.classList.contains('topback'))return;b.classList.remove('btn','btn-ghost','btn-main');b.classList.add('topback');b.removeAttribute('style');b.textContent='← Назад';
+ const anchor=app.querySelector('.rbanner');if(anchor)anchor.insertAdjacentElement('afterend',b);else app.insertAdjacentElement('afterbegin',b);}
+function miniBar(){if(!S||!S.players||!app||!app.querySelector||app.querySelector('.who')||app.querySelector('.minibar'))return;if(['done','end','fate','intro'].includes(S.phase))return;
+ const i=S.room&&typeof meI==='function'?meI():S.turn;const p=S.players[i];if(!p)return;
+ const h=`<div class="minibar">${portrait(p.id)}<b>${nm(p)}</b><span>${S.weekend?'Вихідні':dayName(S.day)}</span><button class="phbtn" data-phopen="1" aria-label="Телефон">📱<i style="display:none"></i></button></div>`;
+ const anchor=app.querySelector('.rbanner');if(anchor)anchor.insertAdjacentHTML('afterend',h);else app.insertAdjacentHTML('afterbegin',h);}
+{const _rs=renderSetup;renderSetup=function(){const r=_rs.apply(this,arguments);try{topBack();}catch(e){}return r;};}
+{const _r=render;render=function(){_r.apply(this,arguments);try{if(!S||!S.players)topBack();else if(!(S.room&&!S.room.owners.includes(myDev())))miniBar();else topBack();
+ const f=document.getElementById('phfab');if(f)f.style.display='none';
+ const n=document.querySelector('.phbtn i');if(n&&typeof window.phOpen==='function'){const fab=document.querySelector('.who .phbtn i');if(!fab){/* бейдж для мінібару */const src=document.getElementById('phfab');const t=src&&src.querySelector('i');if(t){n.textContent=t.textContent;n.style.display=t.style.display;}}}}catch(e){}};}
 })();
 
 render();
