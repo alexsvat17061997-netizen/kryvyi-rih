@@ -375,6 +375,12 @@ body.h-indep::before{content:'';position:fixed;top:0;left:0;right:0;height:6px;z
 .life{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px;margin:0 0 12px}.lfhead{font-weight:700;font-size:17px;margin-bottom:8px}
 .lfrow{display:grid;grid-template-columns:26px 1fr auto;gap:6px;padding:5px 0;border-bottom:1px dashed var(--line);font-size:14px}.lfrow:last-of-type{border-bottom:0}
 .lfchars{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}.lfc{display:flex;flex-direction:column;align-items:center;font-size:11px}.lfc img,.lfc .ph{width:40px;height:40px;border-radius:8px;object-fit:cover}
+#cfov{position:fixed;inset:0;z-index:400;background:rgba(10,8,20,.65);display:flex;align-items:center;justify-content:center;padding:16px}
+.cfbox{width:min(360px,100%);background:var(--panel);color:var(--text);border-radius:16px;padding:18px;box-shadow:0 18px 50px rgba(0,0,0,.5)}.cfbox h3{margin:0 0 8px}.cfbox p{margin:0 0 14px;line-height:1.4}.cfbox .btn{width:100%;margin-top:6px}
+#rulov{position:fixed;inset:0;z-index:310;background:rgba(10,8,20,.6);display:flex;align-items:flex-start;justify-content:center;padding:14px;overflow-y:auto}#rulov .setbox{max-height:none}
+.setnav{display:flex;flex-direction:column;gap:6px}.setnav .btn{width:100%}
+.topback{display:inline-block;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:14px;padding:6px 12px;font:inherit;font-size:14px;cursor:pointer;margin-bottom:8px}
+.phtop button{font-size:16px!important;font-weight:600;min-height:38px;padding:0 10px!important;border-radius:12px;background:rgba(138,180,255,.12)!important}
 </style>
 </head>
 <body>
@@ -1257,7 +1263,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">Kryvbas Games · патч 1.045</p>`;return;}
+    <p class="foot">Kryvbas Games · патч 1.046</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2149,7 +2155,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">Kryvbas Games · патч 1.045<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">Kryvbas Games · патч 1.046<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -3879,7 +3885,7 @@ function items(){const i=phI();const P=phS();const L=[];
  return L;}
 function unread(){const s=seenGet();return items().filter(x=>x.in&&(!s.has(x.key)||(x.m&&x.m.st==='new'))).length;}
 function clock(){const ph=S.phase;if(ph==='morning')return '07:30';if(ph==='evening'||ph==='payday'||ph==='payweek')return '21:40';return ['08:50','13:10','17:30','19:20'][Math.min(3,S.sub||0)];}
-function head(title){return `<div class="phtop"><button data-ph="back" aria-label="Назад">‹</button><b>${title}</b><span></span></div>`;}
+function head(title){return `<div class="phtop"><button data-ph="back" aria-label="Назад">‹ Назад</button><b>${title}</b><span></span></div>`;}
 function appHome(){const n=unread(),i=phI(),p=S.players[i];const tasks=(p.tasks||[]).filter(t=>!t.done&&!t.failed).length+(p.bills||[]).filter(b=>!b.paid).length;
  const A=[['msgs','💬','Повідомлення',n],['tasks','📋','Справи',tasks],['bank','💳','Банк',0],['contacts','👥','Контакти',0],['news','📰','Новини',0],['calls','📞','Дзвінки',0]];
  return `<div class="phapps">${A.map(a=>`<button data-ph="app" data-a="${a[0]}"><span class="phai">${a[1]}${a[3]?`<i>${a[3]}</i>`:''}</span><small>${a[2]}</small></button>`).join('')}</div>`;}
@@ -4091,6 +4097,44 @@ function lifeHTML(){const L=lifeGet();const by=L.by||{};const fav=Object.entries
   :'<p class="note">Тут зʼявиться твоя статистика після першої гри.</p>'}</div>`;}
 {const _rs=renderSetup;renderSetup=function(){const r=_rs.apply(this,arguments);try{if(setup.step==='collection'&&app.insertAdjacentHTML&&!app.querySelector('.life')){const a=app.querySelector('#albumbox');if(a)a.insertAdjacentHTML('beforebegin',lifeHTML());}
  if((setup.step||'title')==='title'){const b=app.querySelector('[data-step="collection"]');if(b){const L=lifeGet();b.innerHTML=`📒 Альбом, досягнення й статистика<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень${L.games?' · '+L.games+' ігор':''}</small>`;}}}catch(e){}return r;};}
+})();
+
+// === 1.046: Навігація — «В меню», системна кнопка «Назад», правила з гри ===
+(function(){
+function inGame(){return !!(S&&S.players&&!['done','end'].includes(S.phase));}
+function confirmBox(title,text,yes,onYes){let ov=document.getElementById('cfov');if(!ov){ov=document.createElement('div');ov.id='cfov';document.body.appendChild(ov);}
+ ov.innerHTML=`<div class="cfbox" role="dialog" aria-modal="true"><h3>${title}</h3><p>${text}</p><button class="btn btn-main" data-cf="y">${yes}</button><button class="btn btn-ghost" data-cf="n">Залишитися в грі</button></div>`;
+ ov.onclick=e=>{const b=e.target.closest('[data-cf]');if(e.target===ov||(b&&b.dataset.cf==='n')){ov.remove();return;}if(b&&b.dataset.cf==='y'){ov.remove();onYes();}};}
+function exitToMenu(){const room=!!(S&&S.room);
+ if(room){try{const sv=loadSave();if(sv&&sv.S&&sv.S.room)localStorage.removeItem('kr-save');}catch(e){}try{roomLeave();}catch(e){}}else{try{saveGame();}catch(e){}}
+ ['phov','albov','setov','rulov','mgov'].forEach(id=>{const el=document.getElementById(id);if(el)el.remove();});document.body.classList.remove('noscroll');
+ S=null;setup.step='title';setup.daily=false;try{Math.random=RND0;}catch(e){}render();window.scrollTo(0,0);}
+function askExit(){if(!inGame())return exitToMenu();const room=!!S.room;
+ confirmBox(room?'Вийти з кімнати?':'Вийти в меню?',room?'Ти покинеш кімнату. Друзі гратимуть далі без тебе.':(S.iron?'⚔️ Залізний режим: цю гру не можна буде продовжити.':'Гру збережено. Повернутися можна кнопкою «Продовжити гру».'),room?'Вийти з кімнати':'🏠 Вийти в меню',exitToMenu);}
+window.askExit=askExit;
+function rulesOpen(){let ov=document.getElementById('rulov');if(!ov){ov=document.createElement('div');ov.id='rulov';document.body.appendChild(ov);}
+ ov.innerHTML=`<div class="setbox"><div class="sethead"><h2>📖 Як грати</h2><button class="setx" data-rl="x" aria-label="Закрити">✕</button></div>${rulesHTML(true)}<button class="btn btn-main" data-rl="x" style="margin-top:10px">Повернутися до гри</button></div>`;
+ ov.style.display='flex';document.body.classList.add('noscroll');ov.onclick=e=>{if(e.target===ov||e.target.closest('[data-rl]')){ov.remove();document.body.classList.remove('noscroll');}};}
+// кнопки в ⚙ налаштуваннях
+{const _sh=settingsHTML;settingsHTML=function(msg){let h=_sh.apply(this,arguments);if(!inGame())return h;
+ const add=`<div class="setgrp setnav"><button class="btn btn-ghost" data-s="rules">📖 Як грати</button><button class="btn btn-ghost" data-s="exit">${S.room?'🚪 Вийти з кімнати':'🏠 Вийти в головне меню'}</button></div>`;
+ return h.replace('</div>',`</div>${add}`);};}
+{const _sc=settingsClick;settingsClick=function(e){const b=e.target.closest&&e.target.closest('[data-s]');if(b&&b.dataset.s==='exit'){e.stopPropagation();settingsClose();return askExit();}if(b&&b.dataset.s==='rules'){e.stopPropagation();settingsClose();return rulesOpen();}return _sc.apply(this,arguments);};}
+// «Назад» угорі в альбомі
+{const _rs=renderSetup;renderSetup=function(){const r=_rs.apply(this,arguments);try{if(setup.step==='collection'&&app.querySelector&&!app.querySelector('.topback')){const h=app.querySelector('.stephead');if(h)h.insertAdjacentHTML('afterbegin','<button class="topback" data-step="title" aria-label="Назад">← Назад</button>');}}catch(e){}return r;};}
+// системна кнопка «Назад» (Android, браузер): спершу закриває відкрите, потім питає про вихід
+const PREV={rules:'title',collection:'title',modes:'rules',chars:()=>setup.daily?'title':'modes'};
+function guard(){try{if(!history.state||!history.state.kr)history.pushState({kr:1},'');}catch(e){}}
+function topOverlay(){for(const id of ['cfov','albov','rulov','phov','setov']){const el=document.getElementById(id);if(el&&el.style.display!=='none')return el;}return null;}
+window.addEventListener&&window.addEventListener('popstate',()=>{const ov=topOverlay();
+ if(ov){if(ov.id==='setov')settingsClose();else if(ov.id==='phov'){const bk=ov.querySelector('[data-ph="back"]');if(bk)bk.click();else{ov.remove();document.body.classList.remove('noscroll');}}else{ov.remove();document.body.classList.remove('noscroll');}return guard();}
+ if(document.getElementById('mgov'))return guard();
+ if(inGame()){askExit();return guard();}
+ if(S&&['done','end'].includes(S.phase)){exitToMenu();return guard();}
+ if(typeof ROOM!=='undefined'&&ROOM){const lv=document.querySelector('[data-r="leave"]');if(lv)lv.click();return guard();}
+ const st=setup.step||'title';if(st!=='title'){const p=PREV[st];setup.step=typeof p==='function'?p():(p||'title');render();window.scrollTo(0,0);return;}
+ /* на головному екрані — дозволяємо вийти із застосунку */});
+{const _r=render;render=function(){_r.apply(this,arguments);if(!SIM&&!(setup&&(setup.step||'title')==='title'&&!S))guard();};}
 })();
 
 render();
