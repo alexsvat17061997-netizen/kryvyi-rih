@@ -385,7 +385,7 @@ body.h-indep::before{content:'';position:fixed;top:0;left:0;right:0;height:6px;z
 .ljgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.ljc{display:flex;flex-direction:column;align-items:center;gap:4px;border:2px solid var(--line);background:var(--panel);border-radius:10px;padding:8px 4px;font:inherit;font-size:12px;color:var(--text);cursor:pointer}
 .ljc img,.ljc .ph{width:52px;height:52px;border-radius:8px;object-fit:cover}.ljc[aria-pressed="true"]{border-color:var(--ver);background:rgba(232,93,4,.12)}.ljc:disabled{opacity:.35}
 main{width:calc(100vw / var(--fz,1));max-width:calc(480px / var(--fz,1));box-sizing:border-box}
-.who{flex-wrap:wrap}.who>div{flex:1 1 150px;min-width:0}.who h2{overflow-wrap:break-word}
+.who{flex-wrap:wrap}.who>div{flex:1 1 110px;min-width:0}.who h2{overflow-wrap:break-word}
 .map .pin,.map .dlabel,.map button.pin{zoom:calc(1 / var(--fz,1))}
 .setbox,.mgbox,.socbox{width:calc((100vw - 24px) / var(--fz,1));max-width:calc(440px / var(--fz,1))}.agebox{width:calc((100vw - 24px) / var(--fz,1));max-width:calc(420px / var(--fz,1))}
 .sethead{display:flex;align-items:center;gap:10px}.setback{flex:none;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:14px;padding:7px 12px;font:inherit;font-weight:600;font-size:14px;cursor:pointer}.sethead h2{margin:0;font-size:18px;min-width:0}
@@ -394,6 +394,18 @@ main{width:calc(100vw / var(--fz,1));max-width:calc(480px / var(--fz,1));box-siz
 #phfab{display:none!important}
 .counts{flex-wrap:wrap}.counts button{min-width:70px}
 .setbox .sethead h2{font-size:17px!important;white-space:normal;line-height:1.2}
+.phwhy{background:rgba(255,107,94,.12);border-radius:10px;padding:6px 10px;color:#ffb3aa!important}
+.phpay{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.06)}.phpay span{flex:1;display:flex;flex-direction:column}.phpay small{color:#aaa}
+.phpay button,.phwide{background:#2f6fd6;color:#fff;border:0;border-radius:12px;padding:8px 12px;font:inherit;font-weight:600;cursor:pointer}.phpay button:disabled,.phwide:disabled,.phbtns button:disabled{opacity:.4}
+.phwide{width:100%;margin-top:8px}.phwide.gold{background:linear-gradient(135deg,#f2b33d,#d4762a);color:#1f1530}
+.phhist{display:flex;justify-content:space-between;gap:8px;padding:4px 0;font-size:13px}.phhist span{color:#ccc}.phhist .neg{color:#ff8a80}.phhist .pos{color:#8bc34a}
+.phwx{background:linear-gradient(160deg,#3b5ea8,#1e2a55);border-radius:16px;padding:16px;margin-bottom:10px}.phwx div{display:flex;flex-direction:column}.phwx span{font-size:48px;line-height:1}.phwx b{font-size:36px}.phwx small{opacity:.85}
+.phgal{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.phgal div{display:flex;flex-direction:column;gap:2px}.phgal span{aspect-ratio:1;background-size:cover;background-position:center;border-radius:8px}.phgal small{font-size:10px;color:#bbb;line-height:1.2}
+.phsnake{display:flex;flex-direction:column;align-items:center;gap:8px}.snhud{display:flex;justify-content:space-between;width:100%}#sncv{width:100%;max-width:300px;aspect-ratio:1;border-radius:12px;border:2px solid #3b3660;touch-action:none}
+.snpad{display:flex;flex-direction:column;align-items:center;gap:6px}.snpad div{display:flex;gap:6px}.snpad button{min-width:56px;height:46px;border-radius:12px;border:1px solid #5b55a0;background:#3b3660;color:#fff;font-size:18px;cursor:pointer}.snpad .snplay{min-width:110px;background:#4caf50;border-color:#4caf50;font-size:15px;font-weight:700}
+#phnote{position:fixed;left:10px;right:10px;top:10px;z-index:350;display:flex;align-items:center;gap:10px;background:rgba(28,24,46,.96);color:#fff;border-radius:16px;padding:10px 12px;box-shadow:0 10px 30px rgba(0,0,0,.45);transform:translateY(-130%);transition:transform .35s ease;cursor:pointer;max-width:460px;margin:0 auto}
+#phnote.on{transform:translateY(0)}#phnote span:not(.phic){display:flex;flex-direction:column;min-width:0}#phnote small{color:#ccc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#phnote img{width:40px;height:40px;border-radius:20px;object-fit:cover}
+.pwbtns{display:flex;flex-direction:column;gap:6px;margin-top:10px}.pwbtns .btn{width:100%}.pwforce{margin-top:4px;border:1px solid var(--ver);background:transparent;color:var(--ver);border-radius:10px;padding:4px 8px;font:inherit;font-size:12px;cursor:pointer}
 </style>
 </head>
 <body>
@@ -1251,6 +1263,8 @@ function weekHTML(){
 }
 let PREV=null;
 function dl(cur,key,p){if(!PREV||PREV.id!==p.id||PREV.g!==S._g)return '';const d=cur-PREV[key];if(!d)return '';return `<em class="fly ${d>0?'up':'down'}">${d>0?'+':'−'}${Math.abs(d)}</em>`;}
+function billNag(p){try{if(!talkOn()||!p||p.collector)return '';const b=(p.bills||[]).find(x=>!x.paid&&x.due<=S.day+1);if(!b)return '';if(p._nag===S.day+'-'+b.t)return '';p._nag=S.day+'-'+b.t;
+ const L=[`Ой, «${b.t}» ж треба оплатити ${b.due<=S.day?'сьогодні':'до завтра'}… Зайду в банк на телефоні 📱`,`Так, не забути: «${b.t}», ${b.amt} грн. Телефон, банк, оплатити.`,`«${b.t}» горить! ${b.amt} грн, і крапка. Де мій телефон…`];return L[(S.day+b.amt)%L.length];}catch(e){return '';}}
 function statsHTML(p){
   return `<div class="who">${portrait(p.id)}<div><h2>${nm(p)}${(p.pets||[]).length?' '+petIcons(p)+q('pet'):''}${itemIcons(p)?' '+itemIcons(p):''}</h2><span>${S.weekend?'Вихідні':dayName(S.day)}, зараз: ${LOCS[p.pos].n}</span></div><button class="snd" data-act="talk" aria-label="${talkOn()?'Вимкнути коментарі персонажів':'Увімкнути коментарі персонажів'}" aria-pressed="${talkOn()}" style="margin-left:auto">${talkOn()?'💬':'🤐'}</button><button class="snd" data-act="mute" style="margin-left:6px" aria-label="${muted()?'Увімкнути звук':'Вимкнути звук'}">${muted()?'🔇':'🔊'}</button></div>
   ${p.plan&&!S.weekend?`<p class="note" style="color:var(--text);margin:8px 0 0">${planLine(p)} ${q('plan')}</p>`:''}
@@ -1276,7 +1290,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">Kryvbas Games · патч 1.048</p>`;return;}
+    <p class="foot">Kryvbas Games · патч 1.049</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -1320,7 +1334,7 @@ function rulesHTML(open){return `<details class="mapbox"${open?' open':''}><summ
  <p>❓ Щось незрозуміло — тисни «?» поруч.</p>
  <p class="note" style="color:var(--muted)">Детальніше, якщо цікаво:</p>
 <details class="rsec"><summary>🗓 Режими гри</summary><p>Усе обирається на стартовому екрані перед вибором персонажів.</p><p><b>Скільки гравців.</b> Соло або 2–4 людини на одному телефоні по колу: кожен на своєму ході бере телефон, а торгуються й домовляються вголос.</p><p><b>Тривалість.</b></p><p>▸ <b>Тиждень</b>: 5 днів, 5–10 хвилин соло, уся зарплата в пʼятницю. Швидка партія, щоб розібратися.</p><p>▸ <b>2 тижні</b>: 10 днів і одні вихідні, аванс у першу пʼятницю, зарплата в другу.</p><p>▸ <b>Місяць</b>: 20 днів і троє вихідних, аванс у другу пʼятницю, зарплата в четверту, а перша й третя пʼятниці без грошей. Найдовша й найважча гра.</p><p><b>🗓 Тиждень дня.</b> Щодня новий тиждень, однаковий для всіх: ті самі новини й події. Лише соло й лише тиждень. Наприкінці можна поділитися результатом і порівняти з друзями, як у Wordle.</p><p><b>👨‍👩‍👧 Сімейка</b> (коли грають 2+ людини). Ви не суперники, а одна родина: спільний гаманець, одна комуналка на всіх і спільна мрія «всією сімʼєю на море». Перемагаєте або програєте разом.</p><p><b>Пора року.</b></p><p>▸ <b>☀️ Літо</b>: спека, кавуни, морозиво, День міста, вечері трохи дешевші.</p><p>▸ <b>🍂 Міжсезоння</b>: звичайна погода без сюрпризів.</p><p>▸ <b>❄️ Зима</b>: рахунок за опалення, ожеледь (пішки важче), ГРВІ, Скарік ламається частіше, зате Новий рік.</p><p>▸ <b>🔄 Як у житті</b>: щопонеділка пора року може змінитися, і гра попереджає про це в ранкових новинах.</p><p><b>🔥 Хардкор.</b> Для цінителів жесті: щотижня криза на три дні (епідемія грипу, ціни злітають на 25%, блекаут або скорочення премій), рахунки на 25% дорожчі, грошей на старті менше, з квартири можуть винести корисні речі, а о 23:00 краще не ходити за хлібом.</p><p><b>⚔️ Залізний режим</b> (лише разом з хардкором): одне життя, без секретів, без збереження, а зрив означає вибування назавжди.</p><p><b>Вихідні</b> бувають у 2 тижнях і місяці: нерви відновлюються, і кожного чекає одна вихідна подія.</p><p><b>Збереження.</b> Гра зберігається сама після кожного кроку (крім залізного режиму), тож місяць можна проходити кілька вечорів через «Продовжити гру».</p></details>
-<details class="rsec"><summary>📱 Телефон</summary><p>Кнопка 📱 біля фото персонажа. Тут пишуть мама, шеф, кум, баба Галя, банк, а на хардкорі ще й шахраї. На питання можна відповідати, і відповідь впливає на гроші, нерви й щастя. Доручення («купи ліки, як будеш біля поліклініки») виконуються самі, коли приходиш у потрібне місце. У «Справах» рахунки й план дня, у «Банку» баланс і борги, у «Дзвінках» екстрені служби та мама (+1 нерв раз на день). У блекаут телефон сідає, рятує павербанк. У кімнаті через телефон можна питати друзів «Позичиш 100?», «Підеш на каву?», «Прикриєш перед шефом?» і переказувати гроші.</p></details><details class="rsec"><summary>🏆 Альбом і досягнення</summary><p><b>Нові персонажі.</b> Відкриваються своїми діями, і прогрес видно на закритій картці: 🚕 Таксист — 50 поїздок на таксі, 💻 Айтівець — 15 підробітків, 🔧 Сантехнік — 10 ремонтів, 📞 Колекторка — 5 прострочок у банку, 🛒 Охоронець ТЦ — 20 походів у ТЦ, 🎣 Дід-рибалка — 10 рибалок, ⚽ Руха — дожити в хардкорі. А ще один персонаж — секретний.</p><p><b>Коментарі персонажів 💬.</b> Персонажі розповідають свою історію й коментують події. Вимикаються кнопкою 💬 біля імені або на кроці «Режим гри».</p><p><b>Альбом Кривбасу 📒.</b> Кожна побачена подія стає наліпкою в альбомі на стартовому екрані. Їх понад двісті, збери всі!</p><p><b>Досягнення 🏆.</b> Частина відкривається прямо під час гри, частина наприкінці. Альбом і досягнення зберігаються на цьому телефоні.</p></details>
+<details class="rsec"><summary>📱 Телефон</summary><p>Кнопка 📱 біля фото персонажа. Тут пишуть мама, шеф, кум, баба Галя, банк, а на хардкорі ще й шахраї. На питання можна відповідати, і відповідь впливає на гроші, нерви й щастя. Доручення («купи ліки, як будеш біля поліклініки») виконуються самі, коли приходиш у потрібне місце. У «Справах» рахунки й план дня, у «Банку» баланс і борги, у «Дзвінках» екстрені служби та мама (+1 нерв раз на день). Рахунки, борги, кредит і «🫙 Банка на мрію» (гроші в ній не вкрадуть) — у «Банку». Батарея сідає за день, швидше взимку й у блекаут: із сілим телефоном не подзвониш у 101/102/103 і не оплатиш рахунок. Зарядитися можна в ТЦ, офісі, універі, кавʼярні або павербанком. Хто не дочекався відповіді до ранку — ображається. Є ще погода, навігатор, галерея й змійка. У кімнаті через телефон можна питати друзів «Позичиш 100?», «Підеш на каву?», «Прикриєш перед шефом?» і переказувати гроші.</p></details><details class="rsec"><summary>🏆 Альбом і досягнення</summary><p><b>Нові персонажі.</b> Відкриваються своїми діями, і прогрес видно на закритій картці: 🚕 Таксист — 50 поїздок на таксі, 💻 Айтівець — 15 підробітків, 🔧 Сантехнік — 10 ремонтів, 📞 Колекторка — 5 прострочок у банку, 🛒 Охоронець ТЦ — 20 походів у ТЦ, 🎣 Дід-рибалка — 10 рибалок, ⚽ Руха — дожити в хардкорі. А ще один персонаж — секретний.</p><p><b>Коментарі персонажів 💬.</b> Персонажі розповідають свою історію й коментують події. Вимикаються кнопкою 💬 біля імені або на кроці «Режим гри».</p><p><b>Альбом Кривбасу 📒.</b> Кожна побачена подія стає наліпкою в альбомі на стартовому екрані. Їх понад двісті, збери всі!</p><p><b>Досягнення 🏆.</b> Частина відкривається прямо під час гри, частина наприкінці. Альбом і досягнення зберігаються на цьому телефоні.</p></details>
 <details class="rsec"><summary>🗺 Як минає день</summary><p><b>Ранкова газета «Все рівно».</b> Щоранку свіжий номер: головна новина дня, яка впливає на всіх, і чутки міста.</p><p><b>Місця.</b> Крім звичних, на карті є 🎣 Річка (рибалка, пляж, ковзанка), 🛒 ТЦ (кіно, шопінг, фудкорт), ⚽ Стадіон, 🔧 Гаражі (ремонти й посиденьки) і 🪂 Аеродром (стрибки з парашутом). У вільному часі щодня хоча б одна картка веде в одне з них; 📍 на картці показує, куди їхати.</p><p><b>Транспорт.</b> Пішки (нерви), Скарік (безкоштовно, але ламається), маршрутка (платно) або 🚕 таксі: найдорожче, зате без нервів і поломок. Якщо в грі є таксист, гроші отримує він.</p><p><b>Погода.</b> Карта змінюється з порою року: сніг узимку, дощ у міжсезоння, спека влітку.</p><p><b>Новий день.</b> Спершу <b>обовʼязкове</b>: план дня (зміна, пари, онуки, поліклініка). Обираєш, як туди дістатися, а на місці — як упоратися: чесно, хитро (🎲 ризик) чи по максимуму. Деякі плани — маленькі історії зі своїм поворотом. Пропустиш — увечері мінус. Потім <b>вільний час</b>: соло дві дії, компанією одна. Картки з цінами: безкоштовно, недорого, дорожче, корисне, плюс підробіток або прогулянка містом навмання. Дивись на прогноз 💡 і вирішуй, на що вистачає.</p>
  <p><b>Кожен день</b> складається з трьох частин. Ранок: новини міста діють на всіх. Хід гравців: соло в тебе дві події на день, а компанією кожен по черзі бере телефон і вирішує одну подію. Вечір: кожен обирає, оплатити побут грошима чи зекономити ціною нервів і щастя.</p><p><b>Карта і поїздки.</b> Щодня на своєму ході ти сам обираєш, куди поїхати: ринок, центр, дача, школа, поліклініка, карʼєр тощо, або лишитися вдома. Подія трапляється саме там: на ринку покупки й торг, у поліклініці черги, вдома комуналка й сусіди. Дорога: пішки коштує нервів; комунальний транспорт (Скарік, трамваї) у Кривому Розі безкоштовний для всіх, але часто ламається; маршрутка платна, і гроші отримує гравець-водій. Пенсіонерка їде в маршрутці по пільговому безкоштовно, але водій може насваритися. Увечері всі повертаються додому.</p><p><b>Плани на день.</b> Щоранку кожен персонаж отримує свої справи: шахтарю на зміну, пенсіонерці зустріти онуків, мамі на щеплення, студенту на пари. Потрібні місця підсвічені 📋. Виконав усі кроки — бонус увечері, не встиг — штраф. Для працюючих персонажів робочий день — це гроші, а прогул коштує дорого. У кожного персонажа ще й свої мрії та свої життєві події.</p><p><b>Живе місто.</b> Новини змінюють карту на день: Скарік не ходить, обʼїзд на Социку робить маршрутки дорожчими, ями ускладнюють ходіння пішки, а знижки на ринку чи ярмарок у центрі роблять покупки там на 20% дешевшими. Що сталося, видно прямо на карті.</p></details>
 <details class="rsec"><summary>💰 Гроші</summary><p><b>Зарплата і мрія.</b> Скільки отримує кожен персонаж, видно ще при виборі. З кожної виплати спершу віддаються борги. Мрія здійснюється сама в день останньої зарплати, якщо грошей разом із заощадженнями вистачає. На своєму ході ти бачиш, скільки ще треба відкласти з урахуванням майбутніх виплат.</p><p><b>Банк.</b> Кредит можна взяти будь-коли на своєму ході, навіть граючи самому: 10% за тиждень. Не повернув до строку — банк сам списує гроші із заощаджень, а на залишок нараховує пеню, −2 нерви, і так щодня, поки не розрахуєшся. Хто прострочив, тому далі вже 20%. Друг, на відміну від банку, може борг пробачити.</p><p><b>Економіка.</b> Щотижня в кожного є обовʼязкові рахунки: комуналка, телефон і свої (гуртожиток у студента, оренда місця в продавчині, пальне у водія, кредит у шахтаря тощо). Сплатити можна будь-коли на своєму ході; у день терміну гра спише сама, а якщо грошей немає — пеня 20% і −1 нерв, і так щодня. Неоплачене списується з зарплати.</p><p><b>Прогноз 💡.</b> Під іменем видно, скільки днів до виплати, скільки ще рахунків і вечерь, і скільки грошей вільних. Так видно, чи можна собі щось дозволити.</p><p><b>Підробіток 💼.</b> Раз на день замість поїздки можна підзаробити своєю справою: понаднормова зміна, курʼєр, фріланс, вареники на замовлення. Гроші, але ціною нервів.</p><p><b>Ціни.</b> Усі ціни в грі на одній шкалі: дрібниця 50, звичайна покупка 100–200, серйозна витрата 300–450, велика 700 грн.</p><p><b>Мрія і секрет.</b> Мрія таємна, її бачиш лише ти на своєму ході: там же написано, скільки ще треба відкласти. Щоб накопичити, доведеться іноді економити на побуті чи відмовлятися від розваг. Секрет — одноразовий бонус персонажа.</p></details>
@@ -1397,15 +1411,13 @@ function renderTurn(){
   let tools=`<button class="btn btn-ghost" data-act="secret" ${secOk?'':'disabled'}>${p.secretUsed?'Секрет використано':'Секрет: '+c.secret+', '+fmt(c.sd)}</button>`;
   if(p.id==='office')tools+=`<button class="btn btn-ghost" data-act="skip" ${p.skipUsed?'disabled':''}>${p.skipUsed?'Віддалку використано':'Віддалка: пропустити подію'}</button>`;
   if(p.id==='teacher')tools+=`<button class="btn btn-ghost" data-act="tutor" ${p.tutorDay===S.day||p.nerves<=1||S.weekend?'disabled':''}>${p.tutorDay===S.day?'Сьогодні вже репетиторила':'Репетиторство: −1 нерв, +200 грн'}</button>`;
-  tools+=billsDue(p).map((b,i)=>`<button class="btn btn-ghost" data-bill="${(p.bills||[]).indexOf(b)}" ${avail(p)<b.amt?'disabled':''}>Оплатити «${b.t}»: ${b.amt} грн, до ${dayGen(b.due)}${b.late?' (з пенею)':''}</button>`).join('');
-  tools+=`<button class="btn btn-ghost" data-act="loan">${S.players.length>1?'Позичити до зарплати':'Кредит у банку'}</button>`;
   const mine=S.debts.map((d,i)=>({d,i})).filter(o=>o.d.from===S.turn);
   const theirs=S.debts.map((d,i)=>({d,i})).filter(o=>o.d.to===S.turn);
   let debtBox='';
   if(mine.length||theirs.length){debtBox=`<div class="detail" style="margin:0 0 12px"><h3>Борги ${q('debts')}</h3>${mine.map(o=>`<p>Ти ${v(p,'винен','винна')} ${LN(o.d)} ${o.d.amt} грн, до вечора: ${dayName(o.d.due).toLowerCase()}</p>
     <button class="btn btn-choice" data-repay="${o.i}" ${p.money<o.d.amt?'disabled':''}>Повернути ${o.d.amt} грн</button>`).join('')}${theirs.map(o=>`<p>${nm(S.players[o.d.from])} ${v(S.players[o.d.from],'винен','винна')} тобі ${o.d.amt} грн, до вечора: ${dayName(o.d.due).toLowerCase()}</p>
     <button class="btn btn-choice" data-forgive="${o.i}">Пробачити борг<small>+1 щастя тобі, добра справа</small></button>`).join('')}</div>`;}
-  app.innerHTML=statsHTML(p)+weekHTML()+lastHTML()+shopHTML(p)+(p.collector?'':say(p,p.nerves<=2?line(p,'low',true):line(p,'before')))+dreamBox(p)+debtBox+cardWrap(ev.img,(S.weekend?'Вихідні':dayName(S.day)+(', дія '+(S.sub+1)+' з '+slotsFor())),TX(ev,'t'),`<p>${TX(ev,'x')}</p>${btns}${fallback}`)+
+  app.innerHTML=statsHTML(p)+weekHTML()+lastHTML()+shopHTML(p)+(p.collector?'':say(p,p.nerves<=2?line(p,'low',true):(billNag(p)||line(p,'before'))))+dreamBox(p)+cardWrap(ev.img,(S.weekend?'Вихідні':dayName(S.day)+(', дія '+(S.sub+1)+' з '+slotsFor())),TX(ev,'t'),`<p>${TX(ev,'x')}</p>${btns}${fallback}`)+
     `<div class="tools">${tools}</div><details class="mapbox"><summary>Карта міста</summary>${mapHTML()}</details>${rulesHTML(false)}`;
 }
 
@@ -1622,7 +1634,7 @@ function payday(){
     else{S.players.forEach(p=>{p.short=cost-pool;});lines.push(`<b>Сімейка</b>: на спільну мрію «Всією сімʼєю на море» (${cost} грн) не вистачило ${cost-pool} грн`);}
     S.payLines=lines;S.phase='payday';return;}
   S.players.forEach(p=>{if(p.collector)return;
-    if(p.money>=p.dreamCost){p.money-=p.dreamCost;p.dreamDone=true;lines.push(`<b>${nm(p)}</b>: мрія «${p.dream.t}» здійснилась! Залишилось ${p.money} грн`);}
+    if(p.money+(p.jar||0)>=p.dreamCost){if(p.jar){p.money+=p.jar;p.jar=0;}p.money-=p.dreamCost;p.dreamDone=true;lines.push(`<b>${nm(p)}</b>: мрія «${p.dream.t}» здійснилась! Залишилось ${p.money} грн`);}
     else{p.short=p.dreamCost-p.money;lines.push(`<b>${nm(p)}</b>: на мрію «${p.dream.t}» не вистачило ${p.dreamCost-p.money} грн`);}});
   S.payLines=lines;S.phase='payday';
 }
@@ -2168,7 +2180,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">Kryvbas Games · патч 1.048<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">Kryvbas Games · патч 1.049<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -3977,6 +3989,148 @@ window.phOpen=phOpen;window.phQ=o=>phS().q.push(o);
 dialKind=function(c){if(!S||!c)return null;const l=c.l||'';if(/заяв/i.test(l))return null;if(/104|газов/i.test(l))return '104';if(/101|пожеж/i.test(l))return '101';if(/поліці/i.test(l))return '102';if(/швидк|103/i.test(l))return '103';return null;};
 DIALN['104']='газову службу';
 dialDecor=function(){if(!S||mgOff()||S.phase!=='turn'||!S.ev||!app.querySelectorAll)return;app.querySelectorAll('button[data-choice]').forEach(b=>{const n=dialKind(S.ev.c[+b.dataset.choice]);if(n&&!b.querySelector('.mgtag'))b.insertAdjacentHTML('beforeend',`<span class="mgtag">📞 набери ${n}</span>`);});};
+// --- 1.049: Телефон 2.0 (вставляється всередину модуля телефона) ---
+const PAYPH=['free','turn','go','oblig','result','travel','loan','budget'];
+function canPay(){const i=phI();if(!S)return false;if(S.room){return !!(S.pday&&S.done&&!S.done[i]&&!S.players[i].out);}return PAYPH.includes(S.phase)&&S.turn===i;}
+function gameAct(ds){if(S.room&&ROOM&&ROOM.role==='guest'){NET.send('host',{t:'click',ds});}else simClick(ds);}
+// гроші під рукою: історія витрат (на цьому пристрої)
+const HIST={};let _lastM=null;
+function histTrack(){const i=phI(),p=S&&S.players&&S.players[i];if(!p)return;const k=S._g+'-'+i;const tot=p.money+(p.jar||0);
+ if(!_lastM||_lastM.k!==k){_lastM={k,m:tot};return;}const d=tot-_lastM.m;if(!d){return;}_lastM.m=tot;
+ const lab=(S.res&&S.res.title)||(S.ev&&TX(S.ev,'t'))||((S.last||'').split(' · ').pop()||'').replace(/^[^:]*:\s*/,'').slice(0,60)||'Інше';
+ const H=HIST[k]=HIST[k]||[];H.push({d:S.day,a:d,t:lab});if(H.length>60)H.shift();}
+// галерея: що ти бачив за цю гру
+const GAL={};
+function galTrack(){const i=phI();if(!S||S.phase!=='turn'||!S.ev||!S.ev.img||(S.room&&S.turn!==i))return;const k=S._g+'-'+i;const G=GAL[k]=GAL[k]||[];const t=TX(S.ev,'t');if(G.some(x=>x.t===t))return;G.push({t,img:S.ev.img,d:S.day});if(G.length>60)G.shift();}
+// --- Банк: усі оплати тут ---
+appBank=function(){const i=phI(),p=S.players[i];const D=(S.debts||[]).map((d,k)=>({d,k}));const mine=D.filter(o=>o.d.from===i),their=D.filter(o=>o.d.to===i);
+ const ok=canPay()&&bat(p)>0;const why=bat(p)<=0?'📵 Телефон сів. Зарядись, щоб платити.':!canPay()?'Оплатити можна протягом свого дня.':'';
+ const B=(p.bills||[]).map((b,k)=>({b,k})).filter(o=>!o.b.paid);const H=(HIST[S._g+'-'+i]||[]).filter(x=>x.d===S.day).slice(-8).reverse();
+ const g=S.soc&&S.soc.goal;const jar=p.jar||0;const dc=p.dreamCost;
+ const pl=S.room?S.players.map((q,j)=>j===i||q.out?'':`<div class="phrow2">${portrait(q.id)}<span>${nm(q)}${q.bat<=0?' <small>📵</small>':''}</span><button data-ph="give" data-to="${j}" data-a="50" ${ok?'':'disabled'}>50</button><button data-ph="give" data-to="${j}" data-a="100" ${ok?'':'disabled'}>100</button></div>`).join(''):'';
+ return head('💳 Кривбас-Банк')+`<div class="phcard"><small>Картка</small><b>${p.money} грн</b><small>до зарплати ${Math.max(0,(typeof nextPayDay==='function'?nextPayDay():S.day)-S.day)} дн.${jar?` · у банці ${jar} грн`:''}</small></div>
+ ${why?`<p class="note phwhy">${why}</p>`:''}
+ <div class="phsec"><h4>🧾 Рахунки</h4>${B.length?B.map(o=>`<div class="phpay"><span>${o.b.t}<small>до ${typeof dayGen==='function'?dayGen(o.b.due):''}${o.b.due<=S.day?' ⚠️ сьогодні':''}${o.b.late?' · з пенею':''}</small></span><button data-ph="pay" data-bill="${o.k}" ${ok&&avail(p)>=o.b.amt?'':'disabled'}>${o.b.amt} грн</button></div>`).join(''):'<p>Усе оплачено ✅</p>'}</div>
+ <div class="phsec"><h4>🤝 Борги</h4>${mine.length||their.length?mine.map(o=>`<div class="phpay"><span>Ти ${GX(p,'[винен|винна]')} ${o.d.to>=0&&S.players[o.d.to]?nm(S.players[o.d.to]):'банку'}<small>до ${dayName(o.d.due).toLowerCase()}</small></span><button data-ph="repay" data-k="${o.k}" ${ok&&p.money>=o.d.amt?'':'disabled'}>Віддати ${o.d.amt}</button></div>`).join('')+their.map(o=>`<div class="phpay"><span>${nm(S.players[o.d.from])} ${GX(S.players[o.d.from],'[винен|винна]')} тобі ${o.d.amt} грн</span><button data-ph="forgive" data-k="${o.k}" ${ok?'':'disabled'}>Пробачити</button></div>`).join(''):'<p class="note">Боргів немає. Чиста совість!</p>'}
+  <button class="phwide" data-ph="loan" ${ok?'':'disabled'}>${S.players.length>1?'🙏 Позичити до зарплати':'🏦 Кредит у банку'}</button></div>
+ <div class="phsec"><h4>🫙 Банка на мрію</h4><p class="note">Гроші в банці не вкрадуть ні гопники, ні шахраї. ${dc?`Мрія «${p.dream.t}»: ${dc} грн.`:''}</p><div class="sgbar"><i style="width:${dc?Math.min(100,jar/dc*100):0}%"></i></div><p><b>${jar} грн</b>${dc?` з ${dc}`:''}</p>
+  <div class="phbtns"><button data-ph="jar" data-a="50" ${bat(p)>0&&p.money>=50?'':'disabled'}>+50</button><button data-ph="jar" data-a="100" ${bat(p)>0&&p.money>=100?'':'disabled'}>+100</button><button data-ph="jar" data-a="200" ${bat(p)>0&&p.money>=200?'':'disabled'}>+200</button><button data-ph="jar" data-a="-1" ${bat(p)>0&&jar>0?'':'disabled'}>Забрати все</button></div>
+  <p class="note">${p.dreamDone?'⭐ Мрію вже здійснено!':'Мрія здійсниться в день зарплати, якщо разом із банкою вистачить грошей.'}</p></div>
+ ${g?`<div class="phsec"><h4>🎯 Ціль тижня: ${g.t}</h4><div class="sgbar"><i style="width:${Math.min(100,g.got/g.need*100)}%"></i></div><p>${g.got} з ${g.need} грн${g.done?(g.ok?' ✅':' ❌'):''}</p>${g.done?'':`<div class="phbtns">${[50,100,200].map(a=>`<button data-ph="goal" data-a="${a}" ${bat(p)>0&&p.money>=a?'':'disabled'}>+${a}</button>`).join('')}</div>`}</div>`:''}
+ ${pl?`<div class="phsec"><h4>💸 Переказати</h4>${pl}</div>`:''}
+ <div class="phsec"><h4>📜 Сьогодні</h4>${H.length?H.map(x=>`<div class="phhist"><span>${x.t}</span><b class="${x.a<0?'neg':'pos'}">${x.a>0?'+':''}${x.a}</b></div>`).join(''):'<p class="note">Поки жодної гривні. Рекорд!</p>'}</div>`;};
+// --- Справи: тепер і з кнопкою оплати ---
+{const _at=appTasks;appTasks=function(){return _at().replace('<p class="note">Оплатити можна на екрані дня, кнопками «Оплатити».</p>','<button class="phwide" data-ph="app" data-a="bank">💳 Оплатити в Банку</button>');};}
+// --- 🌦 Погода ---
+const WXI={snow:['❄️','сніг'],rain:['🌧','дощ'],heat:['☀️','спека'],'':['⛅','мінлива хмарність'],storm:['⛈','гроза'],fog:['🌫','туман']};
+function tFor(d){const s=S.season;const h=((S._g||1)%97+d*37)%9;return s==='winter'?-8+h:s==='summer'?23+h:6+h;}
+function appWx(){const now=weather();const nw=S.news&&S.news[S.day+1];const tm=(nw&&nw.wx)||(S.season==='winter'?'snow':S.season==='mid'?((S.day+1)%2?'rain':''):'heat');
+ const a=WXI[now]||WXI[''],b=WXI[tm]||WXI[''];const real=S.wxReal&&S.wxT!=null;
+ return head('🌦 Погода')+`<div class="phwx"><div><span>${a[0]}</span><b>${real?Math.round(S.wxT):tFor(S.day)}°</b><small>Зараз у Кривому Розі: ${a[1]}${real?' (справжня погода)':''}</small></div></div>
+ <div class="phsec"><h4>Завтра</h4><p>${b[0]} ${b[1]}, ${tFor(S.day+1)}°</p>${tm==='rain'?'<p class="note">Парасолька не завадить. Маршрутки підуть повільніше.</p>':tm==='snow'?'<p class="note">Ожеледиця й замети. Телефон на морозі сідає швидше.</p>':tm==='heat'?'<p class="note">Спека. Вода й тінь — твої друзі.</p>':''}</div>
+ ${S.hard&&S.crisis&&S.day<=S.crisis.until?`<div class="phsec"><h4>⚠️ Попередження</h4><p>${S.crisis.t}: ${S.crisis.x}</p></div>`:''}`;}
+// --- 🗺 Навігатор ---
+const LABN={oblig:'справа дня',free:'вільний час',turn:'подія',result:'наслідки',travel:'в дорозі',go:'гуляє',haggle:'торгується',loan:'позичає',budget:'бюджет',pwait:'день завершено',mg:'міні-гра'};
+function actOf(j){const q=S.players[j];if(q.out)return 'вибув із гри';if(S.pday&&S.done&&S.done[j])return '✅ день завершено';const c=S.ctx&&S.ctx[j];const ph=c?c.phase:(j===phI()?S.phase:'');const ev=c&&c.ev?c.ev:(j===phI()?S.ev:null);
+ return (LABN[ph]||'грає')+(ev&&(ph==='turn'||ph==='result')?` «${TX(ev,'t')}»`:'');}
+function idle(j){return S.pday&&S.lastAct&&!(S.done&&S.done[j])&&Date.now()-(S.lastAct[j]||Date.now())>120000;}
+function appNav(){const i=phI(),p=S.players[i];const host=S.room&&ROOM&&ROOM.role==='host';
+ const T=(p.tasks||[]).filter(t=>!t.done&&!t.failed);
+ const rows=S.players.map((q,j)=>`<div class="phcon">${portrait(q.id)}<div><b>${nm(q)}${j===i?' (ти)':''}</b><small>📍 ${LOCS[q.pos]?LOCS[q.pos].n:'вдома'} · ${actOf(j)}${q.bat<=0?' · 📵 поза зоною':''}</small>${host&&j!==i&&idle(j)?`<div class="phbtns"><button data-ph="forceend" data-to="${j}">😴 Завершити день за нього</button></div>`:''}</div></div>`).join('');
+ return head('🗺 Навігатор')+`<div class="phlist">${rows}</div>${T.length?`<div class="phsec"><h4>📌 Доручення</h4>${T.map(t=>`<p>${t.item} — 📍 ${LOCS[t.loc]?LOCS[t.loc].n:t.loc}</p>`).join('')}</div>`:''}`;}
+// --- 📷 Галерея ---
+function appGal(){const G=(GAL[S._g+'-'+phI()]||[]).slice().reverse();const U=k=>(window.iurl?window.iurl(k):IMG[k])||'';
+ return head('📷 Галерея')+(G.length?`<div class="phgal">${G.map(x=>`<div><span style="background-image:url(${U(x.img)})"></span><small>${x.t}</small></div>`).join('')}</div>`:'<p class="note">Ще жодного кадру. Гайда в місто!</p>');}
+// --- 🐍 Змійка ---
+let SN=null;
+function appSnake(){const rec=+(lsG('kr-snake')||0);return head('🐍 Змійка')+`<div class="phsnake"><div class="snhud"><span>Рахунок: <b id="snsc">0</b></span><span>Рекорд: <b>${rec}</b></span></div><canvas id="sncv" width="300" height="300"></canvas>
+ <div class="snpad"><button data-sn="u">▲</button><div><button data-sn="l">◀</button><button data-sn="go" class="snplay">${SN&&SN.on?'Пауза':'▶ Грати'}</button><button data-sn="r">▶</button></div><button data-sn="d">▼</button></div><p class="note">Збирай вареники 🥟, не врізайся в себе. Кожна гра −2% батареї.</p></div>`;}
+function snStart(){const p=S.players[phI()];if(bat(p)<=0)return rToast('📵 Телефон сів');p.bat=Math.max(0,p.bat-2);
+ const cv=document.getElementById('sncv');if(!cv)return;const N=15,c=cv.getContext('2d'),z=cv.width/N;
+ SN={on:1,s:[[7,7],[6,7],[5,7]],d:[1,0],nd:[1,0],f:[11,7],sc:0,t:null};
+ const place=()=>{let f;do{f=[Math.floor(Math.random()*N),Math.floor(Math.random()*N)];}while(SN.s.some(q=>q[0]===f[0]&&q[1]===f[1]));SN.f=f;};
+ const draw=()=>{c.fillStyle='#1b1830';c.fillRect(0,0,cv.width,cv.height);c.font=(z*0.9)+'px serif';c.textAlign='center';c.textBaseline='middle';c.fillText('🥟',SN.f[0]*z+z/2,SN.f[1]*z+z/2+1);
+  SN.s.forEach((q,k)=>{c.fillStyle=k?'#4caf50':'#8bc34a';c.fillRect(q[0]*z+1,q[1]*z+1,z-2,z-2);});};
+ const tick=()=>{if(!SN||!SN.on)return;SN.d=SN.nd;const h=[(SN.s[0][0]+SN.d[0]+N)%N,(SN.s[0][1]+SN.d[1]+N)%N];
+  if(SN.s.some(q=>q[0]===h[0]&&q[1]===h[1])){SN.on=0;const rec=+(lsG('kr-snake')||0);if(SN.sc>rec){lsS('kr-snake',String(SN.sc));rToast(`🏆 Новий рекорд у змійці: ${SN.sc}!`);}else rToast(`🐍 Гру закінчено: ${SN.sc}`);try{vib(120);}catch(e){}const b=document.querySelector('.snplay');if(b)b.textContent='▶ Ще раз';return;}
+  SN.s.unshift(h);if(h[0]===SN.f[0]&&h[1]===SN.f[1]){SN.sc++;const e=document.getElementById('snsc');if(e)e.textContent=SN.sc;place();try{snd('coin');}catch(e){}}else SN.s.pop();draw();SN.t=setTimeout(tick,Math.max(70,150-SN.sc*4));};
+ draw();const b=document.querySelector('.snplay');if(b)b.textContent='Пауза';SN.t=setTimeout(tick,300);
+ let sx=0,sy=0;cv.ontouchstart=e=>{const t=e.touches[0];sx=t.clientX;sy=t.clientY;};cv.ontouchend=e=>{const t=e.changedTouches[0];const dx=t.clientX-sx,dy=t.clientY-sy;if(Math.abs(dx)+Math.abs(dy)<20)return;snDir(Math.abs(dx)>Math.abs(dy)?(dx>0?'r':'l'):(dy>0?'d':'u'));};}
+function snDir(k){if(!SN||!SN.on)return;const m={u:[0,-1],d:[0,1],l:[-1,0],r:[1,0]}[k];if(!m)return;if(m[0]===-SN.d[0]&&m[1]===-SN.d[1])return;SN.nd=m;}
+function snStop(){if(SN){SN.on=0;clearTimeout(SN.t);}SN=null;}
+document.addEventListener&&document.addEventListener('keydown',e=>{if(!SN||!SN.on)return;const k={ArrowUp:'u',ArrowDown:'d',ArrowLeft:'l',ArrowRight:'r'}[e.key];if(k){e.preventDefault();snDir(k);}});
+// --- головний екран і перемальовування ---
+appHome=function(){const n=unread(),i=phI(),p=S.players[i];const tasks=(p.tasks||[]).filter(t=>!t.done&&!t.failed).length+(p.bills||[]).filter(b=>!b.paid).length;
+ const A=[['msgs','💬','Повідомлення',n],['tasks','📋','Справи',tasks],['bank','💳','Банк',(p.bills||[]).filter(b=>!b.paid&&b.due<=S.day).length],['contacts','👥','Контакти',0],['nav','🗺','Навігатор',0],['news','📰','Новини',0],['wx','🌦','Погода',0],['gal','📷','Галерея',0],['calls','📞','Дзвінки',0],['snake','🐍','Змійка',0]];
+ return `<div class="phapps">${A.map(a=>`<button data-ph="app" data-a="${a[0]}"><span class="phai">${a[1]}${a[3]?`<i>${a[3]}</i>`:''}</span><small>${a[2]}</small></button>`).join('')}</div>`;};
+{const _h=phHTML;phHTML=function(){if(PH.app==='wx'||PH.app==='nav'||PH.app==='gal'||PH.app==='snake'){const i=phI(),p=S.players[i];const b=bat(p);const body=PH.app==='wx'?appWx():PH.app==='nav'?appNav():PH.app==='gal'?appGal():appSnake();
+  return `<div class="phone"><div class="phbar"><span>${clock()}</span><span>Кривбас-Звʼязок</span><span class="${b<=20?'low':''}">${b}% 🔋</span></div><div class="phscr">${body}</div><div class="phnav"><button data-ph="home" aria-label="Додому"></button></div><button class="phx" data-ph="close" aria-label="Закрити">✕</button></div>`;}
+ return _h.apply(this,arguments);};}
+{const _pr=phRefresh;phRefresh=function(){if(PH.app==='snake'&&document.getElementById('sncv')){const b=document.querySelector('#phov .phbar span:last-child');const p=S&&S.players[phI()];if(b&&p)b.textContent=bat(p)+'% 🔋';return;}return _pr.apply(this,arguments);};}
+{const _pc=phClose;phClose=function(){snStop();return _pc.apply(this,arguments);};}
+// --- нові дії в телефоні ---
+{const _ck=phClick;phClick=function(e){const sn=e.target.closest&&e.target.closest('[data-sn]');if(sn){e.stopPropagation();const k=sn.dataset.sn;if(k==='go'){if(SN&&SN.on){SN.on=0;SN.paused=1;clearTimeout(SN.t);sn.textContent='▶ Далі';}else if(SN&&SN.paused){SN.paused=0;sn.textContent='Пауза';snResume();}else snStart();}else snDir(k);return;}
+ const b=e.target.closest&&e.target.closest('[data-ph]');if(b&&!b.disabled){const k=b.dataset.ph;
+  if(k==='home'||k==='back'||k==='app')snStop();
+  if(k==='pay'){e.stopPropagation();gameAct({bill:b.dataset.bill});rToast('🧾 Оплачено');return;}
+  if(k==='repay'){e.stopPropagation();gameAct({repay:b.dataset.k});rToast('🤝 Борг повернуто');return;}
+  if(k==='forgive'){e.stopPropagation();gameAct({forgive:b.dataset.k});return;}
+  if(k==='loan'){e.stopPropagation();phClose();gameAct({act:'loan'});return;}
+  if(k==='dream'){e.stopPropagation();phSend({k:'jar',a:'-1'});setTimeout(()=>{phClose();gameAct({act:'dream'});},120);return;}
+  if(k==='goal'){e.stopPropagation();if(typeof socSend==='function')socSend({k:'goal',a:b.dataset.a});rToast(`🎯 +${b.dataset.a} грн на ціль`);return;}
+  if(k==='forceend'){e.stopPropagation();forceEnd(+b.dataset.to);return;}
+  if(k==='jar'){e.stopPropagation();phSend({k:'jar',a:b.dataset.a});return;}}
+ return _ck.apply(this,arguments);};}
+function snResume(){if(!SN)return;const cv=document.getElementById('sncv');if(!cv)return snStart();SN.on=1;const N=15,c=cv.getContext('2d'),z=cv.width/N;
+ const draw=()=>{c.fillStyle='#1b1830';c.fillRect(0,0,cv.width,cv.height);c.font=(z*0.9)+'px serif';c.textAlign='center';c.textBaseline='middle';c.fillText('🥟',SN.f[0]*z+z/2,SN.f[1]*z+z/2+1);SN.s.forEach((q,k)=>{c.fillStyle=k?'#4caf50':'#8bc34a';c.fillRect(q[0]*z+1,q[1]*z+1,z-2,z-2);});};
+ const tick=()=>{if(!SN||!SN.on)return;SN.d=SN.nd;const h=[(SN.s[0][0]+SN.d[0]+N)%N,(SN.s[0][1]+SN.d[1]+N)%N];if(SN.s.some(q=>q[0]===h[0]&&q[1]===h[1])){SN.on=0;const rec=+(lsG('kr-snake')||0);if(SN.sc>rec)lsS('kr-snake',String(SN.sc));rToast(`🐍 ${SN.sc}`);return;}
+  SN.s.unshift(h);if(h[0]===SN.f[0]&&h[1]===SN.f[1]){SN.sc++;const e=document.getElementById('snsc');if(e)e.textContent=SN.sc;let f;do{f=[Math.floor(Math.random()*N),Math.floor(Math.random()*N)];}while(SN.s.some(q=>q[0]===f[0]&&q[1]===f[1]));SN.f=f;}else SN.s.pop();draw();SN.t=setTimeout(tick,Math.max(70,150-SN.sc*4));};SN.t=setTimeout(tick,200);}
+// банка на мрію і зарядка — через ведучого в кімнаті
+{const _dp=doPhone;doPhone=function(i,ds){if(!S||i<0)return;const p=S.players[i];
+ if(ds.k==='jar'){if(bat(p)<=0)return toastI(i,'📵 Телефон сів');const a=+ds.a;if(!isFinite(a))return;p.jar=p.jar||0;if(a<0){p.money+=p.jar;p.jar=0;}else{const v=Math.min(a,Math.max(0,p.money));if(v<=0)return;p.money-=v;p.jar+=v;}render();return;}
+ return _dp.apply(this,arguments);};}
+// ведучий завершує день за того, хто заснув
+function forceEnd(j){if(!(S&&S.room&&ROOM&&ROOM.role==='host'&&S.pday))return;if(S.done[j])return;const q=S.players[j];const c=S.ctx&&S.ctx[j];if(c){c.phase='pwait';c.ev=null;c.pending=null;c.last=GX(q,`${nm(q)} [відпочив|відпочила] до вечора 😴`);}
+ S.done[j]=1;try{note(j,'😴 Ти довго не відповідав(ла), тож ведучий завершив твій день. Персонаж просто відпочив до вечора.',-1);}catch(e){}rToast(`😴 ${nm(q)} відпочиває до вечора`);render();}
+window.forceEnd=forceEnd;
+// --- батарея ---
+{const _bt=beginTurn;beginTurn=function(){_bt.apply(this,arguments);try{if(!S||S.weekend)return;const p=cur();if(!p)return;const before=bat(p);
+ p.bat=Math.max(0,before-(S.season==='winter'?10:6)-(S.hard&&crisisOn('blackout')&&!(p.items&&(p.items.power||p.items.lamp))?8:0));
+ if(p.items&&p.items.power&&p.bat<=0&&p._pbDay!==S.day){p._pbDay=S.day;p.bat=50;}
+ batWarn(S.turn,before);}catch(e){}};}
+function batWarn(i,before){const p=S.players[i];if(before>20&&p.bat<=20&&p.bat>0)toastI(i,'🪫 Батарея сідає! '+p.bat+'%');if(before>0&&p.bat<=0)toastI(i,'📵 Телефон сів. Зарядити можна в ТЦ, офісі, універі чи кавʼярні.');}
+// дзвінок у службу з сілим телефоном неможливий
+{const _dk=dialKind;dialKind=function(c){const p=S&&cur&&cur();if(p&&bat(p)<=0)return null;return _dk.apply(this,arguments);};}
+{const _sr=setRes;setRes=function(c,d){_sr.apply(this,arguments);try{const p=cur();if(!p||!c||!S.res)return;if(bat(p)<=0&&/поліці|швидк|101|102|103|104|пожеж|рятувал|газов/i.test(c.l||'')){apply(p,{n:-1});S.res.t+=' 📵 Телефон сів — довелося бігти до сусідів дзвонити. Допомога приїхала пізніше (−1 нерв).';}
+ if(S.room&&p.bat>0&&!S.weekend){const b=p.bat;p.bat=Math.max(0,b-2);batWarn(S.turn,b);}}catch(e){}};}
+// зарядка: розетка в ТЦ/офісі/універі або кавʼярня
+FREE.push({t:'Зарядити телефон від розетки',tier:9,img:'v16',charge:1,at:['mall','office','uni'],c:{r:'Знайшлася вільна розетка. Поки телефон заряджався, встиг[|ла] перепочити. 🔋 100%'}},
+ {t:'Кава й розетка в кавʼярні',tier:9,img:'r8',charge:1,c:{m:-20,n:1,r:'Капучино, вайфай і розетка біля вікна. 🔋 100%'}});
+FREE.slice(-2).forEach(a=>{const r=a.c.r;if(/\[[^\]]*\|/.test(r)){a.c.r=r.replace(/\[([^|\]]*)\|([^\]]*)\]/g,'$1');a.c.rf=r.replace(/\[([^|\]]*)\|([^\]]*)\]/g,'$2');}});
+{const _fo=freeOk;freeOk=function(a,p){if(a.charge){if(bat(p)>=60)return false;if(a.at&&!a.at.includes(p.pos))return false;return true;}return _fo.apply(this,arguments);};}
+{const _fp=freeOpts;freeOpts=function(p){const ids=_fp.apply(this,arguments);try{if(bat(p)<40&&!ids.some(i=>FREE[i].charge)){const k=FREE.map((a,i)=>i).filter(i=>FREE[i].charge&&freeOk(FREE[i],p));if(k.length){ids.push(k[0]);S.freeIds=ids;}}}catch(e){}return ids;};}
+{const _df=doFree;doFree=function(p,i){if(FREE[i]&&FREE[i].charge)p.bat=100;return _df.apply(this,arguments);};}
+// хто не відповів до ранку — ображається
+{const _pd=phDay;phDay=function(i){const p=S.players[i];const fresh=p&&p.phDay!==S.day;if(fresh){const P=phS();P.m.forEach(m=>{if(m.to!==i||m.st!=='new'||typeof m.f!=='string'||m.d>=S.day)return;m.st='ign';m.a='без відповіді';
+  const R={mom:[{h:-1},'Ну що ж, [зайнятий|зайнята] то [зайнятий|зайнята]… Мама образилась 😔 (−1 щастя)'],grand:[{h:-1},'Бабусю, ти не відповіла… Я хвилювалась 😢 (−1 щастя)'],boss:[{m:-50},'Не відповідаєш? Ну-ну. Премію зріжу (−50 грн)'],kum:[{h:-1},'Ну ти й зазнався[|лася], навіть не відповів[|ла] 😒 (−1 щастя)'],galya:[{h:-1},'Чекала, чекала… Попросила сусіда (−1 щастя)'],dekan:[{n:-1},'Відповіді не отримано. Перездача (−1 нерв)']}[m.f];
+  if(R){apply(p,R[0]);push(i,m.f,GX(p,R[1]));}});}
+ return _pd.apply(this,arguments);};}
+// --- сповіщення згори, як на справжньому телефоні ---
+function banner(x){const w=x.th==='room'?{n:'Чат кімнати',ic:'<span class="phic">💬</span>'}:who(/^p\d+$/.test(x.th)?+x.th.slice(1):x.th);
+ let el=document.getElementById('phnote');if(el)el.remove();el=document.createElement('div');el.id='phnote';el.innerHTML=`${w.ic}<span><b>${w.n}</b><small>${x.t.replace(/<[^>]+>/g,'').slice(0,90)}</small></span>`;
+ el.addEventListener('click',()=>{el.remove();phOpen('msgs',x.th);});document.body.appendChild(el);setTimeout(()=>el.classList.add('on'),20);setTimeout(()=>{el.classList.remove('on');setTimeout(()=>el.remove(),400);},4200);
+ try{navigator.vibrate&&navigator.vibrate([90,60,90]);}catch(e){}try{snd('click');}catch(e){}}
+{const _pdc=phDecor;phDecor=function(){const _t=rToast;let caught=null;rToast=function(t){if(/^📱 /.test(t)){caught=t;return;}return _t.apply(this,arguments);};try{_pdc.apply(this,arguments);}finally{rToast=_t;}
+ if(caught){const L=items().filter(x=>x.in).sort((a,b)=>a.ord-b.ord);const x=L[L.length-1];if(x)banner(x);}
+ try{histTrack();galTrack();}catch(e){}};}
+// --- очікування в кімнаті ---
+renderPwait=function(){const p=cur();const P=S.players;const me=S.turn;const host=S.room&&S.room.host===myDev();
+ const rows=P.map((q,j)=>`<div class="rseat">${portrait(q.id)}<span><b>${nm(q)}</b>${j===me?' (ти)':''}<br><small>📍 ${LOCS[q.pos]?LOCS[q.pos].n:'вдома'} · ${actOf(j)}${q.bat<=0?' · 📵':''}</small>${host&&j!==me&&idle(j)?`<br><button class="pwforce" data-ph2force="${j}">😴 Завершити день за нього</button>`:''}</span></div>`).join('');
+ app.innerHTML=statsHTML(p)+lastHTML()+cardWrap('skyline',dayName(S.day),GX(p,'Твій день завершено ✅'),`<p>Чекаємо, поки інші доживуть свій день.</p><div class="pwrows">${rows}</div>
+ <div class="pwbtns"><button class="btn btn-main" data-pwph="snake">🐍 Пограти в змійку</button><button class="btn btn-ghost" data-pwph="room">💬 Чат кімнати</button><button class="btn btn-ghost" data-pwph="nav">🗺 Хто де</button></div>`);};
+document.addEventListener&&document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-pwph],[data-ph2force]');if(!b)return;e.stopPropagation();e.preventDefault();
+ if(b.dataset.ph2force!=null)return forceEnd(+b.dataset.ph2force);const k=b.dataset.pwph;if(k==='room')phOpen('msgs','room');else phOpen(k);},true);
+
 })();
 
 // === 1.045: 📒 Альбом наліпок ===
@@ -3997,7 +4151,7 @@ function build(){const by={};const add=(pg,e,r)=>{if(!e||!e.t)return;if(Object.v
 let BY=null;const pages=()=>BY||(BY=build());
 albumAll=function(){return Object.values(pages()).flat().map(x=>x.t);};
 function fmtD(ts){try{const d=new Date(ts);return d.toLocaleDateString('uk-UA',{day:'numeric',month:'long'});}catch(e){return '';}}
-let AP={pg:null,open:null};
+let AP={pg:null,open:null};window.iurl=iurl;
 function pageDone(k){const L=pages()[k]||[],h=new Set(albumGet());return L.length>0&&L.every(x=>h.has(x.t));}
 function donePages(){return PAGES.filter(p=>pageDone(p[0]));}
 albumHTML=function(){const by=pages(),have=new Set(albumGet());const all=Object.values(by).flat();const got=all.filter(x=>have.has(x.t)).length;
@@ -4093,6 +4247,7 @@ const ARCS=['arc_rem1','arc_wed1','arc_boss1','arc_cat1'];
 {const _sr=setRes;setRes=function(c,d){_sr.apply(this,arguments);try{if(!S||!d)return;const i=S.turn;S.dlog=S.dlog||{};const L=S.dlog[i]=S.dlog[i]||{};L[S.day]=(L[S.day]||0)+(d.n||0)+(d.h||0)*0.5;}catch(e){}};}
 function grid(i){const p=S.players[i];const L=(S.dlog&&S.dlog[i])||{};let s='';for(let d=0;d<Math.min(S.D||5,20);d++){if(p.dead&&p.dead.d===d){s+='💀';break;}if(p.fell===d&&p.collector){s+='❌';break;}if(d>S.day)break;const v=L[d]||0;s+=v>=0?'🟩':v>-2?'🟨':'🟥';}if(p.dreamDone)s+='⭐';return s;}
 window.dayGrid=grid;
+{const _re0=renderEnd;renderEnd=function(){try{S.players.forEach(p=>{if(p.jar){p.money+=p.jar;p.jar=0;}});}catch(e){}return _re0.apply(this,arguments);};}
 {const _re=renderEnd;renderEnd=function(){const r=_re.apply(this,arguments);try{if(S&&S.shareText&&!S._gridDone){S._gridDone=1;const i=S.shareP||0;const g=grid(i);S.shareText=(S.daily?'':`Кривий Ріг · ${nm(S.players[i])} `)+g+'\n'+S.shareText;}lifeSave();}catch(e){}return r;};}
 // 📊 «Мій Кривий Ріг» — статистика за всі ігри
 function lifeGet(){try{return JSON.parse(localStorage.getItem('kr-life')||'{}');}catch(e){return {};}}
