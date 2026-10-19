@@ -437,6 +437,99 @@ main{width:calc(100vw / var(--fz,1));max-width:calc(480px / var(--fz,1));box-siz
 .chhero{display:flex;gap:12px;align-items:center;margin-bottom:6px}.chhero img,.chhero .ph{width:96px;height:96px;border-radius:12px;object-fit:cover;border:2px solid var(--ver)}.chhero div{display:flex;flex-direction:column;gap:4px;font-size:14px}
 .chbox p{line-height:1.4}.chact{position:sticky;bottom:-14px;background:var(--bg);padding:8px 0 2px;display:flex;flex-direction:column;gap:6px}.chact .btn{width:100%;margin:0}
 .calnav{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}.calnav button{background:rgba(255,255,255,.1);border:0;color:#fff;border-radius:10px;width:40px;height:32px;font-size:20px;cursor:pointer}
+/* === 1.052: ігровий екран без гортання === */
+body.gmode{overflow:hidden;overscroll-behavior:none}
+body.gmode main{padding-bottom:0}
+body.gmode #setbtn,body.setupscr #setbtn{display:none}
+.gl{display:flex;flex-direction:column;height:calc((100dvh - 22px - env(safe-area-inset-bottom,0px)) / var(--fz,1));min-height:0}
+.gtop{flex:none;position:relative;z-index:5;background:var(--bg);padding-bottom:6px;border-bottom:2px solid var(--line)}
+.gtop .rbanner{margin-bottom:6px}
+.gtop .who{flex-wrap:nowrap;gap:8px}
+.gtop .who img{width:40px;height:40px}
+.gtop .who h2{font-size:15px;line-height:1.15;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gtop .who>div{min-width:0;flex:1 1 auto}
+.gtop .who span{font-size:12px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gtop .who .snd{padding:3px 6px;font-size:15px;margin-left:4px!important}
+.gtop .who .snd[data-act=talk]{margin-left:auto!important}
+.gback{flex:none;width:36px;height:36px;border-radius:10px;border:2px solid var(--line);background:var(--panel);color:var(--text);font:700 18px/1 var(--body);cursor:pointer;padding:0}
+.gchips{display:flex;gap:6px;align-items:stretch;margin-top:6px;flex-wrap:wrap}
+.gchips .stats{display:flex;gap:6px;margin:0;flex:1 1 auto}
+.gchips .stat{display:flex;align-items:baseline;gap:4px;padding:3px 8px;border-radius:8px;cursor:pointer;flex:1 1 0;min-width:0;justify-content:center}
+.gchips .stat b{font-size:17px;display:inline}
+.gchips .stat span{font-size:11px;white-space:nowrap}
+.gchips .stat .q{display:none}
+.gchips .stat .fly{top:-12px}
+.gchip{flex:none;border:2px solid var(--line);background:var(--panel);color:var(--text);border-radius:8px;padding:3px 8px;font:600 13px var(--body);cursor:pointer;white-space:nowrap}
+.gchip.gdr{border-color:var(--sun)}
+.gplan{margin:6px 0 0!important;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+.gplan.open{white-space:normal}
+.gplan .q{display:none}
+.gmore{margin-top:6px}
+.gmore .note{margin:0 0 6px!important;font-size:13px}
+.gmore .week{margin-bottom:2px}
+.gbody{flex:1 1 auto;position:relative;min-height:0;overflow:hidden;margin-top:0}
+.gmap{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;background:#1F2350;padding-bottom:70px;box-sizing:border-box}
+.gmap .map{border-bottom:0}
+.gsheet{position:absolute;left:0;right:0;bottom:0;max-height:90%;overflow-y:auto;overscroll-behavior:contain;background:var(--bg);border-radius:18px 18px 0 0;box-shadow:0 -8px 24px rgba(0,0,0,.35);transition:transform .28s ease;z-index:4;padding:0 6px 10px;box-sizing:border-box}
+.gsheet.col{transform:translateY(calc(100% - 64px));overflow:hidden}
+.ggrip{position:sticky;top:0;z-index:3;background:var(--bg);padding:8px 4px 6px;text-align:center;cursor:pointer;touch-action:none}
+.ggrip i{display:block;width:44px;height:5px;border-radius:3px;background:var(--line);margin:0 auto}
+.gsum{display:none;font:700 15px/1.3 var(--display);margin-top:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gsheet.col .gsum{display:block}
+.gsheet.col .ggrip i::after{content:'';display:block}
+.gin .say{margin:2px 0 8px}
+.gin .last{margin:0 0 8px}
+.gin .poster{margin:0 0 10px}
+.gin .tools,.gin .detail{margin-bottom:10px}
+.gin .poster-in>.sky:first-child{border-top-left-radius:4px;border-top-right-radius:4px}
+.gin .btn-choice{padding-top:10px;padding-bottom:10px}
+.pin.here{box-shadow:0 0 0 0 rgba(255,193,59,.9);animation:ghere 1.6s ease-out infinite;z-index:3}
+.pin.dest{background:var(--sun);animation:gdest 1s ease-in-out infinite alternate;z-index:3}
+@keyframes ghere{0%{box-shadow:0 0 0 0 rgba(255,193,59,.95)}100%{box-shadow:0 0 0 14px rgba(255,193,59,0)}}
+@keyframes gdest{from{transform:translate(-50%,-50%) scale(1)}to{transform:translate(-50%,-50%) scale(1.12)}}
+.groute{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2;overflow:visible}
+.groute line{stroke:#FFC13B;stroke-width:4;stroke-dasharray:9 7;stroke-linecap:round;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 2px #1F2350);animation:groute 1s linear infinite}
+@keyframes groute{to{stroke-dashoffset:-16}}
+body.gmode .rtoast{top:calc(var(--gtop,80px) + 10px);bottom:auto;transform:translateX(-50%) translateY(-14px);font-size:13px;padding:8px 14px}
+body.gmode .rtoast.on{transform:translateX(-50%) translateY(0)}
+body.gmode #phnote{top:calc(var(--gtop,80px) + 6px);padding:7px 10px;border-radius:12px;font-size:13px;max-width:420px}
+@media (prefers-reduced-motion:reduce){.pin.here,.pin.dest,.groute line{animation:none}.gsheet{transition:none}}
+/* широкий екран: карта ліворуч, дії праворуч */
+@media (min-width:900px) and (orientation:landscape){
+ body.gmode main{max-width:calc(1180px / var(--fz,1))}
+ body.gmode .gbody{display:grid;grid-template-columns:minmax(0,1fr) 440px;gap:12px}
+ body.gmode .gmap{position:relative;inset:auto;border-radius:10px;padding-bottom:0}
+ body.gmode .gsheet{position:relative;max-height:none;height:100%;transform:none!important;overflow-y:auto!important;border-radius:12px;box-shadow:none;border:2px solid var(--line)}
+ body.gmode .ggrip{display:none}
+ body.gmode .gtop{max-width:none}
+}
+/* меню */
+.tscr .poster{width:fit-content;max-width:100%;margin:0 auto}
+.tscr .cover{width:auto;max-width:100%;max-height:calc(38dvh / var(--fz,1));margin:0 auto}
+.tscr .intro{margin:8px 0}
+.tscr .btn-main{margin-top:6px;margin-bottom:8px}
+.tgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tgrid .btn-choice{margin:0;padding:10px 8px;font-size:14px;line-height:1.25;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.tgrid .btn-choice small{font-size:11px;line-height:1.25;margin-top:3px}
+.tscr .foot{margin-top:10px}
+body.setupscr .topback{position:sticky;top:6px;z-index:30;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.stickcta{position:sticky;bottom:10px;z-index:30;box-shadow:0 -2px 0 var(--bg),0 6px 18px rgba(0,0,0,.28)}
+.stickcta:disabled{opacity:1;background:#E9D9B6;color:#8a7d66}
+.gsheet[data-ph=travel],.gsheet[data-ph=oblig]{max-height:72%}
+.gin .poster{padding:5px}
+.gin .sky{padding:10px 14px 10px}
+.gin .card-title{font-size:22px;line-height:1.15}
+.gin .kicker{font-size:12px}
+.gin .panel{padding:10px 12px}
+.gin .panel>p{margin:0 0 8px}
+.gin .btn{margin-bottom:8px}
+.gin .btn-choice{padding:8px 12px;font-size:15px}
+.gin .btn-choice small{font-size:12px;line-height:1.3}
+.gmore .gtalk{margin-top:4px;font-weight:500}
+.gsheet.col .gin{visibility:hidden}
+.gchips .stat .glab{display:none}
+.gico{font-style:normal;font-size:14px;line-height:1}
+.gmore .gtalk{margin-right:6px}
 </style>
 </head>
 <body>
@@ -1263,7 +1356,7 @@ function mapHTML(target,click){
   const wx=weather();const mimg=S.season==='winter'?IMG.map_winter:S.season==='mid'?IMG.map_rain:IMG.map;
   return `<div class="map"><img class="m" src="${mimg}" alt="Карта Кривого Рогу">${wx?`<div class="wx ${wx}" aria-hidden="true"></div>`:''}${DLABELS.map(l=>`<div class="dlabel${l.water?' water':''}" style="left:${l.x}%;top:${l.y}%;width:${l.w}%;height:${l.h}%">${l.t}</div>`).join('')}${banner?`<div class="pin" style="left:50%;top:5%;background:var(--sun)">${banner}</div>`:''}${Object.entries(LOCS).map(([k,l])=>{
     const tag=md.loc===k&&md.k==='cheap'?' −20%':md.loc===k&&md.k==='closed'?' 🚫':'';const inner=`${l.n}${tag}${(at[k]||[]).map(p=>portrait(p.id)).join('')}`;
-    return click&&!(md.k==='closed'&&md.loc===k)?`<button class="pin${k===target?' target':''}${tag?' target':''}" data-goto="${k}" style="left:${l.x}%;top:${l.y}%">${inner}</button>`:`<div class="pin${k===target?' target':''}${tag?' target':''}" style="left:${l.x}%;top:${l.y}%">${inner}</div>`;}).join('')}</div>`;
+    return click&&!(md.k==='closed'&&md.loc===k)?`<button class="pin${k===target?' target':''}${tag?' target':''}" data-goto="${k}" data-loc="${k}" style="left:${l.x}%;top:${l.y}%">${inner}</button>`:`<div class="pin${k===target?' target':''}${tag?' target':''}" data-loc="${k}" style="left:${l.x}%;top:${l.y}%">${inner}</div>`;}).join('')}</div>`;
 }
 function tableHTML(){
   return `<table class="table">${S.players.map(p=>`<tr><td>${portrait(p.id)}${nm(p)}${p.collector?' (колектор)':''}</td>
@@ -1321,7 +1414,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.051 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.052 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2211,7 +2304,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.051 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.052 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -4367,6 +4460,23 @@ appTasks=function(){const i=phI(),p=S.players[i];const B=(p.bills||[]).filter(b=
   if(S.sub===0&&T.length>1)return `План на сьогодні: спершу ${LN(T[0].loc)} (${T[0].item}), потім ${T.slice(1,3).map(t=>LN(t.loc)+' ('+t.item+')').join(', ')}. Поїхали!`;
   return GX(p,`Ой, я ж [обіцяв|обіцяла]: ${T[0].item}! Треба в ${LN(T[0].loc)}${T[0].by!=null&&T[0].until===S.day?' до обіду':T[0].until===S.day?' сьогодні':''}.`);}}catch(e){}return '';};}
 
+// --- 1.052: 🎯 мрія переїхала в телефон ---
+function dreamInfo(p){if(!p||p.collector)return null;
+ if(S.family){const cost=Math.round(S.players.reduce((s,q)=>s+q.dreamCost,0)*0.6/10)*10;const have=S.famMoney||0;return {fam:1,t:'Всією сімʼєю на море',cost,have,zp:0,need:cost,pct:Math.max(0,Math.min(100,Math.round(have/cost*100))),done:p.dreamDone};}
+ const zp=payAmt(p,payKind())+futurePay(p);const have=p.money+(p.jar||0);const cost=p.dreamCost;
+ return {t:p.dream.t,cost,have,jar:p.jar||0,zp,need:Math.max(0,cost-zp),pct:Math.max(0,Math.min(100,Math.round((have+zp)/cost*100))),done:p.dreamDone};}
+window.dreamInfo=dreamInfo;
+function appDream(p){const d=dreamInfo(p);if(!d)return head('🎯 Мрія')+'<div class="phsec"><p>Колектору не до мрій. Спершу треба вибратися з боргів.</p></div>';
+ const ok=d.have>=d.need;
+ return head('🎯 Таємна мрія')+`<div class="phsec"><h4>${d.t}</h4><div class="sgbar"><i style="width:${d.pct}%"></i></div><p><b>${d.pct}%</b> шляху${d.done?' · ✅ здійснено!':''}</p></div>`+
+  (d.fam?`<div class="phsec"><p>Коштує <b>${d.cost} грн</b>. У гаманці родини ${d.have} грн. Домовляйтесь, на що витрачати.</p></div>`:
+  `<div class="phsec"><p>Коштує <b>${d.cost} грн</b>.</p><p>До кінця гри прийде ще <b>${d.zp} грн</b> виплат.</p><p>Тож відкласти треба <b>${d.need} грн</b>.</p><p>Зараз маєш ${p.money} грн${d.jar?' + '+d.jar+' у скарбничці':''}: ${ok?'<b>поки вистачає!</b>':'не вистачає <b>'+(d.need-d.have)+' грн</b>.'}</p></div>
+  <div class="phsec"><p style="opacity:.8">Мрія здійсниться сама в день останньої зарплати, якщо грошей вистачить. Не забувай про вечері й рахунки.</p></div>`);}
+{const _ah=appHome;appHome=function(){return _ah().replace('<button data-ph="app" data-a="bank">','<button data-ph="app" data-a="dream"><span class="phai">🎯</span><small>Мрія</small></button><button data-ph="app" data-a="bank">');};}
+{const _h=phHTML;phHTML=function(){if(PH.app==='dream'){const i=phI(),p=S.players[i];const b=bat(p);
+  return `<div class="phone"><div class="phbar"><span>${clock()}</span><span>Кривбас-Звʼязок</span><span class="${b<=20?'low':''}">${b}% 🔋</span></div><div class="phscr">${appDream(p)}</div><div class="phnav"><button data-ph="home" aria-label="Додому"></button></div><button class="phx" data-ph="close" aria-label="Закрити">✕</button></div>`;}
+ return _h.apply(this,arguments);};}
+
 })();
 
 // === 1.045: 📒 Альбом наліпок ===
@@ -4692,6 +4802,119 @@ document.addEventListener&&document.addEventListener('click',e=>{const b=e.targe
 // вибір тварини у вікні: гра сама перемальовує, вікно лишається
 document.addEventListener&&document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('#chov [data-petpick]');if(!b)return;e.stopPropagation();e.preventDefault();
  const [k,br]=b.dataset.petpick.split('-');setup.pets[OPEN]=k;if(k!=='none')setup.breeds[OPEN]=br;renderSetup();},true);
+})();
+
+// === 1.052: Ігровий екран без гортання — шапка, шторка, маршрут, «ти тут» ===
+(function(){
+const GPH=new Set(['turn','oblig','free','result','go','travel','haggle','loan','evening']);
+const BACKA=['goback','loancancel','nobuy'];
+let SHK='',SHC=null;
+function meIdx(){return S.room&&typeof meI==='function'?meI():S.turn;}
+function off(){if(document.body&&document.body.classList){document.body.classList.remove('gmode');}}
+function sheetKey(){return [S.phase,S.day,S.sub||0,S.turn,S.pending&&S.pending.target||'',S.ev&&S.ev.t||''].join('|');}
+function setTop(){try{const t=app.querySelector('.gtop');if(t)document.documentElement.style.setProperty('--gtop',Math.round(t.getBoundingClientRect().bottom)+'px');}catch(e){}}
+function gl(){
+ if(!S||!S.players||!app||!app.querySelector||SIM)return off();
+ const who=app.querySelector('.who');
+ if(!who||who.parentElement!==app||!GPH.has(S.phase)||!app.querySelector('.poster'))return off();
+ const p=S.players[meIdx()]||cur();if(!p)return off();
+ document.body.classList.add('gmode');
+ const kids=[...app.children];
+ const top=document.createElement('div');top.className='gtop';
+ const more=document.createElement('div');more.className='gmore';
+ const body=document.createElement('div');body.className='gbody';
+ const mapw=document.createElement('div');mapw.className='gmap';
+ const sh=document.createElement('div');sh.className='gsheet';
+ const inner=document.createElement('div');inner.className='gin';
+ let stats=null,plan=null,dreamH='',say=[],card=null,rest=[];
+ kids.forEach((el,i)=>{const c=el.classList||{contains:()=>false};const tx=el.textContent||'';
+  if(c.contains('rbanner')){top.appendChild(el);return;}
+  if(el===who)return;
+  if(c.contains('stats')){stats=el;return;}
+  if(c.contains('week')){more.appendChild(el);return;}
+  if(el.tagName==='P'&&c.contains('last')&&el.nextElementSibling&&el.nextElementSibling.classList.contains('week')){more.appendChild(el);return;}
+  if(el.tagName==='P'&&c.contains('note')&&/^\s*📋/.test(tx)){plan=el;return;}
+  if(el.tagName==='P'&&c.contains('note')&&/^\s*💡/.test(tx)){more.insertBefore(el,more.firstChild);return;}
+  if(c.contains('detail')&&/^(Таємна мрія|👨‍👩‍👧 Спільна мрія)/.test((el.querySelector('h3')||{}).textContent||'')){dreamH=el.outerHTML;el.remove();return;}
+  if(el.tagName==='DETAILS'&&/Карта міста/.test((el.querySelector('summary')||{}).textContent||'')){el.remove();return;}
+  if(c.contains('say')||(el.tagName==='P'&&c.contains('last'))){say.push(el);return;}
+  if(!card&&(c.contains('poster')||el.querySelector&&el.querySelector(':scope > .poster'))){card=el;return;}
+  rest.push(el);});
+ // шапка
+ const span=who.querySelector(':scope > div > span');
+ if(span){let d='';try{d=window.gameDate&&window.fmtDate?window.fmtDate(window.gameDate(S.day)):'';}catch(e){}
+  span.textContent=(S.weekend?'Вихідні':dayName(S.day).replace(/\s*\(.*\)/,''))+(d?', '+d:'')+' · 📍 '+LOCS[p.pos].n;}
+ const bk=[...app.querySelectorAll('button[data-act]')].find(b=>BACKA.includes(b.dataset.act));
+ if(bk){const g=document.createElement('button');g.className='gback';g.setAttribute('aria-label','Назад');g.textContent='←';g.addEventListener('click',e=>{e.stopPropagation();bk.click();});who.insertBefore(g,who.firstChild);}
+ const tk=who.querySelector('[data-act=talk]');if(tk){tk.className='gchip gtalk';tk.removeAttribute('style');tk.textContent=(talkOn()?'💬 Коментарі персонажів: увімк.':'🤐 Коментарі персонажів: вимк.');more.appendChild(tk);}const mu=who.querySelector('[data-act=mute]');if(mu){mu.className='gchip gtalk';mu.removeAttribute('style');mu.textContent=muted()?'🔇 Звук: вимк.':'🔊 Звук: увімк.';more.appendChild(mu);}
+ const set=document.createElement('button');set.className='snd gset';set.setAttribute('aria-label','Налаштування');set.textContent='⚙';set.addEventListener('click',e=>{e.stopPropagation();if(typeof settingsOpen==='function')settingsOpen();});who.appendChild(set);
+ top.appendChild(who);
+ const chips=document.createElement('div');chips.className='gchips';
+ if(stats){const IC={money:'💰',wallet:'👛',nerves:p.nerves<=2?'😵':'😌',happy:'😊'};stats.querySelectorAll('.stat').forEach(s=>{const q=s.querySelector('.q');const k=q&&q.dataset.help;const sp=s.querySelector(':scope > span');if(k&&IC[k]){s.insertAdjacentHTML('afterbegin',`<i class="gico" aria-hidden="true">${IC[k]}</i>`);if(sp){sp.classList.add('glab');}s.setAttribute('aria-label',(sp?sp.textContent:k)+': '+(s.querySelector('b')||{}).textContent);}});chips.appendChild(stats);}
+ const wkt=S.weekend?'Вихідні':(SHORT[wd()]+(S.W>1?' · тиж. '+(wk()+1)+'/'+S.W:''));
+ chips.insertAdjacentHTML('beforeend',`<button class="gchip gwk" aria-expanded="false">📅 ${wkt}</button>`);
+ const di=window.dreamInfo?window.dreamInfo(p):null;
+ if(di)chips.insertAdjacentHTML('beforeend',`<button class="gchip gdr" aria-label="Таємна мрія">🎯 ${di.done?'✅':di.pct+'%'}</button>`);
+ if(more.firstChild&&/💡/.test(more.firstChild.textContent||''))chips.querySelector('.gwk').innerHTML+=' · 💡';
+ top.appendChild(chips);
+ if(plan){plan.classList.add('gplan');top.appendChild(plan);}
+ if(more.childNodes.length){more.hidden=true;top.appendChild(more);}
+ // карта
+ let map=card&&card.querySelector('.map');
+ if(map)map.remove();else{const t=document.createElement('div');t.innerHTML=mapHTML(S.pending&&S.phase==='travel'?S.pending.target:null,false);map=t.firstElementChild;}
+ mapw.appendChild(map);
+ const here=map.querySelector(`[data-loc="${p.pos}"]`);if(here)here.classList.add('here');
+ let dest=null;
+ if(S.phase==='travel'&&S.pending&&S.pending.target)dest=S.pending.target;
+ else if(S.phase==='oblig'&&p.plan&&p.plan.s)dest=p.plan.s[0];
+ if(dest&&dest!==p.pos&&LOCS[dest]&&LOCS[p.pos]){const a=LOCS[p.pos],b=LOCS[dest];
+  map.insertAdjacentHTML('beforeend',`<svg class="groute" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}"/></svg>`);
+  const dp=map.querySelector(`[data-loc="${dest}"]`);if(dp)dp.classList.add('dest');}
+ // шторка
+ const sky=card&&card.querySelector('.sky .card-title');
+ const ttl=S.phase==='go'?'Куди сьогодні? Тапни місце на карті':sky?sky.textContent:'';
+ sh.dataset.ph=S.phase;sh.innerHTML=`<div class="ggrip" role="button" tabindex="0" aria-label="Згорнути або розгорнути"><i></i><span class="gsum">${ttl}</span></div>`;
+ say.forEach(e=>inner.appendChild(e));if(card)inner.appendChild(card);rest.forEach(e=>inner.appendChild(e));
+ if(S.phase==='go'){const lst=inner.querySelector('.panel');if(lst)lst.classList.add('glist');}
+ sh.appendChild(inner);
+ body.appendChild(mapw);body.appendChild(sh);
+ const gl=document.createElement('div');gl.className='gl';gl.appendChild(top);gl.appendChild(body);
+ app.innerHTML='';app.appendChild(gl);
+ app._dream=dreamH;
+ const k=sheetKey();let col=(k===SHK&&SHC!=null)?SHC:(S.phase==='go');SHK=k;SHC=col;
+ sh.classList.toggle('col',col);
+ wire(sh,mapw,map,here,dest);
+ setTop();const fm=()=>{setTop();focusMap(mapw,map,here,dest,sh);};requestAnimationFrame(fm);const im=map.querySelector('img.m');if(im&&!im.complete)im.addEventListener('load',fm,{once:true});else if(im&&im.decode)im.decode().then(fm).catch(()=>{});
+}
+function focusMap(mapw,map,here,dest,sh){try{const pts=[here,dest&&map.querySelector(`[data-loc="${dest}"]`)].filter(Boolean);if(!pts.length)return;
+ const mr=map.getBoundingClientRect();const ys=pts.map(e=>{const r=e.getBoundingClientRect();return r.top+r.height/2-mr.top;});const cy=(Math.min(...ys)+Math.max(...ys))/2;
+ const side=getComputedStyle(sh).position!=='absolute';const vis=side?mapw.clientHeight:mapw.clientHeight-(sh.classList.contains('col')?64:sh.offsetHeight);
+ const z=mr.height/(map.offsetHeight||mr.height)||1;mapw.scrollTop=Math.max(0,cy/z-Math.max(80,vis)/2);}catch(e){}}
+function wire(sh,mapw,map,here,dest){const grip=sh.querySelector('.ggrip');
+ const tog=v=>{SHC=v==null?!sh.classList.contains('col'):v;sh.classList.toggle('col',SHC);if(SHC)sh.scrollTop=0;setTimeout(()=>focusMap(mapw,map,here,dest,sh),260);};
+ grip.addEventListener('click',e=>{e.stopPropagation();tog();});
+ grip.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tog();}});
+ let y0=null,t0=0;
+ sh.addEventListener('touchstart',e=>{const onGrip=e.target.closest('.ggrip');if(!onGrip&&sh.scrollTop>0&&!sh.classList.contains('col'))return y0=null;y0=e.touches[0].clientY;t0=Date.now();},{passive:true});
+ sh.addEventListener('touchend',e=>{if(y0==null)return;const dy=e.changedTouches[0].clientY-y0;y0=null;if(Date.now()-t0>800)return;
+  if(dy>45&&!sh.classList.contains('col'))tog(true);else if(dy<-45&&sh.classList.contains('col'))tog(false);},{passive:true});
+ // тап по карті при згорнутій шторці на інших екранах нічого не ламає; тап по "ти тут" розгортає
+}
+// чипи шапки
+document.addEventListener&&document.addEventListener('click',e=>{const t=e.target;if(!t.closest)return;
+ const st=t.closest('.gtop .stat');if(st&&!t.closest('.q')){const q=st.querySelector('.q');if(q){e.stopPropagation();q.click();}return;}
+ if(t.closest('.gtop .gwk')){const m=app.querySelector('.gmore'),b=t.closest('.gwk');if(m){m.hidden=!m.hidden;b.setAttribute('aria-expanded',String(!m.hidden));setTop();}e.stopPropagation();return;}
+ if(t.closest('.gtop .gdr')){e.stopPropagation();if(typeof window.phOpen==='function')window.phOpen('dream');return;}
+ if(t.closest('.gtop .gplan')&&!t.closest('.q')){t.closest('.gplan').classList.toggle('open');setTop();}},true);
+window.addEventListener&&window.addEventListener('resize',()=>{if(document.body.classList.contains('gmode'))setTop();});
+{const _r=render;render=function(){_r.apply(this,arguments);try{gl();}catch(e){off();if(typeof console!=='undefined')console.error(e);}};}
+// меню: головний екран без гортання, липкі «Назад» і «Далі»
+{const _rs=renderSetup;renderSetup=function(){const r=_rs.apply(this,arguments);try{off();const st=setup.step||'title';app.classList.toggle('tscr',st==='title');
+ if(st==='title'){const bs=[...app.querySelectorAll(':scope > .btn-choice')];if(bs.length){const g=document.createElement('div');g.className='tgrid';bs[0].before(g);bs.forEach(b=>g.appendChild(b));}}
+ const cta=app.querySelector('[data-act=startgame]')||app.querySelector('.btn-main[data-step=chars]')||(st==='rules'&&app.querySelector('.btn-main[data-step=modes]'));
+ if(cta){cta.classList.add('stickcta');}
+ document.body.classList.toggle('setupscr',st!=='title');}catch(e){}return r;};}
+{const _r=render;render=function(){_r.apply(this,arguments);try{if(S)document.body.classList.remove('setupscr');if(!S||!S.players)app.classList.toggle('tscr',!S&&(setup.step||'title')==='title');else app.classList.remove('tscr');}catch(e){}};}
 })();
 
 render();
