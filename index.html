@@ -577,6 +577,46 @@ body.gmode #albpop{top:calc(var(--gtop,80px) + 10px);bottom:auto;left:auto;right
 .gsheet[data-ph=travel] .btn-choice{font-size:14px}
 .gcard .art{height:calc(19dvh / var(--fz,1))}
 .gcard .say .bub{font-size:14px;line-height:1.35}
+/* 1.054: карта за кнопкою */
+.gmapbtn{position:relative;flex:none;width:40px;height:40px;border-radius:10px;border:2px solid var(--ind);background:var(--panel);font-size:20px;cursor:pointer;padding:0;line-height:1}
+.gmapbtn i{display:none;position:absolute;top:-4px;right:-4px;width:12px;height:12px;border-radius:50%;background:var(--sun);border:2px solid var(--bg)}
+.gmapbtn.new{border-color:var(--sun);animation:gmglow 1.6s ease-in-out infinite}
+.gmapbtn.new i{display:block}
+@keyframes gmglow{0%,100%{box-shadow:0 0 0 0 rgba(255,193,59,.0)}50%{box-shadow:0 0 0 6px rgba(255,193,59,.45)}}
+.minibar .gmapbtn{margin-left:4px}
+.gmapopen{margin:0 0 10px!important}
+.btn.gmapopen.btn-ghost{background:rgba(245,231,207,.12);color:var(--cream);border-color:rgba(245,231,207,.4)}
+.glist{display:flex;flex-direction:column}
+.ghd{margin:10px 0 6px;font:700 13px var(--body);color:#FFE3B0;letter-spacing:.02em}
+.glist .grow{margin-bottom:6px;padding:8px 12px}
+.gtags{float:right;font-size:13px;margin-left:6px}
+#gmapov{position:fixed;inset:0;z-index:300;background:rgba(20,16,40,.82);display:none;align-items:stretch;justify-content:center}
+#gmapov.on{display:flex}
+.gmbox{zoom:var(--fz,1);width:calc(100vw / var(--fz,1));max-width:calc(620px / var(--fz,1));height:calc(100dvh / var(--fz,1));display:flex;flex-direction:column;background:#1F2350;color:#F5E7CF;position:relative}
+.gmhead{display:flex;align-items:center;gap:8px;padding:10px 12px;background:var(--ind);flex:none}
+.gmhead b{font-family:var(--display);font-size:17px;white-space:nowrap}
+.gmhead span{font-size:12px;opacity:.85;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gmx{flex:none;width:38px;height:38px;border-radius:50%;border:2px solid rgba(245,231,207,.5);background:transparent;color:#F5E7CF;font-size:18px;cursor:pointer}
+.gmhint{margin:0;padding:6px 12px;background:var(--sun);color:#1F2350;font-weight:700;font-size:14px;text-align:center;flex:none}
+.gmscroll{flex:1;overflow:auto;-webkit-overflow-scrolling:touch;min-height:0}
+.gmscroll .map{border:0}
+.gmleg{flex:none;font-size:12px;padding:6px 12px 8px;opacity:.9;line-height:1.5}
+.gminfo{position:absolute;left:8px;right:8px;bottom:8px;background:var(--bg);color:var(--text);border-radius:14px;padding:12px 14px;box-shadow:0 -6px 24px rgba(0,0,0,.45);z-index:5}
+.gminfo b{font-family:var(--display);font-size:18px}
+.gminfo small{display:block;font-size:13px;color:var(--muted);margin-top:3px}
+.gmgo{display:flex;gap:8px;margin-top:10px}
+.gmgo .btn{margin:0;flex:1}
+.gmk{font-style:normal;font-size:10px;margin-left:2px}
+.pin.gpick{cursor:pointer;box-shadow:0 0 0 2px rgba(255,193,59,.7)}
+.pin.sel{background:var(--sun);transform:translate(-50%,-50%) scale(1.15);z-index:4}
+.groute line.oth{stroke:#7FD3FF;stroke-width:3;stroke-dasharray:4 6;opacity:.9}
+@media (min-width:900px) and (orientation:landscape){body.gmode .gcard{max-width:680px}}
+body.gmapon #phnote{top:auto;bottom:12px}
+body.gmapon #albpop{top:auto;bottom:90px;right:auto;left:12px}
+.minibar{min-width:0}
+.minibar b,.minibar span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.minibar span{flex:1 1 auto}
+.minibar b{flex:0 1 auto}
 </style>
 </head>
 <body>
@@ -1461,7 +1501,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.053 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.054 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2351,7 +2391,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.053 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.054 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -4851,7 +4891,7 @@ document.addEventListener&&document.addEventListener('click',e=>{const b=e.targe
  const [k,br]=b.dataset.petpick.split('-');setup.pets[OPEN]=k;if(k!=='none')setup.breeds[OPEN]=br;renderSetup();},true);
 })();
 
-// === 1.052: Ігровий екран без гортання — шапка, шторка, маршрут, «ти тут» ===
+// === 1.054: Ігровий екран — шапка, картка на весь екран, карта за кнопкою 🗺 ===
 (function(){
 const GPH=new Set(['turn','oblig','free','result','go','travel','haggle','loan','evening']);
 const BACKA=['goback','loancancel','nobuy'];
@@ -4906,62 +4946,90 @@ function gl(){
  top.appendChild(chips);
  if(plan){plan.classList.add('gplan');top.appendChild(plan);}
  if(more.childNodes.length){more.hidden=true;top.appendChild(more);}
- const MAPPH=S.phase==='go'||S.phase==='travel'||S.phase==='oblig';
- if(!MAPPH){const sc=document.createElement('div');sc.className='gcard';say.forEach(e=>sc.appendChild(e));if(card)sc.appendChild(card);rest.forEach(e=>sc.appendChild(e));body.classList.add('nomap');body.appendChild(sc);
-  const gl2=document.createElement('div');gl2.className='gl';gl2.appendChild(top);gl2.appendChild(body);app.innerHTML='';app.appendChild(gl2);app._dream=dreamH;SHK=sheetKey();
-  setTop();requestAnimationFrame(setTop);return;}
- // карта
- let map=card&&card.querySelector('.map');
- if(map)map.remove();else{const t=document.createElement('div');t.innerHTML=mapHTML(S.pending&&S.phase==='travel'?S.pending.target:null,false);map=t.firstElementChild;}
- mapw.appendChild(map);
- const here=map.querySelector(`[data-loc="${p.pos}"]`);if(here)here.classList.add('here');
- let dest=null;
- if(S.phase==='travel'&&S.pending&&S.pending.target)dest=S.pending.target;
- else if(S.phase==='oblig'&&p.plan&&p.plan.s)dest=p.plan.s[0];
- if(dest&&dest!==p.pos&&LOCS[dest]&&LOCS[p.pos]){const a=LOCS[p.pos],b=LOCS[dest];
-  map.insertAdjacentHTML('beforeend',`<svg class="groute" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}"/></svg>`);
-  const dp=map.querySelector(`[data-loc="${dest}"]`);if(dp)dp.classList.add('dest');}
- // шторка
- const sky=card&&card.querySelector('.sky .card-title');
- const ttl=S.phase==='go'?'Куди сьогодні? Тапни місце на карті':sky?sky.textContent:'';
- sh.dataset.ph=S.phase;sh.innerHTML=`<div class="ggrip" role="button" tabindex="0" aria-label="Згорнути або розгорнути"><i></i><span class="gsum">${ttl}</span></div>`;
- say.forEach(e=>inner.appendChild(e));if(card)inner.appendChild(card);rest.forEach(e=>inner.appendChild(e));
- if(S.phase==='go'){const lst=inner.querySelector('.panel');if(lst)lst.classList.add('glist');}
- sh.appendChild(inner);
- body.appendChild(mapw);body.appendChild(sh);
- const gl=document.createElement('div');gl.className='gl';gl.appendChild(top);gl.appendChild(body);
- app.innerHTML='';app.appendChild(gl);
- app._dream=dreamH;
- const k=sheetKey();let col=(k===SHK&&SHC!=null)?SHC:(S.phase==='go');SHK=k;SHC=col;
- sh.classList.toggle('col',col);
- wire(sh,mapw,map,here,dest);
- setTop();const fm=()=>{setTop();focusMap(mapw,map,here,dest,sh);};requestAnimationFrame(fm);const im=map.querySelector('img.m');if(im&&!im.complete)im.addEventListener('load',fm,{once:true});else if(im&&im.decode)im.decode().then(fm).catch(()=>{});
+ // кнопка карти в шапці (біля телефона)
+ const mb=document.createElement('button');mb.className='gmapbtn'+(mapNew(p)?' new':'');mb.setAttribute('aria-label','Карта міста');mb.innerHTML='🗺<i></i>';
+ const phb=who.querySelector('.phbtn');if(phb)phb.after(mb);else who.insertBefore(mb,set);
+ // картка на весь екран; карта — тільки за кнопкою
+ const sc=document.createElement('div');sc.className='gcard';say.forEach(e=>sc.appendChild(e));if(card)sc.appendChild(card);rest.forEach(e=>sc.appendChild(e));
+ const om=card&&card.querySelector('.poster-in > .map');if(om)om.remove();
+ const panel=card&&card.querySelector('.panel');
+ if(panel){
+  if(S.phase==='go'){goList(p,panel);}
+  else if(S.phase==='travel'||S.phase==='oblig'){panel.insertAdjacentHTML('afterbegin',`<button class="btn btn-ghost gmapopen" data-gmap="1">🗺 ${S.phase==='travel'?'Показати маршрут':'Показати на карті'}</button>`);}
+ }
+ body.classList.add('nomap');body.appendChild(sc);
+ const gl2=document.createElement('div');gl2.className='gl';gl2.appendChild(top);gl2.appendChild(body);app.innerHTML='';app.appendChild(gl2);app._dream=dreamH;
+ setTop();requestAnimationFrame(setTop);
 }
-function focusMap(mapw,map,here,dest,sh){try{const pts=[here,dest&&map.querySelector(`[data-loc="${dest}"]`)].filter(Boolean);if(!pts.length)return;
- const mr=map.getBoundingClientRect();const ys=pts.map(e=>{const r=e.getBoundingClientRect();return r.top+r.height/2-mr.top;});const cy=(Math.min(...ys)+Math.max(...ys))/2;
- const side=getComputedStyle(sh).position!=='absolute';const vis=side?mapw.clientHeight:mapw.clientHeight-(sh.classList.contains('col')?64:sh.offsetHeight);
- const z=mr.height/(map.offsetHeight||mr.height)||1;mapw.scrollTop=Math.max(0,cy/z-Math.max(80,vis)/2);}catch(e){}}
-function wire(sh,mapw,map,here,dest){const grip=sh.querySelector('.ggrip');
- let dy0=null,base=0,cur0=0,moved=false;const span=()=>Math.max(0,sh.offsetHeight-64);
- const dstart=y=>{dy0=y;moved=false;base=sh.classList.contains('col')?span():0;cur0=base;sh.style.transition='none';};
- const dmove=y=>{if(dy0==null)return;const d=y-dy0;if(Math.abs(d)>6)moved=true;cur0=Math.max(0,Math.min(span(),base+d));sh.style.transform=`translateY(${cur0}px)`;};
- const dend=()=>{if(dy0==null)return;dy0=null;sh.style.transition='';sh.style.transform='';if(!moved)return;const c=cur0>span()/2;SHC=c;sh.classList.toggle('col',c);if(c)sh.scrollTop=0;sh._drag=Date.now();setTimeout(()=>focusMap(mapw,map,here,dest,sh),300);};
- const zone=sh.querySelector('.ggrip');const sky=sh.querySelector('.gin .poster .sky');
- [zone,sky].filter(Boolean).forEach(z=>{z.addEventListener('touchstart',e=>dstart(e.touches[0].clientY),{passive:true});z.addEventListener('touchmove',e=>{if(dy0!=null){e.preventDefault();dmove(e.touches[0].clientY);}},{passive:false});z.addEventListener('touchend',dend);z.addEventListener('touchcancel',dend);});
- const tog=v=>{SHC=v==null?!sh.classList.contains('col'):v;sh.classList.toggle('col',SHC);if(SHC)sh.scrollTop=0;setTimeout(()=>focusMap(mapw,map,here,dest,sh),260);};
- grip.addEventListener('click',e=>{e.stopPropagation();if(sh._drag&&Date.now()-sh._drag<400)return;tog();});
- grip.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tog();}});
-
- // тап по карті при згорнутій шторці на інших екранах нічого не ламає; тап по "ти тут" розгортає
-}
+// --- позначки місць ---
+function pendTasks(p){return (p.tasks||[]).filter(t=>!t.done&&!t.failed&&t.loc&&(t.until==null||t.until>=S.day));}
+function marks(p,k){const m=[];if(p.plan&&!S.weekend&&p.plan.s.includes(k)&&!p.plan.done.includes(k))m.push('📋');if(pendTasks(p).some(t=>t.loc===k))m.push('📌');
+ if(typeof closedLoc==='function'&&closedLoc(k))m.push('🚫');if(S.mod&&S.mod.k==='cheap'&&S.mod.loc===k)m.push('−20%');return m;}
+function locInfo(p,k){const d=dist(p.pos,k);if(!d)return {d:0,t:'ти тут'};try{const t=travelOpts(p,k);const b=t.opts.find(o=>o.k==='bus'),w=t.opts.find(o=>o.k==='walk');return {d,t:`${d} зуп. · пішки ${fmt(w.d)} · маршрутка ${-b.d.m} грн`};}catch(e){return {d,t:d+' зуп.'};}}
+// --- «Куди сьогодні?»: групи, позначки, кнопка карти ---
+function goList(p,panel){const bs=[...panel.querySelectorAll('button[data-goto]')];if(!bs.length)return;
+ const home=HOME[p.id];const G={a:[],b:[],c:[]};
+ bs.forEach(b=>{const key=b.dataset.goto;const loc=key==='home'?home:key;const mk=marks(p,loc);const d=dist(p.pos,loc);
+  const nmEl=b.childNodes[0];const sm=b.querySelector('small');
+  if(mk.length){const tg=document.createElement('span');tg.className='gtags';tg.textContent=mk.filter(x=>x!=='📋'||!/📋/.test(b.textContent)).join(' ');if(tg.textContent)b.insertBefore(tg,sm);}
+  b.classList.add('grow');(mk.some(x=>x==='📋'||x==='📌')?G.a:d<=2?G.b:G.c).push([d,b]);});
+ const lst=document.createElement('div');lst.className='glist';bs[0].before(lst);
+ [['a','📋 За планом і дорученнями'],['b','🚶 Поруч'],['c','🚌 Далі']].forEach(([k,h])=>{if(!G[k].length)return;lst.insertAdjacentHTML('beforeend',`<h4 class="ghd">${h}</h4>`);G[k].sort((x,y)=>x[0]-y[0]).forEach(x=>lst.appendChild(x[1]));});
+ lst.insertAdjacentHTML('beforebegin',`<button class="btn btn-main gmapopen" data-gmap="go">🗺 Обрати на карті</button>`);}
+// --- кнопка карти «світиться», коли на карті щось нове ---
+function mapSig(p){return [S.hol||'',typeof weather==='function'?weather():'',S.mod?(S.mod.k||'')+(S.mod.loc||''):'',pendTasks(p).map(t=>t.loc).sort().join(',')].join('|');}
+function mapNew(p){return p._msig!==mapSig(p);}
+// --- карта на весь екран ---
+const WXN={snow:'❄️ сніг',rain:'🌧 дощ',heat:'☀️ спека'};
+function routeOf(i){const q=S.players[i];if(!q)return null;let tg=null;
+ if(i===S.turn&&S.phase==='travel'&&S.pending)tg=S.pending.target;
+ else{const c=S.ctx&&S.ctx[i];if(c&&c.phase==='travel'&&c.pending)tg=c.pending.target;}
+ return tg&&tg!==q.pos&&LOCS[tg]?{from:q.pos,to:tg}:null;}
+function mapOpen(mode){if(!S||!S.players)return;const me=meIdx();const p=S.players[me];if(!p)return;p._msig=mapSig(p);
+ const b=document.querySelector('.gmapbtn');if(b)b.classList.remove('new');
+ let ov=document.getElementById('gmapov');if(!ov){ov=document.createElement('div');ov.id='gmapov';document.body.appendChild(ov);ov.addEventListener('click',mapClick);}
+ const wx=typeof weather==='function'?WXN[weather()]||'':'';let dt='';try{dt=window.gameDate&&window.fmtDate?window.fmtDate(window.gameDate(S.day)):'';}catch(e){}
+ const hol=S.hol&&HOL[S.hol]?HOL[S.hol].t:'';
+ const go=S.phase==='go'&&!!app.querySelector('button[data-goto]');
+ const tgt=routeOf(me);
+ let h=mapHTML(tgt?tgt.to:null,false);
+ const box=document.createElement('div');box.innerHTML=h;const map=box.firstElementChild;
+ Object.keys(LOCS).forEach(k=>{const pin=map.querySelector(`[data-loc="${k}"]`);if(!pin)return;const mk=marks(p,k).filter(x=>x!=='−20%'&&x!=='🚫');if(mk.length)pin.insertAdjacentHTML('beforeend',`<i class="gmk">${mk.join('')}</i>`);if(k===p.pos)pin.classList.add('here');if(go)pin.classList.add('gpick');});
+ let lines='';const legend=[];
+ S.players.forEach((q,i)=>{const r=routeOf(i);if(!r)return;const a=LOCS[r.from],c=LOCS[r.to];lines+=`<line class="${i===me?'mine':'oth'}" x1="${a.x}" y1="${a.y}" x2="${c.x}" y2="${c.y}"/>`;
+  if(i===me){const dp=map.querySelector(`[data-loc="${r.to}"]`);if(dp)dp.classList.add('dest');}else legend.push(`${nm(q)} → ${LOCS[r.to].n}`);});
+ if(lines)map.insertAdjacentHTML('beforeend',`<svg class="groute" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">${lines}</svg>`);
+ const others=S.players.map((q,i)=>i!==me&&!q.out&&!routeOf(i)&&S.players.length>1?`${nm(q)}: ${LOCS[q.pos].n}`:'').filter(Boolean);
+ ov.innerHTML=`<div class="gmbox" role="dialog" aria-modal="true" aria-label="Карта міста"><div class="gmhead"><b>🗺 Кривий Ріг</b><span>${dt}${wx?' · '+wx:''}${hol?' · '+hol:''}</span><button class="gmx" data-gm="x" aria-label="Закрити">✕</button></div>
+  ${go?'<p class="gmhint">Тицьни місце, куди поїдеш</p>':''}<div class="gmscroll"></div>
+  <div class="gmleg">📍 ти тут · 📋 план · 📌 доручення${legend.length?'<br>👥 '+legend.join(' · '):''}${others.length?'<br>👥 '+others.join(' · '):''}</div><div class="gminfo" hidden></div></div>`;
+ ov.querySelector('.gmscroll').appendChild(map);ov.dataset.go=go?'1':'';ov.classList.add('on');document.body.classList.add('noscroll','gmapon');
+ requestAnimationFrame(()=>{try{const sc=ov.querySelector('.gmscroll');const f=(map.querySelector('.dest')||map.querySelector('.here'));if(f){const r=f.getBoundingClientRect(),s=sc.getBoundingClientRect();sc.scrollTop+=r.top-s.top-sc.clientHeight/2;}}catch(e){}});}
+window.mapOpen=mapOpen;
+function mapClose(){const ov=document.getElementById('gmapov');document.body.classList.remove('gmapon');if(ov){ov.classList.remove('on');ov.innerHTML='';}if(!document.getElementById('phov'))document.body.classList.remove('noscroll');}
+window.mapClose=mapClose;
+function mapClick(e){e.stopPropagation();const ov=document.getElementById('gmapov');const t=e.target;
+ if(t===ov||t.closest('[data-gm=x]'))return mapClose();
+ const go=t.closest('[data-gm=go]');if(go){const k=go.dataset.k;mapClose();const b=app.querySelector(`button[data-goto="${k}"]`);if(b&&!b.disabled)b.click();return;}
+ const pin=t.closest('[data-loc]');if(pin){const k=pin.dataset.loc;const p=S.players[meIdx()];const inf=ov.querySelector('.gminfo');const li=locInfo(p,k);const mk=marks(p,k);
+  const tasks=pendTasks(p).filter(x=>x.loc===k).map(x=>`📌 ${x.item}${x.f&&typeof NPC!=='undefined'&&NPC[x.f]?' · '+NPC[x.f].n:''}`);
+  const here=S.players.map((q,i)=>i!==meIdx()&&q.pos===k?nm(q):'').filter(Boolean);
+  const go=ov.dataset.go==='1';const closed=mk.includes('🚫');const home=HOME[p.id]===k;
+  inf.innerHTML=`<b>${LOCS[k].n}</b> ${mk.filter(x=>x!=='📌').join(' ')}<small>${LOCDESC[k]||''}</small><small>${li.t}</small>${tasks.map(x=>`<small>${x}</small>`).join('')}${here.length?`<small>👥 тут: ${here.join(', ')}</small>`:''}
+   ${go&&li.d>=0?`<div class="gmgo">${home?`<button class="btn btn-choice" data-gm="go" data-k="home">🏠 Додому</button>`:''}<button class="btn btn-main" data-gm="go" data-k="${k}" ${closed?'disabled':''}>${closed?'Сьогодні зачинено':li.d?'Поїхати':'Лишитися тут'}</button></div>`:''}`;
+  inf.hidden=false;ov.querySelectorAll('.pin.sel').forEach(x=>x.classList.remove('sel'));pin.classList.add('sel');return;}}
+document.addEventListener&&document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('gmapov')&&document.getElementById('gmapov').classList.contains('on'))mapClose();});
 // чипи шапки
 document.addEventListener&&document.addEventListener('click',e=>{const t=e.target;if(!t.closest)return;
+ const mo=t.closest('.gmapbtn,[data-gmap]');if(mo&&!t.closest('#gmapov')){e.stopPropagation();e.preventDefault();mapOpen(mo.dataset.gmap==='go'?'go':'');return;}
  const st=t.closest('.gtop .stat');if(st&&!t.closest('.q')){const q=st.querySelector('.q');if(q){e.stopPropagation();q.click();}return;}
  if(t.closest('.gtop .gwk')){const m=app.querySelector('.gmore'),b=t.closest('.gwk');if(m){m.hidden=!m.hidden;b.setAttribute('aria-expanded',String(!m.hidden));setTop();}e.stopPropagation();return;}
  if(t.closest('.gtop .gdr')){e.stopPropagation();if(typeof window.phOpen==='function')window.phOpen('dream');return;}
  if(t.closest('.gtop .gplan')&&!t.closest('.q')){t.closest('.gplan').classList.toggle('open');setTop();}},true);
 window.addEventListener&&window.addEventListener('resize',()=>{if(document.body.classList.contains('gmode'))setTop();});
-{const _r=render;render=function(){_r.apply(this,arguments);try{gl();}catch(e){off();if(typeof console!=='undefined')console.error(e);}};}
+{const _r=render;render=function(){_r.apply(this,arguments);try{gl();}catch(e){off();if(typeof console!=='undefined')console.error(e);}
+ try{const mbar=app.querySelector&&app.querySelector('.minibar');if(mbar&&!mbar.querySelector('.gmapbtn')){const p=S.players[meIdx()];const x=document.createElement('button');x.className='gmapbtn'+(p&&mapNew(p)?' new':'');x.setAttribute('aria-label','Карта міста');x.innerHTML='🗺<i></i>';const ph=mbar.querySelector('.phbtn');if(ph)ph.after(x);else mbar.appendChild(x);}}catch(e){}
+ try{const ov=document.getElementById('gmapov');if(ov&&ov.classList.contains('on')&&(!S||!S.players))mapClose();}catch(e){}};}
 // меню: постер на весь екран, кнопки поверх
 function titleMenu(){const img=app.querySelector('.poster img.cover');if(!img)return;
  const tag=app.querySelector(':scope > .intro');const mains=[...app.querySelectorAll(':scope > .btn-main')];const ch=[...app.querySelectorAll(':scope > .btn-choice')];const foot=app.querySelector(':scope > .foot');
