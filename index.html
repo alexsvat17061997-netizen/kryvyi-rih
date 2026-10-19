@@ -530,6 +530,53 @@ body.setupscr .topback{position:sticky;top:6px;z-index:30;box-shadow:0 2px 8px r
 .gchips .stat .glab{display:none}
 .gico{font-style:normal;font-size:14px;line-height:1}
 .gmore .gtalk{margin-right:6px}
+/* 1.053: меню-постер */
+.tscr .tmenu{position:relative;height:calc((100dvh - 22px) / var(--fz,1));min-height:calc(560px / var(--fz,1));border-radius:14px;overflow:hidden;background:#331F5D;display:flex;flex-direction:column;justify-content:flex-end;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.tbg{position:absolute;left:0;right:0;top:0}
+.tscr .tbg img.cover{width:100%;height:auto;max-height:none;display:block}
+.tbot{position:relative;padding:70px 14px 12px;background:linear-gradient(to bottom,rgba(51,31,93,0),rgba(51,31,93,.82) 34%,#331F5D 62%);color:#F5E7CF}
+.tbot .intro{color:#F5E7CF;text-align:center;font-size:14px;line-height:1.35;margin:0 0 10px;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.tbot .btn-main{margin:0 0 8px;box-shadow:0 6px 18px rgba(0,0,0,.4)}
+.tbot .btn-main[data-act=newgame]{font-size:20px;padding-top:14px;padding-bottom:14px}
+.tpills{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:2px}
+.tpill{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;background:rgba(245,231,207,.12);border:1.5px solid rgba(245,231,207,.35);color:#F5E7CF;border-radius:14px;padding:9px 2px 8px;font:600 11px/1.2 var(--body);cursor:pointer;min-height:58px;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.tpill:active{background:rgba(245,231,207,.25)}
+.tpi{font-size:21px;line-height:1}
+.tpl{text-align:center}
+.tbot .foot{color:rgba(245,231,207,.55);margin:10px 0 0;font-size:11px}
+/* 1.053: шторка лише над картою; події — картка на весь екран */
+.gsheet{height:58%;max-height:none!important}
+.gsheet[data-ph=go]{height:62%}
+.gsheet.col{transform:translateY(calc(100% - 64px))}
+.ggrip{padding:10px 4px 8px}
+.ggrip i{width:52px;height:6px}
+.gin .poster .sky{touch-action:none}
+.gbody.nomap{background:transparent}
+.gcard{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;padding:8px 0 10px;-webkit-overflow-scrolling:touch}
+.gcard .poster{margin:0 0 10px}
+.gcard .art{height:calc(22dvh / var(--fz,1));min-height:120px}
+.gcard .art.sq{height:calc(24dvh / var(--fz,1))}
+.gcard .say{margin:0 0 8px}
+.gcard .last{margin:0 0 8px;font-size:14px}
+.gcard .sky{padding:10px 14px}
+.gcard .card-title{font-size:21px;line-height:1.15}
+.gcard .panel{padding:10px 12px}
+.gcard .panel>p{margin:0 0 8px}
+.gcard .btn{margin-bottom:8px}
+.gcard .btn-choice{padding:9px 12px;font-size:15px}
+.gcard .btn-choice small{font-size:12px;line-height:1.3}
+.gsheet[data-ph=travel] .btn-choice{padding:7px 12px}
+.gsheet[data-ph=travel] .btn-choice small{display:inline;margin-left:6px}
+@media (min-width:900px) and (orientation:landscape){
+ body.gmode .gbody.nomap{display:block}
+ body.gmode .gcard{position:relative;height:100%;max-width:640px;margin:0 auto}
+ body.gmode .gsheet{height:100%}
+}
+body.gmode #albpop{top:calc(var(--gtop,80px) + 10px);bottom:auto;left:auto;right:10px}
+.gsheet[data-ph=travel]{height:64%}
+.gsheet[data-ph=travel] .btn-choice{font-size:14px}
+.gcard .art{height:calc(19dvh / var(--fz,1))}
+.gcard .say .bub{font-size:14px;line-height:1.35}
 </style>
 </head>
 <body>
@@ -1414,7 +1461,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.052 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.053 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2304,7 +2351,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.052 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.053 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -4859,6 +4906,10 @@ function gl(){
  top.appendChild(chips);
  if(plan){plan.classList.add('gplan');top.appendChild(plan);}
  if(more.childNodes.length){more.hidden=true;top.appendChild(more);}
+ const MAPPH=S.phase==='go'||S.phase==='travel'||S.phase==='oblig';
+ if(!MAPPH){const sc=document.createElement('div');sc.className='gcard';say.forEach(e=>sc.appendChild(e));if(card)sc.appendChild(card);rest.forEach(e=>sc.appendChild(e));body.classList.add('nomap');body.appendChild(sc);
+  const gl2=document.createElement('div');gl2.className='gl';gl2.appendChild(top);gl2.appendChild(body);app.innerHTML='';app.appendChild(gl2);app._dream=dreamH;SHK=sheetKey();
+  setTop();requestAnimationFrame(setTop);return;}
  // карта
  let map=card&&card.querySelector('.map');
  if(map)map.remove();else{const t=document.createElement('div');t.innerHTML=mapHTML(S.pending&&S.phase==='travel'?S.pending.target:null,false);map=t.firstElementChild;}
@@ -4891,13 +4942,16 @@ function focusMap(mapw,map,here,dest,sh){try{const pts=[here,dest&&map.querySele
  const side=getComputedStyle(sh).position!=='absolute';const vis=side?mapw.clientHeight:mapw.clientHeight-(sh.classList.contains('col')?64:sh.offsetHeight);
  const z=mr.height/(map.offsetHeight||mr.height)||1;mapw.scrollTop=Math.max(0,cy/z-Math.max(80,vis)/2);}catch(e){}}
 function wire(sh,mapw,map,here,dest){const grip=sh.querySelector('.ggrip');
+ let dy0=null,base=0,cur0=0,moved=false;const span=()=>Math.max(0,sh.offsetHeight-64);
+ const dstart=y=>{dy0=y;moved=false;base=sh.classList.contains('col')?span():0;cur0=base;sh.style.transition='none';};
+ const dmove=y=>{if(dy0==null)return;const d=y-dy0;if(Math.abs(d)>6)moved=true;cur0=Math.max(0,Math.min(span(),base+d));sh.style.transform=`translateY(${cur0}px)`;};
+ const dend=()=>{if(dy0==null)return;dy0=null;sh.style.transition='';sh.style.transform='';if(!moved)return;const c=cur0>span()/2;SHC=c;sh.classList.toggle('col',c);if(c)sh.scrollTop=0;sh._drag=Date.now();setTimeout(()=>focusMap(mapw,map,here,dest,sh),300);};
+ const zone=sh.querySelector('.ggrip');const sky=sh.querySelector('.gin .poster .sky');
+ [zone,sky].filter(Boolean).forEach(z=>{z.addEventListener('touchstart',e=>dstart(e.touches[0].clientY),{passive:true});z.addEventListener('touchmove',e=>{if(dy0!=null){e.preventDefault();dmove(e.touches[0].clientY);}},{passive:false});z.addEventListener('touchend',dend);z.addEventListener('touchcancel',dend);});
  const tog=v=>{SHC=v==null?!sh.classList.contains('col'):v;sh.classList.toggle('col',SHC);if(SHC)sh.scrollTop=0;setTimeout(()=>focusMap(mapw,map,here,dest,sh),260);};
- grip.addEventListener('click',e=>{e.stopPropagation();tog();});
+ grip.addEventListener('click',e=>{e.stopPropagation();if(sh._drag&&Date.now()-sh._drag<400)return;tog();});
  grip.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tog();}});
- let y0=null,t0=0;
- sh.addEventListener('touchstart',e=>{const onGrip=e.target.closest('.ggrip');if(!onGrip&&sh.scrollTop>0&&!sh.classList.contains('col'))return y0=null;y0=e.touches[0].clientY;t0=Date.now();},{passive:true});
- sh.addEventListener('touchend',e=>{if(y0==null)return;const dy=e.changedTouches[0].clientY-y0;y0=null;if(Date.now()-t0>800)return;
-  if(dy>45&&!sh.classList.contains('col'))tog(true);else if(dy<-45&&sh.classList.contains('col'))tog(false);},{passive:true});
+
  // тап по карті при згорнутій шторці на інших екранах нічого не ламає; тап по "ти тут" розгортає
 }
 // чипи шапки
@@ -4908,12 +4962,23 @@ document.addEventListener&&document.addEventListener('click',e=>{const t=e.targe
  if(t.closest('.gtop .gplan')&&!t.closest('.q')){t.closest('.gplan').classList.toggle('open');setTop();}},true);
 window.addEventListener&&window.addEventListener('resize',()=>{if(document.body.classList.contains('gmode'))setTop();});
 {const _r=render;render=function(){_r.apply(this,arguments);try{gl();}catch(e){off();if(typeof console!=='undefined')console.error(e);}};}
-// меню: головний екран без гортання, липкі «Назад» і «Далі»
+// меню: постер на весь екран, кнопки поверх
+function titleMenu(){const img=app.querySelector('.poster img.cover');if(!img)return;
+ const tag=app.querySelector(':scope > .intro');const mains=[...app.querySelectorAll(':scope > .btn-main')];const ch=[...app.querySelectorAll(':scope > .btn-choice')];const foot=app.querySelector(':scope > .foot');
+ const L={dailyplay:['🗓','Тиждень дня'],room:['🌐','З друзями'],settings:['⚙️','Налаштування']};
+ const pills=ch.map(b=>{const k=b.dataset.act||b.dataset.step;const l=k==='collection'?['📒','Альбом']:L[k]||['•',b.textContent.trim().slice(0,14)];
+  b.className='tpill';b.removeAttribute('style');const sm=b.querySelector('small');const sub=k==='dailyplay'?(b.textContent.match(/#\d+/)||[''])[0]:'';b.innerHTML=`<span class="tpi">${l[0]}</span><span class="tpl">${l[1]}${sub?' '+sub:''}</span>`;return b;});
+ const m=document.createElement('div');m.className='tmenu';
+ m.innerHTML=`<div class="tbg"></div><div class="tbot"></div>`;m.querySelector('.tbg').appendChild(img);
+ const bot=m.querySelector('.tbot');if(tag)bot.appendChild(tag);mains.forEach(b=>bot.appendChild(b));const row=document.createElement('div');row.className='tpills';pills.forEach(b=>row.appendChild(b));bot.appendChild(row);if(foot)bot.appendChild(foot);
+ const keep=[...app.children].filter(e=>!e.classList.contains('poster')&&e!==tag&&!mains.includes(e)&&!ch.includes(e)&&e!==foot);
+ app.innerHTML='';keep.forEach(e=>app.appendChild(e));app.appendChild(m);}
+// меню: липкі «Назад» і «Далі»
 {const _rs=renderSetup;renderSetup=function(){const r=_rs.apply(this,arguments);try{off();const st=setup.step||'title';app.classList.toggle('tscr',st==='title');
- if(st==='title'){const bs=[...app.querySelectorAll(':scope > .btn-choice')];if(bs.length){const g=document.createElement('div');g.className='tgrid';bs[0].before(g);bs.forEach(b=>g.appendChild(b));}}
+ if(st==='title')titleMenu();
  const cta=app.querySelector('[data-act=startgame]')||app.querySelector('.btn-main[data-step=chars]')||(st==='rules'&&app.querySelector('.btn-main[data-step=modes]'));
  if(cta){cta.classList.add('stickcta');}
- document.body.classList.toggle('setupscr',st!=='title');}catch(e){}return r;};}
+ document.body.classList.add('setupscr');}catch(e){}return r;};}
 {const _r=render;render=function(){_r.apply(this,arguments);try{if(S)document.body.classList.remove('setupscr');if(!S||!S.players)app.classList.toggle('tscr',!S&&(setup.step||'title')==='title');else app.classList.remove('tscr');}catch(e){}};}
 })();
 
