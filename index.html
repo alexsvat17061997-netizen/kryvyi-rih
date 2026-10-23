@@ -1552,7 +1552,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.055 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.056 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2442,7 +2442,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.055 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.056 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -2964,7 +2964,7 @@ function mgDecor(){if(!S||mgOff()||!app.querySelector)return;
  if(S.phase==='travel'){const t=app.querySelector('button[data-travel="tram"]');if(t&&!app.querySelector('[data-mg="tram"]'))t.insertAdjacentHTML('beforebegin','<button class="btn btn-choice mgbtn" data-mg="tram">🏃 Наздогнати Скарік <small>🎮 міні-гра: встигнеш — їдеш без поломок, ні — пішки</small></button>');}
  if(S.phase==='turn'&&S.ev)app.querySelectorAll('button[data-choice]').forEach(b=>{if(mgKindOfChoice(S.ev.c[+b.dataset.choice])&&!b.querySelector('.mgtag'))b.insertAdjacentHTML('beforeend','<span class="mgtag">🎮 міні-гра</span>');});
  if(S.phase==='result'&&S.res&&!S.res.mgDone){const tt=S.res.title||'';const k=/рибалк/i.test(tt)?'fish':/стрибок з парашутом|тандем-стрибок/i.test(tt)?'para':null;const ok=app.querySelector('button[data-act="resok"]');
-  if(k&&ok&&!app.querySelector('[data-mg]'))ok.insertAdjacentHTML('beforebegin',`<button class="btn btn-choice mgbtn" data-mg="${k}">${k==='fish'?'🎣 Порибалити по-справжньому':'🪂 Керувати стрибком самому'} <small>🎮 міні-гра: ${k==='fish'?'улов продаси на ринку':'влучиш у мішень — більше щастя'}</small></button>`);}}
+  if(k&&ok&&!(S.res&&S.res.mgDone)&&!app.querySelector('[data-mg]'))ok.insertAdjacentHTML('beforebegin',`<button class="btn btn-choice mgbtn" data-mg="${k}">${k==='fish'?'🎣 Порибалити по-справжньому':'🪂 Керувати стрибком самому'} <small>🎮 міні-гра: ${k==='fish'?'улов продаси на ринку':'влучиш у мішень — більше щастя'}</small></button>`);}}
 {const _r=render;render=function(){_r.apply(this,arguments);try{if(MG&&MG.id&&(!S||S.phase!=='mg'||!S.mg||S.mg.id!==MG.id))mgClose(true);mgDecor();}catch(e){}};}
 {const _am=afterMorning;afterMorning=function(){_am.apply(this,arguments);if(S&&S.room&&!S.weekend&&S.day>0&&S.phase==='handoff'&&Math.random()<0.5)groupMgStart();};}
 
