@@ -389,7 +389,7 @@ body.h-indep::before{content:'';position:fixed;top:0;left:0;right:0;height:6px;z
 .ljc img,.ljc .ph{width:52px;height:52px;border-radius:8px;object-fit:cover}.ljc[aria-pressed="true"]{border-color:var(--ver);background:rgba(232,93,4,.12)}.ljc:disabled{opacity:.35}
 main{width:calc(100vw / var(--fz,1));max-width:calc(480px / var(--fz,1));box-sizing:border-box}
 .who{flex-wrap:wrap}.who>div{flex:1 1 110px;min-width:0}.who h2{overflow-wrap:break-word}
-.map .pin,.map .dlabel,.map button.pin{zoom:calc(1 / var(--fz,1))}
+.map .pin,.map .dlabel,.map button.pin{transform:translate(-50%,-50%) scale(calc(1 / var(--fz,1)))}
 .setbox,.mgbox,.socbox{width:calc((100vw - 24px) / var(--fz,1));max-width:calc(440px / var(--fz,1))}.agebox{width:calc((100vw - 24px) / var(--fz,1));max-width:calc(420px / var(--fz,1))}
 .sethead{display:flex;align-items:center;gap:10px}.setback{flex:none;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:14px;padding:7px 12px;font:inherit;font-weight:600;font-size:14px;cursor:pointer}.sethead h2{margin:0;font-size:18px;min-width:0}
 .topback{display:inline-flex;align-items:center;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:14px;padding:8px 14px;font:inherit;font-weight:600;font-size:14px;cursor:pointer;margin:0 0 10px}
@@ -486,7 +486,7 @@ body.gmode #setbtn,body.setupscr #setbtn{display:none}
 .pin.here{box-shadow:0 0 0 0 rgba(255,193,59,.9);animation:ghere 1.6s ease-out infinite;z-index:3}
 .pin.dest{background:var(--sun);animation:gdest 1s ease-in-out infinite alternate;z-index:3}
 @keyframes ghere{0%{box-shadow:0 0 0 0 rgba(255,193,59,.95)}100%{box-shadow:0 0 0 14px rgba(255,193,59,0)}}
-@keyframes gdest{from{transform:translate(-50%,-50%) scale(1)}to{transform:translate(-50%,-50%) scale(1.12)}}
+@keyframes gdest{from{transform:translate(-50%,-50%) scale(calc(1 / var(--fz,1)))}to{transform:translate(-50%,-50%) scale(calc(1.12 / var(--fz,1)))}}
 .groute{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2;overflow:visible}
 .groute line{stroke:#FFC13B;stroke-width:4;stroke-dasharray:9 7;stroke-linecap:round;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 2px #1F2350);animation:groute 1s linear infinite}
 @keyframes groute{to{stroke-dashoffset:-16}}
@@ -608,7 +608,7 @@ body.gmode #albpop{top:calc(var(--gtop,80px) + 10px);bottom:auto;left:auto;right
 .gmgo .btn{margin:0;flex:1}
 .gmk{font-style:normal;font-size:10px;margin-left:2px}
 .pin.gpick{cursor:pointer;box-shadow:0 0 0 2px rgba(255,193,59,.7)}
-.pin.sel{background:var(--sun);transform:translate(-50%,-50%) scale(1.15);z-index:4}
+.pin.sel{background:var(--sun);transform:translate(-50%,-50%) scale(calc(1.15 / var(--fz,1)));z-index:4}
 .groute line.oth{stroke:#7FD3FF;stroke-width:3;stroke-dasharray:4 6;opacity:.9}
 @media (min-width:900px) and (orientation:landscape){body.gmode .gcard{max-width:680px}}
 body.gmapon #phnote{top:auto;bottom:12px}
@@ -713,7 +713,7 @@ body.gmapon #albpop{top:auto;bottom:90px;right:auto;left:12px}
 @keyframes cspot{50%{outline-offset:4px}}
 .cbub{position:fixed;z-index:9001;background:var(--sun);color:#1F2350;border-radius:14px;padding:12px 14px;font:700 17px var(--body);display:flex;align-items:center;justify-content:space-between;gap:10px;box-shadow:0 6px 20px rgba(0,0,0,.35);max-width:520px;margin:0 auto}
 .cskip{background:none;border:0;color:#1F2350;font:600 12px var(--body);text-decoration:underline;opacity:.8;flex-shrink:0;cursor:pointer}
-.veh{position:absolute;z-index:3;font-size:17px;line-height:1;pointer-events:none;background:var(--cream);border:2px solid #1F2350;border-radius:9px;padding:2px 3px;box-shadow:0 2px 4px rgba(0,0,0,.4);zoom:calc(1 / var(--fz,1))}
+.veh{position:absolute;z-index:3;font-size:17px;line-height:1;pointer-events:none;background:var(--cream);border:2px solid #1F2350;border-radius:9px;padding:2px 3px;box-shadow:0 2px 4px rgba(0,0,0,.4)}
 .veh.broken{font-size:15px;animation:vehshake .6s infinite}
 @keyframes vehshake{50%{margin-left:1px}}
 .vroute{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}.vroute polyline{fill:none;stroke:#F2A93B;stroke-opacity:.8;stroke-width:3;stroke-dasharray:6 5;vector-effect:non-scaling-stroke}
@@ -779,6 +779,29 @@ body.gmapon #albpop{top:auto;bottom:90px;right:auto;left:12px}
 .pcard2.on{border-color:#F2A93B;box-shadow:0 0 0 3px #F2A93B,0 8px 20px rgba(242,169,59,.35);transform:translateY(-3px)}
 .pok{position:absolute;top:-8px;right:-8px;width:30px;height:30px;border-radius:50%;background:#5DBB63;color:#fff;font:800 18px/30px var(--body);font-style:normal}
 @media (prefers-reduced-motion:reduce){.hslide.on .hcimg,.hslide.on .hcard::before,.hcar.nudge{animation:none}}
+
+/* 1.059 ранок картками; картинки не вилазять */
+.poster-in,.artw,.hcard,.pcard2,.mcitywin,.paper,.wcard,.mgbox,.gcard{contain:paint}
+img{max-width:100%}
+.gcard .artw{height:calc(19dvh / var(--fz,1));min-height:120px}.gcard .artw .art{height:100%;min-height:0}
+.mwrap{margin-top:6px}
+.mtabs{display:flex;gap:6px;margin:0 0 8px}
+.mtabs span{flex:1;text-align:center;padding:8px 4px;border-radius:999px;background:var(--panel);border:2px solid var(--line);font:700 13px var(--body);color:var(--text);cursor:pointer;user-select:none}
+.mtabs span.on{background:#2E3576;border-color:#2E3576;color:#F5E7CF}
+.mslides{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;scrollbar-width:none;align-items:flex-start;-webkit-overflow-scrolling:touch}
+.mslides::-webkit-scrollbar{display:none}
+.mslide{flex:0 0 100%;scroll-snap-align:start;min-width:0}
+.mslide .paper{margin:0 0 10px}
+.mfx,.mplan{background:#2E3576;color:#F5E7CF;border-radius:16px;padding:12px 14px;margin-bottom:10px}
+.mfx p,.mplan p{margin:6px 0 0;font-size:15px}.mfx small,.mplan small{color:#F5E7CF;opacity:.85}
+.mplan b{font-size:16px}
+.mcitywin{height:calc(46dvh / var(--fz,1));min-height:220px;overflow:hidden;border-radius:16px;border:3px solid #1F2350;cursor:zoom-in;position:relative}
+.mcitywin .map{border:0}
+.mhint{text-align:center;font-size:13px;color:var(--muted);margin:6px 0 10px}
+.mslide .wcard{margin:0 0 10px}
+.mslide .say{margin:0 0 10px}
+.mgo{position:sticky;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:6;padding:8px 58px 0 0;margin-top:6px;background:linear-gradient(rgba(245,231,207,0),var(--bg) 40%)}
+.mstart{margin:0!important;font-size:18px!important;white-space:nowrap;padding:16px!important;box-shadow:0 6px 18px rgba(31,35,80,.3)}
 </style>
 </head>
 <body>
@@ -1663,7 +1686,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.058 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.059 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2553,7 +2576,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.058 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.059 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -5766,7 +5789,7 @@ let VT=null;
 function vehStart(map){cancelAnimationFrame(VT);if(!map)return;map.querySelectorAll('.veh,.vroute').forEach(x=>x.remove());
  const svg=ROUTES.filter(R=>R.k==='skarik').map(R=>`<svg class="vroute" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline points="${R.r.filter(k=>LOCS[k]).map(k=>LOCS[k].x+','+LOCS[k].y).join(' ')}"/></svg>`).join('');map.insertAdjacentHTML('afterbegin',svg);
  const els=ROUTES.map(R=>{const st=down(R);if(st==='off')return null;const el=document.createElement('span');el.className='veh'+(st?' broken':'');el.textContent=R.ic+(st?'🔧':'');el.title=R.n;map.appendChild(el);return {R,el,st};}).filter(Boolean);
- const t0=Date.now();const loop=()=>{if(!map.isConnected)return;const t=Date.now();els.forEach(o=>{const P=vehPos(o.R,o.st?t0:t);if(!P)return;o.el.style.left=P.x+'%';o.el.style.top=P.y+'%';o.el.style.transform=`translate(-50%,-50%) scaleX(${P.back?-1:1})`;});VT=requestAnimationFrame(loop);};loop();}
+ const FZ=1/(parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--fz'))||1);const t0=Date.now();const loop=()=>{if(!map.isConnected)return;const t=Date.now();els.forEach(o=>{const P=vehPos(o.R,o.st?t0:t);if(!P)return;o.el.style.left=P.x+'%';o.el.style.top=P.y+'%';o.el.style.transform=`translate(-50%,-50%) scale(${FZ}) scaleX(${P.back?-1:1})`;});VT=requestAnimationFrame(loop);};loop();}
 function etaText(from){const t=Date.now();let best=null;ROUTES.forEach(R=>{if(down(R)||!R.k.startsWith('bus'))return;const i=R.r.indexOf(from);if(i<0)return;const P=vehPos(R,t);if(!P)return;const pos=P.back?(P.seg+1-P.f):(P.seg+P.f);const segs=R.r.length-1;let d=P.back?pos-i:i-pos;if(d<0)d=P.back?pos+i:2*segs-pos-i;const n=Math.max(0,Math.ceil(d));if(best==null||n<best)best=n;});return best;}
 if(typeof document!=='undefined'&&document.querySelector&&typeof setInterval==='function'&&document.body)setInterval(()=>{try{const m=document.querySelector('#gmapov.on .map');if(m&&!m.querySelector('.veh'))vehStart(m);
  if(CO){if(!CO.el.isConnected||ovOpen())coachClear();else{const r=CO.el.getBoundingClientRect();const sp=document.querySelector('.cspot');if(sp)sp.style.cssText=`left:${r.left-6}px;top:${r.top-6}px;width:${r.width+12}px;height:${r.height+12}px`;}}
@@ -5868,6 +5891,36 @@ document.addEventListener&&document.addEventListener('click',e=>{const t=e.targe
  return r;};}
 // закриваємо деталі при виході з кроку
 {const _r=render;render=function(){const ov=document.getElementById&&document.getElementById('hinfo');if(ov&&ov.remove&&S){ov.remove();document.body.classList.remove('noscroll');}return _r.apply(this,arguments);};}
+})();
+
+// === 1.059: ранок картками + кнопка «Почати день» завжди видна ===
+(function(){
+const lsg=k=>{try{return localStorage.getItem(k);}catch(e){return null;}};
+const kids=sel=>[...app.children].filter(c=>c.matches&&c.matches(sel));
+function morningCards(){if(S.phase!=='morning'||!app.querySelector||app.querySelector('.mslides'))return;
+ const poster=kids('.poster')[0];const panel=poster&&poster.querySelector('.panel');const btn=panel&&panel.querySelector('[data-act=morning]');if(!btn)return;
+ const paper=kids('.paper')[0],map=poster.querySelector('.map'),wc=kids('.wcard')[0],say=kids('.say')[0],tr=app.querySelector('.tremind');const notes=kids('p.note');
+ const rows=[],plans=[],city=[];let inPlans=false;[...panel.children].forEach(c=>{if(c===btn)return;const t=c.textContent||'';if(c.classList.contains('note')&&/Плани на сьогодні/.test(t)){inPlans=true;return;}if(c.classList.contains('note')&&/Вечеря/.test(t)){city.push(c);return;}(inPlans?plans:rows).push(c);});
+ const wrap=document.createElement('div');wrap.className='mwrap';
+ wrap.innerHTML=`<div class="mtabs" role="tablist"><span role="tab" data-mt="0">📰 Новини</span><span role="tab" data-mt="1">🗺 Місто</span><span role="tab" data-mt="2">📋 План</span></div><div class="mslides"><div class="mslide" data-ms="0"></div><div class="mslide" data-ms="1"></div><div class="mslide" data-ms="2"></div></div><div class="mgo"></div>`;
+ const [s0,s1,s2]=wrap.querySelectorAll('.mslide');
+ if(paper)s0.appendChild(paper);const fx=document.createElement('div');fx.className='mfx';fx.innerHTML='<b>Як це вплинуло на тебе:</b>';rows.forEach(r=>fx.appendChild(r));s0.appendChild(fx);
+ if(map){const win=document.createElement('div');win.className='mcitywin';win.appendChild(map);s1.appendChild(win);s1.insertAdjacentHTML('beforeend','<p class="mhint">🔍 Тицни на карту — відкриється вся</p>');}
+ if(wc)s1.appendChild(wc);notes.forEach(n=>s1.appendChild(n));city.forEach(n=>s1.appendChild(n));
+ if(say)s2.appendChild(say);if(tr)s2.appendChild(tr);
+ if(plans.length){const h=document.createElement('div');h.className='mplan';h.innerHTML='<b>Сьогодні треба:</b>';plans.forEach(x=>h.appendChild(x));s2.appendChild(h);}
+ else s2.insertAdjacentHTML('beforeend','<div class="mplan"><b>Сьогодні без обовʼязкових справ.</b><p>Вільний день — обирай сам, куди їхати.</p></div>');
+ btn.className='btn btn-main mstart';btn.textContent='🌞 Почати день';wrap.querySelector('.mgo').appendChild(btn);
+ poster.replaceWith(wrap);
+ const sl=wrap.querySelector('.mslides');const tabs=[...wrap.querySelectorAll('[data-mt]')];
+ const setTab=i=>tabs.forEach((t,k)=>t.classList.toggle('on',k===i));
+ const go=(i,sm)=>{const s=sl.children[i];if(s&&sl.scrollTo)sl.scrollTo({left:s.offsetLeft-sl.offsetLeft,behavior:sm?'smooth':'auto'});setTab(i);S._ms=i;};
+ tabs.forEach((t,k)=>t.addEventListener('click',e=>{e.stopPropagation();go(k,true);}));
+ let tm=null;sl.addEventListener('scroll',()=>{clearTimeout(tm);tm=setTimeout(()=>{const i=Math.round(sl.scrollLeft/Math.max(1,sl.clientWidth));setTab(i);S._ms=i;},60);},{passive:true});
+ const win=wrap.querySelector('.mcitywin');if(win){win.addEventListener('click',e=>{e.stopPropagation();try{window.mapOpen&&window.mapOpen('');}catch(x){}});
+  requestAnimationFrame(()=>{try{const p=S.players[typeof meI==='function'&&S.room?meI():S.turn]||S.players[0];const pin=win.querySelector(`[data-loc="${p.pos}"]`);if(pin){const r=pin.getBoundingClientRect(),w=win.getBoundingClientRect();win.scrollTop+=r.top-w.top-win.clientHeight/2;}}catch(x){}});}
+ requestAnimationFrame(()=>go(S._msDay===S.day&&S._ms!=null?S._ms:0,false));S._msDay=S.day;}
+{const _r=render;render=function(){_r.apply(this,arguments);try{if(!SIM&&S&&S.players&&app.querySelector)morningCards();}catch(e){if(typeof console!=='undefined')console.error(e);}};}
 })();
 
 render();
