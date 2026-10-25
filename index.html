@@ -718,6 +718,67 @@ body.gmapon #albpop{top:auto;bottom:90px;right:auto;left:12px}
 @keyframes vehshake{50%{margin-left:1px}}
 .vroute{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}.vroute polyline{fill:none;stroke:#F2A93B;stroke-opacity:.8;stroke-width:3;stroke-dasharray:6 5;vector-effect:non-scaling-stroke}
 @media (prefers-reduced-motion:reduce){.cspot,.newtask,.veh.broken{animation:none}}
+
+/* 1.058 герої й тварини */
+.hwrap{position:relative;margin:6px -16px 0}
+.hcar{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:10px 9% 16px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.hcar::-webkit-scrollbar{display:none}
+.hcar.nudge{animation:hnudge 1.6s ease-in-out}
+@keyframes hnudge{30%{transform:translateX(-46px)}60%{transform:translateX(0)}}
+.hslide{flex:0 0 82%;scroll-snap-align:center;transition:transform .3s,opacity .3s;transform:scale(.92);opacity:.55}
+.hslide.on{transform:scale(1);opacity:1}
+.hcard{position:relative;border-radius:20px;overflow:hidden;background:#1F2350;color:#fff;border:4px solid #F2A93B;box-shadow:0 10px 28px rgba(20,15,40,.35),inset 0 0 0 2px rgba(255,255,255,.15)}
+.hcard.r-vio{border-color:#9B6BE0}.hcard.r-leg{border-color:transparent;background:linear-gradient(#1F2350,#1F2350) padding-box,linear-gradient(135deg,#0057B7,#FFD700,#0057B7) border-box}
+.hcard.lk{filter:grayscale(.85)}
+.hcimg{position:relative;aspect-ratio:1/0.92;max-height:min(44vh,360px);width:100%;background-size:cover;background-position:center 20%;background-color:#2E3576}
+.hslide.on .hcimg{animation:hkb 9s ease-in-out infinite alternate}
+@keyframes hkb{from{background-size:100%}to{background-size:112%}}
+.hcimg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(31,35,80,0) 55%,#1F2350 100%)}
+.hq{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:900 120px var(--display,var(--body));color:rgba(255,255,255,.25)}
+.hcard::before{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.28) 48%,transparent 60%);transform:translateX(-120%)}
+.hslide.on .hcard::before{animation:hshine 3.8s ease-in-out 0.4s infinite}
+@keyframes hshine{0%{transform:translateX(-120%)}35%,100%{transform:translateX(120%)}}
+.hnum,.hrar,.hpk,.hlock{position:absolute;z-index:3;font:700 12px var(--body);border-radius:999px;padding:3px 9px}
+.hnum{top:10px;left:10px;background:rgba(20,15,40,.7);color:#fff}
+.hrar{top:10px;right:10px;background:#F2A93B;color:#1F2350}.r-vio .hrar{background:#9B6BE0;color:#fff}.r-leg .hrar{background:linear-gradient(90deg,#0057B7,#FFD700);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+.hpk{top:40px;right:10px;background:#5DBB63;color:#fff}.hlock{top:40%;left:50%;transform:translate(-50%,-50%);font-size:52px;background:none}
+.hcbody{position:relative;z-index:1;padding:0 14px 14px;margin-top:-34px}
+.hcbody h2{font:800 28px/1.05 var(--display,var(--body));margin:0 0 2px;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.5)}
+.hcl{margin:0 0 10px;font-size:14px;color:#F5E7CF;opacity:.9}
+.hstats{display:flex;gap:6px;margin-bottom:8px}
+.hstats span{flex:1;display:flex;flex-direction:column;align-items:center;background:rgba(255,255,255,.1);border-radius:12px;padding:6px 2px;font:800 18px var(--body)}
+.hstats i{font-style:normal;font-size:18px}.hstats small{font:500 10px var(--body);opacity:.75}
+.hpm{margin:4px 0 0;font-size:13px;line-height:1.3;color:#F5E7CF;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.hcard.chosen{animation:hchosen .38s ease-out}
+@keyframes hchosen{40%{transform:scale(1.05) rotate(-1deg);box-shadow:0 0 0 6px #F2A93B,0 0 40px #F2A93B}}
+.harr{position:absolute;top:42%;z-index:4;width:38px;height:56px;border:0;border-radius:12px;background:rgba(31,35,80,.75);color:#fff;font:700 30px/1 var(--body);cursor:pointer}
+.harr.l{left:4px}.harr.r{right:4px}
+.hdots{text-align:center;font:600 13px var(--body);color:var(--muted);margin:-6px 0 8px}
+.hgo{font-size:20px!important;padding:16px!important}
+.hrow{display:flex;gap:8px}.hrow .btn{flex:1;margin-top:8px}
+.hpicked{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0}
+.hchip{display:flex;align-items:center;gap:6px;background:var(--panel);color:var(--text);border:2px solid var(--line);border-radius:999px;padding:3px 10px 3px 3px;font:600 13px var(--body)}
+.hchip img,.hchip .ph{width:28px;height:28px;border-radius:50%;object-fit:cover}.hchip i{font-style:normal;opacity:.6}.hchip.empty{padding:6px 12px;border-style:dashed;color:var(--muted)}
+#hinfo{position:fixed;inset:0;z-index:8000;background:rgba(10,8,25,.55);display:flex;align-items:flex-end;justify-content:center}
+.hibox{background:var(--bg);color:var(--text);width:100%;max-width:560px;max-height:82vh;overflow:auto;border-radius:20px 20px 0 0;padding:14px 16px calc(18px + env(safe-area-inset-bottom,0px));animation:hup .25s ease-out}
+@keyframes hup{from{transform:translateY(40%)}}
+.hihead{display:flex;align-items:center;gap:10px;font:800 20px var(--display,var(--body));margin-bottom:6px}.hihead img,.hihead .ph{width:46px;height:46px;border-radius:50%;object-fit:cover}.hihead .gmx{margin-left:auto}
+.hibody p{margin:8px 0;font-size:15px}
+.pduo{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin:6px 0 4px}
+.pduo-h img,.pduo-h .ph,.pduo-p img{width:104px;height:104px;border-radius:50%;object-fit:cover;border:4px solid #F2A93B;box-shadow:0 6px 16px rgba(20,15,40,.3);display:block}
+.pduo-p{width:112px;height:112px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.pduo-p.empty{border:4px dashed var(--line)}.pduo-p.empty span{font-size:44px;opacity:.6}
+.pduo-p.pop{animation:ppop .45s ease-out}@keyframes ppop{40%{transform:scale(1.18) rotate(6deg)}}
+.pplus{font-size:30px;color:#E4502E;min-width:24px;text-align:center}
+.pcap{flex-basis:100%;text-align:center;margin:4px 0 0;font-size:16px}
+.pcar{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px 18% 14px;margin:0 -16px 8px;scrollbar-width:none}
+.pcar::-webkit-scrollbar{display:none}
+.pcard2{position:relative;flex:0 0 58%;scroll-snap-align:center;display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--panel);color:var(--text);border:3px solid var(--line);border-radius:18px;padding:8px 8px 10px;text-align:center;cursor:pointer;transition:transform .2s}
+.pcard2 img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px}.pcard2 .nop{font-size:72px;aspect-ratio:1;width:100%;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.04);border-radius:12px}
+.pcard2 b{font-size:17px}.pcard2 small{font-size:12px;color:var(--muted);line-height:1.3}
+.pcard2.on{border-color:#F2A93B;box-shadow:0 0 0 3px #F2A93B,0 8px 20px rgba(242,169,59,.35);transform:translateY(-3px)}
+.pok{position:absolute;top:-8px;right:-8px;width:30px;height:30px;border-radius:50%;background:#5DBB63;color:#fff;font:800 18px/30px var(--body);font-style:normal}
+@media (prefers-reduced-motion:reduce){.hslide.on .hcimg,.hslide.on .hcard::before,.hcar.nudge{animation:none}}
 </style>
 </head>
 <body>
@@ -1602,7 +1663,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.057 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.058 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2492,7 +2553,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.057 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.058 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -5233,7 +5294,7 @@ function bigSig(){try{return [S.phase,S.day,S.sub,S.turn,S.res?1:0,JSON.stringif
 let DEAD=0;
 document.addEventListener&&document.addEventListener('click',e=>{if(SIM||!S||!S.players||!amHost())return;const b=e.target.closest&&e.target.closest('#app button');if(!b||b.disabled)return;const ds=b.dataset;
  if(!Object.keys(ds).length||ds.help||ds.phopen||ds.gmap||ds.gtph||['talk','mute','settings','menu','room','share','shareimg','copystory','ruslan','again','extra4'].includes(ds.act)||b.closest('.gtop'))return;
- const s0=bigSig();setTimeout(()=>{if(!S||!S.players)return;if(document.querySelector('#mgov,#phov,#gmapov.on,#help.on,#setov,#chov,#agegate'))return;if(bigSig()===s0&&document.body.contains(b)){DEAD++;if(DEAD>=2)rescueShow('Кнопка не спрацювала.');}else DEAD=0;},1300);},true);
+ const s0=bigSig();setTimeout(()=>{if(!S||!S.players)return;if([...document.querySelectorAll('#mgov,#phov,#gmapov.on,#help.on,#setov,#chov,#agegate,#hinfo')].some(x=>x.getClientRects().length))return;if(bigSig()===s0&&document.body.contains(b)){DEAD++;if(DEAD>=2)rescueShow('Кнопка не спрацювала.');}else DEAD=0;},1300);},true);
 // ---------- Б. навчання ----------
 Object.assign(TUT,{go:'.',result:'.'});
 const TUT2={morning:['☀️ <b>Ранок.</b> Газета розповідає, що сьогодні в місті. Це вже вплинуло на твої гроші й нерви. Тисни кнопку внизу, щоб почати день.','[data-act=morning]'],
@@ -5541,6 +5602,7 @@ EVENTS.push(
 
 // === 1.057: Менше читати — більше робити ===
 (function(){
+function ovOpen(){try{return [...document.querySelectorAll('#mgov,#phov,#gmapov.on,#setov,#chov,#help.on,#rescue,#agegate,#hinfo')].some(e=>e.getClientRects().length>0);}catch(e){return false;}}
 const lsg=k=>{try{return localStorage.getItem(k);}catch(e){return null;}},lss=(k,v)=>{try{localStorage.setItem(k,v);}catch(e){}};
 const myIdx=()=>!S?0:S.room&&typeof meI==='function'?meI():S.turn;
 const myTurn=()=>!S||!S.room||myIdx()===S.turn;
@@ -5638,8 +5700,8 @@ function shortify(){if(!shortOn()||!app.querySelector)return;const card=app.quer
  if(['turn','result','free','go','travel'].includes(S.phase)&&!(S.ev&&S.ev._v3))card.querySelectorAll('.say').forEach(x=>x.remove());}
 document.addEventListener&&document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-more]');if(!b)return;e.stopPropagation();e.preventDefault();const p=b.parentElement;if(p&&p._full)p.innerHTML=p._full;},true);
 // перемикач у налаштуваннях
-{const _sh=settingsHTML;settingsHTML=function(){let h=_sh.apply(this,arguments);try{const g=`<div class="setgrp"><b>📖 Тексти</b><p>Коротко — одне речення й значки. Повністю — як у книжці.</p><div class="seg"><button data-s="short" data-v="1" aria-pressed="${shortOn()}">Коротко</button><button data-s="short" data-v="0" aria-pressed="${!shortOn()}">Повністю</button></div></div>`;const k=h.indexOf('<div class="setgrp">');h=k>=0?h.slice(0,k)+g+h.slice(k):h+g;}catch(e){}return h;};}
-document.addEventListener&&document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-s="short"]');if(!b)return;e.stopPropagation();lss('kr-short',b.dataset.v);try{settingsOpen();}catch(x){}try{if(S&&S.players)render();}catch(x){}},true);
+{const _sh=settingsHTML;settingsHTML=function(){let h=_sh.apply(this,arguments);try{const g=`<div class="setgrp"><b>📖 Тексти</b><p>Коротко — одне речення й значки. Повністю — як у книжці.</p><div class="seg"><button data-s="short" data-v="1" aria-pressed="${shortOn()}">Коротко</button><button data-s="short" data-v="0" aria-pressed="${!shortOn()}">Повністю</button></div></div>`;const k=h.indexOf('<div class="setgrp">');h=k>=0?h.slice(0,k)+g+h.slice(k):h+g;h=h.replace(/(data-s="tut">)[^<]*/,'$1'+(lsg('kr-coach')!=='done'?'✅ Навчання увімкнене':'🎓 Показати навчання ще раз'));}catch(e){}return h;};}
+document.addEventListener&&document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-s="short"]');if(!b)return;e.stopPropagation();lss('kr-short',b.dataset.v);const so=document.getElementById('setov');if(so&&so.getClientRects().length){try{settingsOpen();}catch(x){}}else if(!S){try{renderSetup();}catch(x){}}try{if(S&&S.players)render();}catch(x){}},true);
 // ================= Д. значок 🎮 =================
 function mgMarks(){if(S.phase!=='turn'||!S.ev||!S.ev.c)return;app.querySelectorAll('[data-choice]').forEach(b=>{const c=S.ev.c[+b.dataset.choice];if(c&&typeof mgKindOfChoice==='function'&&mgKindOfChoice(c)&&!b.querySelector('.mgtag'))b.insertAdjacentHTML('afterbegin','<span class="mgtag">🎮 гра</span> ');});}
 // ================= В. ранкове нагадування про доручення =================
@@ -5685,7 +5747,7 @@ const coachOn=()=>lsg('kr-coach')!=='done';
 const seen=()=>{try{return JSON.parse(lsg('kr-coachseen')||'[]');}catch(e){return [];}};
 let CO=null;
 function coachClear(){if(!document.querySelectorAll)return;document.querySelectorAll('.cspot,.cbub').forEach(x=>x.remove());CO=null;}
-function coachShow(){coachClear();if(!S||!S.players||!coachOn()||document.querySelector('#mgov,#phov,#gmapov.on,#setov,#chov'))return;const sn=seen();
+function coachShow(){coachClear();if(!S||!S.players||!coachOn()||ovOpen())return;const sn=seen();
  const st=COACH.find(([ph,sel],i)=>ph===S.phase&&!sn.includes(i)&&document.querySelector(sel)&&document.querySelector(sel).offsetParent);if(!st)return;const i=COACH.indexOf(st);const el=document.querySelector(st[1]);
  try{el.scrollIntoView({block:'nearest'});}catch(e){}const r=el.getBoundingClientRect();if(r.width<4)return;
  const sp=document.createElement('div');sp.className='cspot';sp.style.cssText=`left:${r.left-6}px;top:${r.top-6}px;width:${r.width+12}px;height:${r.height+12}px`;document.body.appendChild(sp);
@@ -5707,8 +5769,8 @@ function vehStart(map){cancelAnimationFrame(VT);if(!map)return;map.querySelector
  const t0=Date.now();const loop=()=>{if(!map.isConnected)return;const t=Date.now();els.forEach(o=>{const P=vehPos(o.R,o.st?t0:t);if(!P)return;o.el.style.left=P.x+'%';o.el.style.top=P.y+'%';o.el.style.transform=`translate(-50%,-50%) scaleX(${P.back?-1:1})`;});VT=requestAnimationFrame(loop);};loop();}
 function etaText(from){const t=Date.now();let best=null;ROUTES.forEach(R=>{if(down(R)||!R.k.startsWith('bus'))return;const i=R.r.indexOf(from);if(i<0)return;const P=vehPos(R,t);if(!P)return;const pos=P.back?(P.seg+1-P.f):(P.seg+P.f);const segs=R.r.length-1;let d=P.back?pos-i:i-pos;if(d<0)d=P.back?pos+i:2*segs-pos-i;const n=Math.max(0,Math.ceil(d));if(best==null||n<best)best=n;});return best;}
 if(typeof document!=='undefined'&&document.querySelector&&typeof setInterval==='function'&&document.body)setInterval(()=>{try{const m=document.querySelector('#gmapov.on .map');if(m&&!m.querySelector('.veh'))vehStart(m);
- if(CO){if(!CO.el.isConnected||document.querySelector('#mgov,#phov,#gmapov.on,#setov,#chov,#help.on,#rescue,#agegate'))coachClear();else{const r=CO.el.getBoundingClientRect();const sp=document.querySelector('.cspot');if(sp)sp.style.cssText=`left:${r.left-6}px;top:${r.top-6}px;width:${r.width+12}px;height:${r.height+12}px`;}}
- else if(S&&S.players&&coachOn()&&!document.querySelector('#mgov,#phov,#gmapov.on,#setov,#chov,#help.on,#rescue,#agegate'))coachShow();}catch(x){}},300);
+ if(CO){if(!CO.el.isConnected||ovOpen())coachClear();else{const r=CO.el.getBoundingClientRect();const sp=document.querySelector('.cspot');if(sp)sp.style.cssText=`left:${r.left-6}px;top:${r.top-6}px;width:${r.width+12}px;height:${r.height+12}px`;}}
+ else if(S&&S.players&&coachOn()&&!ovOpen())coachShow();}catch(x){}},300);
 function travelEta(){if(S.phase!=='travel'||!S.pending)return;const p=cur();if(!p)return;const b=app.querySelector('[data-travel="bus"] small');if(!b||b.dataset.eta)return;const n=etaText(p.pos);b.dataset.eta=1;
  const w=window.krWcard&&window.krWcard();b.insertAdjacentHTML('beforeend',n==null?'':` · 🚐 ${n===0?'вже на зупинці':n===1?'буде за 1 зупинку':'буде за '+n+' зупинки'}`);
  if(S.mod&&S.mod.k==='tramDown'){const t=app.querySelector('[data-travel="tram"] small');if(t&&!t.dataset.eta){t.dataset.eta=1;t.insertAdjacentHTML('beforeend',' · 🔧 Скарік стоїть');}}}
@@ -5717,6 +5779,95 @@ document.addEventListener&&document.addEventListener('click',e=>{const b=e.targe
 // ================= рендер =================
 {const _r=render;render=function(){coachClear();_r.apply(this,arguments);try{if(SIM||!app||!app.querySelector||!S||!S.players)return;const tb=document.getElementById('tutbox');if(tb)tb.remove();document.querySelectorAll('.tutglow').forEach(x=>x.classList.remove('tutglow'));
  workBtn();mgMarks();mapGlow();shortify();taskRemind();travelEta();setTimeout(coachShow,250);}catch(e){if(typeof console!=='undefined')console.error(e);}};}
+})();
+
+// === 1.058: герої й тварини — великі картки, що гортаються ===
+(function(){
+const lsg=k=>{try{return localStorage.getItem(k);}catch(e){return null;}},lss=(k,v)=>{try{localStorage.setItem(k,v);}catch(e){}};
+const CLV={student:'пільговий проїзд, сесія на носі',miner:'міцна спина, аванс у середу',seller:'своя людина на ринку',driver:'щодня готівка за рейси',pensioner:'пільги, дача й онуки',office:'стабільна ЗП, дедлайни',mom:'допомога від держави, малий на руках',teacher:'надбавка, батьківські збори',taxi:'нічні замовлення',it:'добра ЗП, болить спина',plumber:'руки золоті, виклики вночі',collector:'знає всі борги міста',guard:'тиша, чай і монітори',fisher:'рибу продає на ринку',gopnik:'насіння й свої пацани',rukha:'не здається ніколи'};
+const BASE=['student','miner','seller','driver','pensioner','office','mom','teacher'];
+const rar=id=>id==='rukha'?['leg','Легенда']:BASE.includes(id)?['gold','Свій']:['vio','Рідкісний'];
+const ids=()=>Object.keys(CHARS);
+const cut=t=>{t=String(t||'');const k=t.indexOf(':');return k>0&&k<40?t.slice(k+1).trim().replace(/^./,c=>c.toUpperCase()):t;};
+// --- звуки тварин (синтез) ---
+function petSnd(k,br){try{if(typeof muted==='function'&&muted())return;AC=AC||new (window.AudioContext||window.webkitAudioContext)();const t=AC.currentTime;
+ if(k==='cat'){const o=AC.createOscillator(),f=AC.createBiquadFilter(),g=AC.createGain();o.type='sawtooth';f.type='bandpass';f.Q.value=6;
+  o.frequency.setValueAtTime(br==='pure'?520:620,t);o.frequency.linearRampToValueAtTime(br==='pure'?820:950,t+0.18);o.frequency.linearRampToValueAtTime(br==='pure'?420:520,t+0.55);
+  f.frequency.setValueAtTime(900,t);f.frequency.linearRampToValueAtTime(1600,t+0.2);f.frequency.linearRampToValueAtTime(700,t+0.55);
+  g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.12,t+0.05);g.gain.exponentialRampToValueAtTime(0.0001,t+0.6);o.connect(f);f.connect(g);g.connect(AC.destination);o.start(t);o.stop(t+0.62);}
+ else if(k==='dog'){[0,0.22].forEach((d,i)=>{const o=AC.createOscillator(),f=AC.createBiquadFilter(),g=AC.createGain();o.type='square';f.type='lowpass';f.frequency.value=br==='pure'?900:700;
+  const b0=(br==='pure'?260:200)-i*20;o.frequency.setValueAtTime(b0,t+d);o.frequency.exponentialRampToValueAtTime(b0*0.55,t+d+0.14);
+  g.gain.setValueAtTime(0.0001,t+d);g.gain.exponentialRampToValueAtTime(0.16,t+d+0.015);g.gain.exponentialRampToValueAtTime(0.0001,t+d+0.16);o.connect(f);f.connect(g);g.connect(AC.destination);o.start(t+d);o.stop(t+d+0.18);});}
+ else snd('click');}catch(e){}}
+// --- герої ---
+function heroCard(id,i){const c=CHARS[id];const lk=locked(id);const sec=lk&&UNLOCKS[id]&&UNLOCKS[id].secret;const [rk,rl]=rar(id);const pk=setup.picked.indexOf(id);
+ return `<div class="hslide" data-hi="${i}"><div class="hcard r-${rk}${lk?' lk':''}">
+  <div class="hcimg"${!sec&&IMG[id]?` style="background-image:url(${IMG[id]})"`:''}>${sec?'<b class="hq">?</b>':''}</div>
+  <span class="hnum">№${String(i+1).padStart(2,'0')}</span><span class="hrar">${rl}</span>${pk>=0&&setup.count>1?`<span class="hpk">Гравець ${pk+1}</span>`:''}${lk?'<span class="hlock">🔒</span>':''}
+  <div class="hcbody"><h2>${sec?'Секретний герой':c.name}</h2>
+   ${lk?`<p class="hcl">${lockHint(id)}</p>`:`<p class="hcl">${CLV[id]||''}</p>
+   <div class="hstats"><span><i>💰</i>${c.money}<small>гроші</small></span><span><i>😌</i>${c.nerves}<small>нерви</small></span><span><i>📅</i>${c.zp}<small>зарплата</small></span></div>
+   <p class="hpm"><b>👍</b> ${cut(c.plus)}</p><p class="hpm"><b>👎</b> ${cut(c.minus)}</p>`}
+  </div></div></div>`;}
+function heroScreen(){app.classList.remove('chstep');try{if(window.chClose)window.chClose();}catch(e){}const L=ids();const multi=setup.count>1;
+ if(setup._hi==null){const f=setup.picked[0];setup._hi=f?Math.max(0,L.indexOf(f)):0;}
+ const head=setup.daily?'🗓 Тиждень дня':'Крок 2 з 3';
+ app.innerHTML=`<div class="stephead"><span>${head}</span><h2>${multi?`Гравець ${Math.min(setup.picked.length+1,setup.count)}: хто ти?`:'Хто ти сьогодні?'}</h2></div>
+ ${multi?`<div class="hpicked">${Array.from({length:setup.count},(_,k)=>{const id=setup.picked[k];return id?`<button class="hchip" data-act="hunpick" data-id="${id}">${portrait(id)}<span>${k+1}. ${CHARS[id].name}</span><i>✕</i></button>`:`<span class="hchip empty">${k+1}. ?</span>`;}).join('')}</div>`:''}
+ <div class="hwrap"><button class="harr l" data-act="hprev" aria-label="Попередній">‹</button><div class="hcar" id="hcar">${L.map(heroCard).join('')}</div><button class="harr r" data-act="hnext" aria-label="Наступний">›</button></div>
+ <div class="hdots"><span id="hcnt"></span></div>
+ <button class="btn btn-main hgo" data-act="hpick">Обрати</button>
+ <div class="hrow"><button class="btn btn-ghost" data-step="${setup.daily?'title':'modes'}">← Назад</button><button class="btn btn-ghost" data-act="hinfo">ⓘ Детальніше</button></div>`;
+ if(!app.querySelector)return;const car=app.querySelector('#hcar');if(!car||!car.addEventListener)return;
+ const go=(i,sm)=>{const s=car.children[i];if(s)car.scrollTo({left:s.offsetLeft-(car.clientWidth-s.clientWidth)/2,behavior:sm?'smooth':'auto'});};
+ const upd=()=>{const W=car.children[0]?car.children[0].offsetWidth:1;let i=0,best=1e9;[...car.children].forEach((s,k)=>{const d=Math.abs(s.offsetLeft+s.offsetWidth/2-(car.scrollLeft+car.clientWidth/2));if(d<best){best=d;i=k;}});setup._hi=i;
+  [...car.children].forEach((s,k)=>s.classList.toggle('on',k===i));const id=L[i],c=CHARS[id];const b=app.querySelector('.hgo');const cnt=app.querySelector('#hcnt');if(cnt)cnt.textContent=`${i+1} / ${L.length}`;
+  if(!b)return;const lk=locked(id);const pk=setup.picked.includes(id);b.disabled=lk||(multi&&pk);b.textContent=lk?'🔒 Ще закритий':multi&&pk?'✅ Уже в грі':`▶ Граю за ${c.g==='f'?'неї':'нього'}!`;
+  const inf=app.querySelector('[data-act=hinfo]');if(inf)inf.disabled=lk;const al=app.querySelector('.harr.l'),ar=app.querySelector('.harr.r');if(al)al.style.visibility=i>0?'':'hidden';if(ar)ar.style.visibility=i<L.length-1?'':'hidden';};
+ let tm=null;car.addEventListener('scroll',()=>{clearTimeout(tm);tm=setTimeout(upd,60);},{passive:true});
+ requestAnimationFrame(()=>{go(setup._hi,false);upd();if(!lsg('kr-hswipe')){lss('kr-hswipe','1');car.classList.add('nudge');setTimeout(()=>car.classList.remove('nudge'),1700);}});
+ app._hgo=go;}
+function infoSheet(){const id=ids()[setup._hi||0];if(!id||locked(id))return;const f=CHARS[id];let ov=document.getElementById('hinfo');if(ov)ov.remove();ov=document.createElement('div');ov.id='hinfo';
+ ov.innerHTML=`<div class="hibox"><div class="hihead">${portrait(id)}<b>${f.name}</b><button class="gmx" data-hx="1" aria-label="Закрити">✕</button></div><div class="hibody">
+ ${f.memorial?`<p style="font-style:italic">🕊 ${f.memorial}</p>${RUSLAN_BTN}`:''}
+ <p><b>👍 Плюс.</b> ${f.plus}</p><p><b>👎 Мінус.</b> ${f.minus}</p><p><b>🤫 Секрет.</b> ${f.secret}: ${fmt(f.sd)}, один раз</p>
+ <p><b>📅 Зарплата.</b> ${f.zp} грн за тиждень.</p><p><b>🏠 Життя.</b> ${LIFE[id]||''}</p>
+ ${DREAMS_C[id]?`<p><b>🎯 Можливі мрії.</b> ${DREAMS_C[id].map(d=>d.t).join(', ')}. Яка саме — дізнаєшся на старті.</p>`:''}
+ <p><b>🛠 Послуги.</b> До ${f.g==='f'?'неї':'нього'} йдуть по: ${f.svc}.</p></div></div>`;
+ document.body.appendChild(ov);document.body.classList.add('noscroll');
+ ov.addEventListener('click',e=>{if(e.target===ov||e.target.closest('[data-hx]')){ov.remove();document.body.classList.remove('noscroll');return;}if(e.target.closest('[data-act=ruslan]')){e.stopPropagation();playRuslan();}});}
+function afterPick(){if(setup.picked.length<setup.count){const L=ids();const n=L.findIndex((x,k)=>k>(setup._hi||0)&&!setup.picked.includes(x)&&!locked(x));setup._hi=n>=0?n:L.findIndex(x=>!setup.picked.includes(x)&&!locked(x));return heroScreen();}if(setup.daily){setup.step='chars';return startGame();}setup.step='pets';setup._pi=0;renderSetup();window.scrollTo(0,0);}
+document.addEventListener&&document.addEventListener('click',e=>{if(S||(setup.step||'')!=='chars'||(typeof ROOMUI!=='undefined'&&ROOMUI))return;const b=e.target.closest&&e.target.closest('#app [data-act^=h]');if(!b)return;const a=b.dataset.act;if(!['hpick','hunpick','hprev','hnext','hinfo'].includes(a))return;
+ e.stopPropagation();e.preventDefault();const L=ids();
+ if(a==='hprev'||a==='hnext'){const i=Math.max(0,Math.min(L.length-1,(setup._hi||0)+(a==='hnext'?1:-1)));if(app._hgo)app._hgo(i,true);return;}
+ if(a==='hinfo')return infoSheet();
+ if(a==='hunpick'){setup.picked=setup.picked.filter(x=>x!==b.dataset.id);return heroScreen();}
+ const id=L[setup._hi||0];if(!id||locked(id))return;if(id==='rukha')try{playRuslan();}catch(x){}
+ if(setup.count===1)setup.picked=[id];else if(!setup.picked.includes(id)&&setup.picked.length<setup.count)setup.picked.push(id);
+ setup.focus=id;try{snd('ach');}catch(x){}const card=app.querySelector('.hslide.on .hcard');if(card){card.classList.add('chosen');setTimeout(afterPick,380);}else afterPick();},true);
+// --- тварини ---
+const PETS=[['none','stray','Ніхто','', '🏠 тиша й економія'],['cat','stray','Рудий кіт','pet_cat','😌+1 через день · 🍗 30/день'],['cat','pure','Перс 👑','pet_catp','😌+1 через день · 😊 більше · 🍗 60/день'],['dog','stray','Кудлатий пес','pet_dog','😊+1 щовечора · 😌+1 через день · 🍗 35/день'],['dog','pure','Хаскі 👑','pet_dogp','😊 ще більше · 😌+1 через день · 🍗 70/день']];
+const petsOf=id=>PETS.concat(id==='rukha'?[['dog','archie','Арчі ❤️','pet_archie','найкращий друг · 😊 завжди поруч']]:[]);
+const curPet=id=>{const k=setup.pets[id]||'none',b=setup.breeds[id]||'stray';return petsOf(id).find(x=>x[0]===k&&(k==='none'||x[1]===b))||PETS[0];};
+function petScreen2(){app.classList.remove('chstep');app.innerHTML=`<div class="stephead"><span>${setup.daily?'🗓 Тиждень дня':'Крок 3 з 3'}</span><h2>Хто чекає вдома?</h2></div>`+setup.picked.map(id=>{const P=curPet(id);
+ return `<div class="pduo"><div class="pduo-h">${portrait(id)}</div><span class="pplus">${P[0]==='none'?'':'❤'}</span><div class="pduo-p${P[0]==='none'?' empty':''}">${P[3]&&IMG[P[3]]?`<img src="${IMG[P[3]]}" alt="">`:'<span>🏠</span>'}</div>
+  <p class="pcap"><b>${CHARS[id].name}</b>${P[0]==='none'?' живе сам'+(CHARS[id].g==='f'?'а':''):' і '+P[2].replace(/ 👑| ❤️/g,'')}</p></div>
+  <div class="pcar">${petsOf(id).map(([k,br,l,im,x])=>{const on=P[0]===k&&(k==='none'||P[1]===br);return `<button class="pcard2${on?' on':''}" data-pp2="${id}|${k}|${br}">${im&&IMG[im]?`<img src="${IMG[im]}" alt="">`:'<span class="nop">🏠</span>'}<b>${l}</b><small>${x}</small>${on?'<i class="pok">✓</i>':''}</button>`;}).join('')}</div>`;}).join('')+
+ `<button class="btn btn-main hgo" data-act="startgame" data-petok="1">Поїхали! 🚋</button><button class="btn btn-ghost" data-step="chars">← Назад</button>`;
+ if(!app.querySelectorAll)return;app.querySelectorAll('.pcar').forEach(c=>{const on=c.querySelector('.on');if(on&&c.scrollTo)requestAnimationFrame(()=>c.scrollTo({left:on.offsetLeft-(c.clientWidth-on.clientWidth)/2}));});}
+document.addEventListener&&document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('[data-pp2]');if(!t||S)return;e.stopPropagation();e.preventDefault();const [id,k,b]=t.dataset.pp2.split('|');setup.pets[id]=k;if(k!=='none')setup.breeds[id]=b;petSnd(k,b);
+ const sx=[...app.querySelectorAll('.pcar')].map(c=>c.scrollLeft);petScreen2();app.querySelectorAll('.pcar').forEach((c,i)=>{c.scrollLeft=sx[i]||0;const on=c.querySelector('.on');if(on&&c.scrollTo)c.scrollTo({left:on.offsetLeft-(c.clientWidth-on.clientWidth)/2,behavior:'smooth'});});
+ const d=app.querySelectorAll('.pduo-p')[setup.picked.indexOf(id)];if(d){d.classList.add('pop');}},true);
+// --- рендер кроків ---
+{const _rs=renderSetup;renderSetup=function(){const st=setup.step||'title';if(typeof ROOMUI!=='undefined'&&ROOMUI)return _rs.apply(this,arguments);
+ if(st==='chars'){setup._lastSt='chars';return heroScreen();}
+ if(st==='pets'){setup._lastSt='pets';return petScreen2();}
+ const r=_rs.apply(this,arguments);
+ try{if(st==='modes'&&setup.custom&&app.querySelector&&!app.querySelector('.shortseg')){const on=lsg('kr-short')!=='0';const anchor=app.querySelector('.morex')||app.querySelector('[data-step=chars]');
+  if(anchor)anchor.insertAdjacentHTML('beforebegin',`<p class="intro shortseg" style="margin-bottom:6px">📖 Тексти в грі:</p><div class="counts"><button data-s="short" data-v="1" aria-pressed="${on}" style="font-size:14px">Коротко</button><button data-s="short" data-v="0" aria-pressed="${!on}" style="font-size:14px">Повністю</button></div><p class="note" style="color:var(--muted);margin-top:6px">${on?'Одне речення й значки 💰😌😊. Решту можна розгорнути кнопкою «ще…».':'Повні тексти подій, як у книжці.'}</p>`);}}catch(e){}
+ return r;};}
+// закриваємо деталі при виході з кроку
+{const _r=render;render=function(){const ov=document.getElementById&&document.getElementById('hinfo');if(ov&&ov.remove&&S){ov.remove();document.body.classList.remove('noscroll');}return _r.apply(this,arguments);};}
 })();
 
 render();
