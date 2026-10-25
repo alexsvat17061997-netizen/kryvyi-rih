@@ -802,6 +802,38 @@ img{max-width:100%}
 .mslide .say{margin:0 0 10px}
 .mgo{position:sticky;bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:6;padding:8px 58px 0 0;margin-top:6px;background:linear-gradient(rgba(245,231,207,0),var(--bg) 40%)}
 .mstart{margin:0!important;font-size:18px!important;white-space:nowrap;padding:16px!important;box-shadow:0 6px 18px rgba(31,35,80,.3)}
+
+/* 1.060 режими, «Як грати», погода */
+.msec{font:800 18px var(--display,var(--body));margin:14px 0 8px;color:var(--text)}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mgrid .mcard{min-height:150px;padding:10px}
+.mgrid .mcard b{font-size:16px}.mgrid .mcard small{font-size:12px;line-height:1.25}
+.mcard.big{min-height:150px;margin-bottom:10px;width:100%}
+.mcard.sun{background:#8a5a12}.mcard.tog{background:#245a52}.mcard.onl{background:#2b3f8f}
+.mcard .mchips{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.mcard .mchips i{font-style:normal;font:600 11px var(--body);background:rgba(255,255,255,.18);border-radius:999px;padding:2px 7px;white-space:nowrap}
+.mcard .mdots{position:absolute;z-index:1;top:8px;right:10px;font-size:11px;letter-spacing:1px;color:#F2A93B;text-shadow:0 1px 2px rgba(0,0,0,.6)}
+.mcard.hardc .mdots{color:#ff6b4a}
+.mcard.hardc{box-shadow:0 0 0 2px #E4502E,0 6px 22px rgba(228,80,46,.45)}
+.mbadge{position:absolute;z-index:2;top:8px;left:10px;font-style:normal;font:700 12px var(--body);background:#5DBB63;color:#fff;border-radius:999px;padding:3px 9px;animation:mbadge 1.6s ease-in-out infinite}
+@keyframes mbadge{50%{transform:scale(1.07)}}
+.mlast{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:var(--panel);color:var(--text);border:2px solid #F2A93B;border-radius:14px;padding:10px 12px;margin:4px 0 4px;cursor:pointer}
+.mlast span{font-size:26px}.mlast b{display:block;font-size:15px}.mlast small{font-size:12px;color:var(--muted)}
+#msheet{position:fixed;inset:0;z-index:8000;background:rgba(10,8,25,.55);display:flex;align-items:flex-end;justify-content:center}
+.msbox .btn-main{margin-top:10px}
+.howc .hcimg{aspect-ratio:1/0.62}
+.howc .hpm{-webkit-line-clamp:3;font-size:14px;margin-top:6px}
+.howmore{margin-top:10px}
+.mwx{display:flex;align-items:center;gap:12px;background:#2E3576;color:#F5E7CF;border-radius:16px;padding:10px 14px;margin-bottom:10px}
+.mwx span{font-size:36px;line-height:1}.mwx b{display:block;font-size:16px}.mwx small{font-size:13px;opacity:.85}
+.wx.d-fog{background:linear-gradient(180deg,rgba(230,230,240,.55),rgba(230,230,240,.25) 50%,rgba(230,230,240,.5));animation:fogd 8s ease-in-out infinite alternate}
+@keyframes fogd{to{opacity:.65}}
+.wx.d-ice{background:linear-gradient(180deg,rgba(170,215,255,.35),rgba(200,235,255,.15))}
+.wx.d-sun{background:radial-gradient(circle at 85% 8%,rgba(255,230,140,.55),transparent 40%)}
+.wxsum{text-align:center;font-size:15px;margin:8px 0}
+.phwxd{display:flex;align-items:center;gap:10px;padding:6px 0;border-top:1px solid rgba(0,0,0,.08)}
+.phwxd span{font-size:28px}.phwxd b{display:block}.phwxd small{opacity:.75}
+.wggrid.fog .wgcell{filter:blur(1.6px);opacity:.8}
 </style>
 </head>
 <body>
@@ -1686,7 +1718,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.059 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.060 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2576,7 +2608,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.059 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.060 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -4797,6 +4829,12 @@ function hearts(n){return '❤️'.repeat(n)+'🤍'.repeat(5-n);}
 {const _ct=completeTask;completeTask=function(i,t){const was=t&&!t.done&&!t.failed;_ct.apply(this,arguments);try{if(was&&t.done)toastI(i,'✅ Виконано: '+t.item);}catch(e){}};}
 {const _ft=failTask;failTask=function(i,t){const was=t&&!t.done&&!t.failed;_ft.apply(this,arguments);try{if(was&&t.failed){const m=`❌ Не встиг: ${t.item}${t.loc&&LOCS[t.loc]?' — треба було заїхати: '+LOCS[t.loc].n:''}`;S.last=(S.last?S.last+' · ':'')+m;toastI(i,m);}}catch(e){}};}
 
+// --- 1.060: прогноз на 3 дні ---
+{const _aw=appWx;appWx=function(){try{if(!S.wxd||S.wxReal||!window.krWxD||!window.WXD)return _aw();const W=window.WXD;const row=(d,lbl)=>{if(d>=S.D)return '';const k=window.krWxD(d);const w=W[k]||W[''];return `<div class="phwxd"><span>${w[0]}</span><div><b>${lbl}: ${w[1]}, ${tFor(d)}°</b>${w[2]?`<small>${w[2]}</small>`:''}</div></div>`;};
+ const k=window.krWxD();const w=W[k]||W[''];
+ return head('🌦 Погода')+`<div class="phwx"><div><span>${w[0]}</span><b>${tFor(S.day)}°</b><small>Сьогодні в Кривому Розі: ${w[1]}${w[2]?' · '+w[2]:''}</small></div></div><div class="phsec"><h4>Прогноз</h4>${row(S.day+1,'Завтра')}${row(S.day+2,'Післязавтра')}${S.day+1>=S.D?'<p class="note">Далі — зарплата. Погода вже не важлива 😄</p>':''}</div>
+ ${S.hard&&S.crisis&&S.day<=S.crisis.until?`<div class="phsec"><h4>⚠️ Попередження</h4><p>${S.crisis.t}: ${S.crisis.x}</p></div>`:''}`;}catch(e){return _aw();}};}
+
 })();
 
 // === 1.045: 📒 Альбом наліпок ===
@@ -5646,7 +5684,7 @@ function eQuiz(stage,done,o){const Q=o.qs;let i=0,ok=0,t0=0,over=false,tm=null;c
   const bar=w.querySelector('.wgtime i');t0=performance.now();const tick=t=>{if(over||!bar.isConnected)return;const r=1-(t-t0)/T;bar.style.width=Math.max(0,r*100)+'%';if(r<=0){i++;try{snd('loss');}catch(x){}show();return;}requestAnimationFrame(tick);};requestAnimationFrame(tick);
   w.querySelectorAll('.wgo').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();if(over)return;const good=+b.dataset.k===q.a;if(good){ok++;try{snd('coin');}catch(x){}}else try{snd('loss');}catch(x){}b.classList.add(good?'ok':'no');w.querySelectorAll('.wgo').forEach(x=>x.disabled=true);i++;setTimeout(show,450);}));};
  show();return ()=>{over=true;};}
-function eWhack(stage,done,o){const w=document.createElement('div');w.className='wg';w.innerHTML=`<p class="wgcnt">${o.hint}</p><div class="wggrid">${Array.from({length:9},(_,k)=>`<button class="wgcell" data-k="${k}"></button>`).join('')}</div><div class="wgtime"><i></i></div>`;stage.appendChild(w);
+function eWhack(stage,done,o){const w=document.createElement('div');w.className='wg';w.innerHTML=`<p class="wgcnt">${o.hint}</p><div class="wggrid${o.fog?' fog':''}">${Array.from({length:9},(_,k)=>`<button class="wgcell" data-k="${k}"></button>`).join('')}</div><div class="wgtime"><i></i></div>`;stage.appendChild(w);
  const cells=[...w.querySelectorAll('.wgcell')],bar=w.querySelector('.wgtime i');let good=0,hit=0,bad=0,over=false;const dur=o.dur||10000,t0=performance.now();
  const spawn=()=>{if(over)return;const free=cells.filter(c=>!c.dataset.v);if(free.length){const c=free[Math.floor(Math.random()*free.length)];const isBad=o.bad&&Math.random()<0.3;c.dataset.v=isBad?'b':'g';c.textContent=isBad?o.bad:o.good;if(!isBad)good++;setTimeout(()=>{if(c.dataset.v){c.dataset.v='';c.textContent='';}},o.show||900);}setTimeout(spawn,o.every||600);};spawn();
  cells.forEach(c=>c.addEventListener('click',e=>{e.stopPropagation();if(over||!c.dataset.v)return;if(c.dataset.v==='g'){hit++;try{snd('coin');}catch(x){}c.classList.add('ok');}else{bad++;try{snd('loss');}catch(x){}c.classList.add('no');}c.dataset.v='';c.textContent='';setTimeout(()=>c.classList.remove('ok','no'),200);}));
@@ -5654,8 +5692,9 @@ function eWhack(stage,done,o){const w=document.createElement('div');w.className=
  return ()=>{over=true;};}
 function eLanes(stage,done,o){const n=o.n||10;const w=document.createElement('div');w.className='wg';w.innerHTML=`<p class="wgcnt">${o.hint}</p><div class="wglanes"><div class="wgpl">${o.player}</div></div><div class="wgctl"><button class="btn btn-main" data-d="-1">◀</button><button class="btn btn-main" data-d="1">▶</button></div>`;stage.appendChild(w);
  const box=w.querySelector('.wglanes'),pl=w.querySelector('.wgpl');let lane=1,sent=0,score=0,over=false,objs=[];const put=()=>{pl.style.left=(lane*33.33+16.66)+'%';};put();
- w.querySelectorAll('[data-d]').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();lane=Math.max(0,Math.min(2,lane+(+b.dataset.d)));put();}));
- let sx=null;box.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});box.addEventListener('touchend',e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>25){lane=Math.max(0,Math.min(2,lane+(dx>0?1:-1)));put();}sx=null;},{passive:true});
+ const mv=dd=>{const f=()=>{lane=Math.max(0,Math.min(2,lane+dd));put();};if(o.slip)setTimeout(f,150);else f();};
+ w.querySelectorAll('[data-d]').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();mv(+b.dataset.d);}));
+ let sx=null;box.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});box.addEventListener('touchend',e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>25)mv(dx>0?1:-1);sx=null;},{passive:true});
  const drop=()=>{if(over||sent>=n)return;sent++;const L=Math.floor(Math.random()*3);const el=document.createElement('div');el.className='wgob';el.textContent=Array.isArray(o.item)?o.item[Math.floor(Math.random()*o.item.length)]:o.item;el.style.left=(L*33.33+16.66)+'%';box.appendChild(el);objs.push({el,L,y:-8});setTimeout(drop,o.every||900);};drop();
  let last=performance.now();const loop=t=>{if(over)return;const dt=t-last;last=t;objs.forEach(ob=>{ob.y+=dt*(o.speed||0.045);ob.el.style.top=ob.y+'%';if(!ob.done&&ob.y>=78){ob.done=1;const same=ob.L===lane;if(o.mode==='catch'?same:!same){score++;try{snd('coin');}catch(x){}}else{try{snd('loss');}catch(x){}pl.classList.add('hit');setTimeout(()=>pl.classList.remove('hit'),200);}ob.el.remove();}});
   objs=objs.filter(x=>!x.done);if(sent>=n&&!objs.length){over=true;return done(score/n,`${o.mode==='catch'?'Впіймав':'Обʼїхав'} ${score} з ${n}`);}requestAnimationFrame(loop);};requestAnimationFrame(loop);
@@ -5680,12 +5719,13 @@ function qArrow(){const A=['⬅️','⬆️','➡️'];const N=['ліворуч'
 const COLQ=[['Боржник: «Грошей нема, хоч убий»',['Давайте домовимось про графік','Я вас знайду!','Ну то й не треба'],0],['Боржник кладе слухавку',['Написати ввічливе SMS','Дзвонити до ночі','Погрожувати сусідам'],0],['Пенсіонерка плаче в трубку',['Запропонувати відстрочку','Тиснути далі','Розсміятись'],0],['Боржник: «Віддам у пʼятницю»',['Зафіксувати дату й подякувати','Не вірити й кричати','Кинути слухавку'],0]];
 function qCol(){return shuf(COLQ).slice(0,3).map(([q,o,a])=>{const ord=shuf([0,1,2]);return {q,o:ord.map(k=>o[k]),a:ord.indexOf(a)};});}
 const DOCS=[['Звіт за квартал','L'],['Рахунок за світло','R'],['Звіт про відрядження','L'],['Рахунок-фактура','R'],['Звіт з продажів','L'],['Рахунок за інтернет','R'],['Річний звіт','L'],['Рахунок постачальника','R'],['Звіт для шефа','L'],['Рахунок за оренду','R']];
+const wxNow=()=>{try{return window.krWxD?window.krWxD():'';}catch(e){return '';}};
 const WG={
  student:['Іспит','Три питання, на кожне 6 секунд.',(s,d)=>eQuiz(s,d,{qs:qStud()})],
  miner:['Бур','Тисни «Свердлити!», коли ⛏ у зеленій зоні. 5 спроб.',(s,d)=>eTiming(s,d,{emo:'⛏',label:'Свердлити!'})],
  seller:['Решта','Швидко порахуй решту покупцю. 3 покупці.',(s,d)=>eQuiz(s,d,{qs:qChange(),time:7000})],
- driver:['Ями','Обʼїжджай ями: ◀ ▶ або свайп.',(s,d)=>eLanes(s,d,{mode:'dodge',item:'🕳',player:'🚐',hint:'Не влети в яму!'})],
- pensioner:['Город','Тицяй бурʼяни 🌿, але не чіпай полуницю 🍓.',(s,d)=>eWhack(s,d,{good:'🌿',bad:'🍓',hint:'Пололи-пололи…'})],
+ driver:['Ями','Обʼїжджай ями: ◀ ▶ або свайп.',(s,d)=>{const w=wxNow();const sl=w==='rain'||w==='ice'||w==='snow';return eLanes(s,d,{mode:'dodge',item:'🕳',player:'🚐',hint:sl?(w==='rain'?'🌧 Мокро — маршрутку заносить!':'🧊 Слизько — маршрутку заносить!'):'Не влети в яму!',slip:sl});}],
+ pensioner:['Город','Тицяй бурʼяни 🌿, але не чіпай полуницю 🍓.',(s,d)=>{const h=wxNow()==='heat'||wxNow()==='sun';return eWhack(s,d,{good:'🌿',bad:'🍓',hint:h?'☀️ Спека — бурʼян пре як скажений!':'Пололи-пололи…',every:h?430:600,show:h?780:900});}],
  office:['Папки','Розклади папери: звіти ліворуч, рахунки праворуч.',(s,d)=>eSort(s,d,{left:'Звіти',right:'Рахунки',items:DOCS})],
  mom:['Іграшки','Лови іграшки кошиком: ◀ ▶ або свайп.',(s,d)=>eLanes(s,d,{mode:'catch',item:['🧸','🚗','🧩','🪀'],player:'🧺',hint:'Малий розкидав іграшки!'})],
  teacher:['Зошити','Знайди помилку в прикладі. 3 зошити.',(s,d)=>eQuiz(s,d,{qs:qErr(),time:8000})],
@@ -5693,7 +5733,7 @@ const WG={
  it:['Баги','Тицяй баги 🐞, але не чіпай каву ☕.',(s,d)=>eWhack(s,d,{good:'🐞',bad:'☕',hint:'Прод горить!',every:520,show:800})],
  plumber:['Кран','Тисни «Закрутити!», щоб тиск не прорвав трубу 8 секунд.',(s,d)=>eMash(s,d,{hint:'Тиск росте!',label:'🔧 Закрутити!'})],
  collector:['Дзвінок','Обери правильну фразу боржнику.',(s,d)=>eQuiz(s,d,{qs:qCol()})],
- guard:['Монітори','Тицяй злодіїв 🦹, а покупців 🧍 не чіпай.',(s,d)=>eWhack(s,d,{good:'🦹',bad:'🧍',hint:'Хтось краде шоколадки!',every:650})],
+ guard:['Монітори','Тицяй злодіїв 🦹, а покупців 🧍 не чіпай.',(s,d)=>{const f=wxNow()==='fog';return eWhack(s,d,{good:'🦹',bad:'🧍',hint:f?'🌫 Туман — камери бачать погано!':'Хтось краде шоколадки!',every:650,fog:f});}],
  fisher:['Рибалка','Чекай, поки поплавок пірне, і тисни «Підсікай!».',(s,d,m)=>mgFish(s,(r,t)=>d(r==null?null:Math.min(1,(+r||0)/4),t),m,'bonus')],
  gopnik:['Гараж','Закручуй болти 🔩, коли вони в зеленій зоні.',(s,d)=>eTiming(s,d,{emo:'🔩',label:'Закрутити!'})],
  rukha:['Парашут','Керуй куполом і сідай на мішень.',(s,d)=>mgPara(s,(r,t)=>d(r==null?null:Math.min(1,(+r||0)/2),t))]};
@@ -5803,7 +5843,6 @@ document.addEventListener&&document.addEventListener('click',e=>{const b=e.targe
 {const _r=render;render=function(){coachClear();_r.apply(this,arguments);try{if(SIM||!app||!app.querySelector||!S||!S.players)return;const tb=document.getElementById('tutbox');if(tb)tb.remove();document.querySelectorAll('.tutglow').forEach(x=>x.classList.remove('tutglow'));
  workBtn();mgMarks();mapGlow();shortify();taskRemind();travelEta();setTimeout(coachShow,250);}catch(e){if(typeof console!=='undefined')console.error(e);}};}
 })();
-
 // === 1.058: герої й тварини — великі картки, що гортаються ===
 (function(){
 const lsg=k=>{try{return localStorage.getItem(k);}catch(e){return null;}},lss=(k,v)=>{try{localStorage.setItem(k,v);}catch(e){}};
@@ -5921,6 +5960,116 @@ function morningCards(){if(S.phase!=='morning'||!app.querySelector||app.querySel
   requestAnimationFrame(()=>{try{const p=S.players[typeof meI==='function'&&S.room?meI():S.turn]||S.players[0];const pin=win.querySelector(`[data-loc="${p.pos}"]`);if(pin){const r=pin.getBoundingClientRect(),w=win.getBoundingClientRect();win.scrollTop+=r.top-w.top-win.clientHeight/2;}}catch(x){}});}
  requestAnimationFrame(()=>go(S._msDay===S.day&&S._ms!=null?S._ms:0,false));S._msDay=S.day;}
 {const _r=render;render=function(){_r.apply(this,arguments);try{if(!SIM&&S&&S.players&&app.querySelector)morningCards();}catch(e){if(typeof console!=='undefined')console.error(e);}};}
+})();
+
+// === 1.060: режими — зрозуміло й красиво; «Як грати»; погода як у житті ===
+(function(){
+const lsg=k=>{try{return localStorage.getItem(k);}catch(e){return null;}},lss=(k,v)=>{try{localStorage.setItem(k,v);}catch(e){}};
+const U=k=>(window.iurl?window.iurl(k):IMG[k])||IMG[k]||'';
+// ---------- погода як у житті ----------
+const WXD={'':['⛅','хмарно',''],sun:['☀️','сонячно','+1 щастя зранку'],rain:['🌧','дощ','пішки −1 нерв'],fog:['🌫','туман','маршрутки повзуть'],snow:['❄️','сніг','пішки важче'],ice:['🧊','ожеледь','пішки −1 нерв, Скарік ламається частіше'],heat:['🔥','спека','−1 нерв зранку']};
+const PROB={winter:[['snow',35],['ice',20],['fog',15],['',30]],mid:[['rain',35],['fog',20],['',30],['sun',15]],summer:[['heat',35],['sun',35],['rain',15],['',15]]};
+function genWx(season){const P=PROB[season]||PROB.mid;let r=Math.random()*100;for(const [k,w] of P){if((r-=w)<0)return k;}return '';}
+function calSeason(d){const m=d.getMonth();return (m===11||m<=1)?'winter':(m>=5&&m<=7)?'summer':'mid';}
+function wxD(day){if(!S||!S.players)return '';const d=day==null?S.day:day;if(S.wxReal)return d===S.day?(typeof weather==='function'?weather():''):'';
+ const nw=S.news&&S.news[d]||{};if(d===S.day&&nw.wx)return nw.wx;try{const w=window.krWcard&&window.krWcard();if(w&&w.k==='rain'&&d===S.day)return 'rain';}catch(e){}
+ return S.wxd&&S.wxd[d]!=null?S.wxd[d]:'';}
+window.krWxD=wxD;window.WXD=WXD;
+{const _w=weather;weather=function(){if(S&&S.wxd&&!S.wxReal){const d=wxD();return d==='ice'?'snow':d==='fog'||d==='sun'?'':d;}return _w.apply(this,arguments);};}
+{const _mp=morningParts;morningParts=function(p){const parts=_mp.apply(this,arguments);try{if(S.wxd&&!p.collector){const d=wxD();if(d==='sun')parts.push({label:'☀️ Сонечко',d:{h:1}});if(d==='heat')parts.push({label:'🔥 Спека',d:{n:-1}});}}catch(e){}return parts;};}
+{const _to=travelOpts;travelOpts=function(p,target){const r=_to.apply(this,arguments);try{if(S.wxd&&r&&r.opts){const d=wxD();r.opts=r.opts.map(o=>{o=Object.assign({},o,{d:Object.assign({},o.d)});
+ if(o.k==='walk'&&r.d>0&&(d==='rain'||d==='ice')){o.d.n=(o.d.n||0)-1;o.note=(o.note?o.note+'; ':'')+(d==='rain'?'🌧 дощ':'🧊 ожеледь');}
+ if(o.k==='bus'&&d==='fog')o.note=(o.note?o.note+'; ':'')+'🌫 туман — маршрутка повзе';
+ if(o.k==='tram'&&d==='ice')o.note=(o.note?o.note+'; ':'')+'🧊 ожеледь — ламається частіше';return o;});}}catch(e){}return r;};}
+{const _dt=doTravel;doTravel=function(p,o){let m=_dt.apply(this,arguments);try{if(S.wxd&&o.k==='tram'&&wxD()==='ice'&&Math.random()<0.2){apply(p,{n:-1});m+=', на ожеледі Скарік зійшов з рейок: −1 нерв';}}catch(e){}return m;};}
+{const _sg=startGame;startGame=function(){const life=setup.season==='life'||!setup.season;const now=new Date();if(life)setup.season=calSeason(now);
+ _sg.apply(this,arguments);if(life)setup.season='life';
+ try{if(S&&S.players){if(life){S.wxLife=1;const x=new Date(now.getFullYear(),now.getMonth(),now.getDate());const w=(x.getDay()+6)%7;if(w>=5)x.setDate(x.getDate()+(7-w));else x.setDate(x.getDate()-w);S.date0=x.getTime();}
+  if(!S.wxReal){S.wxd={};for(let d=0;d<(S.D||5)+1;d++)S.wxd[d]=genWx(S.season);}
+  lss('kr-played','1');
+  if(!(typeof ROOM!=='undefined'&&ROOM)&&!setup.daily)lss('kr-last',JSON.stringify({count:setup.count,W:setup.W,hard:!!setup.hard,iron:!!setup.iron,family:!!setup.family,oneDay:!!setup.oneDay,picked:setup.picked,pets:setup.pets,breeds:setup.breeds,season:setup.season,pn:setup._pname||'Свої налаштування'}));}}catch(e){}};}
+if(setup&&(!setup.season||['summer','mid','winter'].includes(setup.season)))setup.season='life';
+// вигляд погоди на карті й уранці
+function wxPaint(){if(!S||!S.wxd||!document.querySelectorAll)return;const d=wxD();document.querySelectorAll('.map').forEach(m=>{if(m.dataset.wxd===d+'|'+S.day)return;m.dataset.wxd=d+'|'+S.day;
+ let w=m.querySelector('.wx');if(!w&&(d==='fog'||d==='sun')){m.insertAdjacentHTML('afterbegin','<div class="wx" aria-hidden="true"></div>');w=m.querySelector('.wx');const img=m.querySelector('img.m');if(img&&w)img.after(w);}
+ if(w){w.classList.remove('d-fog','d-ice','d-sun');if(['fog','ice','sun'].includes(d))w.classList.add('d-'+d);}});
+ const s1=document.querySelector('.mslide[data-ms="1"]');if(s1&&!s1.querySelector('.mwx')){const W=WXD[d]||WXD[''];s1.insertAdjacentHTML('afterbegin',`<div class="mwx"><span>${W[0]}</span><div><b>Сьогодні: ${W[1]}</b>${W[2]?`<small>${W[2]}</small>`:''}</div></div>`);}}
+if(typeof document!=='undefined'&&document.querySelector&&typeof setInterval==='function'&&document.body)setInterval(()=>{try{wxPaint();}catch(e){}},400);
+// підсумок погоди у фіналі
+function wxSummary(){if(!S||!S.wxd||!['end','done'].includes(S.phase)||!app.querySelector)return;const ec=app.querySelector('.endcard');if(!ec||app.querySelector('.wxsum'))return;
+ const c={};for(let d=0;d<S.D;d++){const k=S.wxd[d]||'';c[k]=(c[k]||0)+1;}const N={rain:['дощ','дощі','дощів'],fog:['туман','тумани','туманів'],snow:['снігопад','снігопади','снігопадів'],ice:['ожеледь','ожеледі','ожеледей'],heat:['спекотний день','спекотні дні','спекотних днів'],sun:['сонячний день','сонячні дні','сонячних днів']};
+ const pl=(n,f)=>n%10===1&&n%100!==11?f[0]:n%10>=2&&n%10<=4&&(n%100<10||n%100>=20)?f[1]:f[2];
+ const parts=Object.keys(N).filter(k=>c[k]).map(k=>`${WXD[k][0]} ${c[k]} ${pl(c[k],N[k])}`);if(!parts.length)return;
+ ec.insertAdjacentHTML('afterend',`<p class="wxsum">🌦 <b>Погода ${S.D>5?'гри':'тижня'}:</b> ${parts.join(', ')}.</p>`);}
+// ---------- режими ----------
+const P={fast:{W:1,pn:'Швидка'},normal:{W:2,pn:'Звичайна'},month:{W:4,pn:'Місяць'},day:{W:1,oneDay:1,pn:'Один день'}};
+const chips=(a,b,c)=>`<span class="mchips"><i>👤 ${a}</i><i>📅 ${b}</i><i>⏱ ${c}</i></span>`;
+const dots=n=>`<span class="mdots">${'●'.repeat(n)}${'○'.repeat(3-n)}</span>`;
+function lastBtn(){let L=null;try{L=JSON.parse(lsg('kr-last')||'null');}catch(e){}if(!L||!L.picked||!L.picked.length||L.picked.some(id=>!CHARS[id]||locked(id)))return '';
+ const pet=id=>{const k=(L.pets||{})[id];if(!k||k==='none')return '';const b=(L.breeds||{})[id]||'stray';return ' + '+({cat:{stray:'Рудий кіт',pure:'Перс'},dog:{stray:'Кудлатий пес',pure:'Хаскі',archie:'Арчі'}}[k]||{})[b];};
+ return `<button class="mlast" data-mact="last"><span>🔁</span><div><b>Як минулого разу</b><small>${L.picked.map(id=>CHARS[id].name+(pet(id)||'')).join(', ')} · ${L.pn}${L.hard?' 🔥':''}</small></div></button>`;}
+function modesScreen(){const first=!lsg('kr-played');
+ app.innerHTML=`<div class="stephead"><span>Крок 1 з 3</span><h2>Як граємо?</h2></div>${lastBtn()}
+ <h3 class="msec">🙋 Сам</h3>
+ <button class="mcard big" data-mact="fast"><span class="mci" style="background-image:url(${U('tram')||U('s2')})"></span>${first?'<em class="mbadge">👍 Для першої гри</em>':''}<b>⚡ Швидка</b><small>Щоб розібратися або пограти на перерві</small>${chips('1','тиждень','~15 хв')}${dots(1)}</button>
+ <div class="mgrid">
+  <button class="mcard" data-mact="normal"><span class="mci" style="background-image:url(${U('s9')})"></span><b>🏠 Звичайна</b><small>аванс, вихідні, більше історій</small>${chips('1','2 тижні','~30 хв')}${dots(2)}</button>
+  <button class="mcard" data-mact="month"><span class="mci" style="background-image:url(${U('s10')})"></span><b>📅 Місяць</b><small>довга гра на кілька вечорів</small>${chips('1','4 тижні','вечори')}${dots(3)}</button>
+  <button class="mcard hardc" data-mact="hard"><span class="mci" style="background-image:url(${U('h1')||U('k1')})"></span><b>🔥 Хардкор 🔞</b><small>кримінал, кризи, жесть</small>${chips('1','на вибір','15+ хв')}${dots(3)}</button>
+  <button class="mcard sun" data-mact="day"><span class="mci" style="background-image:url(${U('s24')})"></span><b>☕ Один день</b><small>поки чекаєш маршрутку</small>${chips('1','1 день','~5 хв')}${dots(1)}</button>
+ </div>
+ <h3 class="msec">👥 Разом</h3>
+ <div class="mgrid">
+  <button class="mcard tog" data-mact="hot"><span class="mci" style="background-image:url(${U('s21')||U('s9')})"></span><b>📱 На одному телефоні</b><small>передаєте телефон по колу</small>${chips('2–4','на вибір','~30 хв')}</button>
+  <button class="mcard onl" data-mact="online"><span class="mci" style="background-image:url(${U('s27')||U('s29')})"></span><b>🌐 Онлайн з друзями</b><small>кожен зі свого телефона</small>${chips('2–4','на вибір','~30 хв')}</button>
+ </div>
+ <button class="btn btn-ghost" data-act="custommodes">⚙ Налаштувати самому<small>пора року, тексти, сімейка, залізний режим</small></button><button class="btn btn-ghost" data-step="title">← Назад</button>`;}
+function sheet(title,body,onClick){let ov=document.getElementById('msheet');if(ov)ov.remove();ov=document.createElement('div');ov.id='msheet';
+ ov.innerHTML=`<div class="hibox msbox"><div class="hihead"><b>${title}</b><button class="gmx" data-hx="1" aria-label="Закрити">✕</button></div><div class="msbody">${body}</div></div>`;
+ document.body.appendChild(ov);document.body.classList.add('noscroll');const close=()=>{ov.remove();document.body.classList.remove('noscroll');};
+ ov.addEventListener('click',e=>{e.stopPropagation();if(e.target===ov||e.target.closest('[data-hx]'))return close();const b=e.target.closest('[data-o]');if(b)onClick(b.dataset.o,b.dataset.v,close,ov);});return ov;}
+const seg=(k,opts,cur)=>`<div class="counts">${opts.map(([v,l])=>`<button data-o="${k}" data-v="${v}" aria-pressed="${String(cur)===String(v)}" style="font-size:14px">${l}</button>`).join('')}</div>`;
+function applyPreset(o){setup.count=o.count||1;setup.W=o.W||1;setup.hard=!!o.hard;setup.iron=!!o.iron;setup.family=!!o.family;setup.oneDay=!!o.oneDay;setup.daily=false;setup.custom=false;setup._pname=o.pn;setup.season='life';
+ setup.picked=setup.picked.slice(0,setup.count);setup._hi=null;setup.step='chars';renderSetup();window.scrollTo(0,0);}
+function hardSheet(){const st={W:1,iron:false};const draw=ov=>{ov.querySelector('.msbody').innerHTML=`<p class="intro" style="margin:0 0 6px">Скільки грати?</p>${seg('W',[[1,'Тиждень'],[2,'2 тижні'],[4,'Місяць']],st.W)}
+ <p class="note" style="color:var(--muted)">Щотижня криза, рахунки дорожчі, грошей менше. Кожен другий не доживає.</p>
+ <button class="btn btn-ghost" data-o="iron" aria-pressed="${st.iron}" style="margin-top:8px">⚔️ Залізний режим: ${st.iron?'увімкнено ✓':'вимкнено'}</button><p class="note" style="color:var(--muted)">Одне життя: без секретів і збережень, зрив — кінець.</p>
+ <button class="btn btn-main" data-o="go">Далі: обрати героя →</button>`;};
+ const ov=sheet('🔥 Хардкор 🔞',' ',(k,v,close,o)=>{if(k==='W'){st.W=+v;draw(o);}else if(k==='iron'){st.iron=!st.iron;draw(o);}else if(k==='go'){close();const go=()=>applyPreset({W:st.W,hard:true,iron:st.iron,pn:'Хардкор'+(st.W>1?(st.W===2?' · 2 тижні':' · місяць'):'')});if(typeof ageGate==='function')ageGate(go);else go();}});draw(ov);}
+function hotSheet(){const st={count:2,family:false,W:1};const draw=ov=>{ov.querySelector('.msbody').innerHTML=`<p class="intro" style="margin:0 0 6px">Скільки вас?</p>${seg('count',[[2,'2'],[3,'3'],[4,'4']],st.count)}
+ <p class="intro" style="margin:12px 0 6px">Як граєте?</p>${seg('fam',[[0,'⚔️ Хто кого'],[1,'👨‍👩‍👧 Одна сімʼя']],st.family?1:0)}
+ <p class="note" style="color:var(--muted)">${st.family?'Спільний гаманець, спільні рахунки й одна мрія на всіх: виграєте чи програєте разом.':'Кожен сам за себе: виграє той, хто здійснить мрію і буде найщасливішим.'}</p>
+ <p class="intro" style="margin:12px 0 6px">Скільки грати?</p>${seg('W',[[1,'Тиждень'],[2,'2 тижні'],[4,'Місяць']],st.W)}
+ <button class="btn btn-main" data-o="go" style="margin-top:12px">Далі: обрати героїв →</button>`;};
+ const ov=sheet('📱 На одному телефоні',' ',(k,v,close,o)=>{if(k==='count'){st.count=+v;draw(o);}else if(k==='fam'){st.family=v==='1';draw(o);}else if(k==='W'){st.W=+v;draw(o);}else if(k==='go'){close();applyPreset({count:st.count,family:st.family,W:st.W,pn:`${st.count} гравці${st.family?' · сімʼя':''}`});}});draw(ov);}
+document.addEventListener&&document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('#app [data-mact]');if(!b||S)return;e.stopPropagation();e.preventDefault();const a=b.dataset.mact;try{snd('click');}catch(x){}
+ if(P[a])return applyPreset(P[a]);if(a==='online'){setup.step='title';const t=document.createElement('button');t.dataset.act='room';t.style.display='none';document.body.appendChild(t);t.click();t.remove();return;}if(a==='hard')return hardSheet();if(a==='hot')return hotSheet();
+ if(a==='last'){let L=null;try{L=JSON.parse(lsg('kr-last')||'null');}catch(x){}if(!L)return;const go=()=>{Object.assign(setup,{count:L.count||1,W:L.W||1,hard:!!L.hard,iron:!!L.iron,family:!!L.family,oneDay:!!L.oneDay,daily:false,picked:L.picked.slice(),pets:Object.assign({},L.pets||{}),breeds:Object.assign({},L.breeds||{}),season:L.season||'life',_pname:L.pn,custom:false});setup.step='pets';startGame();window.scrollTo(0,0);};
+  if(L.hard&&typeof ageGate==='function')ageGate(go);else go();}},true);
+// ---------- «Як грати» ----------
+const HOW=[['s9','🎯 Мета','Дожити до зарплати і здійснити таємну мрію.',['💰 Гроші не повинні скінчитися','😌 Нерви не повинні впасти до нуля','🎯 Мрію видно під іменем — скільки ще відкласти']],
+ ['s24','🗺 День','Кожен день — маленька пригода.',['🌞 Ранок: новини міста й твій план','🚋 Обираєш, куди їхати і як: пішки, Скарік, маршрутка, таксі','🎲 Там трапляється подія — обираєш варіант','🌙 Увечері платиш за побут або економиш']],
+ ['s4','💰 Гроші','Зарплата в пʼятницю, а витрати щодня.',['🧾 Рахунки: комуналка, телефон та інші','🎮 Зіграй зміну на роботі — заробиш до +100','💡 Прогноз під іменем: скільки грошей вільних']],
+ ['s21','😌 Нерви й 😊 щастя','Нерви — твоє здоровʼя, щастя — твоя перемога.',['😌 Нерви на нулі — зрив, і ти колектор','☕ Відпочинок і тварина повертають нерви','😊 Щастя вирішує переможця']],
+ ['s10','📱 Телефон','Тут пишуть мама, шеф, кум і сусіди.',['💬 Відповідай — це впливає на гроші й нерви','📌 Пообіцяв приїхати — їдь, і буде нагорода','🏦 Банк, рахунки, погода й календар — теж тут']]];
+function howScreen(){app.innerHTML=`<div class="stephead"><h2>📖 Як грати</h2></div><div class="hwrap"><button class="harr l" data-hw="-1" aria-label="Назад">‹</button><div class="hcar" id="howcar">${HOW.map(([im,t,x,L],i)=>`<div class="hslide"><div class="hcard howc"><div class="hcimg" style="background-image:url(${U(im)})"></div><span class="hnum">${i+1} / ${HOW.length}</span><div class="hcbody"><h2>${t}</h2><p class="hcl">${x}</p>${L.map(l=>`<p class="hpm">${l}</p>`).join('')}</div></div></div>`).join('')}</div><button class="harr r" data-hw="1" aria-label="Далі">›</button></div>
+ <button class="btn btn-main hgo" data-act="newgame">Зрозуміло, грати! 🚋</button><details class="mapbox howmore"><summary>Детальніше (усі правила)</summary>${rulesHTML(true).replace(/^<details class="mapbox" open>/,'<div>').replace(/<\/details>$/,'</div>')}</details><button class="btn btn-ghost" data-step="title">← Назад</button>`;
+ if(!app.querySelector)return;const car=app.querySelector('#howcar');if(!car)return;let idx=0;const go=i=>{idx=Math.max(0,Math.min(HOW.length-1,i));const s=car.children[idx];car.scrollTo({left:s.offsetLeft-(car.clientWidth-s.clientWidth)/2,behavior:'smooth'});};
+ const upd=()=>{let best=1e9;[...car.children].forEach((s,k)=>{const d=Math.abs(s.offsetLeft+s.offsetWidth/2-(car.scrollLeft+car.clientWidth/2));if(d<best){best=d;idx=k;}});[...car.children].forEach((s,k)=>s.classList.toggle('on',k===idx));};
+ let tm=null;car.addEventListener('scroll',()=>{clearTimeout(tm);tm=setTimeout(upd,60);},{passive:true});requestAnimationFrame(upd);
+ app.querySelectorAll('[data-hw]').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();go(idx+(+b.dataset.hw));}));}
+// ---------- рендер кроків ----------
+{const _rs=renderSetup;renderSetup=function(){let st=setup.step||'title';if(typeof ROOMUI!=='undefined'&&ROOMUI)return _rs.apply(this,arguments);
+ if(st==='rules'){st=setup._lastSt==='modes'?'title':'modes';setup.step=st;}
+ if(st==='modes'&&!setup.custom){setup._lastSt='modes';try{const o=document.getElementById('msheet');if(o)o.remove();}catch(e){}return modesScreen();}
+ if(st==='howto'){setup._lastSt='howto';return howScreen();}
+ const r=_rs.apply(this,arguments);
+ try{if(st==='title'&&app.querySelector){const rb=app.querySelector('[data-act=room]');if(rb){delete rb.dataset.act;rb.dataset.step='howto';const i=rb.querySelector('.tpi'),l=rb.querySelector('.tpl');if(i&&l){i.textContent='📖';l.textContent='Як грати';}else rb.textContent='📖 Як грати';}}
+  if(st==='modes'&&setup.custom&&app.querySelector){const dyn=app.querySelector('[data-season=dyn]');if(dyn)dyn.remove();const real=app.querySelector('[data-season=real]');if(real)real.textContent='🌍 Онлайн-погода';
+   const sum=app.querySelector('[data-season=summer]');if(sum&&!app.querySelector('[data-season=life]')){sum.insertAdjacentHTML('beforebegin',`<button data-season="life" aria-pressed="${setup.season==='life'}" style="font-size:13px">🗓 Як у житті</button>`);}
+   const n=sum&&sum.parentElement&&sum.parentElement.nextElementSibling;if(n&&n.classList.contains('note')&&setup.season==='life')n.textContent='Пора року за календарем, а погода щодня своя: сонце, дощ, туман, сніг чи ожеледь — і вона впливає на день.';}}catch(e){}
+ return r;};}
+{const _r=render;render=function(){const o=document.getElementById&&document.getElementById('msheet');if(o&&o.remove&&S){o.remove();document.body.classList.remove('noscroll');}_r.apply(this,arguments);try{if(!SIM&&app.querySelector){wxSummary();wxPaint();}}catch(e){}};}
 })();
 
 render();
