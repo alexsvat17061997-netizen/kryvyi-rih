@@ -668,6 +668,56 @@ body.gmapon #albpop{top:auto;bottom:90px;right:auto;left:12px}
 .dim{opacity:.55}
 .wcard{display:flex;gap:10px;align-items:center;background:var(--ind);color:#F5E7CF;border:3px solid var(--sun);border-radius:14px;padding:8px;margin:0 0 12px}
 .wcard img{width:120px;aspect-ratio:16/9;object-fit:cover;border-radius:8px;flex:none}.wcard small{color:var(--sun);font-weight:700}.wcard b{display:block;font-family:var(--display);font-size:17px}.wcard p{margin:2px 0 0;font-size:13px}
+
+/* 1.057 */
+[data-act=custommodes] small{display:block;font-weight:400;font-size:12px;opacity:.8}
+.wgrow{display:flex;gap:8px}.wgrow .wgo{flex:1;font-size:34px;text-align:center;margin:0;padding:14px 0}.wgcol{display:flex;flex-direction:column}
+.wg{display:flex;flex-direction:column;gap:10px;align-items:stretch;text-align:center}
+.wgbar{position:relative;height:44px;background:var(--line);border-radius:22px;overflow:hidden}
+.wgzone{position:absolute;top:0;bottom:0;background:#5DBB63;transition:left .15s,width .15s}
+.wgmark{position:absolute;top:50%;transform:translate(-50%,-50%);font-size:30px;line-height:1}
+.wgcnt{margin:0;font-weight:600;color:var(--muted)}
+.wgq{font-size:17px;font-weight:700;margin:0}
+.wgtime{height:6px;background:var(--line);border-radius:3px;overflow:hidden}.wgtime i{display:block;height:100%;width:100%;background:var(--sun)}
+.wgo.ok{background:#5DBB63!important;color:#fff}.wgo.no{background:#E4502E!important;color:#fff}
+.wggrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.wgcell{aspect-ratio:1;font-size:38px;background:var(--panel);border:2px solid var(--line);border-radius:12px;padding:0;line-height:1}
+.wgcell.ok{background:#5DBB63}.wgcell.no{background:#E4502E}
+.wglanes{position:relative;height:250px;background:repeating-linear-gradient(90deg,transparent 0 calc(33.33% - 2px),var(--line) calc(33.33% - 2px) 33.33%);background-color:var(--panel);border-radius:12px;overflow:hidden;touch-action:pan-y}
+.wgpl,.wgob{position:absolute;transform:translateX(-50%);font-size:34px;line-height:1}.wgpl{bottom:8px;transition:left .12s}.wgpl.hit{filter:drop-shadow(0 0 8px #E4502E)}
+.wgctl{display:flex;gap:8px}.wgctl .btn{flex:1;margin:0}
+.wgdoc{font-size:19px;font-weight:700;padding:22px 10px;background:var(--panel);border:2px dashed var(--line);border-radius:12px}
+.wggauge{height:26px;background:var(--line);border-radius:13px;overflow:hidden}.wggauge i{display:block;height:100%;width:35%;background:#5DBB63}
+.wgbtn{position:relative}.wgbtn small{display:block;font:400 13px var(--body);opacity:.9}
+.mgtag{display:inline-block;font-size:11px;font-weight:700;background:var(--sun);color:#1F2350;border-radius:8px;padding:1px 6px;margin-right:4px;vertical-align:2px}
+.more{display:inline;border:0;background:none;color:var(--vio,#5A3A8A);font-weight:700;padding:0 2px;cursor:pointer;text-decoration:underline}
+.tremind{background:var(--sun);color:#1F2350;border-radius:10px;padding:10px 12px;margin:8px 0;font-size:15px}
+.newtask{animation:ntglow 1.2s ease-in-out infinite}
+@keyframes ntglow{50%{box-shadow:0 0 0 4px var(--sun),0 0 16px var(--sun)}}
+.rtoast{max-width:92vw;white-space:normal;text-align:center;border-radius:18px}
+.mcards{display:grid;grid-template-columns:1fr;gap:10px;margin:8px 0 14px}
+.mcard{position:relative;display:flex;flex-direction:column;justify-content:flex-end;min-height:118px;border:0;border-radius:14px;overflow:hidden;padding:12px 14px;text-align:left;color:#fff;background:#2E3576;cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,.25)}
+.mcard .mci{position:absolute;inset:0;background-size:cover;background-position:center;opacity:.9}
+.mcard .mci::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,15,40,0) 20%,rgba(20,15,40,.85))}
+.mcard b,.mcard small{position:relative;z-index:1}.mcard b{font:700 21px var(--display,var(--body))}.mcard small{font-size:14px;opacity:.95}
+.mcard.hardc{background:#5a1d1d}.mcard.small{min-height:0;background:var(--sun);color:#1F2350;box-shadow:none}
+.mcard:active{transform:translateY(2px)}
+.chl{display:block;font-size:11px;line-height:1.2;color:var(--muted);margin-top:2px}
+.petstep{margin:8px 0 14px}.pethd{display:flex;align-items:center;gap:8px;margin:0 0 8px}.pethd img,.pethd .ph{width:36px;height:36px;border-radius:50%;object-fit:cover}
+.petgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.petcard{display:flex;flex-direction:column;align-items:center;gap:4px;background:var(--panel);color:var(--text);border:3px solid var(--line);border-radius:14px;padding:8px;text-align:center;cursor:pointer}
+.petcard img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px}.petcard .nopet2{font-size:56px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;width:100%}
+.petcard b{font-size:13px}.petcard small{font-size:11px;color:var(--muted);line-height:1.2}
+.petcard.on{border-color:var(--sun);box-shadow:0 0 0 3px var(--sun)}
+.cspot{position:fixed;z-index:9000;border-radius:12px;box-shadow:0 0 0 9999px rgba(10,8,25,.6);pointer-events:none;outline:3px solid var(--sun);animation:cspot 1.4s ease-in-out infinite}
+@keyframes cspot{50%{outline-offset:4px}}
+.cbub{position:fixed;z-index:9001;background:var(--sun);color:#1F2350;border-radius:14px;padding:12px 14px;font:700 17px var(--body);display:flex;align-items:center;justify-content:space-between;gap:10px;box-shadow:0 6px 20px rgba(0,0,0,.35);max-width:520px;margin:0 auto}
+.cskip{background:none;border:0;color:#1F2350;font:600 12px var(--body);text-decoration:underline;opacity:.8;flex-shrink:0;cursor:pointer}
+.veh{position:absolute;z-index:3;font-size:17px;line-height:1;pointer-events:none;background:var(--cream);border:2px solid #1F2350;border-radius:9px;padding:2px 3px;box-shadow:0 2px 4px rgba(0,0,0,.4);zoom:calc(1 / var(--fz,1))}
+.veh.broken{font-size:15px;animation:vehshake .6s infinite}
+@keyframes vehshake{50%{margin-left:1px}}
+.vroute{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}.vroute polyline{fill:none;stroke:#F2A93B;stroke-opacity:.8;stroke-width:3;stroke-dasharray:6 5;vector-effect:non-scaling-stroke}
+@media (prefers-reduced-motion:reduce){.cspot,.newtask,.veh.broken{animation:none}}
 </style>
 </head>
 <body>
@@ -1552,7 +1602,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.056 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.057 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2442,7 +2492,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.056 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.057 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -4058,7 +4108,7 @@ const TH=[['x2',/футбол|кривбас|фанат|матч|стадіон/
  ['h1',/гоп|темн.*двор|пустир/,1],['h4',/металіст|болгарк/,1],['h6',/бійк|пʼян/,1],['h7',/зграй|собак/,1],['h9',/рекет|«за місце»/,1],['h13',/баріг|з рук|без коробки/,1],
  ['v1',/ринок|ринку|базар|картопл|овоч/],['v2#winter',/ринок|ринку|базар|мороз/],['v5',/учительськ|педрад|завуч|колег.*школ/],['v6',/перерв|урок|школяр|учн/],['v15',/нарад|звіт|презентац|планерк/],['v16',/обід|холодильник|мікрохвил|кавомаш|офісн.*кухн/],['v32',/лікар|терапевт|довідк|аналіз|тиск/],['v30',/зміна|змін[уи]|шахт|бригад|забій/],['v23@uni',/гуртож|сусід по кімнаті|студент/],['v9',/маршрутк/],['v3',/ваги|обваж|помідор|торгу/],['v4',/мʼяс|м'яс|ковбас|сало|сир\b/],['v8',/зошит|перевір|двійк|оцінк/],['v17',/допізна|затрима|понаднормов|дедлайн/],['v33',/черг|талон|реєстратур/],['v31',/прохідн|комбінат/],['v24@uni',/лекці|декан|розклад|сесі/],['v25@uni',/їдальн|голодн/],['v18#mid',/калюж|гойдалк|дитмайданч/],['v19',/декрет|візоч|малюк|мам[иа]\b/],['v10',/водій|проїзд|маршрутк/],['v13@mall',/охорон|камер|злодій|крадіжк/],['v14@mall',/парковк|машин/],['v22',/труб|кран|підвал|затоп|протік|сантехн|каналіз/],['v34',/рахун|комуналк|платіж|квитанц/],['v36',/пошт|посилк|ліфт|підʼїзд/],['k22',/грип|застуд|кашл|температур|епідем|лікарнян/],['k23',/аптек|ліки|таблетк/],['k24',/чха|кашля|застуд/],['k25',/дтп|аварі|збил|збив|врізав|зіткн|бампер/],['k27',/блекаут|без світла|відключенн|ліхтарик/,1],['k28',/колектор|рекет|«за місце»|«дах»|борг/,1],['k15',/зебр|перехід|світлофор/,1],['k3',/банкомат|картк/,1],['k17',/яма|калюж|велосипед/],['k18#winter',/ожеледиц|слизьк|лід\b|мороз/],['k19',/вибух|карʼєр|тріщин/,1],['r2',/сусід|сіль\b|посилк/],['r3',/затоп|протік|прорвал|потоп/],['r4',/вечірк|гуляють|за стіною/],['r5',/шеф|запізн|начальни/],['r6',/сварк|сімейн|дружин|чоловік|премі/],['r7',/картопл|сумк|базар|закуп/],['r8',/кав[аиуі]\b|кавʼярн|кафе/],['r9',/позич|до зарплати|в борг/],['r10',/ліфт|скинут|під'їзд|підʼїзд/]];
 function specOk(sp,e){const m=/^([a-z]+\d+)(?:@(\w+))?(?:#(\w+))?$/.exec(sp);if(!m||!IMG[m[1]])return null;if(m[2]&&(e.loc||locOf(e))!==m[2])return null;if(m[3]&&S.season!==m[3])return null;return m[1];}
-function themeImgs(e){const t=((e.t||'')+' '+(e.x||'')).toLowerCase();return TH.filter(([k,re,h])=>(!h||(S&&S.hard))&&re.test(t)).map(x=>specOk(x[0],e)).filter(Boolean);}
+function themeImgs(e){const t=(e.t||'').toLowerCase();return TH.filter(([k,re,h])=>(!h||(S&&S.hard))&&re.test(t)).map(x=>specOk(x[0],e)).filter(Boolean);}
 function crisisImgs(e){if(!S||!S.hard)return [];const L=e.loc||locOf(e),o=[];
  if(crisisOn('flu')){if(L==='clinic')o.push('k22','k22');if(L==='bus')o.push('k24');if(L==='market'||L==='mall')o.push('k23');}
  if(crisisOn('blackout')&&L==='home')o.push('k27');return o.filter(k=>IMG[k]);}
@@ -4066,7 +4116,7 @@ function pickImg(e){try{if(!e||e._im||!S)return e;const p=cur();if(!p)return e;c
  const il=p.il=p.il||[];const recent=new Set(il.filter(x=>x.d===S.day).map(x=>x.i).concat(il.slice(-4).map(x=>x.i)));
  const th=/^e\d/.test(base||'')?[]:themeImgs(e).concat(crisisImgs(e)).filter(k=>k!==base),va=(VAR[base]||[]).map(k=>specOk(k,e)).filter(Boolean);
  const ok=a=>a.filter(k=>!recent.has(k));let pool=[];
- if(ok(th).length&&Math.random()<0.65)pool=ok(th);else pool=ok([base].concat(va));if(!pool.length)pool=ok(th.concat(va));
+ if(ok(th).length&&Math.random()<0.3)pool=ok(th);else pool=ok([base].concat(va));if(!pool.length)pool=ok(th.concat(va));
  let img=pool.length?pool[Math.floor(Math.random()*pool.length)]:base;
  if(!pool.length&&recent.has(base)){const all=[base].concat(th,va);img=all.sort((a,b)=>(il.map(x=>x.i).lastIndexOf(a))-(il.map(x=>x.i).lastIndexOf(b)))[0];}
  il.push({i:img,d:S.day});if(il.length>12)il.shift();
@@ -4655,6 +4705,13 @@ function hearts(n){return '❤️'.repeat(n)+'🤍'.repeat(5-n);}
 {const _ag=appGal;appGal=function(){let h=_ag();try{let got=[];try{got=JSON.parse(localStorage.getItem('kr-ends')||'[]');}catch(e){}const E=window.ENDS||[];const U=k=>(window.iurl?window.iurl(k):IMG[k])||'';
  h+=`<div class="phsec"><h4>🏁 Кінцівки: ${got.length} з ${E.length}</h4><div class="phgal endgal">${E.map(x=>got.includes(x[0])?`<div><span style="background-image:url(${U(x[0])})"></span><small>${x[1]}</small></div>`:`<div class="lock"><span>❓</span><small>Ще не відкрито</small></div>`).join('')}</div>
   ${(window.PERKS||[]).length?`<h4 style="margin-top:10px">🎁 Бонуси за кінцівки</h4>${window.PERKS.map(x=>`<p class="${got.length>=x[0]?'':'dim'}">${got.length>=x[0]?'✅':'🔒 '+x[0]+' кінц. ·'} ${x[1]}: ${x[2]}</p>`).join('')}`:''}</div>`;}catch(e){}return h;};}
+
+// --- 1.057: зрозумілі доручення ---
+{const _at=addTask;addTask=function(i,f,spec){const t=_at.apply(this,arguments);try{if(t&&t.loc&&LOCS[t.loc]){const p=S.players[i];p._newTask=S.day+1;const dl=t.until===S.day?'сьогодні':dayName(t.until).toLowerCase();
+ toastI(i,`📌 Нове доручення: ${t.item} → їдь: ${LOCS[t.loc].n} (до: ${dl})`);
+ try{if(!localStorage.getItem('kr-task1')){localStorage.setItem('kr-task1','1');setTimeout(()=>toastI(i,'💡 Доручення виконується саме, коли приїдеш у потрібне місце. Його видно на карті як 📌'),3200);}}catch(e){}}}catch(e){}return t;};}
+{const _ct=completeTask;completeTask=function(i,t){const was=t&&!t.done&&!t.failed;_ct.apply(this,arguments);try{if(was&&t.done)toastI(i,'✅ Виконано: '+t.item);}catch(e){}};}
+{const _ft=failTask;failTask=function(i,t){const was=t&&!t.done&&!t.failed;_ft.apply(this,arguments);try{if(was&&t.failed){const m=`❌ Не встиг: ${t.item}${t.loc&&LOCS[t.loc]?' — треба було заїхати: '+LOCS[t.loc].n:''}`;S.last=(S.last?S.last+' · ':'')+m;toastI(i,m);}}catch(e){}};}
 
 })();
 
@@ -5297,7 +5354,7 @@ function plan(p){if(p._v3w===wk())return;p._v3w=wk();const r=()=>1+Math.floor(Ma
 {const _cw=cardWrap;cardWrap=function(img,kicker,title,body){try{if(S&&S.players&&S.phase==='turn'&&S.ev&&(S.ev._v3==='big'||S.ev._v3==='dil'))kicker=(S.ev._v3==='big'?'💸 Велика витрата · ':'⚖️ Дилема дня · ')+kicker;}catch(e){}return _cw.call(this,img,kicker,title,body);};}
 // ---------- чесна мрія: прогноз з урахуванням рахунків і вечер ----------
 if(window.dreamInfo){const _di=window.dreamInfo;window.dreamInfo=function(p){const d=_di(p);try{if(d&&!d.fam&&!d.done){const f=forecast(p);const proj=f.free+(p.jar||0)+futurePay(p)+(payKind()!=='none'&&nextPayDay()>=S.day?payAmt(p,payKind()):0)-(Math.max(0,S.D-1-nextPayDay()))*dinnerCost(p);d.proj=proj;d.pct=Math.max(0,Math.min(100,Math.round(proj/d.cost*100)));}}catch(e){}return d;};}
-{const _sg=startGame;startGame=function(){_sg.apply(this,arguments);try{if(S&&S.players&&!S.hard&&!S._dr92){S._dr92=1;S.players.forEach(p=>{p.dreamCost=Math.round(p.dreamCost*0.9/10)*10;});render();}}catch(e){}};}
+{const _sg=startGame;startGame=function(){_sg.apply(this,arguments);try{if(S&&S.players&&!S.hard&&!S._dr92){S._dr92=1;S.players.forEach(p=>{p.dreamCost=Math.round(p.dreamCost*(S.W>=4?1.1:S.W===2?1.05:0.95)/10)*10;});render();}}catch(e){}};}
 })();
 
 // === 1.055: Сюжети героїв — три розділи на гру ===
@@ -5480,6 +5537,186 @@ EVENTS.push(
  {t:'Колектор біля підʼїзду',loc:'home',img:'mg2',x:'Біля підʼїзду чергує здоровань у шкірянці. Здається, він тебе чекає.',c:[{l:'Спробувати втекти дворами',risk:{p:0.5,win:{n:1,r:'Відірвався! Гаражі, білизна, паркан — і ти вдома.',rf:'Відірвалася! Гаражі, білизна, паркан — і ти вдома.'},lose:{m:-200,n:-1,r:'Наздогнав. Довелося віддати 200 грн «за переживання».'}}},{l:'Поговорити спокійно',n:-1,r:'Виявилось, він шукає сусіда з пʼятого. Пронесло.'}]},
  {t:'Остання маршрутка',loc:'bus',img:'mg3',x:'Вечір, автостанція. Остання маршрутка вже рушає, а наступна — завтра.',c:[{l:'Наздогнати маршрутку',risk:{p:0.5,win:{h:1,r:'Встиг! Водій загальмував, ще й пожартував.',rf:'Встигла! Водій загальмував, ще й пожартував.'},lose:{m:-150,r:'Поїхала. Таксі до дому — 150 грн.'}}},{l:'Викликати таксі одразу',m:-150,r:'Тепло, тихо й дорого.'}]},
  {t:'Торг за картоплю',loc:'market',img:'mg1',x:'Продавець у вишиванці хитро мружиться: «Картопля — як золото! 30 за кіло, не менше».',c:[{l:'Поторгуватися',risk:{p:0.5,win:{m:-60,h:1,r:'Віддав мішок за 60! Торг — це мистецтво.'},lose:{m:-150,r:'Не поступився. Взяли за повну ціну.'}}},{l:'Купити без торгу',m:-120,r:'Картопля добра, ціна — ні.'}]});
+})();
+
+// === 1.057: Менше читати — більше робити ===
+(function(){
+const lsg=k=>{try{return localStorage.getItem(k);}catch(e){return null;}},lss=(k,v)=>{try{localStorage.setItem(k,v);}catch(e){}};
+const myIdx=()=>!S?0:S.room&&typeof meI==='function'?meI():S.turn;
+const myTurn=()=>!S||!S.room||myIdx()===S.turn;
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+if(typeof R_LOCAL!=='undefined')R_LOCAL.push('workmg','tnext');
+// ================= А. міні-ігри роботи =================
+function eTiming(stage,done,o){const n=o.n||5;const w=document.createElement('div');w.className='wg';
+ w.innerHTML=`<div class="wgbar"><div class="wgzone"></div><div class="wgmark">${o.emo}</div></div><p class="wgcnt">0 з ${n}</p><button class="btn btn-main wgb">${o.label}</button>`;stage.appendChild(w);
+ const z=w.querySelector('.wgzone'),mk=w.querySelector('.wgmark'),c=w.querySelector('.wgcnt');let z0=0,zw=0.22,ph=Math.random()*6,sp=0.004,taps=0,hits=0,over=false,last=performance.now();
+ const nz=()=>{z0=0.05+Math.random()*(0.9-zw);z.style.left=z0*100+'%';z.style.width=zw*100+'%';};nz();
+ const loop=t=>{if(over)return;ph+=sp*(t-last);last=t;const pos=(Math.sin(ph)+1)/2;mk.style.left=pos*100+'%';mk.dataset.p=pos;requestAnimationFrame(loop);};requestAnimationFrame(loop);
+ w.querySelector('button').addEventListener('click',e=>{e.stopPropagation();if(over)return;const pos=+mk.dataset.p;const ok=pos>=z0&&pos<=z0+zw;taps++;if(ok){hits++;try{snd('coin');}catch(x){}}else try{snd('click');}catch(x){}
+  c.textContent=`${hits} з ${n} · спроба ${taps}`;sp+=0.0006;zw=Math.max(0.12,zw-0.02);nz();if(taps>=n){over=true;done(hits/n,hits===n?'🔥 Ідеально!':hits>=n/2?'Непогано!':'Сьогодні не твій день…');}});
+ return ()=>{over=true;};}
+function eQuiz(stage,done,o){const Q=o.qs;let i=0,ok=0,t0=0,over=false,tm=null;const w=document.createElement('div');w.className='wg';stage.appendChild(w);const T=o.time||6000;
+ const show=()=>{if(i>=Q.length){over=true;return done(ok/Q.length,ok===Q.length?'🔥 Усе правильно!':ok?`Правильно ${ok} з ${Q.length}`:'Жодної правильної…');}
+  const q=Q[i];const row=q.o.every(x=>x.length<=3);w.innerHTML=`<p class="wgq">${i+1}/${Q.length}. ${q.q}</p><div class="wgtime"><i></i></div><div class="${row?'wgrow':'wgcol'}">${q.o.map((x,k)=>`<button class="btn btn-choice wgo" data-k="${k}">${x}</button>`).join('')}</div>`;
+  const bar=w.querySelector('.wgtime i');t0=performance.now();const tick=t=>{if(over||!bar.isConnected)return;const r=1-(t-t0)/T;bar.style.width=Math.max(0,r*100)+'%';if(r<=0){i++;try{snd('loss');}catch(x){}show();return;}requestAnimationFrame(tick);};requestAnimationFrame(tick);
+  w.querySelectorAll('.wgo').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();if(over)return;const good=+b.dataset.k===q.a;if(good){ok++;try{snd('coin');}catch(x){}}else try{snd('loss');}catch(x){}b.classList.add(good?'ok':'no');w.querySelectorAll('.wgo').forEach(x=>x.disabled=true);i++;setTimeout(show,450);}));};
+ show();return ()=>{over=true;};}
+function eWhack(stage,done,o){const w=document.createElement('div');w.className='wg';w.innerHTML=`<p class="wgcnt">${o.hint}</p><div class="wggrid">${Array.from({length:9},(_,k)=>`<button class="wgcell" data-k="${k}"></button>`).join('')}</div><div class="wgtime"><i></i></div>`;stage.appendChild(w);
+ const cells=[...w.querySelectorAll('.wgcell')],bar=w.querySelector('.wgtime i');let good=0,hit=0,bad=0,over=false;const dur=o.dur||10000,t0=performance.now();
+ const spawn=()=>{if(over)return;const free=cells.filter(c=>!c.dataset.v);if(free.length){const c=free[Math.floor(Math.random()*free.length)];const isBad=o.bad&&Math.random()<0.3;c.dataset.v=isBad?'b':'g';c.textContent=isBad?o.bad:o.good;if(!isBad)good++;setTimeout(()=>{if(c.dataset.v){c.dataset.v='';c.textContent='';}},o.show||900);}setTimeout(spawn,o.every||600);};spawn();
+ cells.forEach(c=>c.addEventListener('click',e=>{e.stopPropagation();if(over||!c.dataset.v)return;if(c.dataset.v==='g'){hit++;try{snd('coin');}catch(x){}c.classList.add('ok');}else{bad++;try{snd('loss');}catch(x){}c.classList.add('no');}c.dataset.v='';c.textContent='';setTimeout(()=>c.classList.remove('ok','no'),200);}));
+ const tick=t=>{if(over)return;const r=1-(t-t0)/dur;bar.style.width=Math.max(0,r*100)+'%';if(r<=0){over=true;const s=Math.max(0,Math.min(1,hit/Math.max(1,good)-bad*0.15));return done(s,`Влучив ${hit} з ${good}${bad?` · помилок ${bad}`:''}`);}requestAnimationFrame(tick);};requestAnimationFrame(tick);
+ return ()=>{over=true;};}
+function eLanes(stage,done,o){const n=o.n||10;const w=document.createElement('div');w.className='wg';w.innerHTML=`<p class="wgcnt">${o.hint}</p><div class="wglanes"><div class="wgpl">${o.player}</div></div><div class="wgctl"><button class="btn btn-main" data-d="-1">◀</button><button class="btn btn-main" data-d="1">▶</button></div>`;stage.appendChild(w);
+ const box=w.querySelector('.wglanes'),pl=w.querySelector('.wgpl');let lane=1,sent=0,score=0,over=false,objs=[];const put=()=>{pl.style.left=(lane*33.33+16.66)+'%';};put();
+ w.querySelectorAll('[data-d]').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();lane=Math.max(0,Math.min(2,lane+(+b.dataset.d)));put();}));
+ let sx=null;box.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});box.addEventListener('touchend',e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>25){lane=Math.max(0,Math.min(2,lane+(dx>0?1:-1)));put();}sx=null;},{passive:true});
+ const drop=()=>{if(over||sent>=n)return;sent++;const L=Math.floor(Math.random()*3);const el=document.createElement('div');el.className='wgob';el.textContent=Array.isArray(o.item)?o.item[Math.floor(Math.random()*o.item.length)]:o.item;el.style.left=(L*33.33+16.66)+'%';box.appendChild(el);objs.push({el,L,y:-8});setTimeout(drop,o.every||900);};drop();
+ let last=performance.now();const loop=t=>{if(over)return;const dt=t-last;last=t;objs.forEach(ob=>{ob.y+=dt*(o.speed||0.045);ob.el.style.top=ob.y+'%';if(!ob.done&&ob.y>=78){ob.done=1;const same=ob.L===lane;if(o.mode==='catch'?same:!same){score++;try{snd('coin');}catch(x){}}else{try{snd('loss');}catch(x){}pl.classList.add('hit');setTimeout(()=>pl.classList.remove('hit'),200);}ob.el.remove();}});
+  objs=objs.filter(x=>!x.done);if(sent>=n&&!objs.length){over=true;return done(score/n,`${o.mode==='catch'?'Впіймав':'Обʼїхав'} ${score} з ${n}`);}requestAnimationFrame(loop);};requestAnimationFrame(loop);
+ return ()=>{over=true;};}
+function eSort(stage,done,o){const items=shuf(o.items).slice(0,o.n||8);let i=0,ok=0,over=false;const dur=o.dur||14000,t0=performance.now();const w=document.createElement('div');w.className='wg';stage.appendChild(w);
+ w.innerHTML=`<div class="wgtime"><i></i></div><div class="wgdoc"></div><div class="wgctl"><button class="btn btn-main" data-s="L">◀ ${o.left}</button><button class="btn btn-main" data-s="R">${o.right} ▶</button></div><p class="wgcnt"></p>`;
+ const doc=w.querySelector('.wgdoc'),cnt=w.querySelector('.wgcnt'),bar=w.querySelector('.wgtime i');const show=()=>{doc.textContent='📄 '+items[i][0];cnt.textContent=`${i+1} з ${items.length}`;};show();
+ const fin=()=>{over=true;done(ok/items.length,`Правильно ${ok} з ${items.length}`);};
+ w.querySelectorAll('[data-s]').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();if(over)return;if(b.dataset.s===items[i][1]){ok++;try{snd('coin');}catch(x){}}else try{snd('loss');}catch(x){}i++;if(i>=items.length)return fin();show();}));
+ const tick=t=>{if(over)return;const r=1-(t-t0)/dur;bar.style.width=Math.max(0,r*100)+'%';if(r<=0)return fin();requestAnimationFrame(tick);};requestAnimationFrame(tick);return ()=>{over=true;};}
+function eMash(stage,done,o){const dur=o.dur||8000;const w=document.createElement('div');w.className='wg';w.innerHTML=`<p class="wgcnt">${o.hint}</p><div class="wggauge"><i></i></div><button class="btn btn-main wgb">${o.label}</button><div class="wgtime"><i></i></div>`;stage.appendChild(w);
+ const g=w.querySelector('.wggauge i'),bar=w.querySelector('.wgtime i');let pr=0.35,over=false,t0=performance.now(),last=t0;
+ w.querySelector('button').addEventListener('click',e=>{e.stopPropagation();if(over)return;pr=Math.max(0,pr-0.06);try{snd('click');}catch(x){}});
+ const loop=t=>{if(over)return;const dt=t-last;last=t;const el=t-t0;pr+=dt*(0.00022+el*0.00000005);g.style.width=Math.min(100,pr*100)+'%';g.style.background=pr>0.75?'#E4502E':pr>0.5?'#F2A93B':'#5DBB63';bar.style.width=Math.max(0,100-el/dur*100)+'%';
+  if(pr>=1){over=true;try{snd('loss');}catch(x){}return done(Math.min(1,el/dur),'💥 Прорвало!');}if(el>=dur){over=true;return done(1,'🔧 Тиск утримав! Кран закручено.');}requestAnimationFrame(loop);};requestAnimationFrame(loop);return ()=>{over=true;};}
+// питання
+function qChange(){const out=[];for(let k=0;k<3;k++){const paid=[100,200,500][Math.floor(Math.random()*3)];const price=Math.round((20+Math.random()*(paid-30))/5)*5;const a=paid-price;const opts=shuf([a,a+10,a-10>0?a-10:a+20]);out.push({q:`Покупець дав ${paid} грн, товар коштує ${price}. Решта?`,o:opts.map(x=>x+' грн'),a:opts.indexOf(a)});}return out;}
+function qErr(){const out=[];for(let k=0;k<3;k++){const ex=[];const bad=Math.floor(Math.random()*3);for(let j=0;j<3;j++){const a=2+Math.floor(Math.random()*9),b=2+Math.floor(Math.random()*9);const op=Math.random()<0.5?'+':'×';let r=op==='+'?a+b:a*b;if(j===bad)r+=Math.random()<0.5?1:-1;ex.push(`${a} ${op} ${b} = ${r}`);}out.push({q:'Де помилка в зошиті?',o:ex,a:bad});}return out;}
+const STUDQ=[['Скільки буде 7 × 8?',['56','54','64'],0],['На якій річці стоїть Кривий Ріг?',['Інгулець','Десна','Прут'],0],['Хто написав «Кобзар»?',['Шевченко','Франко','Леся Українка'],0],['Скільки днів у високосному році?',['366','365','364'],0],['Формула води?',['H₂O','CO₂','O₂'],0],['√144 = ?',['12','14','11'],0],['Столиця України?',['Київ','Львів','Харків'],0],['Площа квадрата зі стороною 5?',['25','20','10'],0],['Скільки хвилин у годині?',['60','100','30'],0],['Друга річка Кривого Рогу?',['Саксагань','Сула','Рось'],0]];
+function qStud(){return shuf(STUDQ).slice(0,3).map(([q,o,a])=>{const ord=shuf([0,1,2]);return {q,o:ord.map(k=>o[k]),a:ord.indexOf(a)};});}
+function qArrow(){const A=['⬅️','⬆️','➡️'];const N=['ліворуч','прямо','праворуч'];return Array.from({length:6},()=>{const k=Math.floor(Math.random()*3);return {q:`Клієнт: «Тут ${N[k]}!»`,o:A,a:k};});}
+const COLQ=[['Боржник: «Грошей нема, хоч убий»',['Давайте домовимось про графік','Я вас знайду!','Ну то й не треба'],0],['Боржник кладе слухавку',['Написати ввічливе SMS','Дзвонити до ночі','Погрожувати сусідам'],0],['Пенсіонерка плаче в трубку',['Запропонувати відстрочку','Тиснути далі','Розсміятись'],0],['Боржник: «Віддам у пʼятницю»',['Зафіксувати дату й подякувати','Не вірити й кричати','Кинути слухавку'],0]];
+function qCol(){return shuf(COLQ).slice(0,3).map(([q,o,a])=>{const ord=shuf([0,1,2]);return {q,o:ord.map(k=>o[k]),a:ord.indexOf(a)};});}
+const DOCS=[['Звіт за квартал','L'],['Рахунок за світло','R'],['Звіт про відрядження','L'],['Рахунок-фактура','R'],['Звіт з продажів','L'],['Рахунок за інтернет','R'],['Річний звіт','L'],['Рахунок постачальника','R'],['Звіт для шефа','L'],['Рахунок за оренду','R']];
+const WG={
+ student:['Іспит','Три питання, на кожне 6 секунд.',(s,d)=>eQuiz(s,d,{qs:qStud()})],
+ miner:['Бур','Тисни «Свердлити!», коли ⛏ у зеленій зоні. 5 спроб.',(s,d)=>eTiming(s,d,{emo:'⛏',label:'Свердлити!'})],
+ seller:['Решта','Швидко порахуй решту покупцю. 3 покупці.',(s,d)=>eQuiz(s,d,{qs:qChange(),time:7000})],
+ driver:['Ями','Обʼїжджай ями: ◀ ▶ або свайп.',(s,d)=>eLanes(s,d,{mode:'dodge',item:'🕳',player:'🚐',hint:'Не влети в яму!'})],
+ pensioner:['Город','Тицяй бурʼяни 🌿, але не чіпай полуницю 🍓.',(s,d)=>eWhack(s,d,{good:'🌿',bad:'🍓',hint:'Пололи-пололи…'})],
+ office:['Папки','Розклади папери: звіти ліворуч, рахунки праворуч.',(s,d)=>eSort(s,d,{left:'Звіти',right:'Рахунки',items:DOCS})],
+ mom:['Іграшки','Лови іграшки кошиком: ◀ ▶ або свайп.',(s,d)=>eLanes(s,d,{mode:'catch',item:['🧸','🚗','🧩','🪀'],player:'🧺',hint:'Малий розкидав іграшки!'})],
+ teacher:['Зошити','Знайди помилку в прикладі. 3 зошити.',(s,d)=>eQuiz(s,d,{qs:qErr(),time:8000})],
+ taxi:['Маршрут','Клієнт підказує дорогу — тисни правильну стрілку!',(s,d)=>eQuiz(s,d,{qs:qArrow(),time:1800})],
+ it:['Баги','Тицяй баги 🐞, але не чіпай каву ☕.',(s,d)=>eWhack(s,d,{good:'🐞',bad:'☕',hint:'Прод горить!',every:520,show:800})],
+ plumber:['Кран','Тисни «Закрутити!», щоб тиск не прорвав трубу 8 секунд.',(s,d)=>eMash(s,d,{hint:'Тиск росте!',label:'🔧 Закрутити!'})],
+ collector:['Дзвінок','Обери правильну фразу боржнику.',(s,d)=>eQuiz(s,d,{qs:qCol()})],
+ guard:['Монітори','Тицяй злодіїв 🦹, а покупців 🧍 не чіпай.',(s,d)=>eWhack(s,d,{good:'🦹',bad:'🧍',hint:'Хтось краде шоколадки!',every:650})],
+ fisher:['Рибалка','Чекай, поки поплавок пірне, і тисни «Підсікай!».',(s,d,m)=>mgFish(s,(r,t)=>d(r==null?null:Math.min(1,(+r||0)/4),t),m,'bonus')],
+ gopnik:['Гараж','Закручуй болти 🔩, коли вони в зеленій зоні.',(s,d)=>eTiming(s,d,{emo:'🔩',label:'Закрутити!'})],
+ rukha:['Парашут','Керуй куполом і сідай на мішень.',(s,d)=>mgPara(s,(r,t)=>d(r==null?null:Math.min(1,(+r||0)/2),t))]};
+window.WG=WG;
+function recs(){try{return JSON.parse(lsg('kr-wrec')||'{}');}catch(e){return {};}}
+function workOk(p){return S&&S.players&&!S.weekend&&p&&!p.collector&&WG[p.id]&&p.workMg!==S.day&&p.pos===HOME[p.id];}
+window.krWorkOk=workOk;
+function workBtn(){if(!S||!S.players||!app.querySelector)return;const p=cur();if(!myTurn()||!workOk(p))return;if(!['turn','free'].includes(S.phase))return;if(S.phase==='turn'&&!S.ev)return;
+ const panel=app.querySelector('.gcard .panel')||app.querySelector('.panel');if(!panel||panel.querySelector('[data-act=workmg]'))return;const g=WG[p.id];const r=recs()[p.id];const fc=panel.querySelector('.btn-choice');
+ (fc||panel).insertAdjacentHTML(fc?'beforebegin':'afterbegin',`<button class="btn btn-main wgbtn" data-act="workmg">🎮 Зміна: ${g[0]}<small>зіграй — і заробиш до +100 грн${r!=null?` · рекорд ${r}%`:''}</small></button>`);}
+document.addEventListener&&document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-act=workmg]');if(!b||SIM)return;e.stopPropagation();e.preventDefault();const p=cur();if(!p||!WG[p.id])return;const g=WG[p.id];const r=recs()[p.id];
+ mgOpen('Зміна: '+g[0],g[1]+(r!=null?` Твій рекорд: ${r}%.`:''),g[2],res=>{window._wrNew=0;if(res!=null){const pct=Math.round(res*100);const R=recs();if(R[p.id]==null||pct>R[p.id]){window._wrNew=R[p.id]!=null?1:0;R[p.id]=pct;lss('kr-wrec',JSON.stringify(R));}try{snd(pct>=80?'ach':pct>=40?'coin':'loss');}catch(x){}}mgDispatch({act:'workres',s:res==null?'-1':String(res)});});},true);
+document.addEventListener&&document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('#app button');if(!b||b.dataset.act!=='workres'||!S||!S.players)return;const p=cur();if(!p||p.workMg===S.day)return;p.workMg=S.day;const s=+b.dataset.s;
+ if(s<0){S.last='Зміну відпрацьовано як завжди, без бонуса';render();return;}
+ const bonus=Math.round(s*100/10)*10;apply(p,{m:bonus,n:s>=0.9?1:0});const pct=Math.round(s*100);let t=`🎮 Зміна: ${pct}% — ${bonus?'+'+bonus+' грн':'без бонуса'}${s>=0.9?', +1 нерв':''}`;
+ if(window._wrNew&&myIdx()===S.turn){t+=' · 🏆 Новий рекорд!';window._wrNew=0;}
+ S.last=t;try{rToast(t);}catch(x){}render();});
+// «Сьогодні»: зміна в списку
+if(window.krToday){const _t=window.krToday;window.krToday=function(p){const it=_t(p);try{if(p&&WG[p.id]&&!S.weekend&&!p.collector)it.unshift({ic:p.workMg===S.day?'✅':'🎮',t:'Зміна: '+WG[p.id][0],x:LOCS[HOME[p.id]].n,done:p.workMg===S.day,loc:HOME[p.id]});}catch(e){}return it;};}
+// ================= Б. «Коротко» =================
+const shortOn=()=>lsg('kr-short')!=='0';window.krShort=shortOn;
+function icons(s){return s.replace(/([+−])(\d+) грн/g,'💰$1$2').replace(/([+−])(\d+) нерв\S*/g,'😌$1$2').replace(/([+−])(\d+) щастя/g,'😊$1$2').replace(/(💰[+−]\d+|😌[+−]\d+|😊[+−]\d+), /g,'$1 ');}
+function firstSent(t){const m=t.match(/^[\s\S]*?[.!?…»](?=\s|$)/);return m&&m[0].length<t.length-3?m[0]:null;}
+function shortify(){if(!shortOn()||!app.querySelector)return;const card=app.querySelector('.gcard')||app;
+ card.querySelectorAll('.btn-choice small, .panel .note, .wgbtn small').forEach(el=>{if(el.dataset.ic)return;el.dataset.ic=1;el.innerHTML=icons(el.innerHTML);});
+ if(['turn','result'].includes(S.phase)){const p=card.querySelector('.poster .panel > p:not(.note)');if(p&&!p.dataset.sh){const full=p.innerHTML;const f=firstSent(p.textContent);if(f){p.dataset.sh=1;p.innerHTML=f+' <span class="more" role="button" tabindex="0" data-more="1">ще…</span>';p._full=full;}}}
+ if(['turn','result','free','go','travel'].includes(S.phase)&&!(S.ev&&S.ev._v3))card.querySelectorAll('.say').forEach(x=>x.remove());}
+document.addEventListener&&document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-more]');if(!b)return;e.stopPropagation();e.preventDefault();const p=b.parentElement;if(p&&p._full)p.innerHTML=p._full;},true);
+// перемикач у налаштуваннях
+{const _sh=settingsHTML;settingsHTML=function(){let h=_sh.apply(this,arguments);try{const g=`<div class="setgrp"><b>📖 Тексти</b><p>Коротко — одне речення й значки. Повністю — як у книжці.</p><div class="seg"><button data-s="short" data-v="1" aria-pressed="${shortOn()}">Коротко</button><button data-s="short" data-v="0" aria-pressed="${!shortOn()}">Повністю</button></div></div>`;const k=h.indexOf('<div class="setgrp">');h=k>=0?h.slice(0,k)+g+h.slice(k):h+g;}catch(e){}return h;};}
+document.addEventListener&&document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-s="short"]');if(!b)return;e.stopPropagation();lss('kr-short',b.dataset.v);try{settingsOpen();}catch(x){}try{if(S&&S.players)render();}catch(x){}},true);
+// ================= Д. значок 🎮 =================
+function mgMarks(){if(S.phase!=='turn'||!S.ev||!S.ev.c)return;app.querySelectorAll('[data-choice]').forEach(b=>{const c=S.ev.c[+b.dataset.choice];if(c&&typeof mgKindOfChoice==='function'&&mgKindOfChoice(c)&&!b.querySelector('.mgtag'))b.insertAdjacentHTML('afterbegin','<span class="mgtag">🎮 гра</span> ');});}
+// ================= В. ранкове нагадування про доручення =================
+function taskRemind(){if(S.phase!=='morning'||!app.insertAdjacentHTML)return;const p=S.players[myIdx()];if(!p)return;const T=(p.tasks||[]).filter(t=>!t.done&&!t.failed&&t.until===S.day);if(!T.length||app.querySelector('.tremind'))return;
+ app.insertAdjacentHTML('afterbegin',`<div class="tremind">⏰ <b>Сьогодні останній день:</b> ${T.map(t=>`${t.item} → їдь: ${LOCS[t.loc]?LOCS[t.loc].n:t.loc}`).join('; ')}</div>`);}
+// ================= Е. нове меню =================
+const CL={student:'пільговий проїзд, сесія на носі',miner:'міцна спина, аванс у середу',seller:'своя людина на ринку',driver:'щодня готівка за рейси',pensioner:'пільги, дача й онуки',office:'стабільна ЗП, дедлайни',mom:'допомога від держави, малий на руках',teacher:'надбавка, батьківські збори',taxi:'нічні замовлення',it:'добра ЗП, болить спина',plumber:'руки золоті, виклики вночі',collector:'знає всі борги міста',guard:'тиша, чай і монітори',fisher:'рибу продає на ринку',gopnik:'насіння й свої пацани',rukha:'не здається ніколи'};
+const PRESETS={day:{W:1,day:1,hard:false},fast:{W:1,hard:false},normal:{W:2,hard:false},hard:{W:1,hard:true}};
+try{PREV.modes='title';PREV.pets='chars';}catch(e){}
+{const _rs=renderSetup;renderSetup=function(){let st=setup.step||'title';const ls=setup._lastSt;if(st==='rules'){st=ls==='modes'?'title':'modes';setup.step=st;}if(st==='title'&&ls==='pets'){st='chars';setup.step=st;}setup._lastSt=st;if(st==='title')return _rs.apply(this,arguments);
+ if(st==='modes'&&!setup.custom){app.innerHTML=`<div class="stephead"><span>Крок 1 з 3</span><h2>Як граємо?</h2></div><div class="mcards">
+  <button class="mcard" data-preset="fast"><span class="mci" style="background-image:url(${IMG.tram||IMG.s2||''})"></span><b>⚡ Швидка гра</b><small>тиждень · ~15 хв</small></button>
+  <button class="mcard" data-preset="normal"><span class="mci" style="background-image:url(${IMG.s9||''})"></span><b>🏠 Звичайна</b><small>2 тижні · ~30 хв</small></button>
+  <button class="mcard hardc" data-preset="hard"><span class="mci" style="background-image:url(${IMG.h1||IMG.k1||''})"></span><b>🔥 Хардкор 🔞</b><small>тиждень жесті · кожен другий не доживає</small></button>
+  <button class="mcard small" data-preset="day"><b>☕ Один день</b><small>~5 хв — поки чекаєш маршрутку</small></button></div>
+  <button class="btn btn-ghost" data-act="custommodes">⚙ Налаштувати самому<small>гравці, пора року, місяць, сімейка, залізний режим</small></button><button class="btn btn-ghost" data-step="title">← Назад</button>`;return;}
+ if(st==='pets')return petsScreen();
+ const r=_rs.apply(this,arguments);try{if(st==='modes'&&setup.custom){const b=app.querySelector('[data-step="rules"]');if(b){b.dataset.step='modes';b.dataset.act='uncustom';}const sh=app.querySelector('.stephead span');if(sh)sh.textContent='Крок 1 з 3';
+  const rare=[...app.querySelectorAll('[data-act=irontoggle],[data-act=famtoggle],[data-act=talkset]')];if(rare.length){const d=document.createElement('details');d.className='rsec morex';d.open=!!setup._moreOpen;d.innerHTML='<summary>Ще налаштування</summary>';d.addEventListener('toggle',()=>{setup._moreOpen=d.open;});rare[0].parentNode.insertBefore(d,rare[0]);rare.forEach(x=>{const n=x.nextElementSibling;d.appendChild(x);if(n&&n.classList.contains('note'))d.appendChild(n);});}}
+  if(st==='chars'){const ov=document.getElementById('chov');const pe=ov&&ov.querySelector('.pets');if(pe){const a=pe.previousElementSibling,b=pe.nextElementSibling;if(a&&a.tagName==='P')a.remove();if(b&&b.classList.contains('note'))b.remove();pe.remove();}}
+  if(st==='chars'&&!setup.daily){const sh=app.querySelector('.stephead span');if(sh)sh.textContent='Крок 2 з 3';}
+  if(st==='chars')app.querySelectorAll('.chars [data-pick]').forEach(b=>{const id=b.dataset.pick;if(CL[id]&&!b.querySelector('.chl')&&!b.classList.contains('locked'))(b.querySelector('.cap')||b).insertAdjacentHTML('beforeend',`<small class="chl">${CL[id]}</small>`);});}catch(e){}return r;};}
+document.addEventListener&&document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-preset],[data-act=custommodes],[data-act=uncustom]');if(!b||S)return;e.stopPropagation();e.preventDefault();
+ if(b.dataset.act==='custommodes'){setup.custom=true;setup.oneDay=false;return renderSetup();}if(b.dataset.act==='uncustom'){setup.custom=false;return renderSetup();}
+ const P=PRESETS[b.dataset.preset];const go=()=>{setup.count=1;setup.W=P.W;setup.hard=P.hard;setup.iron=false;setup.family=false;setup.oneDay=!!P.day;setup.daily=false;setup.picked=setup.picked.slice(0,1);setup.step='chars';renderSetup();window.scrollTo(0,0);};
+ if(P.hard&&typeof ageGate==='function')ageGate(go);else go();},true);
+// тварина — окремий крок
+function petsScreen(){const L=[['none','stray','Без тварини','',''],['cat','stray','Рудий кіт','pet_cat','+1 нерв через день · корм 30 грн'],['cat','pure','Перс 👑','pet_catp','більше щастя · корм 60 грн'],['dog','stray','Кудлатий пес','pet_dog','+1 щастя щовечора · корм 35 грн'],['dog','pure','Хаскі 👑','pet_dogp','ще більше щастя · корм 70 грн']];
+ app.innerHTML=`<div class="stephead"><span>Крок 3 з 3</span><h2>Хто чекає вдома?</h2></div>`+setup.picked.map(id=>{const cur0=setup.pets[id]||'none',br=setup.breeds[id]||'stray';const LL=L.concat(id==='rukha'?[['dog','archie','Арчі ❤️','pet_archie','найкращий друг']]:[]);
+  return `<div class="petstep">${setup.picked.length>1?`<p class="pethd">${portrait(id)} <b>${CHARS[id].name}</b></p>`:''}<div class="petgrid">${LL.map(([k,b,l,im,x])=>{const on=cur0===k&&(k==='none'||br===b);return `<button class="petcard${on?' on':''}" data-pp="${id}|${k}|${b}">${im&&IMG[im]?`<img src="${IMG[im]}" alt="">`:'<span class="nopet2">🏠</span>'}<b>${l}</b>${x?`<small>${x}</small>`:''}</button>`;}).join('')}</div></div>`;}).join('')+
+  `<button class="btn btn-main" data-act="startgame" data-petok="1">Поїхали! 🚋</button><button class="btn btn-ghost" data-step="chars">← Назад</button>`;}
+document.addEventListener&&document.addEventListener('click',e=>{const t=e.target.closest&&e.target.closest('[data-pp]');if(t&&!S){e.stopPropagation();e.preventDefault();const [id,k,b]=t.dataset.pp.split('|');setup.pets[id]=k;if(k!=='none')setup.breeds[id]=b;return petsScreen();}
+ const sg=e.target.closest&&e.target.closest('#app [data-act=startgame]');if(sg&&!S&&!SIM&&(setup.step||'')==='chars'&&!sg.dataset.petok&&!setup.daily){e.stopPropagation();e.preventDefault();if(setup.picked.length<setup.count)return;setup.step='pets';renderSetup();window.scrollTo(0,0);}},true);
+// «Один день»
+{const _sg=startGame;startGame=function(){setup._lastSt=null;_sg.apply(this,arguments);try{if(S&&S.players&&setup.oneDay&&!setup.daily&&!ROOM){S.D=1;S.oneDay=1;S.players.forEach(p=>{p.dreamCost=Math.round(CHARS[p.id].zp*0.95/10)*10+Math.round(p.dream.extra*0.6/10)*10;p.holiDay=99;p.arc={k:3,f:[]};});render();}}catch(e){}};}
+// ================= навчання «тицни сюди» =================
+const COACH=[['morning','[data-act=morning]','Почни день 👇'],['oblig','.gtodayb','Тут твої справи на сьогодні'],['oblig','[data-act=obgo]','Тисни, щоб поїхати'],['go','[data-gmap=go]','Тицни, куди їхати'],['travel','[data-travel]','Обери, як доїхати'],
+ ['turn','[data-act=workmg]','🎮 Зіграй зміну — заробиш більше'],['turn','[data-choice]','Обери варіант'],['result','.phbtn','📱 Тут пишуть знайомі'],['result','[data-act=resok]','Тисни «Далі»'],['free','[data-act=workmg]','🎮 Зіграй зміну — заробиш більше'],['free','[data-free]','Обери, чим зайнятися'],['evening','[data-eve]','Заплати за побут або зекономиш']];
+if(lsg('kr-tut')==='done'&&lsg('kr-coach')==null)lss('kr-coach','done');
+try{tutTick=function(){};}catch(e){}
+document.addEventListener&&document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-s="tut"]');if(b){lss('kr-coach','');lss('kr-coachseen','[]');}},true);
+const coachOn=()=>lsg('kr-coach')!=='done';
+const seen=()=>{try{return JSON.parse(lsg('kr-coachseen')||'[]');}catch(e){return [];}};
+let CO=null;
+function coachClear(){if(!document.querySelectorAll)return;document.querySelectorAll('.cspot,.cbub').forEach(x=>x.remove());CO=null;}
+function coachShow(){coachClear();if(!S||!S.players||!coachOn()||document.querySelector('#mgov,#phov,#gmapov.on,#setov,#chov'))return;const sn=seen();
+ const st=COACH.find(([ph,sel],i)=>ph===S.phase&&!sn.includes(i)&&document.querySelector(sel)&&document.querySelector(sel).offsetParent);if(!st)return;const i=COACH.indexOf(st);const el=document.querySelector(st[1]);
+ try{el.scrollIntoView({block:'nearest'});}catch(e){}const r=el.getBoundingClientRect();if(r.width<4)return;
+ const sp=document.createElement('div');sp.className='cspot';sp.style.cssText=`left:${r.left-6}px;top:${r.top-6}px;width:${r.width+12}px;height:${r.height+12}px`;document.body.appendChild(sp);
+ const bub=document.createElement('div');bub.className='cbub';const below=r.top<window.innerHeight/2;bub.style.cssText=`left:12px;right:12px;${below?`top:${Math.min(window.innerHeight-90,r.bottom+14)}px`:`bottom:${Math.max(10,window.innerHeight-r.top+14)}px`}`;
+ bub.innerHTML=`<span>${st[2]}</span><button class="cskip">Пропустити навчання</button>`;document.body.appendChild(bub);CO={i,el};
+ bub.querySelector('.cskip').addEventListener('click',ev=>{ev.stopPropagation();lss('kr-coach','done');coachClear();});}
+function coachDone(i){const sn=seen();if(!sn.includes(i)){sn.push(i);lss('kr-coachseen',JSON.stringify(sn));}if(COACH[i][0]==='evening')lss('kr-coach','done');}
+document.addEventListener&&document.addEventListener('click',e=>{if(!CO)return;if(CO.el.contains(e.target)){const i=CO.i;coachClear();coachDone(i);}},true);
+window.addEventListener&&window.addEventListener('resize',()=>{if(CO)coachShow();});
+// ================= живий транспорт на карті =================
+const ROUTES=[{k:'skarik',ic:'🚋',n:'Скарік',r:['quarry','school','office','playground','clinic','market'],sp:0.06},{k:'tram',ic:'🚃',n:'Трамвай',r:['dacha','clinic','market','river'],sp:0.05},
+ {k:'busA',ic:'🚐',n:'Маршрутка',r:['bus','uni','office','mall'],sp:0.09},{k:'busB',ic:'🚐',n:'Маршрутка',r:['stadium','garages','market','bus'],sp:0.08},{k:'busC',ic:'🚐',n:'Маршрутка',r:['airfield','school','uni','bus'],sp:0.07}];
+function vehPos(R,t){const pts=R.r.filter(k=>LOCS[k]).map(k=>LOCS[k]);if(pts.length<2)return null;const segs=pts.length-1;const L=segs*2;let u=((t/1000)*R.sp)%L;let back=false;if(u>=segs){u=L-u;back=true;}const i=Math.min(segs-1,Math.floor(u)),f=u-i;const a=pts[i],b=pts[i+1];return {x:a.x+(b.x-a.x)*f,y:a.y+(b.y-a.y)*f,seg:i,f,back};}
+function down(R){const w=window.krWcard&&window.krWcard();if(R.k==='skarik'&&S&&S.mod&&S.mod.k==='tramDown')return 'broken';if(R.k.startsWith('bus')&&w&&w.k==='strike')return 'off';return '';}
+let VT=null;
+function vehStart(map){cancelAnimationFrame(VT);if(!map)return;map.querySelectorAll('.veh,.vroute').forEach(x=>x.remove());
+ const svg=ROUTES.filter(R=>R.k==='skarik').map(R=>`<svg class="vroute" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline points="${R.r.filter(k=>LOCS[k]).map(k=>LOCS[k].x+','+LOCS[k].y).join(' ')}"/></svg>`).join('');map.insertAdjacentHTML('afterbegin',svg);
+ const els=ROUTES.map(R=>{const st=down(R);if(st==='off')return null;const el=document.createElement('span');el.className='veh'+(st?' broken':'');el.textContent=R.ic+(st?'🔧':'');el.title=R.n;map.appendChild(el);return {R,el,st};}).filter(Boolean);
+ const t0=Date.now();const loop=()=>{if(!map.isConnected)return;const t=Date.now();els.forEach(o=>{const P=vehPos(o.R,o.st?t0:t);if(!P)return;o.el.style.left=P.x+'%';o.el.style.top=P.y+'%';o.el.style.transform=`translate(-50%,-50%) scaleX(${P.back?-1:1})`;});VT=requestAnimationFrame(loop);};loop();}
+function etaText(from){const t=Date.now();let best=null;ROUTES.forEach(R=>{if(down(R)||!R.k.startsWith('bus'))return;const i=R.r.indexOf(from);if(i<0)return;const P=vehPos(R,t);if(!P)return;const pos=P.back?(P.seg+1-P.f):(P.seg+P.f);const segs=R.r.length-1;let d=P.back?pos-i:i-pos;if(d<0)d=P.back?pos+i:2*segs-pos-i;const n=Math.max(0,Math.ceil(d));if(best==null||n<best)best=n;});return best;}
+if(typeof document!=='undefined'&&document.querySelector&&typeof setInterval==='function'&&document.body)setInterval(()=>{try{const m=document.querySelector('#gmapov.on .map');if(m&&!m.querySelector('.veh'))vehStart(m);
+ if(CO){if(!CO.el.isConnected||document.querySelector('#mgov,#phov,#gmapov.on,#setov,#chov,#help.on,#rescue,#agegate'))coachClear();else{const r=CO.el.getBoundingClientRect();const sp=document.querySelector('.cspot');if(sp)sp.style.cssText=`left:${r.left-6}px;top:${r.top-6}px;width:${r.width+12}px;height:${r.height+12}px`;}}
+ else if(S&&S.players&&coachOn()&&!document.querySelector('#mgov,#phov,#gmapov.on,#setov,#chov,#help.on,#rescue,#agegate'))coachShow();}catch(x){}},300);
+function travelEta(){if(S.phase!=='travel'||!S.pending)return;const p=cur();if(!p)return;const b=app.querySelector('[data-travel="bus"] small');if(!b||b.dataset.eta)return;const n=etaText(p.pos);b.dataset.eta=1;
+ const w=window.krWcard&&window.krWcard();b.insertAdjacentHTML('beforeend',n==null?'':` · 🚐 ${n===0?'вже на зупинці':n===1?'буде за 1 зупинку':'буде за '+n+' зупинки'}`);
+ if(S.mod&&S.mod.k==='tramDown'){const t=app.querySelector('[data-travel="tram"] small');if(t&&!t.dataset.eta){t.dataset.eta=1;t.insertAdjacentHTML('beforeend',' · 🔧 Скарік стоїть');}}}
+function mapGlow(){const p=S.players[myIdx()];if(!p||!p._newTask||p._newTask<=S.day)return;app.querySelectorAll('.gmapbtn,[data-gmap]').forEach(b=>b.classList.add('newtask'));}
+document.addEventListener&&document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('.gmapbtn,[data-gmap]');if(!b||!S||!S.players)return;const p=S.players[myIdx()];if(p)p._newTask=0;},true);
+// ================= рендер =================
+{const _r=render;render=function(){coachClear();_r.apply(this,arguments);try{if(SIM||!app||!app.querySelector||!S||!S.players)return;const tb=document.getElementById('tutbox');if(tb)tb.remove();document.querySelectorAll('.tutglow').forEach(x=>x.classList.remove('tutglow'));
+ workBtn();mgMarks();mapGlow();shortify();taskRemind();travelEta();setTimeout(coachShow,250);}catch(e){if(typeof console!=='undefined')console.error(e);}};}
 })();
 
 render();
