@@ -834,6 +834,29 @@ img{max-width:100%}
 .phwxd{display:flex;align-items:center;gap:10px;padding:6px 0;border-top:1px solid rgba(0,0,0,.08)}
 .phwxd span{font-size:28px}.phwxd b{display:block}.phwxd small{opacity:.75}
 .wggrid.fog .wgcell{filter:blur(1.6px);opacity:.8}
+
+/* 1.061 фінал + однакові картки */
+.hslide{display:flex;min-width:0}.hcard{flex:1;display:flex;flex-direction:column;min-width:0}.hcbody{flex:1;min-width:0}
+.hcbody h2{font-size:20px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.hcl{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.6em}
+.hcard:not(.howc) .hcbody{min-height:218px}
+.pcard2 small{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;min-height:3.9em}
+.fwrap{margin-top:4px}
+.fkick{margin:0;font:700 13px var(--body);color:#E4502E;text-transform:uppercase;letter-spacing:.06em}
+.ftitle{font:800 28px/1.1 var(--display,var(--body));margin:2px 0 10px}
+.fends .endcard{margin:0 0 10px}
+.fends.multi{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 -16px;padding:0 16px}
+.fends.multi::-webkit-scrollbar{display:none}.fends.multi .endcard{flex:0 0 86%;scroll-snap-align:center}
+.fchips{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+.fchips span{background:var(--panel);border:2px solid var(--line);border-radius:999px;padding:5px 10px;font:700 14px var(--body)}
+.fslides .mslide{min-height:120px}
+.fslides .paper2{margin:0 0 10px}
+.fslides .detail{margin:8px 0}
+.fgo{display:flex;flex-direction:column;gap:6px;padding-right:58px}
+.fagain{margin:0!important;font-size:20px!important;padding:15px!important;box-shadow:0 6px 18px rgba(31,35,80,.3)}
+.fgo-row{display:flex;gap:6px}
+.fsm{flex:1;border:2px solid var(--line);background:var(--panel);color:var(--text);border-radius:12px;padding:9px 4px;font:700 13px var(--body);cursor:pointer;white-space:nowrap}
+.fsm small{display:none}
 </style>
 </head>
 <body>
@@ -1718,7 +1741,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.060 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.061 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2608,7 +2631,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.060 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.061 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -6070,6 +6093,43 @@ function howScreen(){app.innerHTML=`<div class="stephead"><h2>📖 Як грат
    const n=sum&&sum.parentElement&&sum.parentElement.nextElementSibling;if(n&&n.classList.contains('note')&&setup.season==='life')n.textContent='Пора року за календарем, а погода щодня своя: сонце, дощ, туман, сніг чи ожеледь — і вона впливає на день.';}}catch(e){}
  return r;};}
 {const _r=render;render=function(){const o=document.getElementById&&document.getElementById('msheet');if(o&&o.remove&&S){o.remove();document.body.classList.remove('noscroll');}_r.apply(this,arguments);try{if(!SIM&&app.querySelector){wxSummary();wxPaint();}}catch(e){}};}
+})();
+
+// === 1.061: фінал однією карткою з вкладками ===
+(function(){
+const kids=sel=>[...app.children].filter(c=>c.matches&&c.matches(sel));
+function finalCards(){if(!['done','end'].includes(S.phase)||!app.querySelector||app.querySelector('.fwrap'))return;
+ const ew=kids('.endwrap')[0],poster=kids('.poster')[0];if(!ew||!poster)return;const panel=poster.querySelector('.panel');if(!panel)return;
+ const title=(poster.querySelector('.card-title')||{}).textContent||'Підсумки';
+ const ecs=[...ew.querySelectorAll('.endcard')];const papers=ecs.map(e=>e.querySelector('.paper2')).filter(Boolean);
+ const btn=k=>panel.querySelector(`[data-act=${k}]`);const bAgain=btn('again'),bMenu=btn('menu'),bShare=btn('share'),bImg=btn('shareimg');
+ const details=[...panel.querySelectorAll('.detail')];const intro=[...panel.children].filter(c=>c.tagName==='P'&&!/Нові досягнення/.test(c.textContent));const ach=[...panel.children].filter(c=>c.tagName==='P'&&/Нові досягнення/.test(c.textContent));
+ const wx=ew.querySelector('.wxsum')||app.querySelector('.wxsum'),perk=ew.querySelector('.perknew'),cnt=ew.querySelector('.endcnt');
+ const me=S.room&&typeof meI==='function'?meI():0;const P=S.players[me]||S.players[0];
+ const w=document.createElement('div');w.className='fwrap';
+ w.innerHTML=`<p class="fkick">🏁 Підсумки</p><h2 class="ftitle">${title}</h2><div class="fends"></div>
+  ${S.players.length>1&&!S.room?'':`<div class="fchips"><span>💰 ${P.money} грн</span><span>😊 ${P.happy}</span><span>😌 ${P.nerves}</span><span>${P.dreamDone?'🎯 мрія ✅':'🎯 мрія ❌'}</span></div>`}
+  <div class="mtabs" role="tablist"><span role="tab" data-ft="0">📰 Газета</span><span role="tab" data-ft="1">🏆 Досягнення</span><span role="tab" data-ft="2">📖 Історія</span></div>
+  <div class="mslides fslides"><div class="mslide" data-fs="0"></div><div class="mslide" data-fs="1"></div><div class="mslide" data-fs="2"></div></div>
+  <div class="mgo fgo"><div class="fgo-row"></div></div>`;
+ const fe=w.querySelector('.fends');ecs.forEach(e=>fe.appendChild(e));if(ecs.length>1)fe.classList.add('multi');
+ const [s0,s1,s2]=w.querySelectorAll('.mslide');
+ papers.forEach(p=>s0.appendChild(p));if(wx)s0.appendChild(wx);if(!papers.length&&!wx)s0.insertAdjacentHTML('beforeend','<p class="note">Газета вже на роздачі в кіосках 📰</p>');
+ if(perk)s1.appendChild(perk);ach.forEach(a=>s1.appendChild(a));if(cnt)s1.appendChild(cnt);if(!perk&&!ach.length)s1.insertAdjacentHTML('afterbegin','<p class="note">Цього разу без нових досягнень. Наступного разу точно!</p>');
+ intro.forEach(x=>s2.appendChild(x));details.forEach(d=>s2.appendChild(d));[...panel.querySelectorAll('p.note')].forEach(n=>s2.appendChild(n));
+ const go=w.querySelector('.fgo'),row=w.querySelector('.fgo-row');
+ if(bAgain){bAgain.className='btn btn-main fagain';bAgain.textContent='🔁 Ще раз';go.insertBefore(bAgain,row);}
+ if(bShare){bShare.className='fsm';bShare.textContent='📤 Поділитися';row.appendChild(bShare);}
+ if(bImg){bImg.className='fsm';bImg.innerHTML='🖼 Сторіз';row.appendChild(bImg);}
+ if(bMenu){bMenu.className='fsm';bMenu.textContent='🏠 Меню';row.appendChild(bMenu);}
+ [...panel.querySelectorAll('button')].forEach(b=>{if(![bAgain,bMenu,bShare,bImg].includes(b)){b.classList.add('fsm');row.appendChild(b);}});
+ ew.replaceWith(w);poster.remove();
+ const sl=w.querySelector('.fslides');const tabs=[...w.querySelectorAll('[data-ft]')];const setTab=i=>tabs.forEach((t,k)=>t.classList.toggle('on',k===i));
+ const to=(i,sm)=>{const s=sl.children[i];if(s&&sl.scrollTo)sl.scrollTo({left:s.offsetLeft-sl.offsetLeft,behavior:sm?'smooth':'auto'});setTab(i);};
+ tabs.forEach((t,k)=>t.addEventListener('click',e=>{e.stopPropagation();to(k,true);}));
+ let tm=null;sl.addEventListener('scroll',()=>{clearTimeout(tm);tm=setTimeout(()=>setTab(Math.round(sl.scrollLeft/Math.max(1,sl.clientWidth))),60);},{passive:true});
+ requestAnimationFrame(()=>to(0,false));}
+{const _r=render;render=function(){_r.apply(this,arguments);try{if(!SIM&&S&&S.players&&app.querySelector)finalCards();}catch(e){if(typeof console!=='undefined')console.error(e);}};}
 })();
 
 render();
