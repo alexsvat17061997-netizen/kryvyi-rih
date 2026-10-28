@@ -892,6 +892,28 @@ body.fallc .stats{margin-bottom:4px}body.fallc .say .bub{font-size:14px}
 .tcards .mcard.tnew{min-height:84px}.tcards .mcard.tnew.big{min-height:100px}
 .minigear{width:40px;height:40px;border-radius:12px;border:2px solid var(--line);background:var(--panel);font-size:18px;margin-left:4px;cursor:pointer}
 body:not(.ingame) .rtoast{}
+
+#setov{background:#1E1440;padding:0;align-items:stretch}
+#setov .setbox.setv2{background:transparent;border:0;border-radius:0;color:#F5E7CF;max-width:calc(480px / var(--fz,1));margin:0 auto;padding:calc(14px + env(safe-area-inset-top,0px)) 14px 18px;min-height:100%}
+#setov .setv2 .sethead{position:sticky;top:0;z-index:2;background:#1E1440;margin:-14px -14px 8px;padding:12px 14px}
+#setov .setv2 .sethead h2{color:#F5E7CF}
+#setov .setv2 .setback{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);color:#F5E7CF}
+#setov .scard{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:6px 12px 10px;margin:10px 0}
+#setov .scard h3{margin:6px 0 2px;font:800 13px var(--display,var(--body));text-transform:uppercase;letter-spacing:.06em;color:#F2A93B}
+#setov .setv2 .setrow{background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.08);border-radius:0;margin:0;padding:10px 0;color:#F5E7CF}
+#setov .setv2 .setrow small{color:rgba(245,231,207,.65)}
+#setov .ssub{padding:10px 0 4px}#setov .ssub b{font-size:14px}#setov .ssub .seg{margin-top:6px}
+#setov .setv2 .seg button{border-color:rgba(255,255,255,.2);color:#F5E7CF;padding:7px 4px}
+#setov .setv2 .seg button[aria-pressed=true]{border-color:#E8532F;background:#E8532F;color:#fff}
+#setov .ssub .btn{width:100%;margin-top:6px;background:rgba(255,255,255,.08);color:#F5E7CF;border-color:rgba(255,255,255,.2)}
+#setov .setv2 .setnav{margin:4px 0 6px}#setov .setv2 .setnav .btn{background:rgba(255,255,255,.08);color:#F5E7CF;border-color:rgba(255,255,255,.2)}
+#setov .sdet{margin:10px 0;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:10px 12px;background:rgba(255,255,255,.04)}
+#setov .sdet summary{cursor:pointer;font-weight:700;font-size:14px}#setov .sdet p{color:rgba(245,231,207,.7);font-size:13px}
+#setov .sdet .btn{width:100%;margin-top:8px;background:rgba(255,255,255,.08);color:#F5E7CF;border-color:rgba(255,255,255,.2)}
+#setov .setv2 #progin{background:rgba(0,0,0,.25);color:#F5E7CF;border-color:rgba(255,255,255,.2)}
+#setov .setv2 .setmsg{color:#F2A93B!important}
+#setov .setv2 .foot{color:rgba(245,231,207,.5);text-align:center;font-size:11px}
+body.noscroll .musbtn{display:none!important}
 </style>
 </head>
 <body>
@@ -1776,7 +1798,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.069 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.070 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2666,7 +2688,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.069 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.070 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -6340,6 +6362,23 @@ document.addEventListener&&document.addEventListener('click',e=>{const b=e.targe
 
 // === 1.069: обіцяні зустрічі (черга) не губляться ===
 {const _bt=beginTurn;beginTurn=function(){if(S)S._qIt=null;_bt.apply(this,arguments);try{const it=S&&S._qIt;S._qIt=null;if(it&&!(S.ev&&S.ev.chain===it.id)){const p=cur();if(p)(p.queue=p.queue||[]).unshift({day:S.day,id:it.id});}}catch(e){}};}
+
+// === 1.070: налаштування — повний екран, групи ===
+{const _sh=settingsHTML;settingsHTML=function(){const h=_sh.apply(this,arguments);try{if(!document.createElement)return h;const t=document.createElement('div');t.innerHTML=h;const box=t.querySelector('.setbox');if(!box)return h;
+ const q=s=>box.querySelector(`[data-s="${s}"]`);const take=n=>n?n.outerHTML:'';const row=s=>{const r=q(s);return r?take(r):'';};
+ const segOf=(s,lab)=>{const b=q(s);const sg=b&&b.closest('.seg');return sg?`<div class="ssub"><b>${lab}</b>${take(sg)}</div>`:'';};
+ const head=take(box.querySelector('.sethead')),nav=take(box.querySelector('.setnav'));
+ const tut=q('tut');const tutH=tut?`<div class="ssub"><b>🎓 Навчання</b>${take(tut)}</div>`:'';
+ const cp=q('copy'),pg=cp&&cp.closest('.setgrp');const msg=box.querySelector('.setmsg');
+ const err=[...box.querySelectorAll('.setgrp')].find(g=>/Журнал помилок/.test(g.textContent));const foot=take(box.querySelector('.foot'));
+ const sec=(ic,tt,body)=>`<section class="scard"><h3>${ic} ${tt}</h3>${body}</section>`;
+ let pgH='';if(pg){const b=pg.querySelector('b');if(b)b.remove();pgH=`<details class="sdet"${msg?' open':''}><summary>💾 Перенести прогрес на інший телефон</summary>${pg.innerHTML}</details>`;}
+ let erH='';if(err){const b=err.querySelector('b');if(b)b.remove();erH=`<details class="sdet"><summary>🛠 Журнал помилок</summary>${err.innerHTML}</details>`;}
+ box.classList.add('setv2');
+ box.innerHTML=head+nav+sec('🔊','Звук',row('snd')+row('mus')+row('amb')+segOf('ambv','Гучність фону'))
+  +sec('🎮','Гра',segOf('short','📖 Тексти')+row('talk')+row('mg')+tutH)
+  +sec('🔤','Екран',segOf('fz','Розмір тексту'))+pgH+erH+foot;
+ return t.innerHTML;}catch(e){return h;}};}
 
 render();
 </script>
