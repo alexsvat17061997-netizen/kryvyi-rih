@@ -888,6 +888,8 @@ body.fallc .stats{margin-bottom:4px}body.fallc .say .bub{font-size:14px}
 .ttitle{position:absolute;left:0;right:0;top:calc(16px + env(safe-area-inset-top,0px));text-align:center;color:#F5E7CF;text-shadow:0 3px 12px rgba(20,10,40,.8)}
 .ttitle b{display:block;font:900 calc(38px / var(--fz,1))/1 var(--display,var(--body));letter-spacing:.02em;text-transform:uppercase}.ttitle span{display:block;font:800 calc(17px / var(--fz,1)) var(--display,var(--body));text-transform:uppercase;margin-top:4px}
 .tmenu.hasherobg .tbg img.citybg{object-position:center top}.tmenu.hasherobg .tbg::after{content:"";position:absolute;left:0;right:0;bottom:0;height:45%;background:linear-gradient(transparent,rgba(51,31,93,.85));pointer-events:none}
+.tmenu.hasherobg .tbg{bottom:auto;height:62%}.tmenu.hasherobg .tbg img.citybg{object-position:center 88%}.tmenu.hasherobg .tbg::after{height:30%}.tmenu .tnew{background:linear-gradient(135deg,#4A2F86,#2E3576)}.ttitle{top:calc(44px + env(safe-area-inset-top,0px))}.musbtn{padding:4px 9px;font-size:12px;top:6px;right:6px}
+.tcards .mcard.tnew{min-height:84px}.tcards .mcard.tnew.big{min-height:100px}
 .minigear{width:40px;height:40px;border-radius:12px;border:2px solid var(--line);background:var(--panel);font-size:18px;margin-left:4px;cursor:pointer}
 body:not(.ingame) .rtoast{}
 </style>
@@ -1774,7 +1776,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.067 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.068 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2664,7 +2666,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.067 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.068 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -6286,7 +6288,7 @@ function titleCards(){if(!app.querySelector||(typeof ROOMUI!=='undefined'&&ROOMU
  const foot=tm.querySelector('.foot');const bot=tm.querySelector('.tbot');if(!bot)return;
  bot.innerHTML=`<div class="tcards">
   ${ss?`<button class="mcard tcont" data-act="continue"><span class="mci" style="background-image:url(${heroBg})"></span><b>▶ Продовжити</b><small>${ss.players.map(p=>CHARS[p.id].name).join(', ')} · ${ss.W===1?'тиждень':ss.W===2?'2 тижні':'місяць'} · тиждень ${Math.floor(ss.day/5)+1}</small></button>`:''}
-  <button class="mcard tnew${ss?'':' big'}" data-act="newgame"><span class="mci" style="background-image:url(${U('s24')})"></span><b>🚋 Нова гра</b><small>обери режим і героя</small></button>
+  <button class="mcard tnew${ss?'':' big'}" data-act="newgame"><b>🚋 Нова гра</b><small>обери режим і героя</small></button>
   <div class="trow">
    <button class="tmini" data-act="dailyplay"><span>🗓</span><b>Тиждень дня</b><small>#${dayNo()}</small></button>
    <button class="tmini" data-step="collection"><span>📒</span><b>Альбом</b><small>${alb} наліпок</small></button>
@@ -6296,7 +6298,7 @@ function titleCards(){if(!app.querySelector||(typeof ROOMUI!=='undefined'&&ROOMU
  if(foot)bot.appendChild(foot);
  let L=null;try{L=JSON.parse(localStorage.getItem('kr-last')||'null');}catch(e){}const hid=p0?p0.id:(L&&L.picked&&L.picked[0]);
  const ci=tm.querySelector('.tbg img');
- if(ci){ci.classList.add('herobg','citybg');tm.classList.add('hasherobg');if(!tm.querySelector('.ttitle'))tm.querySelector('.tbg').insertAdjacentHTML('beforeend','<div class="ttitle"><b>Кривий Ріг</b><span>виживи до зарплати</span></div>');}}
+ if(ci){ci.classList.add('herobg','citybg');tm.classList.add('hasherobg');const tg=tm.querySelector('.tbg'),tb=tm.querySelector('.tbot');const fit=()=>{if(tg&&tb&&tb.offsetTop>120)tg.style.height=(tb.offsetTop+56)+'px';};fit();requestAnimationFrame(fit);if(!window._krFit){window._krFit=1;window.addEventListener('resize',()=>{const t=document.querySelector('.tmenu .tbg'),b2=document.querySelector('.tmenu .tbot');if(t&&b2)t.style.height=(b2.offsetTop+56)+'px';});}if(!tm.querySelector('.ttitle'))tm.querySelector('.tbg').insertAdjacentHTML('beforeend','<div class="ttitle"><b>Кривий Ріг</b><span>виживи до зарплати</span></div>');}}
 {const _rs=renderSetup;renderSetup=function(){const r=_rs.apply(this,arguments);try{if((setup.step||'title')==='title')titleCards();}catch(e){}return r;};}
 {const _r=render;render=function(){_r.apply(this,arguments);try{if(!S&&(setup.step||'title')==='title')titleCards();if(S&&app.querySelector){const mb=app.querySelector('.minibar');if(mb&&!mb.querySelector('.minigear'))mb.insertAdjacentHTML('beforeend','<button class="minigear" data-act="settings" aria-label="Налаштування">⚙</button>');}}catch(e){}};}
 })();
