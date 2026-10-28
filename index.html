@@ -875,6 +875,12 @@ img{max-width:100%}
 .tset{position:absolute;top:10px;left:10px;z-index:5;width:42px;height:42px;border-radius:50%;border:0;background:rgba(20,15,40,.55);color:#F5E7CF;font-size:20px;cursor:pointer}
 
 .fslides .note,.fslides p,.fslides .endcnt{color:var(--text)!important;opacity:.85}
+
+.phwr{display:flex;flex-direction:column;gap:6px;margin-top:10px;border-top:1px solid rgba(255,255,255,.12);padding-top:8px}.phwr small{opacity:.7;font-size:12px}
+
+.phwrl{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}.phwrl button{flex:none;display:flex;flex-direction:column;align-items:center;gap:4px;width:72px;border:0;background:none;color:inherit;font:600 11px var(--body);cursor:pointer}.phwrl img{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid #F2A93B}
+.fbmore{margin:6px 0 8px;background:var(--panel);border:2px solid var(--line);border-radius:12px;padding:6px 10px}.fbmore summary{cursor:pointer;font:700 14px var(--body)}
+body.fallc .stats{margin-bottom:4px}body.fallc .say .bub{font-size:14px}
 </style>
 </head>
 <body>
@@ -1759,7 +1765,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.064 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.065 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2649,7 +2655,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.064 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.065 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -4906,6 +4912,48 @@ NPCM.push(
 try{window.PHX=Object.assign(window.PHX||{},{npcMsg:i=>npcMsg(i)});}catch(e){}
 })();
 
+// --- 1.065: «✍️ Написати» — Студент сам пише своїм людям ---
+(function(){const K=s=>{const k='ha_student_'+s;if(!IMG[k])IMG[k]='img/student/'+s+'.webp';return k;};
+CHAINS.st_date1={t:'Кава з Оксаною',img:K('date_cinema'),x:'Оксана вже чекає біля кавʼярні з двома стаканчиками морозива замість кави: «Там черга, я вирішила по-своєму» 😊',c:[
+ {l:'Пригостити тістечком',m:-80,h:3,r:'Говорили про все на світі, навіть не про сесію. Оксана сміялась з твоїх жартів 💕'},
+ {l:'Розділити навпіл',m:-40,h:2,r:'Чесно й по-студентськи. Оксана каже, що це навіть мило.'},
+ {l:'Говорити тільки про сесію',h:1,r:'Корисно, але Оксана трохи нудьгувала. Наступного разу без конспектів.'}]};
+CHAINS.st_date2={t:'Прогулянка до квіткового годинника',img:K('flower_clock'),x:'Оксана сама запропонувала: «Ходімо до квіткового годинника, там зараз гарно». Вечір теплий, місто тихе.',c:[
+ {l:'Купити їй квіточку',m:-50,h:3,r:'Оксана сховала квіточку в конспект «на згадку» 🌸'},
+ {l:'Просто гуляти й говорити',h:2,n:1,r:'Дві години пролетіли як пʼять хвилин.'}]};
+CHAINS.st_date3={t:'Квіти для Оксани',img:K('spring_w8'),x:'Ти стоїш з букетом тюльпанів біля корпусу. Оксана виходить з пари й бачить тебе.',c:[
+ {l:'Подарувати й запросити на вечерю',m:-150,h:4,r:'«Це найкращий день за весь семестр», — каже Оксана. І тримає тебе за руку 💕'},
+ {l:'Подарувати мовчки',m:-80,h:3,r:'Вона почервоніла не менше за тюльпани.'}]};
+CHAINS.st_momvisit={t:'Поїздка до мами',img:K('home_visit'),x:'Мама відчиняє двері ще до того, як ти постукав: «Нарешті! Борщ на плиті, сідай!»',c:[
+ {l:'Поїсти борщу й відіспатися',n:3,h:1,r:'Мамин борщ лікує все. Навіть сесію.'},
+ {l:'Допомогти мамі по дому',n:1,h:2,m:100,r:'Полагодив кран, а мама «на дорогу» поклала в кишеню сотню й закрутки ❤️'}]};
+const W={
+ st_oksana:[['Підемо на каву? ☕',p=>{const ok=Math.random()<0.7+0.1*(p.dates||0);if(!ok)return ['Сьогодні не можу, давай іншим разом 🙈',{}];const n=Math.min(3,(p.dates||0)+1);p.dates=n;(p.queue=p.queue||[]).push({day:S.day+1,id:'st_date'+n});return [n===1?'Давай! Завтра після пар 😊':n===2?'Давай погуляємо, а не тільки кава 🌸':'Ти знову? 😊 Добре, тільки цього разу без конспектів',{h:1}];}],
+  ['Скинь конспект 🙏',p=>Math.random()<0.65?['Тримай, тільки нікому 😉',{n:1}]:['Сам пиши, лінюх 😤',{h:-1}]],
+  ['Прикриєш на парі?',p=>Math.random()<0.55?['Добре, але з тебе кава 😏',{h:1}]:['Ні, Петро Іванович рахує всіх',{n:-1}]]],
+ st_dima:[['Позич 100 🙏',p=>Math.random()<0.5?['Тримай, віддаси зі стипухи 😅',{m:100}]:['Сам на нулі 🫠',{}]],
+  ['Катка ввечері? 🎮',p=>['Завжди! О десятій 🎮',{n:1,h:1}]],
+  ['Приготуєш вечерю?',p=>{if(Math.random()<0.6){p.freeDinner=S.day;return ['Добре, макарони по-флотськи 🍝',{h:1}];}return ['Сьогодні твоя черга 😤',{}];}]],
+ st_mom:[['Мам, скинь трохи грошей 🙏',p=>{if(S.hard)return ['Синку, в самої до пенсії… Тримайся 😔',{}];if(p.momAsk===wk())return ['Я ж уже скидала цього тижня. Економ! 😉',{}];p.momAsk=wk();return ['Скинула. Їж нормально! ❤️',{m:150}];}],
+  ['Приїду на вихідних ❤️',p=>{(p.queue=p.queue||[]).push({day:S.day+1,id:'st_momvisit'});return ['Чекаю! Наварю борщу 🥹',{h:1}];}]],
+ st_petro:[['Можна перездати лабу?',p=>Math.random()<0.4?['Приходьте в четвер. Одна спроба.',{h:1}]:['Ні. Вчіть.',{n:-1}]]],
+ st_valya:[['Пустіть після 23:00? 🙏',p=>{let r=3;try{r=window.krRel.of(p,'galya');}catch(e){}return r>=4?['Ну добре, але тихо мені!',{h:1}]:['Правила для всіх!',{n:-1}];}]]};
+{const _at=appThread;appThread=function(k){let h=_at.apply(this,arguments);try{const i=phI(),p=S.players[i];if(!p||p.id!=='student'||!W[k])return h;const used=(p.wr||{})[k]===S.day;const dead=bat(p)<=0;
+ const box=`<div class="phcomp phwr"><small>✍️ Написати${used?' · сьогодні вже писав':''}</small>${W[k].map((x,n)=>`<button data-ph="wr" data-f="${k}" data-s="${n}" ${used||dead?'disabled':''}>${x[0]}</button>`).join('')}</div>`;
+ const j=h.lastIndexOf('</div>');h=j>0?h.slice(0,j)+box+h.slice(j):h+box;}catch(e){}return h;};}
+{const _ck=phClick;phClick=function(e){const b=e.target.closest&&e.target.closest('[data-ph="wr"]');if(b&&!b.disabled){e.stopPropagation();phSend({k:'wr',f:b.dataset.f,s:b.dataset.s});setTimeout(phRefresh,80);return;}return _ck.apply(this,arguments);};}
+{const _dp=doPhone;doPhone=function(i,ds){if(ds&&ds.k==='wr'){try{const p=S.players[i];const L=W[ds.f];if(!p||!L)return;p.wr=p.wr||{};if(p.wr[ds.f]===S.day)return;if(bat(p)<=0)return toastI(i,'📵 Телефон сів.');
+  p.wr[ds.f]=S.day;p.bat=Math.max(0,bat(p)-3);const w=L[+ds.s]||L[0];const [rep,fx]=w[1](p);apply(p,fx||{});push(i,ds.f,`<i>Ти: ${w[0]}</i><br>${rep}`);
+  const d=fmt(fx||{});if(d&&d!=='без наслідків')toastI(i,NPC[ds.f].n+': '+d);}catch(e){}return;}return _dp.apply(this,arguments);};}
+})();
+
+// --- 1.065: «✍️ Написати» з контактів ---
+(function(){const L=[['st_mom','Мама Наталія','mom'],['st_oksana','Оксана','starosta'],['st_dima','Діма','roommate'],['st_petro','Петро Іванович','lecturer'],['st_valya','Тьотя Валя','valya']];
+{const _ac=appContacts;appContacts=function(){let h=_ac();try{const p=S.players[phI()];if(!p||p.id!=='student')return h;
+ const sec=`<div class="phsec"><h4>✍️ Написати першим</h4><div class="phwrl">${L.map(([k,n,s])=>`<button data-ph="th" data-t="${k}"><img src="img/student/c_${s}.webp" alt=""><span>${n}</span></button>`).join('')}</div></div>`;
+ const k=h.indexOf('<div class="phsec">');h=k>=0?h.slice(0,k)+sec+h.slice(k):h+sec;}catch(e){}return h;};}
+})();
+
 })();
 
 // === 1.045: 📒 Альбом наліпок ===
@@ -6211,7 +6259,7 @@ function pick(p,img,kicker,title){const H=HA[p.id];const t=String(title||'').rep
   else if(p.pos&&H.loc[p.pos])s=H.loc[p.pos];}
  if(!s)return null;s=petAdj(p,s);return H.s.has(s)?key(p.id,s):null;}
 window.krHeroImg=function(id,slug){return HA[id]&&HA[id].s.has(slug)?url(id,slug):'';};
-{const _cw=cardWrap;cardWrap=function(img,kicker,title,body){try{const p=heroOf();if(p&&img&&!/^it_/.test(img)&&!CHARS[img]){const k=pick(p,img,kicker,title);if(k)img=k;}}catch(e){}return _cw.call(this,img,kicker,title,body);};}
+{const _cw=cardWrap;cardWrap=function(img,kicker,title,body){try{const p=heroOf();if(p&&img&&!/^(it|ha)_/.test(img)&&!CHARS[img]){const k=pick(p,img,kicker,title);if(k)img=k;}}catch(e){}return _cw.call(this,img,kicker,title,body);};}
 // кінцівки: картинка свого героя
 {const _r=render;render=function(){_r.apply(this,arguments);try{if(SIM||!S||!S.players||!app.querySelector||!['done','end'].includes(S.phase))return;
  const me=S.room&&typeof meI==='function'?meI():0;const P=S.players.length>1&&!S.room?S.players:[S.players[me]];
@@ -6245,6 +6293,34 @@ function titleCards(){if(!app.querySelector||(typeof ROOMUI!=='undefined'&&ROOMU
 hardP=function(p){if(!S||!S.hard||S.weekend||p.collector)return 0;if(p.nerves<=2)return 0.3;return ((p.hd===S.day?0.4:0.75)+(crisisOn('crime')?0.15:0));};
 {const _dc=dinnerCost;dinnerCost=function(p){let c=_dc.apply(this,arguments);try{if(S.hard&&c>0)c+=Math.round(S.day*16/S.W/10)*10;}catch(e){}return c;};}
 {const _ab=assignBills;assignBills=function(p){const r=_ab.apply(this,arguments);try{if(S.hard&&p.bills)p.bills.forEach(b=>{if(!b._hx&&!b.paid){b._hx=1;b.amt=Math.round(b.amt*1.3/10)*10;}});}catch(e){}return r;};}
+})();
+
+// === 1.065: компактний екран завжди + журнал помилок + нічна жесть у хардкорі ===
+(function(){
+const lsg=k=>{try{return localStorage.getItem(k);}catch(e){return null;}},lss=(k,v)=>{try{localStorage.setItem(k,v);}catch(e){}};
+// журнал помилок
+if(typeof console!=='undefined'&&console.error&&!console._kr){const _ce=console.error.bind(console);console._kr=1;console.error=function(){try{const a=[...arguments].map(x=>x&&x.stack?String(x.stack).slice(0,300):String(x).slice(0,200)).join(' ');const L=JSON.parse(lsg('kr-errlog')||'[]');L.unshift((S?S.phase+' d'+S.day:'menu')+' · '+a);lss('kr-errlog',JSON.stringify(L.slice(0,8)));}catch(e){}return _ce.apply(null,arguments);};}
+if(typeof window!=='undefined'&&window.addEventListener)window.addEventListener('error',e=>{try{console.error('JS: '+e.message+' @'+(e.lineno||''));}catch(x){}});
+{const _sh=settingsHTML;settingsHTML=function(){let h=_sh.apply(this,arguments);try{const L=JSON.parse(lsg('kr-errlog')||'[]');if(L.length)h+=`<div class="setgrp"><b>🛠 Журнал помилок</b><p style="font-size:11px;word-break:break-all;opacity:.8">${L.slice(0,4).map(x=>x.replace(/</g,'&lt;')).join('<br><br>')}</p></div>`;}catch(e){}return h;};}
+// запасний компактний екран, якщо новий вигляд не ввімкнувся
+const GP=new Set(['turn','oblig','free','result','go','travel','evening']);
+function fallback(){if(!S||!S.players||SIM||!app.querySelector||!GP.has(S.phase)||document.body.classList.contains('gmode')||app.querySelector('.fbmore'))return;
+ const card=[...app.children].find(e=>e.classList&&e.classList.contains('poster')||(e.querySelector&&e.querySelector(':scope > .poster')));if(!card)return;
+ const stats=app.querySelector('.stats');const d=document.createElement('details');d.className='fbmore';d.innerHTML='<summary>ще ▾ прогноз, тиждень, мрія, карта</summary>';
+ [...app.children].forEach(el=>{if(el===card||el===stats||el.classList.contains('who')||el.classList.contains('say')||el.classList.contains('tremind'))return;if(el.compareDocumentPosition(card)&Node.DOCUMENT_POSITION_FOLLOWING||el.matches('.tools,details,.mapbox,.detail'))d.appendChild(el);});
+ if(d.children.length>1)(stats||card).insertAdjacentElement(stats?'afterend':'beforebegin',d);document.body.classList.add('fallc');
+ try{console.error('fallback layout: gl off in '+S.phase);}catch(e){}}
+{const _r=render;render=function(){document.body&&document.body.classList&&document.body.classList.remove('fallc');_r.apply(this,arguments);try{fallback();}catch(e){}};}
+// хардкор: жорсткі події — вибір меншого зла
+try{EVENTS.forEach(e=>{if(!e.hard||e._lz)return;e._lz=1;(e.c||[]).forEach(c=>{['h','n'].forEach(k=>{if(c[k]>0)c[k]=Math.max(0,c[k]-1);});if(c.m>0)c.m=Math.round(c.m*0.5/10)*10;if(c.risk&&c.risk.win){const w=c.risk.win;['h','n'].forEach(k=>{if(w[k]>0)w[k]=Math.max(0,w[k]-1);});if(w.m>0)w.m=Math.round(w.m*0.5/10)*10;}});});}catch(e){}
+// нічні події в хардкорі
+Object.assign(CHAINS,{
+ hn_noise:{t:'Ніч: бійка під вікнами',img:'h6',hard:1,x:'Третя ночі. Під підʼїздом хтось бʼється, кричить і бʼє пляшки. Спати неможливо.',c:[{l:'Викликати поліцію',n:-1,r:'Приїхали за годину. Ти так і не заснув.'},{l:'Терпіти з подушкою на голові',n:-2,r:'Ранок настав раніше, ніж сон.'},{l:'Вийти й розігнати',risk:{p:0.4,win:{n:-1,r:'Розбіглися. Але серце калатає досі.'},lose:{n:-2,m:-150,r:'Розбили телефон і трохи тебе.'}}}]},
+ hn_door:{t:'Ніч: хтось смикає двері',img:'h11',hard:1,x:'О другій ночі хтось тихо крутить ручку твоїх дверей. Потім тиша.',c:[{l:'Підперти двері стільцем',n:-2,r:'До ранку сидів і слухав кожен шерех.'},{l:'Поставити новий замок завтра',m:-250,n:-1,r:'Майстер узяв за терміновість.'}]},
+ hn_cold:{t:'Ніч: вибили вікно в підʼїзді',img:'h3',hard:1,x:'Хтось вибив вікно на сходах. Тепер у квартирі холодно, а ЖЕК «на вихідних».',c:[{l:'Заклеїти плівкою самому',m:-60,n:-1,r:'Плівка гуде від вітру, але тримає.'},{l:'Мерзнути до ранку',n:-2,h:-1,r:'Спав у куртці.'}]}});
+try{Object.assign(window.HEROART.student.t,{'Ніч: бійка під вікнами':'stop_fight','Ніч: хтось смикає двері':'dorm_thief','Ніч: вибили вікно в підʼїзді':'blackout_cold'});}catch(e){}
+document.addEventListener&&document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('#app button');if(!b||b.dataset.act!=='evening'||!S||!S.hard||!S.players)return;
+ S.players.forEach(p=>{if(p.out||p.collector||Math.random()>0.35)return;const ids=['hn_noise','hn_door','hn_cold'];(p.queue=p.queue||[]).push({day:S.day+1,id:ids[Math.floor(Math.random()*ids.length)]});});},true);
 })();
 
 render();
