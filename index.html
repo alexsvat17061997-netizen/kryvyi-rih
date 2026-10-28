@@ -1757,7 +1757,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.063 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.064 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2647,7 +2647,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.063 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.064 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -4304,7 +4304,7 @@ const ITEMS_G={market:['кіло картоплі','пучок кропу','де
 const NPCM=[
  {f:'mom',w:3,ok:p=>p.id!=='pensioner',t:'[Синку|Доню], ти поїв[|ла]? Вдягнися тепліше, в Кривому Розі вітер 🌬',o:[['Так, мам ❤️',{h:1},'Ну й добре. Дзвони частіше!'],['Мам, я зайнят[ий|а]',{h:-1},'Ну зайнят[ий|а] так зайнят[ий|а]… 😔']]},
  {f:'grand',w:3,ok:p=>p.id==='pensioner',t:'Бабусю, привіт! Ти як? Тиск міряла? 🥰',o:[['Все добре, сонечко ❤️',{h:2},'Люблю тебе! У неділю приїду 🤗'],['Ой, крутить трохи…',{n:1},'Я тобі ліки замовила, принесуть додому 💊']]},
- {f:'mom',w:2,ok:p=>p.id!=='pensioner'&&p.money<350&&!p._momCash,mk:p=>{p._momCash=1;return {t:'Скинула тобі трохи на картку. Не відмовляйся, купи собі щось смачне 🥹',o:[['Дякую, мам 🥹',{m:150,h:1},'Та на здоровʼя. Тільки не на дурниці!'],['Мам, не треба, в мене є',{n:1},'[Гордий|Горда], весь у батька 😄']]};}},
+ {f:'mom',w:2,ok:p=>p.id!=='pensioner'&&p.money<350&&!p._momCash&&!S.hard,mk:p=>{p._momCash=1;return {t:'Скинула тобі трохи на картку. Не відмовляйся, купи собі щось смачне 🥹',o:[['Дякую, мам 🥹',{m:150,h:1},'Та на здоровʼя. Тільки не на дурниці!'],['Мам, не треба, в мене є',{n:1},'[Гордий|Горда], весь у батька 😄']]};}},
  {f:'boss',w:2,ok:p=>!NOJOB.includes(p.id)&&!S.weekend,t:'Звіт треба до обіду. Встигнеш?',o:[['Встигну 💪',{n:-1,m:100},'Оце я розумію! Випишу премію.'],['Не встигну…',{h:-1},'Ну-ну. Я запамʼятав.']]},
  {f:'boss',w:1,ok:p=>!NOJOB.includes(p.id)&&!S.weekend&&(S.day%5)>=3,t:'У суботу виходиш? Заплачу як за два дні.',o:[['Вийду',{m:250,n:-2},'Домовились. Не проспи.'],['Субота — святе',{h:1},'Ну, як знаєш.']]},
  {f:'dekan',w:2,ok:p=>p.id==='student',t:'Нагадуємо: завтра останній день здачі курсової. Без неї — перездача.',o:[['Сяду писати',{n:-1,h:1},'Деканат цінує вашу сумлінність.'],['Куплю готову',{m:-200,n:1},'Курсову прийнято. Антиплагіат… промовчимо.']]},
@@ -4627,7 +4627,7 @@ NPCM.length=0;
 const T=(loc,item,o)=>Object.assign({loc,item},o||{});
 NPCM.push(
  {f:'mom',w:3,ok:p=>p.id!=='pensioner',t:'[Синку|Доню], ти поїв[|ла]? Вдягнися тепліше, в Кривому Розі вітер 🌬',o:[['Так, мам ❤️',{h:1},'Ну й добре. Дзвони частіше!'],['Мам, я зайнят[ий|а]',{h:-1},'Ну зайнят[ий|а] так зайнят[ий|а]… 😔']]},
- {f:'mom',w:2,ok:p=>p.id!=='pensioner'&&p.money<350&&!p._momCash,mk:p=>{p._momCash=1;return {t:'Скинула тобі трохи на картку. Не відмовляйся, купи собі щось смачне 🥹',o:[['Дякую, мам 🥹',{m:150,h:1},'Та на здоровʼя. Тільки не на дурниці!'],['Мам, не треба, в мене є',{n:1},'[Гордий|Горда], весь у батька 😄']]};}},
+ {f:'mom',w:2,ok:p=>p.id!=='pensioner'&&p.money<350&&!p._momCash&&!S.hard,mk:p=>{p._momCash=1;return {t:'Скинула тобі трохи на картку. Не відмовляйся, купи собі щось смачне 🥹',o:[['Дякую, мам 🥹',{m:150,h:1},'Та на здоровʼя. Тільки не на дурниці!'],['Мам, не треба, в мене є',{n:1},'[Гордий|Горда], весь у батька 😄']]};}},
  {f:'mom',w:1,ok:p=>p.id!=='pensioner'&&wkLeft()&&(S.day%5)>=1,t:'У неділю приїжджай на борщ! Наварила цілу каструлю 🍲',o:[['Приїду! ❤️',{},'Чекаю! І хліба купи по дорозі.',{wk:'wk_mom'}],['Цього разу не вийде',{h:-1},'Ну як знаєш… Борщ сам себе не зʼїсть.']]},
  {f:'mom',w:2,ok:p=>p.id!=='pensioner',t:'Купи на ринку курочку, бо я сьогодні не дійду 🐔',o:[['Куплю',{},'Ти в мене золот[ий|а]!',{task:T('market','курку для мами',{u:0,rw:{},rwT:'Курку купив[|ла]! Мама вже чекає.',next:'mom2',fail:{h:-1},failT:'Ну що ж, без курки цього разу… 😔'})}],['Не встигну',{h:-1},'Добре, попрошу сусіда.']]},
  {f:'mom',w:1,ok:p=>p.id!=='pensioner',t:'Візьми в поліклініці бабусині ліки, рецепт уже там 💊',o:[['Візьму',{},'Дякую! Бабуся буде рада.',{task:T('clinic','ліки для бабусі',{u:1,rw:{},rwT:'Ліки в тебе!',next:'gran2',fail:{h:-2},failT:'Бабуся без ліків… Мама дуже засмутилась.'})}],['Не вийде',{h:-1},'Сама піду, що ж.']]},
@@ -4840,7 +4840,7 @@ function nbAdd(i,f,x){try{const p=S.players[i];const k=NBF[f];if(k&&window.krRel
 {const _ct=completeTask;completeTask=function(i,t){const was=t&&!t.done&&!t.failed;_ct.apply(this,arguments);if(was&&t.done)nbAdd(i,t.f,1);};}
 {const _ft=failTask;failTask=function(i,t){const was=t&&!t.done&&!t.failed;_ft.apply(this,arguments);if(was&&t.failed)nbAdd(i,t.f,-1);};}
 {const _dp=doPhone;doPhone=function(i,ds){try{if(ds&&ds.k==='qa'){const m=phS().m.find(x=>x.id===+ds.id&&x.to===i&&x.st==='new');if(m&&m.fx){const fx=(m.fx[+ds.o]||[])[0]||{};const ex=(m.fx[+ds.o]||[])[2];if(!(ex&&ex.task)&&(fx.h||0)<0)nbAdd(i,m.f,-1);}}
- if(ds&&ds.k==='help'){const p=S.players[i];const f=ds.f;const N=window.NB&&window.NB[f];if(!N||!window.krRel)return;p.nbHelp=p.nbHelp||{};if(window.krRel.of(p,f)<4||p.nbHelp[f]===wk())return toastI(i,'Зараз не вийде попросити');
+ if(ds&&ds.k==='help'){const p=S.players[i];const f=ds.f;const N=window.NB&&window.NB[f];if(!N||!window.krRel)return;p.nbHelp=p.nbHelp||{};if(window.krRel.of(p,f)<(S.hard?5:4)||p.nbHelp[f]===wk())return toastI(i,'Зараз не вийде попросити');
   p.nbHelp[f]=wk();const d=N.d;if(d.m||d.n||d.h)apply(p,{m:d.m||0,n:d.n||0,h:d.h||0});if(d.dinner)p.freeDinner=S.day;if(d.bill){const b=(p.bills||[]).find(x=>!x.paid);if(b)b.amt=Math.max(0,b.amt-100);else p.money+=100;}
   window.krRel.add(p,f,-1);const R={galya:'Заходь, [синку|доню], пиріжки ще теплі 🥧',kum:'Тримай, віддаси, коли зможеш. Або не віддаси 😄',boss:'Іди вже додому. І щоб завтра як огірок!',mom:'Скинула. Купи собі щось смачне ❤️',luba:'Бери, що треба, з тебе лише привіт мамі',sosed:'Кран полагодив, прокладку поміняв. Тепер ми квити!'}[f];
   push(i,NBF[f]==='boss'?'boss':f,GX(p,R||'Тримай!'));toastI(i,'🤝 '+N.n+': '+N.help);return;}}catch(e){}return _dp.apply(this,arguments);};}
@@ -5469,9 +5469,9 @@ function extraBtn(){if(!S||!S.players||S.weekend)return;const p=cur();if(!p||p.c
  if(!['go','free','turn','result'].includes(S.phase))return;if(p.extraDay===S.day||p.nerves<3)return;
  const last=(S.sub||0)===slotsFor()-1;if(!last)return;if(S.phase==='turn'&&!S.ev)return;
  const host=app.querySelector('.gcard');if(!host||host.querySelector('[data-act=extra4]'))return;
- host.insertAdjacentHTML('beforeend',`<button class="btn btn-ghost xtra" data-act="extra4">⚡ Ще одна справа сьогодні<small>поспішити, але вимотатися: −2 нерви</small></button>`);}
+ host.insertAdjacentHTML('beforeend',`<button class="btn btn-ghost xtra" data-act="extra4">⚡ Ще одна справа сьогодні<small>поспішити, але вимотатися: ${S&&S.hard?'−3':'−2'} нерви</small></button>`);}
 document.addEventListener&&document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('#app button');if(!b||b.dataset.act!=='extra4'||!S||!S.players)return;
- const p=cur();if(!p||p.extraDay===S.day||p.nerves<3)return;p.extraDay=S.day;apply(p,{n:-2});S.last='⚡ '+nm(p)+' '+v(p,'вирішив','вирішила')+' встигнути ще одну справу (−2 нерви)';render();});
+ const p=cur();if(!p||p.extraDay===S.day||p.nerves<3)return;p.extraDay=S.day;apply(p,{n:S.hard?-3:-2});S.last='⚡ '+nm(p)+' '+v(p,'вирішив','вирішила')+' встигнути ще одну справу ('+(S.hard?'−3':'−2')+' нерви)';render();});
 // ---------- рендер ----------
 {const _r=render;render=function(){_r.apply(this,arguments);try{if(SIM||!app||!app.querySelector)return;todayStrip();extraBtn();tut2();}catch(e){if(typeof console!=='undefined')console.error(e);}};}
 })();
@@ -5817,7 +5817,7 @@ document.addEventListener&&document.addEventListener('click',e=>{const b=e.targe
  mgOpen('Зміна: '+g[0],g[1]+(r!=null?` Твій рекорд: ${r}%.`:''),g[2],res=>{window._wrNew=0;if(res!=null){const pct=Math.round(res*100);const R=recs();if(R[p.id]==null||pct>R[p.id]){window._wrNew=R[p.id]!=null?1:0;R[p.id]=pct;lss('kr-wrec',JSON.stringify(R));}try{snd(pct>=80?'ach':pct>=40?'coin':'loss');}catch(x){}}mgDispatch({act:'workres',s:res==null?'-1':String(res)});});},true);
 document.addEventListener&&document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('#app button');if(!b||b.dataset.act!=='workres'||!S||!S.players)return;const p=cur();if(!p||p.workMg===S.day)return;p.workMg=S.day;const s=+b.dataset.s;
  if(s<0){S.last='Зміну відпрацьовано як завжди, без бонуса';render();return;}
- const bonus=Math.round(s*100/10)*10;apply(p,{m:bonus,n:s>=0.9?1:0});const pct=Math.round(s*100);let t=`🎮 Зміна: ${pct}% — ${bonus?'+'+bonus+' грн':'без бонуса'}${s>=0.9?', +1 нерв':''}`;
+ const bonus=Math.round(s*(S.hard?50:100)/10)*10;apply(p,{m:bonus,n:s>=0.9?1:0});const pct=Math.round(s*100);let t=`🎮 Зміна: ${pct}% — ${bonus?'+'+bonus+' грн':'без бонуса'}${s>=0.9?', +1 нерв':''}`;
  if(window._wrNew&&myIdx()===S.turn){t+=' · 🏆 Новий рекорд!';window._wrNew=0;}
  S.last=t;try{rToast(t);}catch(x){}render();});
 // «Сьогодні»: зміна в списку
@@ -6236,6 +6236,13 @@ function titleCards(){if(!app.querySelector||(typeof ROOMUI!=='undefined'&&ROOMU
  if(!tm.querySelector('.tset'))tm.insertAdjacentHTML('beforeend','<button class="tset" data-act="settings" aria-label="Налаштування">⚙</button>');}
 {const _rs=renderSetup;renderSetup=function(){const r=_rs.apply(this,arguments);try{if((setup.step||'title')==='title')titleCards();}catch(e){}return r;};}
 {const _r=render;render=function(){_r.apply(this,arguments);try{if(!S&&(setup.step||'title')==='title')titleCards();}catch(e){}};}
+})();
+
+// === 1.063: хардкор — справжня жесть ===
+(function(){
+hardP=function(p){if(!S||!S.hard||S.weekend||p.collector)return 0;if(p.nerves<=2)return 0.3;return ((p.hd===S.day?0.4:0.75)+(crisisOn('crime')?0.15:0));};
+{const _dc=dinnerCost;dinnerCost=function(p){let c=_dc.apply(this,arguments);try{if(S.hard&&c>0)c+=Math.round(S.day*16/S.W/10)*10;}catch(e){}return c;};}
+{const _ab=assignBills;assignBills=function(p){const r=_ab.apply(this,arguments);try{if(S.hard&&p.bills)p.bills.forEach(b=>{if(!b._hx&&!b.paid){b._hx=1;b.amt=Math.round(b.amt*1.3/10)*10;}});}catch(e){}return r;};}
 })();
 
 render();
