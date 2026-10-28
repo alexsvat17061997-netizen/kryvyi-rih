@@ -916,6 +916,19 @@ body:not(.ingame) .rtoast{}
 body.noscroll .musbtn{display:none!important}
 #setov .setv2 .sethead h2{font-size:calc(18px / var(--fz,1))!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}#setov .setv2 .sethead{gap:10px}#setov .setv2 .setback{white-space:nowrap}
 #setov .setv2 .setnav{background:transparent;border:0;padding:0}#setov .setv2 .setnav .btn{opacity:1}
+#hsay{position:fixed;left:10px;right:10px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:70;display:flex;gap:8px;align-items:flex-start;max-width:460px;margin:0 auto;opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity .25s,transform .25s}#hsay.on{opacity:1;transform:none;pointer-events:auto}#hsay .portrait,#hsay img{width:44px;height:44px;border-radius:50%;flex:none}#hsay .bub{background:#FFF6E6;color:#1F2350;border:2px solid #F2A93B;border-radius:14px;padding:9px 12px;font-size:14px;line-height:1.35;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+
+.fmapw{margin:4px 0 10px}.fmhead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;color:var(--cream,#F5E7CF)}.fmhead b{font-size:15px}
+.fmtog{border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:inherit;border-radius:999px;padding:5px 10px;font:600 12px var(--body);cursor:pointer}
+.fmap .map{border-radius:12px;overflow:hidden}.fmap .pin{cursor:pointer;transition:transform .15s}.fmap .pin.fnone{opacity:.45}
+.fmap .pin.fhas{box-shadow:0 0 0 2px #F2A93B,0 0 12px 2px rgba(242,169,59,.7);animation:fpulse 1.8s ease-in-out infinite}
+.fmap .pin.fsel{transform:scale(1.12);background:#F2A93B;color:#1F2350;animation:none}
+@keyframes fpulse{50%{box-shadow:0 0 0 2px #F2A93B,0 0 18px 5px rgba(242,169,59,.9)}}
+.fbadge{font-style:normal;margin-right:3px}.ftask{font-style:normal;margin-left:2px}
+.fmchips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 0}.fmchip{border:2px solid #F2A93B;background:rgba(242,169,59,.15);color:var(--cream,#F5E7CF);border-radius:999px;padding:7px 12px;font:700 13px var(--body);cursor:pointer}
+.fsheet{margin-top:10px;background:rgba(255,255,255,.08);border:2px solid #F2A93B;border-radius:14px;padding:8px 10px 4px}.fshd{display:flex;justify-content:space-between;align-items:center;color:var(--cream,#F5E7CF);margin-bottom:4px}.fshd button{border:0;background:none;color:inherit;font-size:18px;cursor:pointer}
+.poster .panel > button.fmorig{display:none}.fmapw.list .fmap,.fmapw.list .fmchips,.fmapw.list .fsheet{display:none}
+.fmapw.list ~ button.fmorig{display:block!important}
 </style>
 </head>
 <body>
@@ -1800,7 +1813,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.071 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.072 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2690,7 +2703,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.071 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.072 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -6385,6 +6398,64 @@ document.addEventListener&&document.addEventListener('click',e=>{const b=e.targe
 // === 1.071: вечір у новому вигляді (бракувало шапки героя) ===
 {const _re=renderEvening;renderEvening=function(){_re.apply(this,arguments);try{if(!app.querySelector||[...app.children].some(e=>e.classList&&e.classList.contains('who')))return;
  const i=S.room&&typeof meI==='function'?meI():S.players.findIndex(p=>!p.collector);const p=S.players[i>=0?i:0];if(!p)return;app.insertAdjacentHTML('afterbegin',statsHTML(p));}catch(e){}};}
+
+// === 1.072: картинки Студента точніше, без офісних подій, голос героя для завдань ===
+(function(){
+const HX=window.HEROART;if(!HX||!HX.student)return;const ST=HX.student;
+Object.assign(ST.t,{
+ 'Новорічний корпоратив':'ny_dorm','Олівʼє на тазик':'ny_dorm','Подарунки для всіх':'ny_city','Колядники під дверима':'christmas','Святвечір':'christmas','Головна ялинка міста':'ny_city',
+ 'Шахтарська юшка на карʼєрі':'miners_day','День Незалежності':'independence','Хвилина мовчання':'independence','Освятити паску':'easter','Битва крашанками':'easter',
+ 'Валентинка на роботі':'valentine','Вечеря на двох':'valentine','Квіти до 8 Березня':'spring_w8','Святковий стіл':'spring_w8','Перший дзвоник':'sep1','Шкільний збір':'sep1',
+ 'Діти просять цукерки':'halloween','Вечірка в костюмах':'halloween',
+ 'Батареї гарячі':'sleep_in','Світло дали раніше':'online_games','Подвійна веселка':'bridge_sunset','Сніговик у дворі':'snow_yard','Снігова баба':'snow_yard','Підлідна рибалка':'winter_swim',
+ 'Турнік біля гаражів':'gym','Пробіжка на стадіоні':'stadium_football','Охоронець і морозиво':'mall_foodcourt',
+ 'Мама передала закрутки':'jars','Кум віддав старий велосипед':'bike','Абонемент у подарунок':'gym','Знижка на абонемент':'gym','Сусід-шахтар приніс ліхтар':'blackout_study',
+ 'Подарунок від колеги':'pies_gift','Подарунок від сусідки':'pies_gift','Вигідна покупка з рук':'market_buy','Павербанк на ринку':'market_buy','Продавчиня з району':'market_haggle'});
+const NOST=new Set(['Зарплата в конверті','Скорочення за списком','Підпис під чужим актом','Злодій з офісного холодильника','Солярка «зі знижкою»','Без страховки','Збір «на потреби класу»','Хибна тривога в школі']);
+EVENTS.forEach(e=>{if(NOST.has(e.t)){e.not=e.not||[];if(!e.not.includes('student'))e.not.push('student');}});
+const me=()=>{if(!S||!S.players)return null;const i=S.room&&typeof meI==='function'?meI():S.turn;return S.players[i]||S.players[0];};
+const reg=(id,s)=>{const k='ha_'+id+'_'+s;if(!IMG[k])IMG[k]='img/'+id+'/'+s+'.webp';return k;};
+{const _cw=cardWrap;cardWrap=function(img,kicker,title,body){try{const p=me();const H=p&&HX[p.id];if(H&&img&&(/^it_/.test(img)||CHARS[img])){const s=H.t[String(title||'').replace(/<[^>]*>/g,'').trim()];if(s&&H.s.has(s))img=reg(p.id,s);}}catch(e){}return _cw.call(this,img,kicker,title,body);};}
+// голос героя, коли береш завдання
+const TO={uni:'в універ',market:'на ринок',office:'в центр',bus:'на автостанцію',quarry:'на карʼєр',school:'до школи',playground:'на дитмайданчик',clinic:'в поліклініку',dacha:'на дачу',river:'на річку',mall:'в ТЦ',stadium:'на стадіон',garages:'в гаражі',airfield:'на аеродром'};
+const PL={uni:'на пари',office:'в центр',market:'на ринок'};
+function line(p,t){const pl=p.plan&&!S.weekend&&p.plan.s.find(k=>!p.plan.done.includes(k));const to=TO[t.loc]||('сюди: '+((LOCS[t.loc]||{}).n||''));
+ const first=pl&&pl!==t.loc?`Так, зараз мені ${PL[pl]||TO[pl]||'по справах'}, а потім заскочити ${to}`:`Так, треба заскочити ${to}`;
+ const when=t.until===S.day?(t.by!=null?' до обіду':' сьогодні'):' до завтра';return `${first}: ${t.item}${when}. Як прийду туди, зроблю.`;}
+let hsT=null;function show(p,txt){if(!document.body||!document.createElement)return;let b=document.getElementById('hsay');if(!b){b=document.createElement('div');b.id='hsay';b.addEventListener('click',()=>b.classList.remove('on'));document.body.appendChild(b);}
+ b.innerHTML=`${portrait(p.id)}<div class="bub"><b>${nm(p)}:</b> ${txt}</div>`;b.classList.add('on');clearTimeout(hsT);hsT=setTimeout(()=>b.classList.remove('on'),7000);}
+window.krSay=show;
+{const _r=render;render=function(){_r.apply(this,arguments);try{if(SIM||!S||!S.players)return;const p=me();if(!p||p.collector)return;const open=(p.tasks||[]).filter(t=>!t.done&&!t.failed);
+ if(!p._tseen){p._tseen=open.map(t=>t.id);return;}const nw=open.filter(t=>!p._tseen.includes(t.id));if(!nw.length)return;nw.forEach(t=>p._tseen.push(t.id));if(p._tseen.length>60)p._tseen=p._tseen.slice(-40);
+ show(p,line(p,nw[nw.length-1]));}catch(e){}};}
+})();
+
+// === 1.073: вільний час через мапу ===
+(function(){
+const IC={uni:'🎓',market:'🧺',office:'🏙',bus:'🚌',quarry:'⛰',school:'🏫',playground:'🛝',clinic:'🏥',dacha:'🏡',river:'🎣',mall:'🛍',stadium:'⚽',garages:'🔧',airfield:'🪂'};
+let listMode=false;try{listMode=localStorage.getItem('kr-freelist')==='1';}catch(e){}
+function build(){if(SIM||!app.querySelector||!S||S.phase!=='free')return;const p=cur();const panel=app.querySelector('.poster .panel');if(!panel||panel.querySelector('.fmapw'))return;
+ const btns=[...panel.querySelectorAll(':scope > button.btn-choice')];if(btns.length<3)return;
+ const G={};const here=[];btns.forEach(b=>{let k=null;if(b.dataset.free!=null){const a=FREE[b.dataset.free];k=a&&a.loc&&a.loc!==p.pos?a.loc:null;}else if(b.dataset.act==='planstep'){const pl=p.plan;k=pl&&pl.s[1]||null;}
+  if(b.dataset.act==='wander')return;if(k&&LOCS[k])(G[k]=G[k]||[]).push(b);else here.push(b);});
+ const tasks=new Set((p.tasks||[]).filter(t=>!t.done&&!t.failed).map(t=>t.loc));
+ const w=document.createElement('div');w.className='fmapw'+(listMode?' list':'');
+ w.innerHTML=`<div class="fmhead"><b>🗺 Обери місце на мапі</b><button class="fmtog" data-fm="tog">${listMode?'🗺 Мапою':'📋 Списком'}</button></div><div class="fmap">${mapHTML(p.pos)}</div>
+  <div class="fmchips">${here.length?`<button class="fmchip" data-fm="here">📍 Тут: ${LOCS[p.pos].n} · ${here.length}</button>`:''}</div><div class="fsheet" hidden></div>`;
+ const first=btns[0];panel.insertBefore(w,first);btns.forEach(b=>b.classList.add('fmorig'));
+ w.querySelectorAll('.pin[data-loc]').forEach(pin=>{const k=pin.dataset.loc;const L=G[k];if(k===p.pos&&here.length&&!(L&&L.length)){pin.classList.add('fhas');pin.insertAdjacentHTML('afterbegin',`<i class="fbadge">📍${here.length}</i>`);}else if(L&&L.length){pin.classList.add('fhas');const free=L.some(b=>/Безкоштовно/.test(b.textContent));pin.insertAdjacentHTML('afterbegin',`<i class="fbadge">${IC[k]||'⭐'}${L.length>1?L.length:''}${free?' 🆓':''}</i>`);}else pin.classList.add('fnone');if(tasks.has(k))pin.insertAdjacentHTML('beforeend','<i class="ftask">📌</i>');});
+ const sheet=w.querySelector('.fsheet');
+ const open=(k,L)=>{sheet.hidden=false;const t=k?`${IC[k]||''} ${LOCS[k].n} · ${dist(p.pos,k)} зуп.`:`📍 Тут: ${LOCS[p.pos].n}`;
+  sheet.innerHTML=`<div class="fshd"><b>${t}</b><button data-fm="x" aria-label="Закрити">✕</button></div>${tasks.has(k)?`<p class="note">📌 Тут твоє завдання: виконається, щойно прийдеш.</p>`:''}`;
+  L.forEach(b=>{const c=b.cloneNode(true);c.classList.remove('fmorig');c.removeAttribute('data-free');c.removeAttribute('data-act');c.addEventListener('click',e=>{e.stopPropagation();b.click();});sheet.appendChild(c);});
+  w.querySelectorAll('.pin').forEach(x=>x.classList.toggle('fsel',x.dataset.loc===k));sheet.scrollIntoView&&sheet.scrollIntoView({block:'nearest',behavior:'smooth'});};
+ w.addEventListener('click',e=>{const t=e.target;const f=t.closest('[data-fm]');if(f){e.stopPropagation();const a=f.dataset.fm;
+   if(a==='tog'){listMode=!listMode;try{localStorage.setItem('kr-freelist',listMode?'1':'0');}catch(_){}w.classList.toggle('list',listMode);f.textContent=listMode?'🗺 Мапою':'📋 Списком';}
+   if(a==='here')open(null,here);if(a==='x'){sheet.hidden=true;w.querySelectorAll('.pin').forEach(x=>x.classList.remove('fsel'));}return;}
+  const pin=t.closest('.pin[data-loc]');if(pin){e.stopPropagation();const k=pin.dataset.loc;if(G[k])open(k,G[k]);else if(k===p.pos&&here.length)open(null,here);}});
+}
+{const _rf=renderFree;renderFree=function(){_rf.apply(this,arguments);try{build();}catch(e){if(typeof console!=='undefined')console.error(e);}};}
+})();
 
 render();
 </script>
