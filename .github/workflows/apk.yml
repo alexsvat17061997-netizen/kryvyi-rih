@@ -21,6 +21,7 @@ jobs:
         run: |
           mkdir -p android/app/src/main/assets
           cp index.html manifest.webmanifest sw.js icon-*.png apple-touch-icon.png android/app/src/main/assets/
+          cp -r img android/app/src/main/assets/
       - name: Зібрати
         working-directory: android
         env:
