@@ -881,6 +881,14 @@ img{max-width:100%}
 .phwrl{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}.phwrl button{flex:none;display:flex;flex-direction:column;align-items:center;gap:4px;width:72px;border:0;background:none;color:inherit;font:600 11px var(--body);cursor:pointer}.phwrl img{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid #F2A93B}
 .fbmore{margin:6px 0 8px;background:var(--panel);border:2px solid var(--line);border-radius:12px;padding:6px 10px}.fbmore summary{cursor:pointer;font:700 14px var(--body)}
 body.fallc .stats{margin-bottom:4px}body.fallc .say .bub{font-size:14px}
+
+#setbtn{display:none!important}
+.trow{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px}.tmini{display:grid!important;grid-template-columns:auto minmax(0,1fr);column-gap:8px;row-gap:0!important;align-items:center;padding:10px 12px!important;text-align:left!important}.tmini span{grid-row:span 2}.tmini b{line-height:1.15}.tmini small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.tmini b{font-size:13px;display:block}.tmini small{font-size:11px;display:block}.tmini span{font-size:22px}
+.tmenu.hasherobg .tbg{position:absolute;inset:0}.tmenu.hasherobg .tbg img.herobg{width:100%;height:100%;object-fit:cover;object-position:center 30%}.tmenu.hasherobg .tbot{margin-top:auto;position:relative}
+.ttitle{position:absolute;left:0;right:0;top:calc(16px + env(safe-area-inset-top,0px));text-align:center;color:#F5E7CF;text-shadow:0 3px 12px rgba(20,10,40,.8)}
+.ttitle b{display:block;font:900 calc(38px / var(--fz,1))/1 var(--display,var(--body));letter-spacing:.02em;text-transform:uppercase}.ttitle span{display:block;font:800 calc(17px / var(--fz,1)) var(--display,var(--body));text-transform:uppercase;margin-top:4px}
+.minigear{width:40px;height:40px;border-radius:12px;border:2px solid var(--line);background:var(--panel);font-size:18px;margin-left:4px;cursor:pointer}
+body:not(.ingame) .rtoast{}
 </style>
 </head>
 <body>
@@ -1765,7 +1773,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.065 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.066 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2655,7 +2663,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.065 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.066 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -6282,11 +6290,14 @@ function titleCards(){if(!app.querySelector||(typeof ROOMUI!=='undefined'&&ROOMU
    <button class="tmini" data-act="dailyplay"><span>🗓</span><b>Тиждень дня</b><small>#${dayNo()}</small></button>
    <button class="tmini" data-step="collection"><span>📒</span><b>Альбом</b><small>${alb} наліпок</small></button>
    <button class="tmini" data-step="howto"><span>📖</span><b>Як грати</b><small>за хвилину</small></button>
+   <button class="tmini" data-act="settings"><span>⚙</span><b>Налаштування</b><small>звук, шрифт</small></button>
   </div></div>`;
  if(foot)bot.appendChild(foot);
- if(!tm.querySelector('.tset'))tm.insertAdjacentHTML('beforeend','<button class="tset" data-act="settings" aria-label="Налаштування">⚙</button>');}
+ let L=null;try{L=JSON.parse(localStorage.getItem('kr-last')||'null');}catch(e){}const hid=p0?p0.id:(L&&L.picked&&L.picked[0]);
+ const hb=hid&&window.krHeroImg&&(window.krHeroImg(hid,'night_city')||window.krHeroImg(hid,'dorm_morning'));const ci=tm.querySelector('.tbg img');
+ if(hb&&ci){ci.src=hb;ci.classList.add('herobg');tm.classList.add('hasherobg');if(!tm.querySelector('.ttitle'))tm.querySelector('.tbg').insertAdjacentHTML('beforeend','<div class="ttitle"><b>Кривий Ріг</b><span>виживи до зарплати</span></div>');}}
 {const _rs=renderSetup;renderSetup=function(){const r=_rs.apply(this,arguments);try{if((setup.step||'title')==='title')titleCards();}catch(e){}return r;};}
-{const _r=render;render=function(){_r.apply(this,arguments);try{if(!S&&(setup.step||'title')==='title')titleCards();}catch(e){}};}
+{const _r=render;render=function(){_r.apply(this,arguments);try{if(!S&&(setup.step||'title')==='title')titleCards();if(S&&app.querySelector){const mb=app.querySelector('.minibar');if(mb&&!mb.querySelector('.minigear'))mb.insertAdjacentHTML('beforeend','<button class="minigear" data-act="settings" aria-label="Налаштування">⚙</button>');}}catch(e){}};}
 })();
 
 // === 1.063: хардкор — справжня жесть ===
