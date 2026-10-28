@@ -914,6 +914,8 @@ body:not(.ingame) .rtoast{}
 #setov .setv2 .setmsg{color:#F2A93B!important}
 #setov .setv2 .foot{color:rgba(245,231,207,.5);text-align:center;font-size:11px}
 body.noscroll .musbtn{display:none!important}
+#setov .setv2 .sethead h2{font-size:calc(18px / var(--fz,1))!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}#setov .setv2 .sethead{gap:10px}#setov .setv2 .setback{white-space:nowrap}
+#setov .setv2 .setnav{background:transparent;border:0;padding:0}#setov .setv2 .setnav .btn{opacity:1}
 </style>
 </head>
 <body>
@@ -1798,7 +1800,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.070 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.071 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2688,7 +2690,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.070 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.071 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -6370,7 +6372,7 @@ document.addEventListener&&document.addEventListener('click',e=>{const b=e.targe
  const head=take(box.querySelector('.sethead')),nav=take(box.querySelector('.setnav'));
  const tut=q('tut');const tutH=tut?`<div class="ssub"><b>🎓 Навчання</b>${take(tut)}</div>`:'';
  const cp=q('copy'),pg=cp&&cp.closest('.setgrp');const msg=box.querySelector('.setmsg');
- const err=[...box.querySelectorAll('.setgrp')].find(g=>/Журнал помилок/.test(g.textContent));const foot=take(box.querySelector('.foot'));
+ const err=[...t.querySelectorAll('.setgrp')].find(g=>/Журнал помилок/.test(g.textContent));if(err&&!box.contains(err))err.remove();const foot=take(box.querySelector('.foot'));
  const sec=(ic,tt,body)=>`<section class="scard"><h3>${ic} ${tt}</h3>${body}</section>`;
  let pgH='';if(pg){const b=pg.querySelector('b');if(b)b.remove();pgH=`<details class="sdet"${msg?' open':''}><summary>💾 Перенести прогрес на інший телефон</summary>${pg.innerHTML}</details>`;}
  let erH='';if(err){const b=err.querySelector('b');if(b)b.remove();erH=`<details class="sdet"><summary>🛠 Журнал помилок</summary>${err.innerHTML}</details>`;}
@@ -6379,6 +6381,10 @@ document.addEventListener&&document.addEventListener('click',e=>{const b=e.targe
   +sec('🎮','Гра',segOf('short','📖 Тексти')+row('talk')+row('mg')+tutH)
   +sec('🔤','Екран',segOf('fz','Розмір тексту'))+pgH+erH+foot;
  return t.innerHTML;}catch(e){return h;}};}
+
+// === 1.071: вечір у новому вигляді (бракувало шапки героя) ===
+{const _re=renderEvening;renderEvening=function(){_re.apply(this,arguments);try{if(!app.querySelector||[...app.children].some(e=>e.classList&&e.classList.contains('who')))return;
+ const i=S.room&&typeof meI==='function'?meI():S.players.findIndex(p=>!p.collector);const p=S.players[i>=0?i:0];if(!p)return;app.insertAdjacentHTML('afterbegin',statsHTML(p));}catch(e){}};}
 
 render();
 </script>
