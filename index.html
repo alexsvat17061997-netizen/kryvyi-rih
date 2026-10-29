@@ -1814,7 +1814,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.074 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.075 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2704,7 +2704,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.074 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.075 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -5948,7 +5948,7 @@ try{PREV.modes='title';PREV.pets='chars';}catch(e){}
   <button class="mcard" data-preset="normal"><span class="mci" style="background-image:url(${IMG.s9||''})"></span><b>🏠 Звичайна</b><small>2 тижні · ~30 хв</small></button>
   <button class="mcard hardc" data-preset="hard"><span class="mci" style="background-image:url(${IMG.h1||IMG.k1||''})"></span><b>🔥 Хардкор 🔞</b><small>тиждень жесті · кожен другий не доживає</small></button>
   <button class="mcard small" data-preset="day"><b>☕ Один день</b><small>~5 хв — поки чекаєш маршрутку</small></button></div>
-  <button class="btn btn-ghost" data-act="custommodes">⚙ Налаштувати самому<small>гравці, пора року, місяць, сімейка, залізний режим</small></button><button class="btn btn-ghost" data-step="title">← Назад</button>`;return;}
+  <button class="btn btn-ghost" data-step="title">← Назад</button>`;return;}
  if(st==='pets')return petsScreen();
  const r=_rs.apply(this,arguments);try{if(st==='modes'&&setup.custom){const b=app.querySelector('[data-step="rules"]');if(b){b.dataset.step='modes';b.dataset.act='uncustom';}const sh=app.querySelector('.stephead span');if(sh)sh.textContent='Крок 1 з 3';
   const rare=[...app.querySelectorAll('[data-act=irontoggle],[data-act=famtoggle],[data-act=talkset]')];if(rare.length){const d=document.createElement('details');d.className='rsec morex';d.open=!!setup._moreOpen;d.innerHTML='<summary>Ще налаштування</summary>';d.addEventListener('toggle',()=>{setup._moreOpen=d.open;});rare[0].parentNode.insertBefore(d,rare[0]);rare.forEach(x=>{const n=x.nextElementSibling;d.appendChild(x);if(n&&n.classList.contains('note'))d.appendChild(n);});}}
@@ -6191,27 +6191,32 @@ function modesScreen(){const first=!lsg('kr-played');
   <button class="mcard tog" data-mact="hot"><span class="mci" style="background-image:url(img/menu/mode_hot.webp)"></span><b>📱 На одному телефоні</b><small>передаєте телефон по колу</small>${chips('2–4','на вибір','~30 хв')}</button>
   <button class="mcard onl" data-mact="online"><span class="mci" style="background-image:url(img/menu/mode_online.webp)"></span><b>🌐 Онлайн з друзями</b><small>кожен зі свого телефона</small>${chips('2–4','на вибір','~30 хв')}</button>
  </div>
- <button class="btn btn-ghost" data-act="custommodes">⚙ Налаштувати самому<small>пора року, тексти, сімейка, залізний режим</small></button><button class="btn btn-ghost" data-step="title">← Назад</button>`;}
+ <button class="btn btn-ghost" data-step="title">← Назад</button>`;}
 function sheet(title,body,onClick){let ov=document.getElementById('msheet');if(ov)ov.remove();ov=document.createElement('div');ov.id='msheet';
  ov.innerHTML=`<div class="hibox msbox"><div class="hihead"><b>${title}</b><button class="gmx" data-hx="1" aria-label="Закрити">✕</button></div><div class="msbody">${body}</div></div>`;
  document.body.appendChild(ov);document.body.classList.add('noscroll');const close=()=>{ov.remove();document.body.classList.remove('noscroll');};
  ov.addEventListener('click',e=>{e.stopPropagation();if(e.target===ov||e.target.closest('[data-hx]'))return close();const b=e.target.closest('[data-o]');if(b)onClick(b.dataset.o,b.dataset.v,close,ov);});return ov;}
+const WXO=[['life','🌦 Як у житті'],['summer','☀️ Літо'],['mid','🍂 Осінь'],['winter','❄️ Зима']];
+const wxBlock=v=>`<p class="intro" style="margin:12px 0 6px">Погода</p>${seg('wx',WXO,v)}<p class="note" style="color:var(--muted)">${v==='life'?'Пора року за календарем, а погода міняється, як у житті.':'Уся гра в одну пору року.'}</p>`;
+function wxSheet(a){const st={season:'life'};const draw=ov=>{ov.querySelector('.msbody').innerHTML=wxBlock(st.season)+`<button class="btn btn-main" data-o="go" style="margin-top:12px">Далі: обрати героя →</button>`;};
+ const ov=sheet(a==='month'?'📅 Місяць':'🏠 Звичайна',' ',(k,v,close,o)=>{if(k==='wx'){st.season=v;draw(o);}else if(k==='go'){close();applyPreset(Object.assign({},P[a],{season:st.season}));}});draw(ov);}
 const seg=(k,opts,cur)=>`<div class="counts">${opts.map(([v,l])=>`<button data-o="${k}" data-v="${v}" aria-pressed="${String(cur)===String(v)}" style="font-size:14px">${l}</button>`).join('')}</div>`;
-function applyPreset(o){setup.count=o.count||1;setup.W=o.W||1;setup.hard=!!o.hard;setup.iron=!!o.iron;setup.family=!!o.family;setup.oneDay=!!o.oneDay;setup.daily=false;setup.custom=false;setup._pname=o.pn;setup.season='life';
+function applyPreset(o){setup.count=o.count||1;setup.W=o.W||1;setup.hard=!!o.hard;setup.iron=!!o.iron;setup.family=!!o.family;setup.oneDay=!!o.oneDay;setup.daily=false;setup.custom=false;setup._pname=o.pn;setup.season=o.season||'life';
  setup.picked=setup.picked.slice(0,setup.count);setup._hi=null;setup.step='chars';renderSetup();window.scrollTo(0,0);}
-function hardSheet(){const st={W:1,iron:false};const draw=ov=>{ov.querySelector('.msbody').innerHTML=`<p class="intro" style="margin:0 0 6px">Скільки грати?</p>${seg('W',[[1,'Тиждень'],[2,'2 тижні'],[4,'Місяць']],st.W)}
+function hardSheet(){const st={W:1,iron:false,season:'life'};const draw=ov=>{ov.querySelector('.msbody').innerHTML=`<p class="intro" style="margin:0 0 6px">Скільки грати?</p>${seg('W',[[1,'Тиждень'],[2,'2 тижні'],[4,'Місяць']],st.W)}
  <p class="note" style="color:var(--muted)">Щотижня криза, рахунки дорожчі, грошей менше. Кожен другий не доживає.</p>
- <button class="btn btn-ghost" data-o="iron" aria-pressed="${st.iron}" style="margin-top:8px">⚔️ Залізний режим: ${st.iron?'увімкнено ✓':'вимкнено'}</button><p class="note" style="color:var(--muted)">Одне життя: без секретів і збережень, зрив — кінець.</p>
+ ${wxBlock(st.season)}<button class="btn btn-ghost" data-o="iron" aria-pressed="${st.iron}" style="margin-top:8px">⚔️ Залізний режим: ${st.iron?'увімкнено ✓':'вимкнено'}</button><p class="note" style="color:var(--muted)">Одне життя: без секретів і збережень, зрив — кінець.</p>
  <button class="btn btn-main" data-o="go">Далі: обрати героя →</button>`;};
- const ov=sheet('🔥 Хардкор 🔞',' ',(k,v,close,o)=>{if(k==='W'){st.W=+v;draw(o);}else if(k==='iron'){st.iron=!st.iron;draw(o);}else if(k==='go'){close();const go=()=>applyPreset({W:st.W,hard:true,iron:st.iron,pn:'Хардкор'+(st.W>1?(st.W===2?' · 2 тижні':' · місяць'):'')});if(typeof ageGate==='function')ageGate(go);else go();}});draw(ov);}
-function hotSheet(){const st={count:2,family:false,W:1};const draw=ov=>{ov.querySelector('.msbody').innerHTML=`<p class="intro" style="margin:0 0 6px">Скільки вас?</p>${seg('count',[[2,'2'],[3,'3'],[4,'4']],st.count)}
+ const ov=sheet('🔥 Хардкор 🔞',' ',(k,v,close,o)=>{if(k==='W'){st.W=+v;draw(o);}else if(k==='wx'){st.season=v;draw(o);}else if(k==='iron'){st.iron=!st.iron;draw(o);}else if(k==='go'){close();const go=()=>applyPreset({W:st.W,hard:true,iron:st.iron,season:st.season,pn:'Хардкор'+(st.W>1?(st.W===2?' · 2 тижні':' · місяць'):'')});if(typeof ageGate==='function')ageGate(go);else go();}});draw(ov);}
+function hotSheet(){const st={count:2,family:false,W:1,season:'life',hard:false};const draw=ov=>{ov.querySelector('.msbody').innerHTML=`<p class="intro" style="margin:0 0 6px">Скільки вас?</p>${seg('count',[[2,'2'],[3,'3'],[4,'4']],st.count)}
  <p class="intro" style="margin:12px 0 6px">Як граєте?</p>${seg('fam',[[0,'⚔️ Хто кого'],[1,'👨‍👩‍👧 Одна сімʼя']],st.family?1:0)}
  <p class="note" style="color:var(--muted)">${st.family?'Спільний гаманець, спільні рахунки й одна мрія на всіх: виграєте чи програєте разом.':'Кожен сам за себе: виграє той, хто здійснить мрію і буде найщасливішим.'}</p>
  <p class="intro" style="margin:12px 0 6px">Скільки грати?</p>${seg('W',[[1,'Тиждень'],[2,'2 тижні'],[4,'Місяць']],st.W)}
+ ${wxBlock(st.season)}<button class="btn btn-ghost" data-o="hard" aria-pressed="${st.hard}" style="margin-top:8px">🔥 Хардкор 🔞: ${st.hard?'увімкнено ✓':'вимкнено'}</button>
  <button class="btn btn-main" data-o="go" style="margin-top:12px">Далі: обрати героїв →</button>`;};
- const ov=sheet('📱 На одному телефоні',' ',(k,v,close,o)=>{if(k==='count'){st.count=+v;draw(o);}else if(k==='fam'){st.family=v==='1';draw(o);}else if(k==='W'){st.W=+v;draw(o);}else if(k==='go'){close();applyPreset({count:st.count,family:st.family,W:st.W,pn:`${st.count} гравці${st.family?' · сімʼя':''}`});}});draw(ov);}
+ const ov=sheet('📱 На одному телефоні',' ',(k,v,close,o)=>{if(k==='count'){st.count=+v;draw(o);}else if(k==='fam'){st.family=v==='1';draw(o);}else if(k==='W'){st.W=+v;draw(o);}else if(k==='wx'){st.season=v;draw(o);}else if(k==='hard'){st.hard=!st.hard;draw(o);}else if(k==='go'){close();applyPreset({count:st.count,family:st.family,W:st.W,season:st.season,hard:st.hard,pn:`${st.count} гравці${st.family?' · сімʼя':''}`});}});draw(ov);}
 document.addEventListener&&document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('#app [data-mact]');if(!b||S)return;e.stopPropagation();e.preventDefault();const a=b.dataset.mact;try{snd('click');}catch(x){}
- if(P[a])return applyPreset(P[a]);if(a==='online'){setup.step='title';const t=document.createElement('button');t.dataset.act='room';t.style.display='none';document.body.appendChild(t);t.click();t.remove();return;}if(a==='hard')return hardSheet();if(a==='hot')return hotSheet();
+ if(a==='normal'||a==='month')return wxSheet(a);if(P[a])return applyPreset(P[a]);if(a==='online'){setup.step='title';const t=document.createElement('button');t.dataset.act='room';t.style.display='none';document.body.appendChild(t);t.click();t.remove();return;}if(a==='hard')return hardSheet();if(a==='hot')return hotSheet();
  if(a==='last'){let L=null;try{L=JSON.parse(lsg('kr-last')||'null');}catch(x){}if(!L)return;const go=()=>{Object.assign(setup,{count:L.count||1,W:L.W||1,hard:!!L.hard,iron:!!L.iron,family:!!L.family,oneDay:!!L.oneDay,daily:false,picked:L.picked.slice(),pets:Object.assign({},L.pets||{}),breeds:Object.assign({},L.breeds||{}),season:L.season||'life',_pname:L.pn,custom:false});setup.step='pets';startGame();window.scrollTo(0,0);};
   if(L.hard&&typeof ageGate==='function')ageGate(go);else go();}},true);
 // ---------- «Як грати» ----------
