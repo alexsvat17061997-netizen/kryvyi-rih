@@ -929,6 +929,7 @@ body.noscroll .musbtn{display:none!important}
 .fsheet{margin-top:10px;background:rgba(255,255,255,.08);border:2px solid #F2A93B;border-radius:14px;padding:8px 10px 4px}.fshd{display:flex;justify-content:space-between;align-items:center;color:var(--cream,#F5E7CF);margin-bottom:4px}.fshd button{border:0;background:none;color:inherit;font-size:18px;cursor:pointer}
 .poster .panel > button.fmorig{display:none}.fmapw.list .fmap,.fmapw.list .fmchips,.fmapw.list .fsheet{display:none}
 .fmapw.list ~ button.fmorig{display:block!important}
+.tcards .mcard.tnew.big.wimg{min-height:150px}.tcards .mcard.tnew.wimg .mci{background-position:center 75%}
 </style>
 </head>
 <body>
@@ -1813,7 +1814,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.073 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.074 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2703,7 +2704,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.073 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.074 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -6325,7 +6326,7 @@ function titleCards(){if(!app.querySelector||(typeof ROOMUI!=='undefined'&&ROOMU
  const foot=tm.querySelector('.foot');const bot=tm.querySelector('.tbot');if(!bot)return;
  bot.innerHTML=`<div class="tcards">
   ${ss?`<button class="mcard tcont" data-act="continue"><span class="mci" style="background-image:url(${heroBg})"></span><b>▶ Продовжити</b><small>${ss.players.map(p=>CHARS[p.id].name).join(', ')} · ${ss.W===1?'тиждень':ss.W===2?'2 тижні':'місяць'} · тиждень ${Math.floor(ss.day/5)+1}</small></button>`:''}
-  <button class="mcard tnew${ss?'':' big'}" data-act="newgame"><b>🚋 Нова гра</b><small>обери режим і героя</small></button>
+  <button class="mcard tnew${ss?'':' big wimg'}" data-act="newgame">${ss?'':'<span class="mci" style="background-image:url(img/menu/newgame.webp)"></span>'}<b>🚋 Нова гра</b><small>обери режим і героя</small></button>
   <div class="trow">
    <button class="tmini" data-act="dailyplay"><span>🗓</span><b>Тиждень дня</b><small>#${dayNo()}</small></button>
    <button class="tmini" data-step="collection"><span>📒</span><b>Альбом</b><small>${alb} наліпок</small></button>
