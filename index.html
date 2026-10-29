@@ -1814,7 +1814,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.075 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.076 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2704,7 +2704,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.075 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.076 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -4478,7 +4478,7 @@ function appCalls(){return head('📞 Дзвінки')+`<div class="phsec"><h4>�
  <div class="phsec"><button class="btn btn-main" data-ph="call" data-n="mom">❤️ Подзвонити ${S.players[phI()].id==='pensioner'?'онуці':'мамі'}</button><p class="note">Раз на день: +1 нерв. Батарея −10%.</p></div>`;}
 function phHTML(){const i=phI(),p=S.players[i];const b=bat(p);const a=PH.app;
  let body=a==='msgs'?(PH.th?appThread(PH.th):appMsgs()):a==='tasks'?appTasks():a==='bank'?appBank():a==='contacts'?appContacts():a==='news'?appNews():a==='calls'?appCalls():appHome();
- return `<div class="phone${a?'':' home'}" style="${!a&&IMG.k29?`--wall:url(${IMG.k29})`:''}"><div class="phbar"><span>${clock()}</span><span>Кривбас-Звʼязок</span><span class="${b<=20?'low':''}">${b}% 🔋</span></div><div class="phscr">${body}</div><div class="phnav"><button data-ph="home" aria-label="Додому"></button></div><button class="phx" data-ph="close" aria-label="Закрити">✕</button></div>`;}
+ return `<div class="phone${a?'':' home'}" style="${!a?(()=>{let w='';try{const pp=S.players[phI()];w=pp&&window.krHeroImg&&window.krHeroImg(pp.id,'night_city');}catch(_){}w=w||IMG.k29;return w?`--wall:url(${w})`:'';})():''}"><div class="phbar"><span>${clock()}</span><span>Кривбас-Звʼязок</span><span class="${b<=20?'low':''}">${b}% 🔋</span></div><div class="phscr">${body}</div><div class="phnav"><button data-ph="home" aria-label="Додому"></button></div><button class="phx" data-ph="close" aria-label="Закрити">✕</button></div>`;}
 function phOpen(app,th){if(!S)return;PH={app:app||null,th:th||null};let ov=document.getElementById('phov');if(!ov){ov=document.createElement('div');ov.id='phov';ov.addEventListener('click',phClick);document.body.appendChild(ov);document.body.classList.add('noscroll');}ov.innerHTML=phHTML();phBadge();}
 function phRefresh(){const ov=document.getElementById('phov');if(ov&&S){const sc=ov.querySelector('.phth');const at=sc&&sc.scrollHeight-sc.scrollTop-sc.clientHeight<40;ov.innerHTML=phHTML();const s2=ov.querySelector('.phth');if(s2&&(at||!sc))s2.scrollTop=s2.scrollHeight;}}
 function phClose(){const ov=document.getElementById('phov');if(ov)ov.remove();document.body.classList.remove('noscroll');phBadge();}
@@ -5822,7 +5822,7 @@ function mgBus(stage,done){const w=document.createElement('div');w.className='mg
 {const _rc=mgRunChoice;mgRunChoice=function(i,kind){if(kind!=='run'&&kind!=='bus')return _rc.apply(this,arguments);
  const T=kind==='run'?['Втеча від колектора','Тисни «Тікати!» якомога швидше: 22 рази за 4,5 секунди.',mgRun]:['Остання маршрутка','Махни рукою, коли маршрутка буде біля зупинки 🚏.',mgBus];
  mgOpen(T[0],T[1],T[2],r=>{if(r==null){mgDispatch({choice:String(i)});return;}mgDispatch({choice:String(i),mgr:r?'0':'0.9999'});});};}
-{const _mo=mgOpen;mgOpen=function(title,intro,run,onDone,opts){_mo.apply(this,arguments);try{const im=/Торг/.test(title)?'mg1':/колектор/i.test(title)?'mg2':/маршрутк/i.test(title)?'mg3':null;const box=document.querySelector('#mgov .mgbox');if(im&&box&&IMG[im])box.insertAdjacentHTML('afterbegin',`<img class="mgart" src="${IMG[im]}" alt="">`);}catch(e){}};}
+{const _mo=mgOpen;mgOpen=function(title,intro,run,onDone,opts){_mo.apply(this,arguments);try{const im=/Торг/.test(title)?'mg1':/колектор/i.test(title)?'mg2':/маршрутк/i.test(title)?'mg3':null;const box=document.querySelector('#mgov .mgbox');if(im&&box&&IMG[im]){let src=IMG[im];try{const p=S&&S.players&&S.players[S.room&&typeof meI==='function'?meI():S.turn];const H=window.HEROART&&p&&window.HEROART[p.id];const hs={mg1:'market_haggle',mg2:'collectors_door',mg3:'last_minibus'}[im];if(H&&H.s.has(hs))src='img/'+p.id+'/'+hs+'.webp';}catch(_){}box.insertAdjacentHTML('afterbegin',`<img class="mgart" src="${src}" alt="">`);}}catch(e){}};}
 EVENTS.push(
  {t:'Колектор біля підʼїзду',loc:'home',img:'mg2',x:'Біля підʼїзду чергує здоровань у шкірянці. Здається, він тебе чекає.',c:[{l:'Спробувати втекти дворами',risk:{p:0.5,win:{n:1,r:'Відірвався! Гаражі, білизна, паркан — і ти вдома.',rf:'Відірвалася! Гаражі, білизна, паркан — і ти вдома.'},lose:{m:-200,n:-1,r:'Наздогнав. Довелося віддати 200 грн «за переживання».'}}},{l:'Поговорити спокійно',n:-1,r:'Виявилось, він шукає сусіда з пʼятого. Пронесло.'}]},
  {t:'Остання маршрутка',loc:'bus',img:'mg3',x:'Вечір, автостанція. Остання маршрутка вже рушає, а наступна — завтра.',c:[{l:'Наздогнати маршрутку',risk:{p:0.5,win:{h:1,r:'Встиг! Водій загальмував, ще й пожартував.',rf:'Встигла! Водій загальмував, ще й пожартував.'},lose:{m:-150,r:'Поїхала. Таксі до дому — 150 грн.'}}},{l:'Викликати таксі одразу',m:-150,r:'Тепло, тихо й дорого.'}]},
