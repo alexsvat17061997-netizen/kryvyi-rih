@@ -961,6 +961,23 @@ body.gmode #albpop{transform:scale(.85);transform-origin:top right}
 .fwrow p{margin:4px 0;font-size:14px}.fwppl{margin-top:8px}.fwppl>b{font-size:14px}.fwppl>div{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:6px}.fwppl span{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}.fwppl img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #F2A93B}.fwppl i{font-style:normal;font-size:11px;font-weight:600}.fwppl em{font-style:normal;font-size:8.5px;letter-spacing:-1px;white-space:nowrap}
 .lsmeet{display:block;margin-top:4px;font-size:11px;font-weight:700;color:#F2A93B}
 .hintro{display:block;margin:6px 0;background:#2E3576;color:#F5E7CF;border:2px solid #F2A93B;border-radius:999px;padding:6px 14px;font:700 13px var(--body,system-ui);cursor:pointer}
+.panel.gomap > button[data-goto],.panel.gomap .glist,.panel.gomap .ghd{display:none!important}
+.panel.gomap > button.gmapopen{font-size:14px;padding:8px;background:transparent;color:inherit;border:1px solid rgba(245,231,207,.4);box-shadow:none}
+.gomapw{margin:4px 0 8px}.gomapw .map{border-radius:12px;overflow:hidden}
+.gsheet{background:#2E3576;color:#F5E7CF;border:2px solid #F2A93B;border-radius:16px;padding:10px 12px 12px;margin:6px 0 10px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.gshd{display:flex;align-items:center;gap:8px;margin-bottom:8px}.gshd b{font:800 17px var(--disp,system-ui)}.gshd span{font-size:12px;opacity:.8;flex:1}.gshd button{background:none;border:0;color:inherit;font-size:18px;min-width:36px;min-height:36px;cursor:pointer}
+.gsx{margin:0 0 8px;font-size:13px;opacity:.85}
+.gtrs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.gtr{display:flex;flex-direction:column;align-items:center;gap:2px;background:#FFF6E4;color:#1F2350;border:2px solid #1F2350;border-radius:12px;padding:8px 6px;cursor:pointer;font:600 14px var(--body,system-ui);min-height:72px}
+.gtr b{font-size:24px;line-height:1}.gtr small{font-size:12px;font-weight:700;opacity:.85}.gtr em{font-style:normal;font-size:11px;opacity:.7;text-align:center}.gtr:disabled{opacity:.45}.gtr1{grid-column:1/-1}
+.gtr:active{transform:scale(.97)}.pin .gmk{font-style:normal;margin-right:2px}
+.phscr .phtop{position:sticky;top:-4px;z-index:5;background:#16152a;margin-left:-12px;margin-right:-12px;padding-left:12px;padding-right:46px;padding-top:8px}
+.ctsec h4{margin-bottom:4px}.ctp{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.08)}.ctp:last-child{border-bottom:0}
+.ctp img{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid #F2A93B;flex:none}.ctpb{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.ctpb b{font-size:15px}.ctpt{font-size:12px;font-weight:700;color:#F2A93B}.ctph{font-size:12px;letter-spacing:-1px}.ctph i{font-style:normal;letter-spacing:1px;margin-left:6px;color:#F2A93B;font-size:11px}.ctps{font-size:12px;opacity:.75}.ctps em{color:#ff8a80;font-style:normal}
+.ctpbtn{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.ctpbtn button{background:#2f6fd6;color:#fff;border:0;border-radius:12px;padding:7px 12px;font:600 13px inherit;cursor:pointer}.ctpbtn button:disabled{background:#3b3660;opacity:.7}
+.ctsv{display:flex;align-items:center;gap:10px;width:100%;background:#22203a;border:1px solid #3b3660;color:#eee;border-radius:14px;padding:10px;margin:6px 0;text-align:left;cursor:pointer;font:inherit}.ctsv>span{font-size:24px}.ctsv div{flex:1;min-width:0}.ctsv b{display:block;font-size:14px}.ctsv small{font-size:12px;opacity:.7}.ctsv em{font-style:normal;font-weight:800;color:#F2A93B;white-space:nowrap}.ctsv:disabled{opacity:.5}
+.poster .panel > button.gtrorig{display:none!important}.gtrs2{margin:4px 0 10px}.gtrs2 .gtr{background:#FFF6E4}
 </style>
 </head>
 <body>
@@ -1847,7 +1864,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.092 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.093 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2737,7 +2754,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.092 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.093 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -5116,12 +5133,24 @@ const KEY='kr-life-student';
 const lsg=k=>{try{return localStorage.getItem(k);}catch(e){return null;}},lss=(k,v)=>{try{localStorage.setItem(k,v);}catch(e){}};
 const START={st_oksana:0,st_mom:4,st_dima:2,st_petro:1,st_valya:1};
 const hurtOf=o=>o&&o.r<=0&&(o.mx||0)>=2;
-function loadLR(){let o=null;try{if(!(S&&S.room))o=JSON.parse(lsg(KEY)||'null');}catch(e){}const r={};const v2=o&&o._v===2;ORDER.forEach(k=>{const x=o&&o[k]||{};const s=x.s||0;let rr=x.r==null?START[k]:v2?x.r:Math.min(5,START[k]+s,x.r);r[k]={r:rr,s,wait:0,mx:v2?(x.mx||rr):rr};});return r;}
-function saveLR(p){if(!p||!p.lr||S.room)return;const o={_v:2};ORDER.forEach(k=>o[k]={r:p.lr[k].r,s:p.lr[k].s,mx:p.lr[k].mx||0});lss(KEY,JSON.stringify(o));}
+function loadLR(){let o=null;try{if(!(S&&S.room))o=JSON.parse(lsg(KEY)||'null');}catch(e){}const r={};const v2=o&&o._v===2;ORDER.forEach(k=>{const x=o&&o[k]||{};const s=x.s||0;let rr=x.r==null?START[k]:v2?x.r:Math.min(5,START[k]+s,x.r);r[k]={r:rr,s,wait:0,mx:v2?(x.mx||rr):rr,pt:x.pt||0};});return r;}
+function saveLR(p){if(!p||!p.lr||S.room)return;const o={_v:2};ORDER.forEach(k=>o[k]={r:p.lr[k].r,s:p.lr[k].s,mx:p.lr[k].mx||0,pt:p.lr[k].pt||0});lss(KEY,JSON.stringify(o));}
 const isSt=p=>p&&p.id==='student'&&!p.collector&&!p.out;
 function lr(p){if(!p.lr)p.lr=loadLR();return p.lr;}
-function rel(p,k,x){const o=lr(p)[k];const was=o.r;o.r=Math.max(0,Math.min(5,o.r+x));o.mx=Math.max(o.mx||0,o.r);saveLR(p);try{if(!SIM&&o.r!==was&&typeof toastI==='function'){const i=S.players.indexOf(p);const nm=PEOPLE[k].n.split(' ')[0];toastI(i,o.r>was?`❤️ +1 · ${nm} (${'❤️'.repeat(o.r)})`:`💔 −1 · ${nm}${o.r<=0?' образився(лась)':''}`);}}catch(e){}}
-window.krLife={of:(p,k)=>lr(p)[k],lr,rel,save:saveLR,L,PEOPLE,ORDER,hurt:hurtOf,START};window.krPh=(i,ds)=>doPhone(i,ds);
+const TIER=r=>r>=5?3:r>=4?2:r>=2?1:0;const TN=['🤍 Знайомі','🧡 Приятелі','❤️ Близькі','💖 Рідні'];
+const TUP={st_oksana:['','Слухай, а з тобою цікаво 🙂','Знаєш… я чекаю твоїх повідомлень більше, ніж треба 🙈','Ти — найкраще, що сталося зі мною цього семестру 💛'],
+ st_mom:['','Синку, дзвони частіше, я ж сумую ❤️','Я така рада, що ми з тобою говоримо ❤️','Ти в мене найкращий син на світі ❤️'],
+ st_dima:['','А ти норм сусід, виявляється 😄','Бро, ти справжній друг 🤝','Ти мені як брат, чесно 🫂'],
+ st_petro:['','Ви, бачу, почали думати на парах. Похвально.','Ви один із небагатьох, з ким цікаво говорити.','Ви мій найкращий студент. Не підведіть.'],
+ st_valya:['','А ти, бачу, не такий шибеник, як усі 😄','Заходь, синку, я тобі завжди рада','Ти мені як онук рідний ❤️']};
+function rel(p,k,x,big){const o=lr(p)[k];const was=o.r;const t0=TIER(was);let crumb=0;
+ if(x<0){o.r=Math.max(0,o.r+x);o.pt=0;}
+ else if(x>0){o.pt=(o.pt||0)+(big?3:x);crumb=1;while(o.pt>=3&&o.r<5&&o.upD!==(S?S.day:-1)){o.r++;o.pt-=3;o.upD=S?S.day:-1;}if(o.r>=5)o.pt=Math.min(o.pt,2);}
+ o.mx=Math.max(o.mx||0,o.r);saveLR(p);
+ try{if(SIM||typeof toastI!=='function')return;const i=S.players.indexOf(p);const nm=PEOPLE[k].n.split(' ')[0];const t1=TIER(o.r);
+  if(o.r>was){toastI(i,t1>t0?`${TN[t1]}: ${nm} 🎉`:`❤️ +1 · ${nm}`);if(t1>t0&&TUP[k][t1])setTimeout(()=>{try{push(i,k,TUP[k][t1]);}catch(e){}},600);}
+  else if(o.r<was)toastI(i,`💔 −1 · ${nm}${o.r<=0?' образився(лась)':''}`);}catch(e){}}
+window.krLife={of:(p,k)=>lr(p)[k],lr,rel,save:saveLR,L,PEOPLE,ORDER,hurt:hurtOf,START,TIER,TN};window.krPh=(i,ds)=>doPhone(i,ds);
 // ---------- щодня: хтось із людей пише першим ----------
 {const _pd=phDay;phDay=function(i){const p=S.players[i];const fresh=p&&p.lsDay!==S.day;_pd.apply(this,arguments);try{if(!isSt(p))return;if(fresh){p.lsDay=S.day;p.lsN=0;}else if((p.lsN||0)>=2||Math.random()<0.5)return;const P=phS();const R=lr(p);
  // хто не дочекався відповіді — ображається
@@ -5137,7 +5166,7 @@ window.krLife={of:(p,k)=>lr(p)[k],lr,rel,save:saveLR,L,PEOPLE,ORDER,hurt:hurtOf,
   if(ex.lsSorry){R[ex.lsSorry].r=2;R[ex.lsSorry].sorry=0;saveLR(p);}}}catch(e){}return r;};}
 // ---------- подія етапу: добрий вибір веде історію далі ----------
 {const _sr=setRes;setRes=function(c,d){_sr.apply(this,arguments);try{const p=cur();const id=S.ev&&S.ev.chain;if(!isSt(p)||!id||!/^ls_/.test(id))return;const mm=id.match(/^ls_(st_[a-z]+)_(\d+)$/);if(!mm)return;const k=mm[1],s=+mm[2];const R=lr(p);R[k].wait=0;
- if(c&&c.ls>0){if(R[k].s===s)R[k].s=s+1;rel(p,k,1);(p.lsDone=p.lsDone||[]).push(k);if(k==='st_oksana'&&R[k].s>=L[k].length)p.okTogether=1;}
+ if(c&&c.ls>0){if(R[k].s===s)R[k].s=s+1;rel(p,k,1,1);(p.lsDone=p.lsDone||[]).push(k);if(k==='st_oksana'&&R[k].s>=L[k].length)p.okTogether=1;}
  else if(c&&c.ls<0)rel(p,k,-1);saveLR(p);}catch(e){}};}
 // ---------- допомога від близьких (❤️ 4+) раз на тиждень ----------
 const HELP={st_oksana:['Підтримає перед парою: +2 нерви',{n:2},'Ти впораєшся. Я в тебе вірю 💛'],st_mom:['Скине на картку: +150 грн',{m:150},'Тримай, синку. Їж нормально ❤️'],st_dima:['Нагодує вечерею',{dinner:1},'Макарони по-флотськи вже на плиті 🍝'],
@@ -5149,7 +5178,7 @@ const HELP={st_oksana:['Підтримає перед парою: +2 нерви'
 const hearts=n=>'❤️'.repeat(n)+'🤍'.repeat(5-n);
 {const _ac=appContacts;appContacts=function(){let h=_ac();try{const p=S.players[phI()];if(!isSt(p))return h;const R=lr(p);
  const sec=`<div class="phsec"><h4>💞 Твої люди</h4><p class="note">Памʼятають, коли допоміг і коли відмовив. Історії тривають і в наступних іграх.</p>${ORDER.map(k=>{const P=PEOPLE[k],o=R[k];const used=(p.lsHelp||{})[k]===wk();
-  return `<div class="phcon lscon"><img class="nbph" src="img/student/c_${P.av}.webp" alt=""><div><b>${P.n}</b><small>${o.r===0&&o.s===0&&!o.mx?'🤍 ще не знайомі':hearts(o.r)} · історія ${Math.min(o.s,6)}/6${o.s>=6?' ✅':''}</small>${o.r>=4?`<div class="phbtns"><button data-ph="lshelp" data-f="${k}" ${used?'disabled':''}>${used?'Вже допомогли цього тижня':'🙏 '+HELP[k][0]}</button></div>`:o.r<=1?'<small class="neg">Ображені на тебе</small>':''}</div></div>`;}).join('')}</div>`;
+  return `<div class="phcon lscon"><img class="nbph" src="img/student/c_${P.av}.webp" alt=""><div><b>${P.n}</b><small>${o.r===0&&o.s===0&&!o.mx?'🤍 ще не знайомі':hearts(o.r)+' · '+TN[TIER(o.r)].split(' ')[1]}${o.r<5?' '+'▪'.repeat(o.pt||0)+'▫'.repeat(3-(o.pt||0)):''} · історія ${Math.min(o.s,6)}/6${o.s>=6?' ✅':''}</small>${o.r>=4?`<div class="phbtns"><button data-ph="lshelp" data-f="${k}" ${used?'disabled':''}>${used?'Вже допомогли цього тижня':'🙏 '+HELP[k][0]}</button></div>`:o.r<=1?'<small class="neg">Ображені на тебе</small>':''}</div></div>`;}).join('')}</div>`;
  const j=h.indexOf('<div class="phsec">');h=j>=0?h.slice(0,j)+sec+h.slice(j):h+sec;}catch(e){}return h;};}
 // ---------- фінал: газета і «Разом з Оксаною» ----------
 {const _r=render;render=function(){_r.apply(this,arguments);try{if(SIM||!S||!['done','end'].includes(S.phase)||!app.querySelector)return;const me=S.room&&typeof meI==='function'?meI():0;const p=S.players[me];if(!p||p.id!=='student'||!p.lr)return;
@@ -5327,48 +5356,59 @@ function inviteMsg(i,p,k){const R=K().lr(p),s=R[k].s,st=K().L[k][s],per=PER[k];c
  if(y[0].length>1){o.splice(2,1);fx.splice(2,1);}
  const m=push(i,k,st[0],o,{fx});m.lsk=k;p.lsN=(p.lsN||0)+1;}
 window.krLsInvite=function(i,p,R,P){if(Math.random()>0.75)return;if((p.lsN||0)>=1&&Math.random()<0.6)return;
- const ok=K().ORDER.filter(k=>R[k].s<K().L[k].length&&!R[k].wait&&!K().hurt(R[k])&&gate(k,R[k].s)&&!P.m.some(m=>m.to===i&&m.lsk===k&&m.st==='new')&&!(k==='st_oksana'&&(R[k].s<3||R[k].r<4)));if(!ok.length)return;
+ const ok=K().ORDER.filter(k=>R[k].s<K().L[k].length&&!R[k].wait&&!K().hurt(R[k])&&reqOk(k,R[k])&&gate(k,R[k].s)&&!P.m.some(m=>m.to===i&&m.lsk===k&&m.st==='new')&&!(k==='st_oksana'&&(R[k].s<3||R[k].r<4)));if(!ok.length)return;
  inviteMsg(i,p,ok[Math.floor(Math.random()*ok.length)]);};
 // ✍️ ти пишеш першим: кнопка в розмові з людиною
 const MY={st_mom:['Мам, можна я приїду? ❤️','Мам, як ти там? Скучив','Мам, а що в тебе нового?'],st_dima:['Бро, є справа. Побалакаємо?','Дімон, ти де пропав?','Бро, що робиш увечері?'],st_petro:['Петре Івановичу, можна до вас звернутися?','Петре Івановичу, маю питання по курсовій','Доброго дня! Можна консультацію?'],st_valya:['Тьотю Валю, можна до вас на чай?','Тьотю Валю, як ваш тиск?','Тьотю Валю, вам нічого не треба принести?']};
 // 💬 просто поговорити — коли історія чекає або вже завершена
 const TALK={
- st_oksana:[{me:'Ти чого така сумна сьогодні?',q:'Петро Іванович сказав, що моя курсова «сира» 😞',o:[['Давай разом подивимось',1,'Справді? Ти б мене врятував 🥹',{t:'Переписала вступ, як ти казав. Петро Іванович сказав «уже краще»! Дякую 💛',fx:{h:2}}],['Та він усім так каже',0,'Може… але все одно прикро'],['Ну, може, справді сира',-1,'Дякую. Дуже підтримав 😒']]},
-  {me:'Бачила, яка сьогодні луна? 🌕',q:'Ти що, романтик? 😏 Бачила. Гарна.',o:[['Майже така, як ти 🙈',1,'Ой… 🙈 Ти що 😳'],['Просто гарна',0,'Ага 🙂'],['Ну, луна як луна',0,'Ну дякую за красиву розмову 😂']]},
-  {me:'Як пара? Не заснула? 😄',q:'Ледве! Петро Іванович сьогодні в ударі 😴',o:[['Наступного разу сяду поруч і буду штурхати',1,'Домовились 😂'],['Я взагалі проспав 😅',0,'Ну ти даєш… скину конспект'],['Мені сподобалось!',0,'Ботан 😏']]},
-  {me:'Що слухаєш зараз? 🎧',q:'Тільки не смійся… Океан Ельзи на повторі 🙈',o:[['Класика! Я теж',1,'Знала, що ти зрозумієш 💛'],['А я щось новеньке',0,'Скинь мені!'],['Ну таке…',-1,'Ну й слухай свій шансон 😤']]},
-  {me:'Ти вже поїла? 🍲',q:'Тільки каву… а що?',o:[['Принесу тобі пиріжок',1,'Ти найкращий 🥹',{t:'Дякую за пиріжок 🥹 Найсмачніший у моєму житті. Ну, після маминих 😄',fx:{h:1}}],['Їж нормально, бо впадеш!',0,'Слухаюсь, мамо 😂'],['Та просто питаю',0,'Ну… дякую 🙂']]},
-  {me:'Бачила, що в місті коїться? 😮',q:'Ага! Знову Скарік став посеред дороги 😂',o:[['Я на ньому їхав!',1,'Бідолаха 😂 Тримайся!'],['Типовий Кривий Ріг',0,'Тут усе рівно 😄'],['Мені байдуже',-1,'Ну ок.']]}],
+ st_oksana:[{min:1,me:'Ти чого така сумна сьогодні?',q:'Петро Іванович сказав, що моя курсова «сира» 😞',o:[['Давай разом подивимось',1,'Справді? Ти б мене врятував 🥹',{t:'Переписала вступ, як ти казав. Петро Іванович сказав «уже краще»! Дякую 💛',fx:{h:2}}],['Та він усім так каже',0,'Може… але все одно прикро'],['Ну, може, справді сира',-1,'Дякую. Дуже підтримав 😒']]},
+  {min:1,me:'Бачила, яка сьогодні луна? 🌕',q:'Ти що, романтик? 😏 Бачила. Гарна.',o:[['Майже така, як ти 🙈',1,'Ой… 🙈 Ти що 😳'],['Просто гарна',0,'Ага 🙂'],['Ну, луна як луна',0,'Ну дякую за красиву розмову 😂']]},
+  {me:'Як пара? Не заснула? 😄',q:['Нормально. А тобі що?','Ледве! Петро Іванович сьогодні в ударі 😴','Ледве! Без тебе поруч нудно було 🙈'],o:[['Наступного разу сяду поруч і буду штурхати',1,'Домовились 😂'],['Я взагалі проспав 😅',0,'Ну ти даєш… скину конспект'],['Мені сподобалось!',0,'Ботан 😏']]},
+  {me:'Що слухаєш зараз? 🎧',q:['Музику. А що?','Тільки не смійся… Океан Ельзи на повторі 🙈','Тобі скажу: Океан Ельзи. І думаю про тебе 🙈'],o:[['Класика! Я теж',1,'Знала, що ти зрозумієш 💛'],['А я щось новеньке',0,'Скинь мені!'],['Ну таке…',-1,'Ну й слухай свій шансон 😤']]},
+  {min:1,me:'Ти вже поїла? 🍲',q:'Тільки каву… а що?',o:[['Принесу тобі пиріжок',1,'Ти найкращий 🥹',{t:'Дякую за пиріжок 🥹 Найсмачніший у моєму житті. Ну, після маминих 😄',fx:{h:1}}],['Їж нормально, бо впадеш!',0,'Слухаюсь, мамо 😂'],['Та просто питаю',0,'Ну… дякую 🙂']]},
+  {me:'Бачила, що в місті коїться? 😮',q:['Бачила. Скарік знову став.','Ага! Знову Скарік став посеред дороги 😂','Ага! Я аж тобі хотіла написати — Скарік знову став 😂'],o:[['Я на ньому їхав!',1,'Бідолаха 😂 Тримайся!'],['Типовий Кривий Ріг',0,'Тут усе рівно 😄'],['Мені байдуже',-1,'Ну ок.']]}],
  st_mom:[{me:'Мам, а як було, коли ти вчилась?',q:'Ой, синку… Гуртожиток, одна плитка на поверх і твій тато під вікном з гітарою 😄',o:[['Тато грав на гітарі?!',1,'Ще й як! Попроси, хай заграє, як приїдеш 😄'],['Нічого не змінилось 😂',1,'Тільки плитка тепер, мабуть, електрична 😄'],['Цікаво',0,'Колись розкажу більше ❤️']]},
   {me:'Мам, мені сьогодні сумно',q:'Синку, що сталося? Розкажи мамі',o:[['Просто втомився',1,'Ляж раніше спати. І поїж! Завтра буде краще ❤️',{t:'Синку, як ти сьогодні? Я цілий день думала ❤️',fx:{n:2}}],['Скучив за домом',1,'Приїжджай на вихідних. Я спечу пиріг 🥧'],['Та нічого, забудь',0,'Ти ж знаєш, що я завжди поруч ❤️']]},
   {me:'Мам, як ти? ❤️',q:'Та нормально, синку. Тиск трохи, але то дрібниці. Ти як?',o:[['Все добре, не хвилюйся ❤️',1,'От і добре. Їж нормально!'],['Мам, бережи себе, будь ласка',1,'Ой, який ти в мене дорослий ❤️',{t:'Була в лікаря, все добре, не хвилюйся ❤️ Тиск у нормі. Дякую, що спитав.',fx:{n:1}}],['Нормально',0,'Щось ти коротко… ну добре.']]},
   {me:'Мам, а як ти робиш той борщ?',q:'О! Записуй: буряк, квасоля, і головне — з любовʼю ❤️',o:[['Записав! Спробую в гуртожитку',1,'Сфоткай, що вийде 😄'],['А можна просто приїхати й поїсти? 😄',1,'Можна, сонечко ❤️'],['Складно…',0,'Нічого складного, навчишся.']]},
   {me:'Мам, я сьогодні сам приготував вечерю! 🍳',q:'Та ти що! А що саме?',o:[['Яєчню з ковбасою 😎',0,'Ну, вже щось 😄'],['Макарони по-флотськи, як ти',1,'Мій син ❤️ Гордість!'],['Ну… майже приготував 😅',0,'Не спали гуртожиток!']]}],
- st_dima:[{me:'Як там дівчина з третього поверху? 😏',q:'Тсс! Вона, здається, мене помітила… у ліфті посміхнулась 🙈',o:[['Пиши їй сьогодні!',1,'Сьогодні?! Ну… добре. Тримай за мене кулаки 🤞',{t:'БРО. Вона погодилась на каву!!! 🥳',fx:{h:2}}],['Не поспішай',0,'Ага… може, ти й правий'],['Вона всім посміхається 😂',-1,'Дякую, друже. Підбадьорив 😑']]},
+ st_dima:[{min:1,me:'Як там дівчина з третього поверху? 😏',q:'Тсс! Вона, здається, мене помітила… у ліфті посміхнулась 🙈',o:[['Пиши їй сьогодні!',1,'Сьогодні?! Ну… добре. Тримай за мене кулаки 🤞',{t:'БРО. Вона погодилась на каву!!! 🥳',fx:{h:2}}],['Не поспішай',0,'Ага… може, ти й правий'],['Вона всім посміхається 😂',-1,'Дякую, друже. Підбадьорив 😑']]},
   {me:'Хто зʼїв мої пельмені? 🥟',q:'Які пельмені? Я нічого не знаю 😇',o:[['У тебе сметана на підборідді 😂',1,'Ох. Добре. Завтра куплю дві пачки 🙏',{t:'Купив пельмені! Дві пачки, як обіцяв 🥟 Вечеря за мною',fx:{h:1}}],['Діма!!!',0,'Ну я ж ненавмисно 😅'],['Все, ти мені більше не друг',-1,'Через пельмені?! 😱']]},
-  {me:'Бро, ти скоро?',q:'Пʼять хвилин. Може десять. Може завтра 😂',o:[['Класика 😂',0,'Ну а що 🤷'],['Тоді я сам іду в їдальню',0,'Візьми мені котлету!'],['Чекаю, без тебе нудно',1,'Ого, які ніжності 😂 Біжу']]},
-  {me:'Що на вечір? 🎮',q:'Катка, шаурма і ніяких пар. План ідеальний.',o:[['Я в ділі!',1,'От це по-нашому 🤝'],['Мені треба вчитися…',0,'Ботан 😂 Але правильно'],['Знову ти зі своєю доткою',-1,'Не чіпай святе 😤']]},
-  {me:'Ти брав мою зарядку? 🔌',q:'Яку зарядку? 😇',o:[['Діма!!!',0,'Та віддам, віддам 😂'],['Ну все, тепер твоя черга мити посуд',1,'Справедливо 🤝',{t:'Посуд помитий 🫡 Зарядку повернув. І шаурму тобі купив — на столі 🌯',fx:{h:1,n:1}}],['Ладно, бери',1,'Ти найкращий сусід 🙏']]}],
+  {me:'Бро, ти скоро?',q:['Скоро.','Пʼять хвилин. Може десять. Може завтра 😂','Біжу, бро! Для тебе — пʼять хвилин 🏃'],o:[['Класика 😂',0,'Ну а що 🤷'],['Тоді я сам іду в їдальню',0,'Візьми мені котлету!'],['Чекаю, без тебе нудно',1,'Ого, які ніжності 😂 Біжу']]},
+  {me:'Що на вечір? 🎮',q:['Не знаю. А що?','Катка, шаурма і ніяких пар. План ідеальний.','Катка, шаурма — і ти зі мною, бро. Без тебе не те 🎮'],o:[['Я в ділі!',1,'От це по-нашому 🤝'],['Мені треба вчитися…',0,'Ботан 😂 Але правильно'],['Знову ти зі своєю доткою',-1,'Не чіпай святе 😤']]},
+  {me:'Ти брав мою зарядку? 🔌',q:['Ну брав. І що?','Яку зарядку? 😇','Брав, бро, вибач 😅 Зараз поверну'],o:[['Діма!!!',0,'Та віддам, віддам 😂'],['Ну все, тепер твоя черга мити посуд',1,'Справедливо 🤝',{t:'Посуд помитий 🫡 Зарядку повернув. І шаурму тобі купив — на столі 🌯',fx:{h:1,n:1}}],['Ладно, бери',1,'Ти найкращий сусід 🙏']]}],
  st_petro:[{me:'Петре Івановичу, я не зрозумів останню тему',q:'Чесно сказати «не зрозумів» — це вже половина розуміння. Що саме?',o:[['Інтеграли частинами',1,'Зайдіть завтра на консультацію. Пояснимо.',{t:'Консультація о 14:00 в 214-й. Принесіть зошит.',fx:{h:1}}],['Все, якщо чесно 😅',0,'Тоді почніть із підручника. Розділ 2.'],['Та нічого, спишу',-1,'Списувати будете на іспиті? Спробуйте.']]},
-  {me:'Петре Івановичу, дякую за пару, було цікаво',q:'Приємно чути. Рідко хто так каже. Читайте розділ 4.',o:[['Обовʼязково!',1,'Перевірю на семінарі.'],['А можна щось додатково почитати?',1,'Зайдіть до кафедри. Дам книжку.',{t:'Книжку залишив на вахті у тьоті Валі. Розділ 3 — обовʼязково.',fx:{h:1}}],['Ну… постараюсь',0,'Постарайтеся.']]},
-  {me:'Петре Івановичу, а ви завжди хотіли бути викладачем?',q:'Ні. Я хотів бути пілотом. Але математика виявилась сильнішою.',o:[['Це круто!',1,'Дякую. Не кидайте мрії, студенте.'],['Може, ще не пізно? 😄',1,'Хм. Може й не пізно.'],['Ясно',0,'Не відволікайтесь.']]}],
+  {me:'Петре Івановичу, дякую за пару, було цікаво',q:['Гм. Дякую. Розділ 4 до наступної пари.','Приємно чути. Рідко хто так каже. Читайте розділ 4.','Дякую. Для вас я підготую щось цікавіше. Зайдіть по книжку.'],o:[['Обовʼязково!',1,'Перевірю на семінарі.'],['А можна щось додатково почитати?',1,'Зайдіть до кафедри. Дам книжку.',{t:'Книжку залишив на вахті у тьоті Валі. Розділ 3 — обовʼязково.',fx:{h:1}}],['Ну… постараюсь',0,'Постарайтеся.']]},
+  {min:1,me:'Петре Івановичу, а ви завжди хотіли бути викладачем?',q:'Ні. Я хотів бути пілотом. Але математика виявилась сильнішою.',o:[['Це круто!',1,'Дякую. Не кидайте мрії, студенте.'],['Може, ще не пізно? 😄',1,'Хм. Може й не пізно.'],['Ясно',0,'Не відволікайтесь.']]}],
  st_valya:[{me:'Тьотю Валю, як там Мурчик? 🐱',q:'Розтовстів, нахаба! Вчора зʼїв мою котлету 😾',o:[['Він просто вас любить',1,'Ох, любить він котлети, а не мене 😄'],['Може, на дієту його?',0,'Спробуй йому це сказати 😂'],['Котам котлети не можна',0,'Ой, та знаю я, знаю…']]},
-  {me:'Тьотю Валю, як справи? 🌸',q:'Та потрохи. Серіал цікавий, кіт гладкий, гуртожиток стоїть 😄',o:[['То все добре!',1,'Отож! Заходь на чай.'],['А що в серіалі?',1,'Ой, там така історія… заходь, розкажу!'],['Ну добре',0,'Ну-ну.']]},
-  {me:'Тьотю Валю, у нас знову кран тече 🚰',q:'Знову?! Хто ж там у вас такий богатир…',o:[['Це не я, чесно!',0,'Ага-ага. Гляну завтра.'],['Можу сам полагодити, дайте ключ',1,'Ого, майстер! Тримай ключ 🔧',{t:'Кран не тече! Ти золото, синку. Заходь — пиріжки з вишнею 🥧',fx:{h:1,n:1}}],['Та нічого, потерпимо',0,'Терпіти не треба, скажу сантехніку.']]}]};
+  {me:'Тьотю Валю, як справи? 🌸',q:['Нормально. А тобі чого?','Та потрохи. Серіал цікавий, кіт гладкий, гуртожиток стоїть 😄','Ой, синку, як добре, що спитав! Сідай, розкажу 😄'],o:[['То все добре!',1,'Отож! Заходь на чай.'],['А що в серіалі?',1,'Ой, там така історія… заходь, розкажу!'],['Ну добре',0,'Ну-ну.']]},
+  {me:'Тьотю Валю, у нас знову кран тече 🚰',q:['Знову?! Пишіть заявку коменданту.','Знову?! Хто ж там у вас такий богатир…','Знову? Ну для тебе завтра ж зранку сантехніка приведу'],o:[['Це не я, чесно!',0,'Ага-ага. Гляну завтра.'],['Можу сам полагодити, дайте ключ',1,'Ого, майстер! Тримай ключ 🔧',{t:'Кран не тече! Ти золото, синку. Заходь — пиріжки з вишнею 🥧',fx:{h:1,n:1}}],['Та нічого, потерпимо',0,'Терпіти не треба, скажу сантехніку.']]}]};
 // ⏳ темп: роман на місяць; у коротких режимах — «далі буде»
 function gate(k,s){try{if(S.oneDay)return false;const W=S.W||1;if(W<2)return true;const T=k==='st_oksana'?[0,3,6,9,12,16]:[0,2,5,8,11,14];return S.day>=Math.floor((T[s]||0)*Math.min(1,W*5/20));}catch(e){return true;}}
 window.krLsGate=gate;
-function story(p,k){const R=K().lr(p)[k];return !K().hurt(R)&&R.s<6&&!R.wait&&gate(k,R.s);}
+const REQ={st_oksana:[0,1,2,3,4,4],st_mom:[0,1,2,3,3,4],st_dima:[0,1,2,2,3,4],st_petro:[0,1,2,2,3,4],st_valya:[0,1,2,2,3,4]};
+const reqOk=(k,R)=>R.r>=((REQ[k]||[])[R.s]||0);window.krLsReq=REQ;
+function story(p,k){const R=K().lr(p)[k];return !(p.lsWS&&p.lsWS[k]===S.day)&&!K().hurt(R)&&reqOk(k,R)&&R.s<6&&!R.wait&&gate(k,R.s);}
 function sessia(p,k){const R=K().lr(p)[k];return S.oneDay&&k==='st_oksana'&&R.s<6&&!K().hurt(R);}
-function canWrite(p,k){return (p.lsW||{})[k]!==S.day;}
-function talkOf(p,k){const T=TALK[k];const U=(p.lsTU=p.lsTU||{});let u=U[k]=U[k]||[];if(u.length>=T.length)u=U[k]=[];if(p._tk&&p._tk[k]&&p._tk[k].d===S.day)return T[p._tk[k].n];const free=T.map((_,n)=>n).filter(n=>!u.includes(n));const n=free[Math.floor(Math.random()*free.length)];(p._tk=p._tk||{})[k]={d:S.day,n};return T[n];}
-function talkUse(p,k,T){const n=TALK[k].indexOf(T);const U=(p.lsTU=p.lsTU||{});(U[k]=U[k]||[]).push(n);}
+function canWrite(p,k){const w=(p.lsWn||{})[k];const n=w&&w.d===S.day?w.n:0;if(n>=3)return false;try{const i=S.players.indexOf(p);if(phS().m.some(m=>m.to===i&&m.f===k&&m.st==='new'))return false;}catch(e){}return true;}
+// 💬 поки чекаєте зустрічі
+const WAITT={st_oksana:[{me:'Ну що, скоро побачимось? 😊',q:'Ага! Я вже думаю, що вдягнути 🙈',o:[['Ти в усьому гарна',1,'Ой, ну тебе 🙈💛'],['Щось тепле, бо вітер',0,'Турботливий 😏'],['Аби не запізнилась 😂',0,'Хто б казав!']]}],
+ st_mom:[{me:'Мам, я про тебе памʼятаю ❤️',q:'Знаю, синку. Я вже чекаю ❤️',o:[['Скоро будемо разом',1,'Як я рада ❤️'],['Що тобі привезти?',1,'Себе привези, більше нічого не треба'],['Ок',0,'Ну добре 🙂']]}],
+ st_dima:[{me:'Бро, все в силі?',q:'Звісно! Я вже готуюсь 💪',o:[['Красава',1,'Ти теж 🤝'],['Тільки не підведи',0,'Коли я підводив?! 😤'],['Може перенесемо?',-1,'Ну от… а я чекав']]}],
+ st_petro:[{me:'Петре Івановичу, у силі наша домовленість?',q:'Так. Не запізнюйтеся.',o:[['Буду вчасно',1,'Добре.'],['А можна раніше?',0,'Не можна.'],['Постараюсь',0,'Постарайтеся.']]}],
+ st_valya:[{me:'Тьотю Валю, я памʼятаю, все в силі',q:'Отож! Я вже чайник поставила 🫖',o:[['Біжу!',1,'Не біжи, бо впадеш 😄'],['А пиріжки будуть?',1,'Аякже 🥧'],['Може пізніше',0,'Ну-ну.']]}]};
+const tierOf=(p,k)=>{try{return K().TIER(K().lr(p)[k].r);}catch(e){return 1;}};
+const qOf=(T,t)=>Array.isArray(T.q)?T.q[Math.min(t,T.q.length-1)]:T.q;
+function talkOf(p,k){const tt=tierOf(p,k);try{if(K().lr(p)[k].wait&&WAITT[k]&&(p.lsWT||{})[k]!==S.day){const W=WAITT[k];return W[S.day%W.length];}}catch(e){}const T=TALK[k].filter(x=>(x.min||0)<=tt).length?TALK[k]:TALK[k];const U=(p.lsTU=p.lsTU||{});let u=U[k]=U[k]||[];if(u.length>=T.length)u=U[k]=[];if(p._tk&&p._tk[k]&&p._tk[k].d===S.day)return T[p._tk[k].n];const free=T.map((_,n)=>n).filter(n=>!u.includes(n)&&(T[n].min||0)<=tt);if(!free.length){u=U[k]=[];T.forEach((x,n)=>{if((x.min||0)<=tt)free.push(n);});}const n=free[Math.floor(Math.random()*free.length)];(p._tk=p._tk||{})[k]={d:S.day,n};return T[n];}
+function talkUse(p,k,T){try{if(p._tk)delete p._tk[k];}catch(e){}try{if(WAITT[k]&&WAITT[k].includes(T))(p.lsWT=p.lsWT||{})[k]=S.day;}catch(e){}const n=TALK[k].indexOf(T);if(n<0)return;const U=(p.lsTU=p.lsTU||{});(U[k]=U[k]||[]).push(n);}
 function writeBox(p,k){if(!canWrite(p,k))return '';const R=K().lr(p)[k];const t=K().hurt(R)?'Вибач мені, будь ласка 🙏':sessia(p,k)?MYO[Math.min(R.s,5)].me:!story(p,k)?talkOf(p,k).me:k==='st_oksana'?MYO[Math.min(R.s,5)].me:pk(MY[k]);return `<div class="phcomp lswr"><small>💬 Почати розмову</small><button data-ph="lswr" data-f="${k}">${t}</button></div>`;}
 {const _at=appThread;appThread=function(k){let h=_at.apply(this,arguments);try{const p=S.players[phI()];if(p&&p.id==='student'&&PER[k]){const j=h.lastIndexOf('</div>');const b=writeBox(p,k);if(b)h=j>0?h.slice(0,j)+b+h.slice(j):h+b;}}catch(e){}return h;};}
-{const _dp=doPhone;doPhone=function(i,ds){if(ds&&ds.k==='lswr'){try{const p=S.players[i];const k=ds.f;if(!p||!PER[k]||!canWrite(p,k))return;if(bat(p)<=0)return toastI(i,'📵 Телефон сів.');p.bat=Math.max(0,bat(p)-3);(p.lsW=p.lsW||{})[k]=S.day;const R=K().lr(p),s=R[k].s;
+{const _dp=doPhone;doPhone=function(i,ds){if(ds&&ds.k==='lswr'){try{const p=S.players[i];const k=ds.f;if(!p||!PER[k]||!canWrite(p,k))return;if(bat(p)<=0)return toastI(i,'📵 Телефон сів.');p.bat=Math.max(0,bat(p)-3);const _w=(p.lsWn=p.lsWn||{});_w[k]=_w[k]&&_w[k].d===S.day?{d:S.day,n:_w[k].n+1}:{d:S.day,n:1};const R=K().lr(p),s=R[k].s;
  if(K().hurt(R[k])){push(i,k,'<i>Ти: Вибач мені, будь ласка 🙏</i>');R[k].r=1;R[k].sorry=0;K().save(p);push(i,k,{st_oksana:'Добре… Але більше так не роби 🙂',st_mom:'Ну що ти, синку. Я ж мама ❤️',st_dima:'Та проїхали, бро 🤝',st_petro:'Вибачення прийнято. Надалі будьте уважнішим.',st_valya:'Ой, та годі вже. Заходь на чай.'}[k]);return;}
  if(sessia(p,k)){push(i,k,`<i>Ти: ${MYO[Math.min(s,5)].me}</i>`);push(i,k,'Ой, сесія, голова кругом 🙈 Давай після заліків?',['Добре, я почекаю 🙂','Удачі на заліках! 🍀'],{fx:[[{},'Дякую, що розумієш 💛',{}],[{h:1},'Дякую! Мені приємно 🙈',{lsRel:[k,1]}]]});return;}
- if(!story(p,k)){const T=talkOf(p,k);talkUse(p,k,T);push(i,k,`<i>Ти: ${T.me}</i>`);const m=push(i,k,T.q,T.o.map(x=>x[0]),{fx:T.o.map(x=>[x[1]>0?{h:1}:{},x[2],Object.assign(x[1]?{lsRel:[k,x[1]]}:{},x[3]?{then:x[3]}:{})])});m.lsTalk=k;return;}
+ if(!story(p,k)){const T=talkOf(p,k);talkUse(p,k,T);const hOk=(p.lsTh=p.lsTh||{})[k]!==S.day;p.lsTh[k]=S.day;push(i,k,`<i>Ти: ${T.me}</i>`);const m=push(i,k,qOf(T,tierOf(p,k)),T.o.map(x=>x[0]),{fx:T.o.map(x=>[x[1]>0&&hOk?{h:1}:{},x[2],Object.assign(x[1]?{lsRel:[k,x[1]]}:{},x[3]?{then:x[3]}:{})])});m.lsTalk=k;return;}
+ (p.lsWS=p.lsWS||{})[k]=S.day;
  if(k==='st_oksana'){const D=MYO[s];push(i,k,`<i>Ти: ${D.me}</i>`);const y=busyWith(p,k);
   const o=D.o.map(x=>x[0]),fx=D.o.map(x=>x[1]?[{h:x[2]>0?1:0},yR(k,s,y?1:0),y?{ls:{k,s,d:1}}:{ls:{k,s},lsRel:x[2]?[k,x[2]]:null}]:[{},D.bad||PER[k].no,x[2]<0?{lsNo:k}:{}]);
   const m=push(i,k,D.q+(y?` (Ти ж сьогодні з ${NM[y]}, тож завтра 😉)`:''),o,{fx});m.lsk=k;}
@@ -5386,6 +5426,26 @@ if(window.krToday){const _t=window.krToday;window.krToday=function(p){const it=_
 {const _dp=doPhone;doPhone=function(i,ds){let th=null,f=null;try{if(ds&&ds.k==='qa'){const m=phS().m.find(x=>x.id===+ds.id&&x.to===i&&x.st==='new');if(m&&m.fx){const e=(m.fx[+ds.o]||[])[2];if(e&&e.then){th=e.then;f=m.f;}}}}catch(e){}
  const r=_dp.apply(this,arguments);try{if(th){phS().q.push({to:i,at:S.day+1,f,t:th.t,fx:th.fx||null});}}catch(e){}return r;};}
 {const _at=appThread;appThread=function(k){let h=_at.apply(this,arguments);try{h=h.replace(/<div class="phmsg in"><i>Ти: ([^<]*)<\/i>(?:<br>)?([\s\S]*?)<\/div>/g,(a,me,rest)=>`<div class="phmsg out">${me}</div>`+(rest.trim()?`<div class="phmsg in">${rest}</div>`:''));}catch(e){}return h;};}
+
+// === 1.093: 👥 Контакти Студента — «Твої люди» і «Служби» замість старих списків ===
+{const SVC=[{ic:'🔧',n:'Сантехнік Михалич',d:'кран, унітаз, батарея',m:150,fx:{n:1},r:'Кран полагоджено. Михалич ще й порадив, як не зламати знову.'},
+ {ic:'⚡',n:'Електрик Сергій',d:'розетка, світло, подовжувач',m:120,fx:{n:1},r:'Світло горить, розетка більше не іскрить.'},
+ {ic:'📱',n:'«Скарік-сервіс»: ремонт телефонів',d:'екран, батарея, зарядка',m:200,fx:{n:1},bat:1,r:'Телефон як новий, батарея 100%.'},
+ {ic:'🚕',n:'Таксі «Кривбас»',d:'коли треба швидко і без нервів',m:120,fx:{n:2},r:'Таксі приїхало за 5 хвилин. Доїхав у теплі й тиші.'},
+ {ic:'🍕',n:'Доставка «Шаурма №1»',d:'гаряча їжа до дверей',m:110,fx:{h:1,n:1},r:'Шаурма гаряча, курʼєр усміхнений. Життя налагоджується.'}];
+const isStu=p=>p&&p.id==='student';
+{const _ac=appContacts;appContacts=function(){const i=phI(),p=S.players[i];if(!isStu(p)||!window.krLife)return _ac.apply(this,arguments);
+ try{const L=window.krLife,R=L.lr(p);let h='';
+  if(S.room)h+=S.players.map((q,j)=>j===i?'':`<div class="phcon">${portrait(q.id)}<div><b>${nm(q)}</b><small>${q.money} грн · ${q.nerves} нервів${q.out?' · вибув':''}</small><div class="phbtns"><button data-ph="th" data-t="p${j}">💬 Написати</button></div></div></div>`).join('');
+  const ppl=L.ORDER.map(k=>{const P=L.PEOPLE[k],o=R[k];const t=L.TIER(o.r);const stranger=o.r===0&&o.s===0&&!o.mx;const used=(p.lsHelp||{})[k]===(typeof wk==='function'?wk():0);
+   return `<div class="ctp"><img src="img/student/c_${P.av}.webp" alt=""><div class="ctpb"><b>${P.n}</b><span class="ctpt">${stranger?'🤍 ще не знайомі':L.TN[t]}</span><span class="ctph">${'❤️'.repeat(o.r)}${'🤍'.repeat(5-o.r)}${o.r<5?`<i title="до наступного сердечка">${'●'.repeat(o.pt||0)}${'○'.repeat(3-(o.pt||0))}</i>`:''}</span><span class="ctps">історія ${Math.min(o.s,6)}/6${o.s>=6?' ✅':''}${L.hurt(o)?' · <em>ображені</em>':''}</span>
+    <div class="ctpbtn"><button data-ph="th" data-t="${k}">💬 Написати</button>${o.r>=(S.hard?5:4)?`<button data-ph="lshelp" data-f="${k}" ${used?'disabled':''}>${used?'✔ допомогли цього тижня':'🙏 Попросити допомоги'}</button>`:''}</div></div></div>`;}).join('');
+  const svc=SVC.map((s,n)=>{const used=(p.svcD||{})[n]===S.day;const poor=avail(p)<s.m;return `<button class="ctsv" data-ph="svc" data-s="${n}" ${used||poor?'disabled':''}><span>${s.ic}</span><div><b>${s.n}</b><small>${used?'сьогодні вже викликав':poor?'не вистачає грошей':s.d}</small></div><em>${s.m} грн</em></button>`;}).join('');
+  return head('👥 Контакти')+`<div class="phlist">${h}<div class="phsec ctsec"><h4>💞 Твої люди</h4><p class="note">Що тепліші стосунки, то відвертіші розмови. Три кружечки ● — і ще одне сердечко.</p>${ppl}</div><div class="phsec ctsec"><h4>🔧 Служби</h4><p class="note">Без історій — просто корисні номери. Раз на день кожна.</p>${svc}</div></div>`;}catch(e){if(typeof console!=='undefined')console.error(e);return _ac.apply(this,arguments);}};}
+{const _dp=doPhone;doPhone=function(i,ds){if(ds&&ds.k==='svc'){try{const p=S.players[i];const n=+ds.s;const s=SVC[n];if(!p||!s)return;p.svcD=p.svcD||{};if(p.svcD[n]===S.day)return;if(avail(p)<s.m)return toastI(i,'💸 Не вистачає грошей');
+  p.svcD[n]=S.day;spend(p,s.m);apply(p,s.fx);if(s.bat)p.bat=100;toastI(i,`${s.ic} ${s.r} −${s.m} грн`);}catch(e){}return;}return _dp.apply(this,arguments);};}
+{const _ck=phClick;phClick=function(e){const b=e.target.closest&&e.target.closest('[data-ph="svc"]');if(b){e.stopPropagation();if(!b.disabled){phSend({k:'svc',s:b.dataset.s});setTimeout(phRefresh,80);}return;}return _ck.apply(this,arguments);};}
+}
 
 })();
 
@@ -5906,7 +5966,7 @@ function watch(){clearTimeout(WT);rescueHide();if(!S||!S.players||WAITPH.include
 function bigSig(){try{return [S.phase,S.day,S.sub,S.turn,S.res?1:0,JSON.stringify(S.pending||0),JSON.stringify(S.eve||0),JSON.stringify(S.group||0),S.players.map(p=>p.money+'/'+p.nerves+'/'+p.happy).join(',')].join('|');}catch(e){return Math.random();}}
 let DEAD=0;
 document.addEventListener&&document.addEventListener('click',e=>{if(SIM||!S||!S.players||!amHost())return;const b=e.target.closest&&e.target.closest('#app button');if(!b||b.disabled)return;const ds=b.dataset;
- if(!Object.keys(ds).length||ds.help||ds.phopen||ds.gmap||ds.gtph||ds.pwph||(typeof WAITPH!=='undefined'&&WAITPH.includes(S.phase))||(S.room&&typeof R_GLOBAL!=='undefined'&&!R_GLOBAL.includes(S.phase)&&!myTurnNow())||['talk','mute','settings','menu','room','share','shareimg','copystory','ruslan','again','extra4'].includes(ds.act)||b.closest('.gtop'))return;
+ if(!Object.keys(ds).length||ds.help||ds.phopen||ds.gmap||ds.gtph||ds.pwph||ds.gopin||ds.gt||ds.fm||ds.intro||ds.lsreset||b.closest('.gsheet,.gomapw,.fmapw')||(typeof WAITPH!=='undefined'&&WAITPH.includes(S.phase))||(S.room&&typeof R_GLOBAL!=='undefined'&&!R_GLOBAL.includes(S.phase)&&!myTurnNow())||['talk','mute','settings','menu','room','share','shareimg','copystory','ruslan','again','extra4'].includes(ds.act)||b.closest('.gtop'))return;
  const s0=bigSig();setTimeout(()=>{if(!S||!S.players)return;if([...document.querySelectorAll('#mgov,#phov,#gmapov.on,#help.on,#setov,#chov,#agegate,#hinfo')].some(x=>x.getClientRects().length))return;if(bigSig()===s0&&document.body.contains(b)){DEAD++;if(DEAD>=2)rescueShow('Кнопка не спрацювала.');}else DEAD=0;},1300);},true);
 // ---------- Б. навчання ----------
 Object.assign(TUT,{go:'.',result:'.'});
@@ -6965,7 +7025,7 @@ const L='[\\p{L}]';
 const W=[['робочому чаті','чаті групи'],['робочий чат','чат групи'],['Робочий чат','Чат групи'],['після роботи','після пар'],['з роботи','з пар'],['на роботу','на пари'],['на роботі','на парах'],
  ['Шефу','Петру Івановичу'],['шефу','Петру Івановичу'],['Шефа','Петра Івановича'],['шефа','Петра Івановича'],['Шефом','Петром Івановичем'],['шефом','Петром Івановичем'],['Шеф','Петро Іванович'],['шеф','Петро Іванович'],
  ['колегами','одногрупниками'],['колегам','одногрупникам'],['колеги','одногрупники'],['Колеги','Одногрупники'],['колега','одногрупник'],['колег','одногрупників'],['колективу','групи'],['колектив','група'],
- ['нараді','парі'],['нарада','пара'],['Нарада','Пара'],['нараду','пару'],['в офісі','в деканаті'],['офісу','потоку'],['лікарняний','довідку від лікаря'],['понаднормові','доплату'],['Понаднормові','Доплата']];
+ ['Сусід Петрович','Сусід Вітьок'],['Петровича','Вітька'],['Петровичу','Вітькові'],['Петровичем','Вітьком'],['Петрович','Вітьок'],['дружина в лікарні','мама в лікарні'],['нараді','парі'],['нарада','пара'],['Нарада','Пара'],['нараду','пару'],['в офісі','в деканаті'],['офісу','потоку'],['лікарняний','довідку від лікаря'],['понаднормові','доплату'],['Понаднормові','Доплата']];
 const RX=W.map(([a,b])=>[new RegExp('(^|[^\\p{L}])'+a+'(?![\\p{L}-])','gu'),'$1'+b]);
 function fix(s){if(!s||typeof s!=='string')return s;let o=s;RX.forEach(([r,b])=>{o=o.replace(r,b);});return o;}
 window.krStFix=fix;
@@ -6973,7 +7033,8 @@ window.krStFix=fix;
 try{const T=window.HEROART&&window.HEROART.student&&window.HEROART.student.t;const st=window.HEROART.student.s;const put=(t,s)=>{if(T&&st&&st.has(s))T[t]=s;};
  put('Шеф пропонує переробку','petro_notice');put('Шеф помітив старанність','petro_notice');put('Шеф холодний','petro_late');put('ГРВІ','flu');put('Збір на день народження','group_starosta');}catch(e){}
 function isStu(){try{const p=S.players[S.room&&typeof meI==='function'?meI():S.turn];return p&&p.id==='student';}catch(e){return false;}}
-function walk(root){const tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let n;while((n=tw.nextNode())){const v=n.nodeValue;if(!/[Шш]еф|колег|нарад|роботі|роботу|роботи|офіс|лікарнян|понаднорм|робоч|Колег|Нарад|колектив|Понаднорм/.test(v))continue;const f=fix(v);if(f!==v)n.nodeValue=f;}}
+function walk(root){const tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let n;while((n=tw.nextNode())){const v=n.nodeValue;if(!/[Шш]еф|колег|нарад|роботі|роботу|роботи|офіс|лікарнян|понаднорм|робоч|Колег|Нарад|колектив|Понаднорм|Петрович|дружина в лікарні/.test(v))continue;const f=fix(v);if(f!==v)n.nodeValue=f;}}
+try{if(typeof MutationObserver!=='undefined'&&document.body)new MutationObserver(()=>{try{if(SIM||!S||!S.players||!isStu())return;const ph=document.getElementById('phov');if(ph&&!ph._stw){ph._stw=1;setTimeout(()=>{ph._stw=0;walk(ph);},0);}}catch(e){}}).observe(document.body,{childList:true,subtree:true});}catch(e){}
 const _r=render;render=function(){_r.apply(this,arguments);try{if(SIM||!S||!S.players||!app||!app.querySelector||!isStu())return;if(S.ev&&S.ev.only&&S.ev.only.includes('student'))return;walk(app);const ap=document.getElementById('albpop');if(ap)walk(ap);setTimeout(()=>{try{const a2=document.getElementById('albpop');if(a2)walk(a2);}catch(e){}},400);}catch(e){}};
 })();
 
@@ -6988,6 +7049,55 @@ const EXP=[['📚 Ксерокопії конспектів',60],['🔌 Злам
 const _r=render;render=function(){try{if(S&&S.players&&S.phase==='morning'&&!S.weekend&&S._exD!==S.day&&S.day>0){S._exD=S.day;S.players.forEach((p,i)=>{if(!on(p)||Math.random()>BAL.exp)return;const e=EXP[Math.floor(Math.random()*EXP.length)];_ap0(p,{m:-e[1]});(p.exLog=p.exLog||[]).push(e[0]);if(!SIM)setTimeout(()=>{try{toastI(i,`${e[0]}: −${e[1]} грн`);}catch(x){}},900);});}}catch(e){}_r.apply(this,arguments);};
 function _ap0(p,d){if(typeof spend==='function')spend(p,-d.m);else p.money+=d.m;}
 window.krBal=BAL;})();
+
+// === 1.093: 🗺 «Куди їхати» — тільки карта і маленьке віконце з транспортом ===
+(function(){
+const TI={walk:'🚶',tram:'🚋',bus:'🚌',taxi:'🚕'},TN={walk:'Пішки',tram:'Скарік',bus:'Маршрутка',taxi:'Таксі'};
+const IC={uni:'🎓',market:'🧺',office:'🏙',bus:'🚌',quarry:'⛰',school:'🏫',playground:'🛝',clinic:'🏥',dacha:'🏡',river:'🎣',mall:'🛍',stadium:'⚽',garages:'🔧',airfield:'🪂'};
+const short=()=>{try{return window.krShort?window.krShort():true;}catch(e){return true;}};
+function sheetHTML(p,k){const L=LOCS[k];const d=dist(p.pos,k);const mk=(typeof marks==='function'?marks(p,k):[]).join(' ');const pl=p.plan&&p.plan.s.includes(k)&&!p.plan.done.includes(k);
+ let body;if(!d){body=`<button class="gtr gtr1" data-gt="here"><b>📍</b><span>Я вже тут</span><small>дорога не потрібна</small></button>`;}
+ else{const t=travelOpts(p,k);body=t.opts.map(o=>{const poor=(o.d.m||0)<0&&avail(p)+(o.d.m||0)<0;const f=fmt(o.d);return `<button class="gtr" data-gt="${o.k}" ${poor?'disabled':''}><b>${TI[o.k]||'➡️'}</b><span>${TN[o.k]||o.l}</span><small>${poor?'бракує грошей':(f==='без наслідків'?'безкоштовно':f)}</small>${!short()&&o.note?`<em>${o.note}</em>`:''}</button>`;}).join('');}
+ return `<div class="gshd"><b>${IC[k]||'📍'} ${L.n}${pl?' · 📋':''}</b><span>${d?d+' зуп.':'ти тут'}${mk?' · '+mk:''}</span><button data-gt="x" aria-label="Закрити">✕</button></div>${!short()&&L.d?`<p class="gsx">${L.d}</p>`:''}<div class="gtrs">${body}</div>`;}
+function build(){if(SIM||!S||S.phase!=='go'||!app.querySelector)return;const p=cur();if(!p)return;const panel=app.querySelector('.poster .panel');if(!panel||panel.querySelector('.gsheet'))return;
+ panel.classList.add('gomap');const P=panel.querySelector(':scope > p');if(P)P.innerHTML='👆 Тисни місце на карті';
+ const mw=document.createElement('div');mw.className='fmap gomapw';mw.innerHTML=mapHTML(null,true).replace(/data-goto=/g,'data-gopin=');(P||panel.firstChild).after(mw);
+ const sh=document.createElement('div');sh.className='gsheet';sh.hidden=true;mw.after(sh);
+ const gb=panel.querySelector(':scope > button.gmapopen');if(gb){gb.innerHTML='🔍 Карта на весь екран';panel.appendChild(gb);}
+ app.querySelectorAll('.gomapw .pin[data-gopin]').forEach(pin=>{const k=pin.dataset.gopin;const mk=typeof marks==='function'?marks(p,k):[];if(mk.length&&!pin.querySelector('.gmk'))pin.insertAdjacentHTML('afterbegin',`<i class="gmk">${mk.join('')}</i>`);});}
+let pendK=null;
+function open(k){const p=cur();const panel=app.querySelector('.poster .panel');const sh=panel&&panel.querySelector('.gsheet');if(!sh)return;pendK=k;sh.innerHTML=sheetHTML(p,k);sh.hidden=false;
+ app.querySelectorAll('.gomapw .pin').forEach(x=>x.classList.toggle('fsel',x.dataset.gopin===k));try{sh.scrollIntoView({block:'nearest',behavior:'smooth'});}catch(e){}}
+function go(k,tk){const panel=app.querySelector('.poster .panel');const home=HOME[cur().id];let b=panel&&panel.querySelector(`button[data-goto="${k}"]`);if(!b&&k===home)b=panel.querySelector('button[data-goto="home"]');
+ if(!b){const pin=app.querySelector(`.poster .map button.pin[data-goto="${k}"]`);b=pin;}if(!b)return;b.click();if(tk==='here')return;
+ let n=0;const t=setInterval(()=>{n++;const x=app.querySelector(`button[data-travel="${tk}"]`);if(x&&!x.disabled){clearInterval(t);x.click();}else if(n>30||(S&&S.phase!=='travel'&&n>3))clearInterval(t);},100);}
+document.addEventListener&&document.addEventListener('click',e=>{if(SIM||!S||S.phase!=='go')return;const t=e.target;
+ const g=t.closest&&t.closest('[data-gt]');if(g&&g.closest('.gsheet')){e.stopPropagation();e.preventDefault();const a=g.dataset.gt;if(a==='x'){g.closest('.gsheet').hidden=true;app.querySelectorAll('.pin.fsel').forEach(x=>x.classList.remove('fsel'));return;}if(pendK)go(pendK,a);return;}
+ const pin=t.closest&&t.closest('button.pin[data-goto],button.pin[data-gopin]');if(pin&&!pin.disabled){e.stopPropagation();e.preventDefault();try{const ov=document.getElementById('gmapov');if(ov&&ov.classList.contains('on')&&typeof gmapClose==='function')gmapClose();}catch(_){}build();open(pin.dataset.gopin||pin.dataset.goto);}},true);
+{const _rg=renderGo;renderGo=function(){_rg.apply(this,arguments);try{build();setTimeout(build,0);}catch(e){}};}
+{const _r=render;render=function(){_r.apply(this,arguments);try{if(S&&S.phase==='go')setTimeout(build,0);}catch(e){}};}
+})();
+
+// === 1.093: 🔄 почати історії Студента з нуля ===
+(function(){
+{const _sh=settingsHTML;settingsHTML=function(){let h=_sh.apply(this,arguments);try{const j=h.lastIndexOf('</div>');const b='<button class="btn btn-choice" data-lsreset="1">🔄 Почати історії Студента з нуля<small>сердечка й етапи з Оксаною, мамою, Дімою… — заново</small></button>';h=j>0?h.slice(0,j)+b+h.slice(j):h+b;}catch(e){}return h;};}
+document.addEventListener&&document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-lsreset]');if(!b)return;e.stopPropagation();e.preventDefault();
+ if(!b.dataset.sure){b.dataset.sure=1;b.innerHTML='⚠️ Точно? Тисни ще раз<small>усі історії Студента почнуться з початку</small>';return;}
+ try{localStorage.removeItem('kr-life-student');}catch(x){}try{if(S&&S.players)S.players.forEach(p=>{if(p.id==='student'){p.lr=null;p.lsTU={};p.lsWn={};p.lsWS={};p.lsTh={};p.queue=(p.queue||[]).filter(q=>!/^ls_/.test(q.id));if(window.krLife)window.krLife.lr(p);}});}catch(x){}
+ b.innerHTML='✅ Готово: історії почнуться з нуля<small>Оксана тебе ще не знає 🙂</small>';b.disabled=true;try{if(typeof saveGame==='function')saveGame();}catch(x){}},true);
+})();
+
+// у фазі «Як добиратися?» — ті самі компактні кнопки з іконками
+(function(){const TI={walk:'🚶',tram:'🚋',bus:'🚌',taxi:'🚕'},TN={walk:'Пішки',tram:'Скарік',bus:'Маршрутка',taxi:'Таксі'};
+function compact(){if(SIM||!S||S.phase!=='travel'||!app.querySelector)return;const panel=app.querySelector('.poster .panel');if(!panel||panel.querySelector('.gtrs'))return;const p=cur();if(!p||!S.pending)return;
+ const bs=[...panel.querySelectorAll(':scope > button[data-travel]')];if(!bs.length)return;let t=null;try{t=travelOpts(p,S.pending.target);}catch(e){}
+ const g=document.createElement('div');g.className='gtrs gtrs2';
+ bs.forEach(b=>{const k=b.dataset.travel;const o=t&&t.opts.find(x=>x.k===k);const f=o?fmt(o.d):'';const c=document.createElement('button');c.className='gtr';c.disabled=b.disabled;
+  const sm=b.querySelector('small');const extra=sm&&/дощ|страйк|сніг|ями|обʼїзд/i.test(sm.textContent)?' · '+(sm.textContent.match(/дощ|страйк[^;]*|сніг|ями|обʼїзд[^;]*/i)||[''])[0]:'';
+  c.innerHTML=`<b>${TI[k]||'➡️'}</b><span>${TN[k]||b.childNodes[0].textContent}</span><small>${b.disabled?'бракує грошей':(f==='без наслідків'?'безкоштовно':f)}${extra}</small>${!(window.krShort&&window.krShort())&&o&&o.note?`<em>${o.note}</em>`:''}`;
+  c.addEventListener('click',e=>{e.stopPropagation();b.click();});g.appendChild(c);b.classList.add('gtrorig');});
+ bs[0].before(g);}
+const _r=render;render=function(){_r.apply(this,arguments);try{compact();setTimeout(compact,0);}catch(e){}};})();
 
 render();
 </script>
