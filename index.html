@@ -1843,7 +1843,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.088 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.089 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2733,7 +2733,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.088 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.089 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -5352,7 +5352,7 @@ function inviteMsg(i,p,k){const R=K().lr(p),s=R[k].s,st=K().L[k][s],per=PER[k];c
  if(y[0].length>1){o.splice(2,1);fx.splice(2,1);}
  const m=push(i,k,st[0],o,{fx});m.lsk=k;p.lsN=(p.lsN||0)+1;}
 window.krLsInvite=function(i,p,R,P){if(Math.random()>0.75)return;if((p.lsN||0)>=1&&Math.random()<0.6)return;
- const ok=K().ORDER.filter(k=>R[k].s<K().L[k].length&&!R[k].wait&&R[k].r>1&&!P.m.some(m=>m.to===i&&m.lsk===k&&m.st==='new')&&!(k==='st_oksana'&&(R[k].s<3||R[k].r<4)));if(!ok.length)return;
+ const ok=K().ORDER.filter(k=>R[k].s<K().L[k].length&&!R[k].wait&&R[k].r>1&&gate(k,R[k].s)&&!P.m.some(m=>m.to===i&&m.lsk===k&&m.st==='new')&&!(k==='st_oksana'&&(R[k].s<3||R[k].r<4)));if(!ok.length)return;
  inviteMsg(i,p,ok[Math.floor(Math.random()*ok.length)]);};
 // ✍️ ти пишеш першим: кнопка в розмові з людиною
 const MY={st_mom:['Мам, можна я приїду? ❤️','Мам, як ти там? Скучив','Мам, а що в тебе нового?'],st_dima:['Бро, є справа. Побалакаємо?','Дімон, ти де пропав?','Бро, що робиш увечері?'],st_petro:['Петре Івановичу, можна до вас звернутися?','Петре Івановичу, маю питання по курсовій','Доброго дня! Можна консультацію?'],st_valya:['Тьотю Валю, можна до вас на чай?','Тьотю Валю, як ваш тиск?','Тьотю Валю, вам нічого не треба принести?']};
@@ -5372,13 +5372,18 @@ const TALK={
   {me:'Петре Івановичу, а ви завжди хотіли бути викладачем?',q:'Ні. Я хотів бути пілотом. Але математика виявилась сильнішою.',o:[['Це круто!',1,'Дякую. Не кидайте мрії, студенте.'],['Може, ще не пізно? 😄',1,'Хм. Може й не пізно.'],['Ясно',0,'Не відволікайтесь.']]}],
  st_valya:[{me:'Тьотю Валю, як справи? 🌸',q:'Та потрохи. Серіал цікавий, кіт гладкий, гуртожиток стоїть 😄',o:[['То все добре!',1,'Отож! Заходь на чай.'],['А що в серіалі?',1,'Ой, там така історія… заходь, розкажу!'],['Ну добре',0,'Ну-ну.']]},
   {me:'Тьотю Валю, у нас знову кран тече 🚰',q:'Знову?! Хто ж там у вас такий богатир…',o:[['Це не я, чесно!',0,'Ага-ага. Гляну завтра.'],['Можу сам полагодити, дайте ключ',1,'Ого, майстер! Тримай ключ 🔧'],['Та нічого, потерпимо',0,'Терпіти не треба, скажу сантехніку.']]}]};
-function story(p,k){const R=K().lr(p)[k];return R.r>1&&R.s<6&&!R.wait;}
+// ⏳ темп: роман на місяць; у коротких режимах — «далі буде»
+function gate(k,s){try{if(S.oneDay)return false;const W=S.W||1;if(W<2)return true;const T=k==='st_oksana'?[0,3,6,9,12,16]:[0,2,5,8,11,14];return S.day>=Math.floor((T[s]||0)*Math.min(1,W*5/20));}catch(e){return true;}}
+window.krLsGate=gate;
+function story(p,k){const R=K().lr(p)[k];return R.r>1&&R.s<6&&!R.wait&&gate(k,R.s);}
+function sessia(p,k){const R=K().lr(p)[k];return S.oneDay&&k==='st_oksana'&&R.s<6&&R.r>1;}
 function canWrite(p,k){return (p.lsW||{})[k]!==S.day;}
 function talkOf(p,k){const T=TALK[k];return T[(S.day+(p.lsT||0))%T.length];}
-function writeBox(p,k){if(!canWrite(p,k))return '';const R=K().lr(p)[k];const t=R.r<=1?'Вибач мені, будь ласка 🙏':!story(p,k)?talkOf(p,k).me:k==='st_oksana'?MYO[Math.min(R.s,5)].me:pk(MY[k]);return `<div class="phcomp lswr"><small>💬 Почати розмову</small><button data-ph="lswr" data-f="${k}">${t}</button></div>`;}
+function writeBox(p,k){if(!canWrite(p,k))return '';const R=K().lr(p)[k];const t=R.r<=1?'Вибач мені, будь ласка 🙏':sessia(p,k)?MYO[Math.min(R.s,5)].me:!story(p,k)?talkOf(p,k).me:k==='st_oksana'?MYO[Math.min(R.s,5)].me:pk(MY[k]);return `<div class="phcomp lswr"><small>💬 Почати розмову</small><button data-ph="lswr" data-f="${k}">${t}</button></div>`;}
 {const _at=appThread;appThread=function(k){let h=_at.apply(this,arguments);try{const p=S.players[phI()];if(p&&p.id==='student'&&PER[k]){const j=h.lastIndexOf('</div>');const b=writeBox(p,k);if(b)h=j>0?h.slice(0,j)+b+h.slice(j):h+b;}}catch(e){}return h;};}
 {const _dp=doPhone;doPhone=function(i,ds){if(ds&&ds.k==='lswr'){try{const p=S.players[i];const k=ds.f;if(!p||!PER[k]||!canWrite(p,k))return;if(bat(p)<=0)return toastI(i,'📵 Телефон сів.');p.bat=Math.max(0,bat(p)-3);(p.lsW=p.lsW||{})[k]=S.day;const R=K().lr(p),s=R[k].s;
  if(R[k].r<=1){push(i,k,'<i>Ти: Вибач мені, будь ласка 🙏</i>');R[k].r=2;R[k].sorry=0;K().save(p);push(i,k,{st_oksana:'Добре… Але більше так не роби 🙂',st_mom:'Ну що ти, синку. Я ж мама ❤️',st_dima:'Та проїхали, бро 🤝',st_petro:'Вибачення прийнято. Надалі будьте уважнішим.',st_valya:'Ой, та годі вже. Заходь на чай.'}[k]);return;}
+ if(sessia(p,k)){push(i,k,`<i>Ти: ${MYO[Math.min(s,5)].me}</i>`);push(i,k,'Ой, сесія, голова кругом 🙈 Давай після заліків?',['Добре, я почекаю 🙂','Удачі на заліках! 🍀'],{fx:[[{},'Дякую, що розумієш 💛',{}],[{h:1},'Дякую! Мені приємно 🙈',{lsRel:[k,1]}]]});return;}
  if(!story(p,k)){const T=talkOf(p,k);p.lsT=(p.lsT||0)+1;push(i,k,`<i>Ти: ${T.me}</i>`);const m=push(i,k,T.q,T.o.map(x=>x[0]),{fx:T.o.map(x=>[x[1]>0?{h:1}:{},x[2],x[1]?{lsRel:[k,x[1]]}:{}])});return;}
  if(k==='st_oksana'){const D=MYO[s];push(i,k,`<i>Ти: ${D.me}</i>`);const y=busyWith(p,k);
   const o=D.o.map(x=>x[0]),fx=D.o.map(x=>x[1]?[{h:x[2]>0?1:0},PER[k].ok,y?{ls:{k,s,d:1}}:{ls:{k,s},lsRel:x[2]?[k,x[2]]:null}]:[{},D.bad||PER[k].no,x[2]<0?{lsNo:k}:{}]);
@@ -6952,6 +6957,14 @@ function inject(){try{if(SIM||!S||!['end','done'].includes(S.phase)||!app.queryS
   const at=f.querySelector('.fchips')||f.querySelector('.fends');if(at)at.insertAdjacentHTML('afterend',h);}catch(e){}}
 })();
 
+// === 1.089: 💕 Оксана — «далі буде» у фіналі ===
+(function(){const ST=['Ви ще навіть не говорили. Напиши їй першим 😉','Ви познайомились. Вона тебе запамʼятала 🙂','Ви пили каву разом ☕','Ви гуляли біля квіткового годинника 🌸','Ви ходили в кіно 🎬','Вона познайомила тебе з подругами. Лишився один крок…'];
+function inj(){try{if(SIM||!S||!['end','done'].includes(S.phase)||!app.querySelector||!window.krLife)return;const fe=app.querySelector('.fends');if(!fe||app.querySelector('.okmore'))return;
+ const me=S.room&&typeof meI==='function'?meI():0;const p=S.players[me];if(!p||p.id!=='student'||!p.lr)return;const R=p.lr.st_oksana;if(!R||R.s>=6)return;
+ const tail=S.room?'Може, в одиночній грі пощастить більше 😉':S.oneDay?'За один день не встигнеш — у неї сесія. Спробуй довшу гру.':(S.W||1)>=4?'Місяць минув, а ви так і не дійшли до головного…':'Далі буде в наступній грі Студентом — ваша історія збережена.';
+ const im=window.krHeroImg&&(window.krHeroImg('student',R.s>=3?'ok_cinema':R.s>=2?'ok_coffee':'c_starosta'))||'';
+ fe.insertAdjacentHTML('afterend',`<div class="lsfin okmore">${im?`<div class="lsimg" style="background-image:url(${im})"></div>`:''}<div><b>💕 Оксана · ${R.s} з 6</b><small>${ST[Math.min(R.s,5)]}</small><small><i>${tail}</i></small></div></div>`);}catch(e){}}
+const _r=render;render=function(){_r.apply(this,arguments);inj();setTimeout(inj,200);};})();
 render();
 </script>
 </body>

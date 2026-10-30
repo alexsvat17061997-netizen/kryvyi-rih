@@ -7,7 +7,7 @@ android {
     minSdk 24
     targetSdk 34
     versionCode((System.getenv('VCODE') ?: '1').toInteger())
-    versionName '1.088'
+    versionName '1.089'
   }
   signingConfigs {
     shared {
