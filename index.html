@@ -981,6 +981,7 @@ body.gmode #albpop{transform:scale(.85);transform-origin:top right}
 .phwr button.lsmain{background:#2f6fd6;border-color:#5b8ff0;font-weight:700}
 .mcitybtn{margin-top:8px;font-size:14px}
 .gomapw .dlabel{opacity:.45;font-size:8px!important}.gomapw .dlabel.water{opacity:.35}
+.hbtns{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.hbtns .hintro{margin:0}.hreset small{display:block;font-size:10px;font-weight:600;opacity:.8}
 </style>
 </head>
 <body>
@@ -6998,7 +6999,7 @@ function show(p){if(document.getElementById('introov'))return;const L=slides(p);
 window.krIntro=function(){try{const p=S&&S.players&&S.players[0]&&S.players[0].id==='student'?S.players[0]:null;show(p);}catch(e){}};
 // 🎬 кнопка «Вступ»: у налаштуваннях і на картці Студента
 {const _sh=settingsHTML;settingsHTML=function(){let h=_sh.apply(this,arguments);try{const j=h.lastIndexOf('</div>');const b='<button class="btn btn-choice intro-btn" data-intro="1">🎬 Вступ Студента<small>переглянути ще раз</small></button>';h=j>0?h.slice(0,j)+b+h.slice(j):h+b;}catch(e){}return h;};}
-function addHB(){try{if(SIM||!app||!app.querySelectorAll)return;app.querySelectorAll('.hcard').forEach(c=>{const h=c.querySelector('h2');if(!h||h.textContent.trim()!==(CHARS.student&&CHARS.student.name)||c.querySelector('.hintro')||c.classList.contains('lk'))return;const pm=c.querySelector('.hpm');if(pm)pm.insertAdjacentHTML('beforebegin','<button class="hintro" data-intro="1" type="button">🎬 Дивитись вступ</button>');});}catch(e){}}
+function addHB(){try{if(SIM||!app||!app.querySelectorAll)return;app.querySelectorAll('.hcard').forEach(c=>{const h=c.querySelector('h2');if(!h||h.textContent.trim()!==(CHARS.student&&CHARS.student.name)||c.querySelector('.hintro')||c.classList.contains('lk'))return;const pm=c.querySelector('.hpm');if(pm)pm.insertAdjacentHTML('beforebegin','<div class="hbtns"><button class="hintro" data-intro="1" type="button">🎬 Вступ</button><button class="hintro hreset" data-lsreset="1" type="button">🔄 Скинути прогрес</button></div>');});}catch(e){}}
 try{if(typeof MutationObserver!=='undefined'&&app&&app.nodeType)new MutationObserver(()=>{if(app.querySelector('.hcard')&&!app.querySelector('.hintro'))addHB();}).observe(app,{childList:true,subtree:true});}catch(e){}
 document.addEventListener&&document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-intro]');if(!b)return;e.stopPropagation();e.preventDefault();try{if(typeof settingsClose==='function'&&document.getElementById('setov'))settingsClose();}catch(x){}window.krIntro();},true);
 {const _r=render;render=function(){_r.apply(this,arguments);try{if(SIM||typeof document==='undefined'||!document.body||!S||!S.players||S.room||S._intro)return;
