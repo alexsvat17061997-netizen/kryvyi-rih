@@ -960,6 +960,7 @@ body.gmode #albpop{transform:scale(.85);transform-origin:top right}
 .fweek h3{margin:0 0 6px;font:800 17px var(--disp,system-ui)}.fwchart{width:100%;height:auto;display:block}.fwchart .l{fill:none;stroke:#F2A93B;stroke-width:3;stroke-linejoin:round}.fwchart .a{fill:rgba(242,169,59,.18);stroke:none}.fwchart .z{stroke:rgba(245,231,207,.4);stroke-dasharray:3 3}.fwchart circle{fill:#F2A93B}.fwchart text{fill:currentColor;font:600 10px var(--body,system-ui);text-anchor:middle;opacity:.8}.fwchart text.v{font-weight:800;opacity:1;font-size:11px}
 .fwrow p{margin:4px 0;font-size:14px}.fwppl{margin-top:8px}.fwppl>b{font-size:14px}.fwppl>div{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:6px}.fwppl span{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}.fwppl img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #F2A93B}.fwppl i{font-style:normal;font-size:11px;font-weight:600}.fwppl em{font-style:normal;font-size:8.5px;letter-spacing:-1px;white-space:nowrap}
 .lsmeet{display:block;margin-top:4px;font-size:11px;font-weight:700;color:#F2A93B}
+.hintro{display:block;margin:6px 0;background:#2E3576;color:#F5E7CF;border:2px solid #F2A93B;border-radius:999px;padding:6px 14px;font:700 13px var(--body,system-ui);cursor:pointer}
 </style>
 </head>
 <body>
@@ -1846,7 +1847,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.091 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.092 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2736,7 +2737,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.091 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.092 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -6888,7 +6889,7 @@ const KEY='kr-intro-student';
 function seen(){try{return localStorage.getItem(KEY)==='1';}catch(e){return true;}}
 function mark(){try{localStorage.setItem(KEY,'1');}catch(e){}}
 function hi(s){return (window.krHeroImg&&window.krHeroImg('student',s))||'';}
-function slides(p){const m=p&&p.money!=null?p.money:650;return [
+function slides(p){const m=p&&p.money!=null?p.money:(CHARS.student?CHARS.student.money:850);return [
  {img:'img/menu/city_morning.webp',t:'Кривий Ріг.',x:'126 кілометрів уздовж. Терикони, Скарік і комбінат на горизонті.'},
  {img:hi('dorm_morning')||'img/menu/city_morning.webp',t:'Ти — студент.',x:'Гуртожиток, пари і вічно порожній холодильник.'},
  {img:hi('evening_budget')||hi('bills')||'img/menu/how_money.webp',t:`У кишені ${m} грн.`,x:'До стипендії — цілий тиждень. Кожна гривня на рахунку.'},
@@ -6909,9 +6910,14 @@ function show(p){if(document.getElementById('introov'))return;const L=slides(p);
  function next(){if(i<L.length-1){i++;step();}}
  ov.addEventListener('click',e=>{if(e.target.closest('.inskip')||e.target.closest('.ingo')){close();return;}next();});
  step();}
-window.krIntro=function(force){try{const p=S&&S.players&&S.players[0];show(p);}catch(e){}};
+window.krIntro=function(){try{const p=S&&S.players&&S.players[0]&&S.players[0].id==='student'?S.players[0]:null;show(p);}catch(e){}};
+// 🎬 кнопка «Вступ»: у налаштуваннях і на картці Студента
+{const _sh=settingsHTML;settingsHTML=function(){let h=_sh.apply(this,arguments);try{const j=h.lastIndexOf('</div>');const b='<button class="btn btn-choice intro-btn" data-intro="1">🎬 Вступ Студента<small>переглянути ще раз</small></button>';h=j>0?h.slice(0,j)+b+h.slice(j):h+b;}catch(e){}return h;};}
+function addHB(){try{if(SIM||!app||!app.querySelectorAll)return;app.querySelectorAll('.hcard').forEach(c=>{const h=c.querySelector('h2');if(!h||h.textContent.trim()!==(CHARS.student&&CHARS.student.name)||c.querySelector('.hintro')||c.classList.contains('lk'))return;const pm=c.querySelector('.hpm');if(pm)pm.insertAdjacentHTML('beforebegin','<button class="hintro" data-intro="1" type="button">🎬 Дивитись вступ</button>');});}catch(e){}}
+try{if(typeof MutationObserver!=='undefined'&&app&&app.nodeType)new MutationObserver(()=>{if(app.querySelector('.hcard')&&!app.querySelector('.hintro'))addHB();}).observe(app,{childList:true,subtree:true});}catch(e){}
+document.addEventListener&&document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-intro]');if(!b)return;e.stopPropagation();e.preventDefault();try{if(typeof settingsClose==='function'&&document.getElementById('setov'))settingsClose();}catch(x){}window.krIntro();},true);
 {const _r=render;render=function(){_r.apply(this,arguments);try{if(SIM||typeof document==='undefined'||!document.body||!S||!S.players||S.room||S._intro)return;
- if(S.day===0&&S.phase==='morning'&&S.players.length===1&&S.players[0].id==='student'){S._intro=1;if(!seen())setTimeout(()=>show(S.players[0]),60);}}catch(e){}};}
+ if(S.day===0&&S.phase==='morning'&&S.players.length===1&&S.players[0].id==='student'){S._intro=1;setTimeout(()=>show(S.players[0]),60);}}catch(e){}};}
 })();
 
 // === 1.087: 🔔 звуки фаз дня ===
