@@ -930,6 +930,7 @@ body.noscroll .musbtn{display:none!important}
 .poster .panel > button.fmorig{display:none}.fmapw.list .fmap,.fmapw.list .fmchips,.fmapw.list .fsheet{display:none}
 .fmapw.list ~ button.fmorig{display:block!important}
 .tcards .mcard.tnew.big.wimg{min-height:150px}.tcards .mcard.tnew.wimg .mci{background-position:center 75%}
+.lsfin{display:flex;gap:12px;align-items:center;background:var(--panel,#fff);border:2px solid var(--line);border-radius:14px;padding:12px;margin:10px 0;color:var(--text)}.lsfin b{display:block;font-size:16px}.lsfin small{display:block;font-size:13px;line-height:1.45;margin-top:4px;opacity:.9}.lsfin .neg{color:#C0392B}.okfin{border-color:#E8532F}.lsimg{width:96px;height:72px;border-radius:10px;background-size:cover;background-position:center;flex:none}
 </style>
 </head>
 <body>
@@ -1814,7 +1815,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.077 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.078 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2704,7 +2705,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.077 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.078 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -5001,6 +5002,140 @@ const W={
 {const _ac=appContacts;appContacts=function(){let h=_ac();try{const p=S.players[phI()];if(!p||p.id!=='student')return h;
  const sec=`<div class="phsec"><h4>✍️ Написати першим</h4><div class="phwrl">${L.map(([k,n,s])=>`<button data-ph="th" data-t="${k}"><img src="img/student/c_${s}.webp" alt=""><span>${n}</span></button>`).join('')}</div></div>`;
  const k=h.indexOf('<div class="phsec">');h=k>=0?h.slice(0,k)+sec+h.slice(k):h+sec;}catch(e){}return h;};}
+})();
+
+// === 1.078: Життя людей Студента — стосунки ❤️ і 5 історій по 6 етапів, що тягнуться між іграми ===
+(function(){
+const HA=()=>window.HEROART&&window.HEROART.student;
+const IM=(s,fb)=>{const H=HA();const k=H&&H.s.has(s)?s:fb;const key='ha_student_'+k;if(!IMG[key])IMG[key]='img/student/'+k+'.webp';return key;};
+const PEOPLE={st_oksana:{n:'Оксана',ic:'💕',av:'starosta'},st_mom:{n:'Мама Наталія',ic:'👩',av:'mom'},st_dima:{n:'Діма',ic:'🎧',av:'roommate'},st_petro:{n:'Петро Іванович',ic:'👨‍🏫',av:'lecturer'},st_valya:{n:'Тьотя Валя',ic:'👵',av:'valya'}};
+const G=(l,o)=>Object.assign({l},o,{ls:1}),B=(l,o)=>Object.assign({l},o,{ls:-1});
+// етапи: [запрошення, так, ні, подія]
+const L={
+st_oksana:[
+ ['Ти ж новенький у групі? Я староста. Спиши розклад, бо знову загубишся 😏','Дякую, рятуєш!','Сам розберусь',
+  {t:'Знайомство з Оксаною',img:IM('ok_meet','lecture'),x:'Після пари Оксана підходить з блокнотом: «Ти минулого разу запізнився на 20 хвилин. Петро Іванович тебе вже запамʼятав».',c:[G('Пожартувати й попросити конспект',{h:2,r:'Вона закотила очі, але конспект дала. І усміхнулась.'}),B('Буркнути, що не її справа',{n:-1,r:'Оксана знизала плечима: «Як знаєш». Холодком повіяло.'})]}],
+ ['Слухай, після пар буде кава біля корпусу. Підеш? ☕','Йду!','Не сьогодні',
+  {t:'Кава з Оксаною',img:IM('ok_coffee','center_cafe'),x:'Два паперові стаканчики, жовте листя й розмова, що почалась із сесії, а скінчилась улюбленими серіалами.',c:[G('Пригостити її',{m:-60,h:3,r:'«Наступна з мене», — каже вона. Отже, буде наступна 💛'}),G('Кожен за себе, але довго гуляти',{m:-30,h:2,r:'Гуляли, поки не замерзли руки.'}),B('Весь час дивитися в телефон',{h:-1,r:'Оксана допила каву й пішла. Мовчки.'})]}],
+ ['Ходімо ввечері до квіткового годинника? Кажуть, там зараз дуже гарно 🌸','Залюбки','Я втомився',
+  {t:'Квітковий годинник',img:IM('ok_flowerclock','flower_clock'),x:'Захід над парком. Оксана розповідає, що мріє стати вчителькою, і раптом замовкає: «А ти про що мрієш?»',c:[G('Чесно розповісти про свою мрію',{h:3,n:1,r:'Вона слухала так, ніби це найважливіше в світі.'}),G('Купити їй квітку',{m:-50,h:2,r:'Оксана сховала квітку в конспект «на згадку».'}),B('Віджартуватись',{r:'«Ти завжди так тікаєш від серйозного?» — тихо питає вона.'})]}],
+ ['У ТЦ новий фільм. Я вже взяла два квитки. Ти ж не проти? 🎬','Звісно ні!','Ой, не можу',
+  {t:'Кіно з Оксаною',img:IM('ok_cinema','date_cinema'),x:'Темна зала, одне велике відро попкорну на двох і її сміх, через який ти пропускаєш пів фільму.',c:[G('Взяти її за руку',{h:4,r:'Вона не відпустила до самих титрів 💕'}),G('Просто дивитися фільм',{h:2,r:'Добрий вечір. Але щось лишилось недоговореним.'}),B('Заснути на середині',{h:-1,r:'Оксана розбудила тебе ліктем. Ображено.'})]}],
+ ['Мої подруги хочуть з тобою познайомитись 🙈 Субота, кавʼярня в центрі. Прийдеш?','Прийду','Мені страшно 😅',
+  {t:'Подруги Оксани',img:IM('ok_friends','friends_cafe'),x:'Дві подруги розглядають тебе, як на іспиті. Одна питає: «І що ти в ньому знайшла?» Оксана червоніє.',c:[G('Розсмішити всіх історією з гуртожитку',{h:3,r:'Подруги в захваті. «Береги його», — шепочуть Оксані.'}),G('Заплатити за всіх',{m:-150,h:2,r:'Гаманець плаче, подруги аплодують.'}),B('Сидіти мовчки',{n:-1,r:'Подруги переглянулися. Оксана засмутилась.'})]}],
+ ['Можна я скажу тобі щось важливе? Сьогодні ввечері на мосту над Саксаганню.','Я вже йду','Давай іншим разом',
+  {t:'Міст над Саксаганню',img:IM('ok_together','bridge_sunset'),x:'Вогні комбінату у воді. Оксана довго мовчить, а потім: «Здається, ти мені подобаєшся. Дуже».',c:[G('«Ти мені теж»',{h:5,n:2,r:'Тепер ви разом. Кривий Ріг ще ніколи не був таким гарним 💕'}),B('Розгубитись і змовчати',{h:-1,r:'Вона кивнула й пішла. Наступного разу треба сміливіше.'})]}]],
+st_mom:[
+ ['Синку, ти хоч їси нормально? Скинь фото, що в тебе на вечерю 🍲','Скинув, мам ❤️','Мам, не зараз',
+  {t:'Мамин дзвінок',img:IM('mom_call','call_mom'),x:'Мама на відео тримає каструлю борщу перед камерою: «Бачиш? А ти там на мівіні сидиш!»',c:[G('Поговорити пів години',{n:2,h:1,r:'Після розмови з мамою легше на душі.'}),G('Пообіцяти приїхати',{h:1,r:'«Чекаю! Наварю, як ти любиш».'}),B('Швидко покласти слухавку',{r:'Мама образилась, але виду не подала.'})]}],
+ ['Передала тобі сумку з водієм 302-ї маршрутки. Забери на автостанції 🫙','Заберу!','Мам, не треба було',
+  {t:'Посилка від мами',img:IM('mom_parcel','mom_parcel'),x:'Водій маршрутки вручає важку сумку: закрутки, хліб, сало і записка «Їж! Мама».',c:[G('Подзвонити й подякувати',{n:2,h:2,item:'jars',r:'«На здоровʼя, синку». Закрутки на тиждень є.'}),G('Поділитися з Дімою',{h:2,n:1,r:'Діма тепер вважає твою маму святою.'}),B('Забути сумку в маршрутці',{h:-2,r:'Сумка поїхала в Інгулець. Мама не повинна про це знати.'})]}],
+ ['Синку, навчи мене цей відеодзвінок, а то я тебе не бачу 🙈','Зараз покажу','Мам, у мене пари',
+  {t:'Мама і відеодзвінок',img:IM('mom_videocall','call_mom'),x:'На екрані тільки мамине око й стеля. «Ти мене бачиш? А я тебе ні!» Сусідки на лавці вже підказують.',c:[G('Терпляче пояснити по кроках',{h:3,r:'Тепер мама дзвонить по відео тричі на день. Ти сам цього хотів 😄'}),B('Сказати «мам, ну це ж просто»',{h:-1,r:'Мама поклала слухавку. Вчиться сама.'})]}],
+ ['Синку, я трохи захворіла. Не хвилюйся, просто так кажу…','Їду з ліками','Видужуй, мам',
+  {t:'Мама захворіла',img:IM('mom_sick','home_visit'),x:'Мама під ковдрою з температурою: «Ну навіщо ти приїхав, у тебе ж навчання…» А очі світяться.',c:[G('Купити ліки й лишитися на ніч',{m:-150,n:1,h:3,r:'До ранку мамі стало краще. А тобі на душі тепло.'}),G('Привезти ліки й повернутися',{m:-120,h:2,r:'Мама дзвонила тричі, поки ти їхав назад.'}),B('Відправити гроші замість себе',{m:-100,h:-1,r:'«Дякую», — каже мама. Але чекала вона не гроші.'})]}],
+ ['Сюрприз! Я в Кривому Розі, стою біля твого гуртожитку з борщем 😄','Біжу вниз!','Мам, тут бардак…',
+  {t:'Мама в гуртожитку',img:IM('mom_visit','dorm_kitchen'),x:'Мама розкладає борщ і пиріжки на крихітному столі. Діма вже з ложкою. Тьотя Валя з мамою знайшли спільну мову.',c:[G('Познайомити маму з Оксаною',{h:3,r:'Мама шепоче: «Хороша дівчина. Не впусти». Оксана червоніє.'}),G('Нагодувати всю кімнату',{h:2,n:2,r:'Найкращий обід за весь семестр.'}),B('Соромитися мами при всіх',{h:-2,r:'Мама поїхала раніше, ніж збиралась.'})]}],
+ ['Синку, я так тобою пишаюсь. Просто хотіла сказати ❤️','Я тебе люблю, мам','👍',
+  {t:'Мамина гордість',img:IM('mom_hug','home_visit'),x:'Мама дзвонить без приводу: «Я сусідкам уже всім розказала, який ти в мене».',c:[G('Сказати, що все завдяки їй',{h:4,n:2,r:'Мама плаче від щастя. Найкращий дзвінок року.'}),B('«Мам, ну годі»',{r:'Мама засміялась, але трохи сумно.'})]}]],
+st_dima:[
+ ['Бро, наша кімната — це вже біологічна зброя 🤢 Прибираємо сьогодні?','Давай разом','Твоя черга',
+  {t:'Бардак у кімнаті',img:IM('dima_mess','dorm_morning'),x:'Гора посуду, шкарпетки на люстрі й запах, від якого здалася навіть тьотя Валя.',c:[G('Прибрати разом під музику',{n:1,h:2,r:'Кімната сяє. Діма навіть шкарпетки знайшов.'}),B('Сказати, що це його сміття',{n:-1,r:'Діма демонстративно прибрав тільки свою половину.'})]}],
+ ['Катка ввечері? Я вже чай заварив 🎮','Завжди!','Мені вчитися',
+  {t:'Нічна катка',img:IM('dima_gaming','online_games'),x:'Друга ночі, енергетики, крики «тягни!» і сусід, що стукає в стіну.',c:[G('Грати до перемоги',{n:-1,h:3,r:'Перемогли! Пари завтра — проблема завтрашнього тебе.'}),G('Одну гру й спати',{h:1,r:'Діма сказав, що ти дорослішаєш. Сумно.'})]}],
+ ['Бро, мені треба порада. Дуже. Там дівчина з третього поверху…','Розказуй','Сам розберешся',
+  {t:'Діма закохався',img:IM('dima_crush','dorm_party'),x:'Діма тримає коробку цукерок і тремтить: «Що мені їй сказати? Я ж розумію тільки в іграх».',c:[G('Порепетирувати з ним',{h:2,r:'Діма пішов сміливий. Повернувся щасливий 😄'}),G('Піти з ним для підтримки',{h:3,n:-1,r:'Ти стояв на сходах і тримав кулаки. Спрацювало!'}),B('Посміятися з нього',{h:-1,r:'Діма образився й пішов сам. Невдало.'})]}],
+ ['Бро… я вліз у ставки. Програв гроші за гуртожиток 😞','Розберемось разом','Я тебе попереджав',
+  {t:'Діма в боргах',img:IM('dima_debt','bet_match'),x:'Діма сидить на ліжку з телефоном: «Я думав, відіграюсь. Тепер треба 800 до пʼятниці».',c:[G('Позичити 200 і видалити застосунок',{m:-200,h:2,r:'Діма видалив ставки при тобі. «Дякую, бро. Віддам».'}),G('Разом знайти підробіток',{n:-2,h:2,r:'Два вечори розвантажували фури. Борг закрили.'}),B('Сказати, що це його проблеми',{h:-2,r:'Діма відвернувся до стіни. Дружба тріснула.'})]}],
+ ['Я, мабуть, кидаю навчання. Їду до батька на завод.','Давай поговоримо','Твоє життя',
+  {t:'Діма хоче піти',img:IM('dima_quit','friend_gone'),x:'Діма пакує сумку: «Навіщо мені цей диплом? Батько каже, на заводі хоч гроші платять».',c:[G('Допомогти з хвостами по навчанню',{n:-1,h:3,r:'Діма розпакував сумку. «Ну добре. Ще один семестр».'}),G('Відвести до Петра Івановича',{h:2,r:'Петро Іванович дав Дімі шанс. І добру прочуханку.'}),B('Допомогти донести сумку',{h:-2,r:'Кімната тепер дуже тиха.'})]}],
+ ['Бро, ми зробили це! Сесію закрили! Святкуємо? 🎉','Ще б пак!','Я спати',
+  {t:'Сесію закрито!',img:IM('dima_graduation','dorm_party'),x:'Діма обіймає тебе посеред коридору: «Без тебе я б уже на заводі був. Ти мій брат».',c:[G('Святкувати всім поверхом',{m:-100,h:4,r:'Тьотя Валя навіть не сварилась. Майже.'}),G('Тихо посидіти на даху',{h:3,n:2,r:'Говорили до світанку про те, ким станете.'})]}]],
+st_petro:[
+ ['Студенте, ви знову спізнились. Зайдіть після пари.','Обовʼязково зайду','Вибачте, не зможу',
+  {t:'Розмова з Петром Івановичем',img:IM('petro_late','lecture'),x:'Петро Іванович дивиться поверх окулярів: «У мене був студент, теж спізнювався. Тепер він доцент. Ви хочете бути доцентом?»',c:[G('Вибачитися й пообіцяти виправитись',{h:1,n:1,r:'«Подивимось», — каже він. Але погляд потеплішав.'}),B('Виправдовуватись маршруткою',{n:-1,r:'«Маршрутка винна вже третій раз», — сухо каже він.'})]}],
+ ['Перездача лабораторної в четвер. Одна спроба.','Буду готовий','Можна пізніше?',
+  {t:'Перездача лаби',img:IM('petro_retake','lab'),x:'Старе обладнання, дроти й Петро Іванович зі складеними руками. Тиша така, що чути, як гуде лампа.',c:[G('Зібрати схему акуратно',{n:-1,h:3,r:'Лампочка засвітилась. «Задовільно», — каже він. Від нього це майже «браво».'}),G('Попросити підказку',{h:1,r:'Він підказав. Один раз. І посміхнувся у вуса.'})]}],
+ ['Залиштесь після пари. Хочу показати вам одну задачу.','Залишусь','Поспішаю',
+  {t:'«У вас є здібності»',img:IM('petro_notice','lecture'),x:'Петро Іванович гортає твій зошит: «Ви розвʼязали це не так, як у підручнику. Але правильно. Звідки?»',c:[G('Чесно сказати, що просто цікаво',{h:3,r:'«Мені потрібен помічник для наукової роботи. Подумайте».'}),B('Сказати, що списав',{h:-1,r:'Він довго мовчав. «Шкода», — сказав і закрив зошит.'})]}],
+ ['Конференція в центрі, субота. Ви доповідаєте. Я вже вас записав.','Я готовий','Я не зможу',
+  {t:'Конференція',img:IM('petro_conference','hackathon'),x:'Повна зала, мікрофон і Петро Іванович у першому ряду, що ледь помітно киває.',c:[G('Доповісти впевнено',{n:-2,h:4,r:'Оплески! Петро Іванович тиснув руку при всіх.'}),G('Читати з папірця',{h:2,r:'Нормально. Петро Іванович сказав «наступного разу без папірця».'})]}],
+ ['Я зламав руку, а лабораторію переводять у новий корпус. Допоможете?','Звісно','У мене справи',
+  {t:'Переїзд лабораторії',img:IM('petro_moving','carry_desks'),x:'Петро Іванович з перевʼязаною рукою командує, ти тягаєш ящики з приладами, яким більше років, ніж тобі.',c:[G('Перенести все до вечора',{n:-2,h:3,r:'«Дякую, колего», — каже він. Колего!'}),G('Покликати Діму на допомогу',{n:-1,h:2,r:'Удвох управились швидко. Діма отримав залік автоматом 😄'})]}],
+ ['Зайдіть до мене. У мене для вас дещо є.','Біжу','Завтра',
+  {t:'Рекомендація',img:IM('petro_recommend','deans_office'),x:'Петро Іванович простягає конверт: «Рекомендаційний лист. В айтішну компанію шукають толкових. Я написав, що ви толковий».',c:[G('Подякувати від щирого серця',{h:5,r:'Він потиснув руку: «Не підведіть мене». Ти не підведеш.'}),G('Обійняти старого викладача',{h:4,n:1,r:'Петро Іванович зніяковів. Але точно зрадів.'})]}]],
+st_valya:[
+ ['Студенте! Після 23:00 двері зачинені. Я тебе попереджаю!','Добре, тьотю Валю','Ой, та ладно',
+  {t:'Після 23:00',img:IM('valya_curfew','night_city'),x:'Пів на дванадцяту. Тьотя Валя стоїть у дверях, руки в боки, і стукає пальцем по годиннику.',c:[G('Чесно вибачитися й пообіцяти',{n:-1,h:1,r:'«Останній раз!» — каже вона. І пускає.'}),G('Подарувати шоколадку',{m:-40,h:1,r:'«Ой, та що ти…» Шоколадку взяла. Двері відчинила.'}),B('Лізти через вікно',{n:-2,r:'Застукала. Тепер ти в неї на олівці.'})]}],
+ ['Заходь на вахту, чай заварила і пиріжків напекла 🥧','Іду!','Пізніше',
+  {t:'Чай на вахті',img:IM('valya_tea','pies_gift'),x:'Маленький телевізор, ключі на гачках і тьотя Валя, що розповідає, яким був гуртожиток сорок років тому.',c:[G('Слухати її історії',{n:2,h:2,r:'Виявляється, тьотя Валя колись співала в хорі. І досі вміє.'}),G('Полагодити їй телевізор',{h:2,r:'Тепер вона дивиться серіали без перешкод і тебе любить.'})]}],
+ ['Мій Мурчик пропав! Третій день немає 😿','Шукаю!','Знайдеться',
+  {t:'Пропав Мурчик',img:IM('valya_cat','cat'),x:'Підвал гуртожитку, ліхтарик і тьотя Валя з мисочкою: «Мурчику, кіс-кіс…»',c:[G('Обшукати весь підвал',{n:-1,h:3,r:'Знайшов! Мурчик сидів у трубі. Тьотя Валя плакала від радості.'}),G('Підняти на пошуки весь гуртожиток',{h:2,r:'Студенти знайшли Мурчика за годину. Тьотя Валя всім пекла пиріжки.'})]}],
+ ['Мій онук двійки з математики носить. Може, підтягнеш? Я віддячу.','Допоможу','Нема часу',
+  {t:'Онук і математика',img:IM('valya_grandson','tutoring'),x:'Малий за столом на вахті, дроби й сльози. Тьотя Валя дивиться з надією.',c:[G('Пояснювати, поки не зрозуміє',{n:-1,h:3,m:100,r:'Перша четвірка! Тьотя Валя сунула сотню «на цукерки».'}),G('Пояснити на прикладі піци',{h:2,r:'Малий зрозумів дроби. І захотів піци.'})]}],
+ ['Мене хочуть звільнити. Кажуть, стара вже… 😔','Ми вас не віддамо','Шкода…',
+  {t:'Тьотю Валю звільняють',img:IM('valya_petition','deans_office'),x:'Новий комендант хоче поставити турнікет замість «старої вахтерки». Гуртожиток гуде.',c:[G('Зібрати підписи всього гуртожитку',{n:-1,h:4,r:'200 підписів! Тьотя Валя залишилась. Турнікет — ні.'}),G('Піти до декана',{h:3,r:'Декан сказав: «Без Валентини Петрівни гуртожиток розвалиться». Правда.'})]}],
+ ['Синку, зайди до мене перед вихідними. Маю для тебе дещо.','Зайду','Колись',
+  {t:'Шарф від тьоті Валі',img:IM('valya_knit','pies_gift'),x:'Тьотя Валя простягає колючий вовняний шарф: «Сама вʼязала. Щоб не мерз, бо мати переживає».',c:[G('Одразу вдягнути',{h:4,n:1,r:'Найтепліший шарф у світі. І найдорожчий.'}),G('Обійняти її',{h:4,r:'«Ну годі вже, годі», — бурчить вона й витирає очі.'})]}]]};
+const ORDER=Object.keys(L);
+Object.keys(L).forEach(k=>L[k].forEach((st,s)=>{CHAINS['ls_'+k+'_'+s]=st[3];}));
+// ---------- памʼять між іграми ----------
+const KEY='kr-life-student';
+const lsg=k=>{try{return localStorage.getItem(k);}catch(e){return null;}},lss=(k,v)=>{try{localStorage.setItem(k,v);}catch(e){}};
+function loadLR(){let o=null;try{o=JSON.parse(lsg(KEY)||'null');}catch(e){}const r={};ORDER.forEach(k=>{const x=o&&o[k]||{};r[k]={r:x.r==null?3:x.r,s:x.s||0,wait:0};});return r;}
+function saveLR(p){if(!p||!p.lr||S.room)return;const o={};ORDER.forEach(k=>o[k]={r:p.lr[k].r,s:p.lr[k].s});lss(KEY,JSON.stringify(o));}
+const isSt=p=>p&&p.id==='student'&&!p.collector&&!p.out;
+function lr(p){if(!p.lr)p.lr=loadLR();return p.lr;}
+function rel(p,k,x){const o=lr(p)[k];o.r=Math.max(0,Math.min(5,o.r+x));saveLR(p);}
+window.krLife={of:(p,k)=>lr(p)[k],rel,save:saveLR,L,PEOPLE,ORDER};window.krPh=(i,ds)=>doPhone(i,ds);
+// ---------- щодня: хтось із людей пише першим ----------
+{const _pd=phDay;phDay=function(i){const p=S.players[i];const fresh=p&&p.lsDay!==S.day;_pd.apply(this,arguments);try{if(!isSt(p))return;if(fresh){p.lsDay=S.day;p.lsN=0;}else if((p.lsN||0)>=2||Math.random()<0.5)return;const P=phS();const R=lr(p);
+ // хто не дочекався відповіді — ображається
+ if(fresh)P.m.filter(m=>m.to===i&&m.lsk&&m.st==='new'&&m.d<S.day).forEach(m=>{m.st='done';m.a='— без відповіді —';rel(p,m.lsk,-1);push(i,m.lsk,{st_oksana:'Ти навіть не відповів… 😔',st_mom:'Синку, я ж писала. Ти живий?',st_dima:'Бро, ти мене ігнориш? Ок.',st_petro:'Я чекав на вашу відповідь. Дарма.',st_valya:'Ну й не треба. Пиріжки собакам віддам.'}[m.lsk]);});
+ // ображені просять вибачення
+ const hurt=ORDER.find(k=>R[k].r<=1&&!R[k].sorry);if(hurt){R[hurt].sorry=1;push(i,hurt,{st_oksana:'Мені здається, тобі просто байдуже.',st_mom:'Синку, ти зовсім забув про маму.',st_dima:'Слухай, мені здавалось, ми друзі.',st_petro:'Я розчарований у вас, студенте.',st_valya:'Нічого мені від тебе не треба.'}[hurt],['🙏 Вибачитися (подарунок −80 грн)','Промовчати'],{fx:[[{m:-80,h:1},'Ну… добре. Проїхали.',{lsSorry:hurt}],[{},'']]});return;}
+ if(Math.random()>0.8)return;
+ const ok=ORDER.filter(k=>R[k].s<L[k].length&&!R[k].wait&&R[k].r>1&&!P.m.some(m=>m.to===i&&m.lsk===k&&m.st==='new'));if(!ok.length)return;
+ const k=ok.find(x=>x==='st_oksana'&&Math.random()<0.4)||ok[Math.floor(Math.random()*ok.length)];const st=L[k][R[k].s];
+ p.lsN=(p.lsN||0)+1;const m=push(i,k,st[0],[st[1],st[2]],{fx:[[{},{st_oksana:'😊',st_mom:'❤️',st_dima:'🤝',st_petro:'Добре.',st_valya:'Отож.'}[k],{ls:{k,s:R[k].s}}],[{},{st_oksana:'Ну… як знаєш.',st_mom:'Добре, синку…',st_dima:'Ясно.',st_petro:'Шкода.',st_valya:'Ну-ну.'}[k],{lsNo:k}]]});m.lsk=k;}catch(e){if(typeof console!=='undefined')console.error(e);}};}
+// ---------- відповіді ----------
+{const _dp=doPhone;doPhone=function(i,ds){let m=null,ex=null;try{if(ds&&ds.k==='qa'){m=phS().m.find(x=>x.id===+ds.id&&x.to===i&&x.st==='new');if(m&&m.fx)ex=(m.fx[+ds.o]||[])[2];}}catch(e){}
+ const r=_dp.apply(this,arguments);try{const p=S.players[i];if(ex&&isSt(p)){const R=lr(p);
+  if(ex.ls){R[ex.ls.k].wait=1;(p.queue=p.queue||[]).unshift({day:S.day,id:'ls_'+ex.ls.k+'_'+ex.ls.s});toastI(i,'📌 '+PEOPLE[ex.ls.k].n+': зустріч уже скоро');}
+  if(ex.lsNo)rel(p,ex.lsNo,-1);
+  if(ex.lsSorry){R[ex.lsSorry].r=2;R[ex.lsSorry].sorry=0;saveLR(p);}}}catch(e){}return r;};}
+// ---------- подія етапу: добрий вибір веде історію далі ----------
+{const _sr=setRes;setRes=function(c,d){_sr.apply(this,arguments);try{const p=cur();const id=S.ev&&S.ev.chain;if(!isSt(p)||!id||!/^ls_/.test(id))return;const mm=id.match(/^ls_(st_[a-z]+)_(\d+)$/);if(!mm)return;const k=mm[1],s=+mm[2];const R=lr(p);R[k].wait=0;
+ if(c&&c.ls>0){if(R[k].s===s)R[k].s=s+1;rel(p,k,1);(p.lsDone=p.lsDone||[]).push(k);if(k==='st_oksana'&&R[k].s>=L[k].length)p.okTogether=1;}
+ else if(c&&c.ls<0)rel(p,k,-1);saveLR(p);}catch(e){}};}
+// ---------- допомога від близьких (❤️ 4+) раз на тиждень ----------
+const HELP={st_oksana:['Підтримає перед парою: +2 нерви',{n:2},'Ти впораєшся. Я в тебе вірю 💛'],st_mom:['Скине на картку: +150 грн',{m:150},'Тримай, синку. Їж нормально ❤️'],st_dima:['Нагодує вечерею',{dinner:1},'Макарони по-флотськи вже на плиті 🍝'],
+ st_petro:['Підробіток лаборантом: +120 грн',{m:120},'Зайдіть у лабораторію, є робота.'],st_valya:['Пиріжки й чай: +2 нерви',{n:2},'Заходь, синку, ще теплі 🥧']};
+{const _dp=doPhone;doPhone=function(i,ds){if(ds&&ds.k==='lshelp'){try{const p=S.players[i];const k=ds.f;const H=HELP[k];if(!isSt(p)||!H)return;const R=lr(p);p.lsHelp=p.lsHelp||{};
+ if(R[k].r<(S.hard?5:4)||p.lsHelp[k]===wk())return toastI(i,'Зараз не вийде попросити');if(S.hard&&k==='st_mom')return toastI(i,'Мама сама на нулі…');
+ p.lsHelp[k]=wk();if(H[1].dinner)p.freeDinner=S.day;else apply(p,H[1]);push(i,k,H[2]);toastI(i,'🤝 '+PEOPLE[k].n+': '+H[0]);}catch(e){}return;}return _dp.apply(this,arguments);};}
+{const _ck=phClick;phClick=function(e){const b=e.target.closest&&e.target.closest('[data-ph="lshelp"]');if(b&&!b.disabled){e.stopPropagation();phSend({k:'lshelp',f:b.dataset.f});setTimeout(phRefresh,60);return;}return _ck.apply(this,arguments);};}
+const hearts=n=>'❤️'.repeat(n)+'🤍'.repeat(5-n);
+{const _ac=appContacts;appContacts=function(){let h=_ac();try{const p=S.players[phI()];if(!isSt(p))return h;const R=lr(p);
+ const sec=`<div class="phsec"><h4>💞 Твої люди</h4><p class="note">Памʼятають, коли допоміг і коли відмовив. Історії тривають і в наступних іграх.</p>${ORDER.map(k=>{const P=PEOPLE[k],o=R[k];const used=(p.lsHelp||{})[k]===wk();
+  return `<div class="phcon lscon"><img class="nbph" src="img/student/c_${P.av}.webp" alt=""><div><b>${P.n}</b><small>${hearts(o.r)} · історія ${Math.min(o.s,6)}/6${o.s>=6?' ✅':''}</small>${o.r>=4?`<div class="phbtns"><button data-ph="lshelp" data-f="${k}" ${used?'disabled':''}>${used?'Вже допомогли цього тижня':'🙏 '+HELP[k][0]}</button></div>`:o.r<=1?'<small class="neg">Ображені на тебе</small>':''}</div></div>`;}).join('')}</div>`;
+ const j=h.indexOf('<div class="phsec">');h=j>=0?h.slice(0,j)+sec+h.slice(j):h+sec;}catch(e){}return h;};}
+// ---------- «Написати першим» Оксані про каву веде історію ----------
+{const _dp=doPhone;doPhone=function(i,ds){try{const p=S.players[i];if(ds&&ds.k==='wr'&&ds.f==='st_oksana'&&ds.s==='0'&&isSt(p)){const R=lr(p);const o=R.st_oksana;
+ if(o.s<6&&!o.wait&&o.r>1&&(p.wr||{}).st_oksana!==S.day){p.wr=p.wr||{};p.wr.st_oksana=S.day;p.bat=Math.max(0,bat(p)-3);o.wait=1;(p.queue=p.queue||[]).unshift({day:S.day,id:'ls_st_oksana_'+o.s});push(i,'st_oksana','<i>Ти: Підемо кудись? ☕</i><br>Давай! 😊');toastI(i,'📌 Оксана: зустріч уже скоро');return;}}}catch(e){}return _dp.apply(this,arguments);};}
+// ---------- фінал: газета і «Разом з Оксаною» ----------
+{const _r=render;render=function(){_r.apply(this,arguments);try{if(SIM||!S||!['done','end'].includes(S.phase)||!app.querySelector)return;const me=S.room&&typeof meI==='function'?meI():0;const p=S.players[me];if(!p||p.id!=='student'||!p.lr)return;
+ const fe=app.querySelector('.fends');if(!fe||fe.querySelector('.lsfin'))return;const R=p.lr;const best=ORDER.filter(k=>R[k].r>=4).map(k=>PEOPLE[k].n),bad=ORDER.filter(k=>R[k].r<=1).map(k=>PEOPLE[k].n);
+ let h='';if(R.st_oksana.s>=6){const im=window.iurl?window.iurl(IM('ok_end','bridge_sunset')):IMG[IM('ok_end','bridge_sunset')];h+=`<div class="lsfin okfin"><div class="lsimg" style="background-image:url(${im})"></div><div><b>💕 Разом з Оксаною</b><small>Ваша історія дійшла до кінця. Продовження буде…</small></div></div>`;}
+ h+=`<div class="lsfin"><div><b>💞 Твої люди</b><small>${ORDER.map(k=>PEOPLE[k].ic+' '+PEOPLE[k].n+' '+'❤️'.repeat(R[k].r)+(R[k].s>=6?' ✅':` ${R[k].s}/6`)).join('<br>')}</small>${best.length?`<small>Згадають добрим словом: ${best.join(', ')}</small>`:''}${bad.length?`<small class="neg">Ображені: ${bad.join(', ')}</small>`:''}</div></div>`;
+ fe.insertAdjacentHTML('afterend',h);}catch(e){}};}
+// ---------- мрія «Диплом» і продовження в Айтівці ----------
+try{DREAMS_C.student.push({t:'Диплом і випускний',extra:450});if(HA())HA().dreams['Диплом і випускний']='diploma';}catch(e){}
+{const _r=render;render=function(){_r.apply(this,arguments);try{if(SIM||!S||!['done','end'].includes(S.phase))return;S.players.forEach(p=>{if(p.id!=='student'||!p.dreamDone||!p.dream||p.dream.t!=='Диплом і випускний'||p._saga)return;p._saga=1;
+ lss('kr-saga-it',JSON.stringify({from:'student',ok:(p.lr&&p.lr.st_oksana.s)||0,okR:(p.lr&&p.lr.st_oksana.r)||3,petro:(p.lr&&p.lr.st_petro.s)||0,d:Date.now()}));});
+ const fe=app.querySelector&&app.querySelector('.fends');const p=S.players.find(x=>x._saga);if(fe&&p&&!app.querySelector('.sagafin'))fe.insertAdjacentHTML('afterend','<div class="lsfin sagafin"><div><b>🎓 Диплом отримано!</b><small>Історія Студента збережена. Далі він стане Айтівцем — і Оксана буде поруч.</small></div></div>');}catch(e){}};}
+// старт гри: підтягнути памʼять
+{const _sg=startGame;startGame=function(){_sg.apply(this,arguments);try{S.players.forEach(p=>{if(p.id==='student')p.lr=loadLR();});}catch(e){}};}
 })();
 
 })();
