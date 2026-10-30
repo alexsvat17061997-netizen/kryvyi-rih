@@ -933,8 +933,10 @@ body.noscroll .musbtn{display:none!important}
 .lsfin{display:flex;gap:12px;align-items:center;background:var(--panel,#fff);border:2px solid var(--line);border-radius:14px;padding:12px;margin:10px 0;color:var(--text)}.lsfin b{display:block;font-size:16px}.lsfin small{display:block;font-size:13px;line-height:1.45;margin-top:4px;opacity:.9}.lsfin .neg{color:#C0392B}.okfin{border-color:#E8532F}.lsimg{width:96px;height:72px;border-radius:10px;background-size:cover;background-position:center;flex:none}
 .rdst{display:grid;gap:8px;margin:8px 0}.rdst button{display:flex;align-items:center;gap:10px;text-align:left;border:2px solid var(--line);background:var(--panel);color:var(--text);border-radius:12px;padding:10px 12px;font:inherit;cursor:pointer}.rdst button.on{border-color:#E8532F;background:#E8532F;color:#fff}.rdst span{font-size:24px}.rdst b{flex:1}.rdst small{font-size:12px;opacity:.75}.rdair{margin-top:10px;border-left:3px solid #F2A93B;padding-left:10px}.rdair p{margin:6px 0;font-size:13px}
 .pin .lsav{width:20px;height:20px;border-radius:50%;border:2px solid #F2A93B;margin:0 2px;vertical-align:middle;object-fit:cover}
-.paper .pphoto{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border:2px solid #1F2350;margin:0 0 8px;filter:sepia(.15) contrast(1.05)}
+.paper .pphoto{display:block;width:100%;aspect-ratio:21/9;object-fit:cover;border:2px solid #1F2350;margin:0 0 8px;filter:sepia(.15) contrast(1.05)}
 .rumor .rumimg{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:10px;margin-bottom:8px}.ctoday{background:var(--panel);border:2px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:10px}.ctoday img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}.ctoday p{margin:0;padding:10px 12px;font-size:14px;color:var(--text)}.rdcover{display:block;width:100%;border-radius:12px;margin-bottom:8px}
+.paper-top img{max-height:120px;object-fit:cover;width:100%}.ctoday img{aspect-ratio:21/9}.rumor .rumimg{aspect-ratio:21/9}
+.mslide .mcitywin{height:calc(34dvh / var(--fz,1))}
 </style>
 </head>
 <body>
@@ -1819,7 +1821,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.082 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.083 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2709,7 +2711,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.082 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.083 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -6692,6 +6694,12 @@ try{Object.assign(window.HEROART.student.t,{'Вечеря на двох':'ok_val
 const NP={'Тепла осінь':'autumn','Золота осінь':'autumn','Сонячний день без пилу':'clear_sky','Подорожчали маршрутки':'minibus_price','Кривбас виграв!':'city_fireworks','Кривбас переміг на виїзді':'city_fireworks','Без води весь день':'no_water','Хліб подорожчав':'bread','Ярмарок на площі':'fair','Ярмарок у центрі':'fair','Ями на дорогах':'potholes','Тиждень знижок':'supermarket','Червоні калюжі':'red_puddles','Відкрили новий сквер':'new_square','Чутки про скорочення':'smoke_break','Свято міста':'city_fireworks','Подорожчала комуналка':'bills','Снігопад засипав місто':'snowfall','Мороз і сонце':'frost_sun','Спека +38':'heat','Літо на карʼєрі':'quarry_summer','Злива на Социку':'downpour','Туман над Інгульцем':'fog','На Социку перекрили дорогу':'road_closed','Мерія звітує: все рівно':'city_hall','Пил на Індустріальному':'dust','Скарік не ходить':'tram_stopped','Знижки на ринку':'market_sale','Ринок закритий на санітарний день':'market_closed','Поліклініка не приймає':'clinic_closed'};
 const HP={ny:'ny_tree',miner:'miners_day',indep:'independence',easter:'easter',val:'love_days',w8:'love_days',sep1:'sep1',hallo:'halloween'};
 {const _p=paperHTML;paperHTML=function(nw){let h=_p.apply(this,arguments);try{h=h.replace(/(<div class="paper-top"><img src=")[^"]*(")/,'$1img/menu/news_masthead.webp$2');const k=(S.hol&&HP[S.hol])||NP[nw&&nw.t];if(k)h=h.replace('<div class="paper-body"><h3>',`<div class="paper-body"><img class="pphoto" src="img/menu/news_${k}.webp" alt=""><h3>`);}catch(e){}return h;};}
+})();
+
+// === 1.083: страховка — компактний вигляд завжди вмикається ===
+(function(){const GP=['turn','oblig','free','result','go','travel','haggle','loan','evening'];let tries=0,lastK='';
+{const _r=render;render=function(){_r.apply(this,arguments);try{if(!S||!S.players||!document.body)return;const k=S.phase+'|'+S.day+'|'+(S.sub||0)+'|'+S.turn;if(k!==lastK){lastK=k;tries=0;}
+ setTimeout(()=>{try{if(SIM||!S||!GP.includes(S.phase)||document.body.classList.contains('gmode')||tries>=2)return;if(!app.querySelector('.who')||!app.querySelector('.poster'))return;if(document.getElementById('mgov'))return;tries++;render();}catch(e){}},60);}catch(e){}};}
 })();
 
 render();
