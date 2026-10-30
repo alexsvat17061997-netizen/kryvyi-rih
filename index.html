@@ -943,20 +943,23 @@ body.gmode #albpop{transform:scale(.85);transform-origin:top right}
 .myrad .mynow{background:#E8532F;color:#fff;border-radius:12px;padding:10px 12px;margin:8px 0}.mybtns{display:flex;gap:8px;margin-top:8px}.mybtns button{flex:1;border:0;border-radius:10px;padding:8px;font-size:18px;background:rgba(255,255,255,.2);color:#fff;cursor:pointer}.mylist{display:grid;gap:6px;max-height:220px;overflow-y:auto}.myrow{display:flex;gap:6px}.myrow button{flex:1;text-align:left;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:10px;padding:8px 10px;font:600 13px var(--body);cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.myrow.on button{border-color:#E8532F}.myrow .mydel{flex:none;width:36px;text-align:center}.myadd{display:block;text-align:center;margin-top:10px;cursor:pointer}
 .map.rain .pin,.map.snow .pin{background:#FFF6E4;border-color:#0E1030;box-shadow:0 2px 6px rgba(0,0,0,.65);font-weight:700}.map.rain .wx,.map.snow .wx{opacity:.45}.fmap .map.rain .pin.fnone,.fmap .map.snow .pin.fnone{opacity:.8}
 .gtmore{font-style:normal;background:var(--sun,#F2A93B);color:#1F2350;border-radius:8px;padding:0 6px;font-weight:700;font-size:11px;margin-left:4px}
-#introov{position:fixed;inset:0;z-index:2000;background:#0E1030;color:#FFF6E4;overflow:hidden;cursor:pointer;transition:opacity .45s}#introov.out{opacity:0}
-#introov .inbg,#introov .inimg{position:absolute;inset:0}#introov .inimg{background:center/cover no-repeat;opacity:0;transform:scale(1.02);transition:opacity 1.1s ease;animation:inkb 7s ease-out forwards}#introov .inimg.on{opacity:1}
-@keyframes inkb{from{transform:scale(1.02) translateY(0)}to{transform:scale(1.14) translateY(-2%)}}
-#introov:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,16,48,.55) 0%,rgba(14,16,48,0) 30%,rgba(14,16,48,0) 45%,rgba(14,16,48,.92) 78%);pointer-events:none}
-#introov .intx{position:absolute;left:0;right:0;bottom:calc(110px + env(safe-area-inset-bottom,0px));padding:0 24px;z-index:2;opacity:0;transform:translateY(14px);transition:opacity .6s,transform .6s}#introov .intx.on{opacity:1;transform:none}
-#introov .intx b{display:block;font:800 30px/1.1 var(--disp,system-ui);letter-spacing:-.01em;text-shadow:0 2px 12px rgba(0,0,0,.6)}#introov .intx.big b{font-size:38px;color:#F2A93B}
-#introov .intx p{margin:10px 0 0;font:500 17px/1.45 var(--body,system-ui);max-width:30ch;text-shadow:0 1px 8px rgba(0,0,0,.7)}
-#introov .indots{position:absolute;top:calc(18px + env(safe-area-inset-top,0px));left:20px;right:120px;display:flex;gap:6px;z-index:3}#introov .indots i{flex:1;height:3px;border-radius:2px;background:rgba(255,246,228,.3);transition:background .4s}#introov .indots i.on{background:#F2A93B}
+#introov{position:fixed;inset:0;z-index:2000;background:#0E1030;color:#FFF6E4;overflow:hidden;cursor:pointer;transition:opacity .45s;display:flex;flex-direction:column}#introov.out{opacity:0}
+#introov .inblur{position:absolute;inset:-40px;background:center/cover no-repeat;filter:blur(28px) brightness(.35) saturate(1.2);transition:background-image .8s}
+#introov .inmid{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;justify-content:center;gap:22px;padding:70px 16px 120px;max-width:560px;margin:0 auto;width:100%;box-sizing:border-box}
+#introov .incard{position:relative;width:100%;aspect-ratio:864/482;border-radius:18px;overflow:hidden;border:3px solid #F2A93B;box-shadow:0 14px 40px rgba(0,0,0,.55);background:#1F2350}
+#introov .inbg,#introov .inimg{position:absolute;inset:0}#introov .inimg{background:center/cover no-repeat;opacity:0;transition:opacity 1s ease;animation:inkb 7s ease-out forwards}#introov .inimg.on{opacity:1}
+@keyframes inkb{from{transform:scale(1)}to{transform:scale(1.06)}}
+#introov .intx{opacity:0;transform:translateY(10px);transition:opacity .6s,transform .6s;padding:0 4px}#introov .intx.on{opacity:1;transform:none}
+#introov .intx b{display:block;font:800 28px/1.15 var(--disp,system-ui);letter-spacing:-.01em}#introov .intx.big b{font-size:34px;color:#F2A93B}
+#introov .intx p{margin:10px 0 0;font:500 17px/1.45 var(--body,system-ui);color:rgba(255,246,228,.88)}
+#introov .indots{position:absolute;top:calc(18px + env(safe-area-inset-top,0px));left:20px;right:130px;display:flex;gap:6px;z-index:3}#introov .indots i{flex:1;height:3px;border-radius:2px;background:rgba(255,246,228,.3);transition:background .4s}#introov .indots i.on{background:#F2A93B}
 #introov .inskip{position:absolute;top:calc(8px + env(safe-area-inset-top,0px));right:12px;z-index:3;background:rgba(14,16,48,.5);color:#FFF6E4;border:1px solid rgba(255,246,228,.35);border-radius:999px;padding:6px 14px;font:600 14px var(--body,system-ui);min-height:36px}
-#introov .ingo{position:absolute;left:24px;right:24px;bottom:calc(32px + env(safe-area-inset-bottom,0px));z-index:3;background:#F2A93B;color:#1F2350;border:0;border-radius:16px;padding:16px;font:800 20px var(--disp,system-ui);box-shadow:0 6px 0 #B9741A}
+#introov .ingo{position:absolute;left:24px;right:24px;bottom:calc(32px + env(safe-area-inset-bottom,0px));z-index:3;max-width:512px;margin:0 auto;background:#F2A93B;color:#1F2350;border:0;border-radius:16px;padding:16px;font:800 20px var(--disp,system-ui);box-shadow:0 6px 0 #B9741A}
 @media (prefers-reduced-motion:reduce){#introov .inimg{animation:none}}
 .fweek{background:#2E3576;color:#F5E7CF;border-radius:16px;padding:12px 14px;margin:10px 0;border:2px solid #F2A93B}
 .fweek h3{margin:0 0 6px;font:800 17px var(--disp,system-ui)}.fwchart{width:100%;height:auto;display:block}.fwchart .l{fill:none;stroke:#F2A93B;stroke-width:3;stroke-linejoin:round}.fwchart .a{fill:rgba(242,169,59,.18);stroke:none}.fwchart .z{stroke:rgba(245,231,207,.4);stroke-dasharray:3 3}.fwchart circle{fill:#F2A93B}.fwchart text{fill:currentColor;font:600 10px var(--body,system-ui);text-anchor:middle;opacity:.8}.fwchart text.v{font-weight:800;opacity:1;font-size:11px}
 .fwrow p{margin:4px 0;font-size:14px}.fwppl{margin-top:8px}.fwppl>b{font-size:14px}.fwppl>div{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-top:6px}.fwppl span{display:flex;flex-direction:column;align-items:center;gap:2px;text-align:center}.fwppl img{width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid #F2A93B}.fwppl i{font-style:normal;font-size:11px;font-weight:600}.fwppl em{font-style:normal;font-size:8.5px;letter-spacing:-1px;white-space:nowrap}
+.lsmeet{display:block;margin-top:4px;font-size:11px;font-weight:700;color:#F2A93B}
 </style>
 </head>
 <body>
@@ -1843,7 +1846,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.089 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.090 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2733,7 +2736,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.089 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.090 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -5110,23 +5113,25 @@ Object.keys(L).forEach(k=>L[k].forEach((st,s)=>{CHAINS['ls_'+k+'_'+s]=st[3];}));
 // ---------- памʼять між іграми ----------
 const KEY='kr-life-student';
 const lsg=k=>{try{return localStorage.getItem(k);}catch(e){return null;}},lss=(k,v)=>{try{localStorage.setItem(k,v);}catch(e){}};
-function loadLR(){let o=null;try{if(!(S&&S.room))o=JSON.parse(lsg(KEY)||'null');}catch(e){}const r={};ORDER.forEach(k=>{const x=o&&o[k]||{};r[k]={r:x.r==null?3:x.r,s:x.s||0,wait:0};});return r;}
-function saveLR(p){if(!p||!p.lr||S.room)return;const o={};ORDER.forEach(k=>o[k]={r:p.lr[k].r,s:p.lr[k].s});lss(KEY,JSON.stringify(o));}
+const START={st_oksana:0,st_mom:4,st_dima:2,st_petro:1,st_valya:1};
+const hurtOf=o=>o&&o.r<=0&&(o.mx||0)>=2;
+function loadLR(){let o=null;try{if(!(S&&S.room))o=JSON.parse(lsg(KEY)||'null');}catch(e){}const r={};const v2=o&&o._v===2;ORDER.forEach(k=>{const x=o&&o[k]||{};const s=x.s||0;let rr=x.r==null?START[k]:v2?x.r:Math.min(5,START[k]+s,x.r);r[k]={r:rr,s,wait:0,mx:v2?(x.mx||rr):rr};});return r;}
+function saveLR(p){if(!p||!p.lr||S.room)return;const o={_v:2};ORDER.forEach(k=>o[k]={r:p.lr[k].r,s:p.lr[k].s,mx:p.lr[k].mx||0});lss(KEY,JSON.stringify(o));}
 const isSt=p=>p&&p.id==='student'&&!p.collector&&!p.out;
 function lr(p){if(!p.lr)p.lr=loadLR();return p.lr;}
-function rel(p,k,x){const o=lr(p)[k];o.r=Math.max(0,Math.min(5,o.r+x));saveLR(p);}
-window.krLife={of:(p,k)=>lr(p)[k],lr,rel,save:saveLR,L,PEOPLE,ORDER};window.krPh=(i,ds)=>doPhone(i,ds);
+function rel(p,k,x){const o=lr(p)[k];const was=o.r;o.r=Math.max(0,Math.min(5,o.r+x));o.mx=Math.max(o.mx||0,o.r);saveLR(p);try{if(!SIM&&o.r!==was&&typeof toastI==='function'){const i=S.players.indexOf(p);const nm=PEOPLE[k].n.split(' ')[0];toastI(i,o.r>was?`❤️ +1 · ${nm} (${'❤️'.repeat(o.r)})`:`💔 −1 · ${nm}${o.r<=0?' образився(лась)':''}`);}}catch(e){}}
+window.krLife={of:(p,k)=>lr(p)[k],lr,rel,save:saveLR,L,PEOPLE,ORDER,hurt:hurtOf,START};window.krPh=(i,ds)=>doPhone(i,ds);
 // ---------- щодня: хтось із людей пише першим ----------
 {const _pd=phDay;phDay=function(i){const p=S.players[i];const fresh=p&&p.lsDay!==S.day;_pd.apply(this,arguments);try{if(!isSt(p))return;if(fresh){p.lsDay=S.day;p.lsN=0;}else if((p.lsN||0)>=2||Math.random()<0.5)return;const P=phS();const R=lr(p);
  // хто не дочекався відповіді — ображається
  if(fresh)P.m.filter(m=>m.to===i&&m.lsk&&m.st==='new'&&m.d<S.day).forEach(m=>{m.st='done';m.a='— без відповіді —';rel(p,m.lsk,-1);push(i,m.lsk,{st_oksana:'Ти навіть не відповів… 😔',st_mom:'Синку, я ж писала. Ти живий?',st_dima:'Бро, ти мене ігнориш? Ок.',st_petro:'Я чекав на вашу відповідь. Дарма.',st_valya:'Ну й не треба. Пиріжки собакам віддам.'}[m.lsk]);});
  // ображені просять вибачення
- const hurt=ORDER.find(k=>R[k].r<=1&&!R[k].sorry);if(hurt){R[hurt].sorry=1;push(i,hurt,{st_oksana:'Мені здається, тобі просто байдуже.',st_mom:'Синку, ти зовсім забув про маму.',st_dima:'Слухай, мені здавалось, ми друзі.',st_petro:'Я розчарований у вас, студенте.',st_valya:'Нічого мені від тебе не треба.'}[hurt],['🙏 Вибачитися (подарунок −80 грн)','Промовчати'],{fx:[[{m:-80,h:1},'Ну… добре. Проїхали.',{lsSorry:hurt}],[{},'']]});return;}
+ const hurt=ORDER.find(k=>hurtOf(R[k])&&!R[k].sorry);if(hurt){R[hurt].sorry=1;push(i,hurt,{st_oksana:'Мені здається, тобі просто байдуже.',st_mom:'Синку, ти зовсім забув про маму.',st_dima:'Слухай, мені здавалось, ми друзі.',st_petro:'Я розчарований у вас, студенте.',st_valya:'Нічого мені від тебе не треба.'}[hurt],['🙏 Вибачитися (подарунок −80 грн)','Промовчати'],{fx:[[{m:-80,h:1},'Ну… добре. Проїхали.',{lsSorry:hurt}],[{},'']]});return;}
  if(window.krLsInvite)window.krLsInvite(i,p,R,P);}catch(e){if(typeof console!=='undefined')console.error(e);}};}
 // ---------- відповіді ----------
 {const _dp=doPhone;doPhone=function(i,ds){let m=null,ex=null;try{if(ds&&ds.k==='qa'){m=phS().m.find(x=>x.id===+ds.id&&x.to===i&&x.st==='new');if(m&&m.fx)ex=(m.fx[+ds.o]||[])[2];}}catch(e){}
  const r=_dp.apply(this,arguments);try{const p=S.players[i];if(ex&&isSt(p)){const R=lr(p);
-  if(ex.cancel){const c=ex.cancel;p.queue=(p.queue||[]).filter(q=>!(q.id.indexOf('ls_'+c+'_')===0));if(R[c])R[c].wait=0;rel(p,c,-1);push(i,c,{st_oksana:'Серйозно? Ти скасував нашу зустріч… 😔',st_mom:'Ну що ж, синку. Значить, іншим разом.',st_dima:'Бро, ти мене кинув. Ок.',st_petro:'Я розраховував на вас. Шкода.',st_valya:'Ну й не приходь тоді!'}[c]);}if(ex.ls){R[ex.ls.k].wait=1;const dd=ex.ls.d||0;(p.queue=p.queue||[]).unshift({day:S.day+dd,id:'ls_'+ex.ls.k+'_'+ex.ls.s});toastI(i,'📌 '+PEOPLE[ex.ls.k].n+(dd?': домовились на завтра':': зустріч уже скоро'));}if(ex.next&&m){const n=ex.next;const mm=push(i,m.f,n.t,n.o,{fx:n.fx});mm.lsk=m.lsk||m.f;}if(ex.lsRel)rel(p,ex.lsRel[0],ex.lsRel[1]);
+  if(ex.cancel){const c=ex.cancel;p.queue=(p.queue||[]).filter(q=>!(q.id.indexOf('ls_'+c+'_')===0));if(R[c])R[c].wait=0;rel(p,c,-1);push(i,c,{st_oksana:'Серйозно? Ти скасував нашу зустріч… 😔',st_mom:'Ну що ж, синку. Значить, іншим разом.',st_dima:'Бро, ти мене кинув. Ок.',st_petro:'Я розраховував на вас. Шкода.',st_valya:'Ну й не приходь тоді!'}[c]);}if(ex.ls){R[ex.ls.k].wait=1;const dd=ex.ls.d||0;(p.queue=p.queue||[]).push({day:S.day+dd,id:'ls_'+ex.ls.k+'_'+ex.ls.s});toastI(i,'📌 '+PEOPLE[ex.ls.k].n+(dd?': домовились на завтра':': зустріч уже скоро'));}if(ex.next&&m){const n=ex.next;const mm=push(i,m.f,n.t,n.o,{fx:n.fx});mm.lsk=m.lsk||m.f;}if(ex.lsRel)rel(p,ex.lsRel[0],ex.lsRel[1]);
   if(ex.lsNo)rel(p,ex.lsNo,-1);
   if(ex.lsSorry){R[ex.lsSorry].r=2;R[ex.lsSorry].sorry=0;saveLR(p);}}}catch(e){}return r;};}
 // ---------- подія етапу: добрий вибір веде історію далі ----------
@@ -5143,11 +5148,11 @@ const HELP={st_oksana:['Підтримає перед парою: +2 нерви'
 const hearts=n=>'❤️'.repeat(n)+'🤍'.repeat(5-n);
 {const _ac=appContacts;appContacts=function(){let h=_ac();try{const p=S.players[phI()];if(!isSt(p))return h;const R=lr(p);
  const sec=`<div class="phsec"><h4>💞 Твої люди</h4><p class="note">Памʼятають, коли допоміг і коли відмовив. Історії тривають і в наступних іграх.</p>${ORDER.map(k=>{const P=PEOPLE[k],o=R[k];const used=(p.lsHelp||{})[k]===wk();
-  return `<div class="phcon lscon"><img class="nbph" src="img/student/c_${P.av}.webp" alt=""><div><b>${P.n}</b><small>${hearts(o.r)} · історія ${Math.min(o.s,6)}/6${o.s>=6?' ✅':''}</small>${o.r>=4?`<div class="phbtns"><button data-ph="lshelp" data-f="${k}" ${used?'disabled':''}>${used?'Вже допомогли цього тижня':'🙏 '+HELP[k][0]}</button></div>`:o.r<=1?'<small class="neg">Ображені на тебе</small>':''}</div></div>`;}).join('')}</div>`;
+  return `<div class="phcon lscon"><img class="nbph" src="img/student/c_${P.av}.webp" alt=""><div><b>${P.n}</b><small>${o.r===0&&o.s===0&&!o.mx?'🤍 ще не знайомі':hearts(o.r)} · історія ${Math.min(o.s,6)}/6${o.s>=6?' ✅':''}</small>${o.r>=4?`<div class="phbtns"><button data-ph="lshelp" data-f="${k}" ${used?'disabled':''}>${used?'Вже допомогли цього тижня':'🙏 '+HELP[k][0]}</button></div>`:o.r<=1?'<small class="neg">Ображені на тебе</small>':''}</div></div>`;}).join('')}</div>`;
  const j=h.indexOf('<div class="phsec">');h=j>=0?h.slice(0,j)+sec+h.slice(j):h+sec;}catch(e){}return h;};}
 // ---------- фінал: газета і «Разом з Оксаною» ----------
 {const _r=render;render=function(){_r.apply(this,arguments);try{if(SIM||!S||!['done','end'].includes(S.phase)||!app.querySelector)return;const me=S.room&&typeof meI==='function'?meI():0;const p=S.players[me];if(!p||p.id!=='student'||!p.lr)return;
- const fe=app.querySelector('.fends');if(!fe||fe.querySelector('.lsfin'))return;const R=p.lr;const best=ORDER.filter(k=>R[k].r>=4).map(k=>PEOPLE[k].n),bad=ORDER.filter(k=>R[k].r<=1).map(k=>PEOPLE[k].n);
+ const fe=app.querySelector('.fends');if(!fe||fe.querySelector('.lsfin'))return;const R=p.lr;const best=ORDER.filter(k=>R[k].r>=4).map(k=>PEOPLE[k].n),bad=ORDER.filter(k=>hurtOf(R[k])).map(k=>PEOPLE[k].n);
  let h='';if(R.st_oksana.s>=6){const im=window.iurl?window.iurl(IM('ok_end','bridge_sunset')):IMG[IM('ok_end','bridge_sunset')];h+=`<div class="lsfin okfin"><div class="lsimg" style="background-image:url(${im})"></div><div><b>💕 Разом з Оксаною</b><small>Ваша історія дійшла до кінця. Продовження буде…</small></div></div>`;}
  h+=`<div class="lsfin"><div><b>💞 Твої люди</b><small>${ORDER.map(k=>PEOPLE[k].ic+' '+PEOPLE[k].n+' '+'❤️'.repeat(R[k].r)+(R[k].s>=6?' ✅':` ${R[k].s}/6`)).join('<br>')}</small>${best.length?`<small>Згадають добрим словом: ${best.join(', ')}</small>`:''}${bad.length?`<small class="neg">Ображені: ${bad.join(', ')}</small>`:''}</div></div>`;
  fe.insertAdjacentHTML('afterend',h);}catch(e){}};}
@@ -5262,51 +5267,6 @@ document.addEventListener&&document.addEventListener('change',e=>{if(e.target&&e
 {const _r=render;render=function(){_r.apply(this,arguments);try{if(cur&&(!S||['done','end'].includes(S.phase)))stopMine();}catch(e){}};}
 })();
 
-// === 1.086: живі розмови, зайнятий час, менше повідомлень ===
-(function(){if(!window.krLife)return;const LF=window.krLife,L=LF.L,PEOPLE=LF.PEOPLE,ORDER=LF.ORDER;
-const isSt=p=>p&&p.id==='student'&&!p.collector&&!p.out;
-const NAMEI={st_oksana:'Оксаною',st_mom:'мамою',st_dima:'Дімою',st_petro:'Петром Івановичем',st_valya:'тьотею Валею'};
-const meet=(p,d)=>{p.meet=p.meet||{};return p.meet[d]=p.meet[d]||[];};
-// Оксана: перші три кроки — твоя ініціатива; діалог у дві репліки
-const OKD=[['Привіт! Ти ж староста? Скинеш розклад? 🙏','Привіт 😏 А сам подивитись на стенді — ніяк?',[['Я дивився, але там хаос 😅',1,'Ну добре, тримай. І не запізнюйся більше!'],['Хотів привід тобі написати 🙈',1,'Ого… Ну, привід зараховано 😊'],['Та забудь, сам знайду',-1,'Як скажеш.']]],
- ['Підемо на каву після пар? ☕','А з якого це приводу? 😏',[['Хочу подякувати за розклад 🙏',1,'Ну раз подякувати — підемо 😊'],['Просто хочу тебе побачити',2,'…Добре. Біля корпусу о третій 💛'],['Та так, нудно',-1,'Пошукай іншу компанію від нудьги 🙄']]],
- ['Кажуть, біля квіткового годинника зараз гарно 🌸','І ти мене кличеш туди? 🙈',[['Так, ввечері, коли сонце сідає',2,'Звучить як побачення 😳 Я згодна'],['Можна з усією групою',0,'Ну… можна й так. Давай удвох краще 😊'],['Та це я так, просто кажу',-1,'Ааа. Ясно.']]]];
-function okDialog(i,p,stage){const D=OKD[stage];if(!D)return false;p.bat=Math.max(0,bat(p)-3);
- const m=push(i,'st_oksana',`<i>Ти: ${D[0]}</i><br>${D[1]}`,D[2].map(x=>x[0]),{fx:D[2].map(x=>[{},x[2],x[1]>=0?{ls:{k:'st_oksana',s:stage},lsPlus:x[1]>1?1:0}:{lsNo:'st_oksana'}])});m.lsk='st_oksana';m.lsTalk=1;return true;}
-// запрошення від людей: 4 відповіді, зайнятий час
-function opts(p,k,s){const st=L[k][s];const busy=meet(p,S.day).filter(x=>x!==k);
- if(busy.length>=2)return [[`Сьогодні вже ніяк, давай завтра?`,{lsTom:{k,s}},'Добре, завтра 👍']];
- if(busy.length){const o=busy[0];return [[`Сьогодні я з ${NAMEI[o]}. Давай завтра?`,{lsTom:{k,s}},'Добре, тоді завтра 👍'],[`Скасую ${NAMEI[o]} заради тебе`,{ls:{k,s},lsCancel:o},'Оце так! Чекаю 😊'],[st[2],{lsNo:k},'Зрозуміло…']];}
- return [[st[1]+' 😊',{ls:{k,s},lsPlus:1},{st_oksana:'Ура! 💛',st_mom:'Ой, як я рада ❤️',st_dima:'Красава, бро 🤝',st_petro:'От і добре.',st_valya:'Отож бо!'}[k]],[st[1],{ls:{k,s}},'Домовились.'],['Сьогодні не можу. Давай завтра?',{lsTom:{k,s}},'Ну добре, завтра.'],[st[2],{lsNo:k},{st_oksana:'Ну… як знаєш.',st_mom:'Добре, синку…',st_dima:'Ясно.',st_petro:'Шкода.',st_valya:'Ну-ну.'}[k]]];}
-function invite(i,p,k){const R=LF.of(p,k);const s=R.s;const st=L[k][s];if(!st)return;const O=opts(p,k,s);
- const m=push(i,k,st[0],O.map(x=>x[0]),{fx:O.map(x=>[{},x[2],x[1]])});m.lsk=k;}
-// перехоплюємо щоденні запрошення v20: власний відбір
-{const _pd=phDay;phDay=function(i){const p=S.players[i];const fresh=p&&p.lsDay2!==S.day;
- // не даємо v20 надсилати свої запрошення — робимо самі
- const keepRand=Math.random;if(isSt(p))Math.random=()=>0.99;try{_pd.apply(this,arguments);}finally{Math.random=keepRand;}
- try{if(!isSt(p)||!fresh)return;p.lsDay2=S.day;if(Math.random()>0.75)return;const P=phS();
-  const ok=ORDER.filter(k=>{const R=LF.of(p,k);if(R.s>=L[k].length||R.wait||R.r<=1)return false;if(k==='st_oksana'&&(R.s<3||R.r<4))return false;return !P.m.some(m=>m.to===i&&m.lsk===k&&m.st==='new');});
-  if(!ok.length)return;const k=ok.includes('st_mom')&&Math.random()<0.3?'st_mom':ok[Math.floor(Math.random()*ok.length)];invite(i,p,k);}catch(e){if(typeof console!=='undefined')console.error(e);}};}
-// відповіді: завтра / скасувати / записати в розклад
-{const _dp=doPhone;doPhone=function(i,ds){let ex=null;try{if(ds&&ds.k==='qa'){const m=phS().m.find(x=>x.id===+ds.id&&x.to===i&&x.st==='new');if(m&&m.fx)ex=(m.fx[+ds.o]||[])[2];}}catch(e){}
- const r=_dp.apply(this,arguments);try{const p=S.players[i];if(!ex||!isSt(p))return r;
-  if(ex.ls){meet(p,S.day).push(ex.ls.k);if(ex.lsPlus)LF.rel(p,ex.ls.k,1);}
-  if(ex.lsTom){const {k,s}=ex.lsTom;const R=LF.of(p,k);R.wait=1;(p.queue=p.queue||[]).push({day:S.day+1,id:'ls_'+k+'_'+s});meet(p,S.day+1).push(k);toastI(i,'📅 '+PEOPLE[k].n+': завтра');}
-  if(ex.lsCancel){const o=ex.lsCancel;p.queue=(p.queue||[]).filter(q=>!(q.day<=S.day&&q.id.indexOf('ls_'+o+'_')===0));const M=meet(p,S.day);const j=M.indexOf(o);if(j>=0)M.splice(j,1);const R=LF.of(p,o);R.wait=0;LF.rel(p,o,-1);
-   push(i,o,{st_oksana:'Ти ж обіцяв… 😔',st_mom:'Синку, ми ж домовлялись…',st_dima:'Бро, серйозно? Ок.',st_petro:'Ви мене підвели.',st_valya:'Ну й не приходь.'}[o]);toastI(i,'💔 '+PEOPLE[o].n+' образилась(ся)');}}catch(e){}return r;};}
-// «Написати першим»: Оксана — діалог по етапах, інші — запросити самому
-{const _dp=doPhone;doPhone=function(i,ds){try{const p=S.players[i];if(ds&&ds.k==='wr'&&ds.f==='st_oksana'&&ds.s==='0'&&isSt(p)){const R=LF.of(p,'st_oksana');p.wr=p.wr||{};
- if(p.wr.st_oksana===S.day)return toastI(i,'Сьогодні вже писав');if(R.wait)return toastI(i,'Ви вже домовились 😊');
- if(meet(p,S.day).length>=2)return toastI(i,'Сьогодні вже дві зустрічі. Завтра!');
- p.wr.st_oksana=S.day;if(R.s<3){okDialog(i,p,R.s);return;}if(R.s<L.st_oksana.length){invite(i,p,'st_oksana');return;}}}catch(e){}return _dp.apply(this,arguments);};}
-// фраза в «Написати» для Оксани залежить від етапу
-{const _at=appThread;appThread=function(k){let h=_at.apply(this,arguments);try{const p=S.players[phI()];if(k==='st_oksana'&&isSt(p)){const s=LF.of(p,'st_oksana').s;const D=OKD[s];const t=D?D[0]:'Підемо кудись? 💛';h=h.replace(/(<button data-ph="wr" data-f="st_oksana" data-s="0"[^>]*>)[^<]*/,'$1'+t);}}catch(e){}return h;};}
-// «Сьогодні»: зустрічі
-if(window.krToday){const _t=window.krToday;window.krToday=function(p){const it=_t(p);try{if(isSt(p))meet(p,S.day).forEach(k=>it.unshift({ic:'🕗',t:'Зустріч: '+PEOPLE[k].n,x:'сьогодні'}));}catch(e){}return it;};}
-// ліміт: не більше 1 випадкового повідомлення на день
-{const _nm=npcMsg;npcMsg=function(i){const p=S.players[i];if(p){if(p.nmDay!==S.day){p.nmDay=S.day;p.nmN=0;}if(p.nmN>=1)return;p.nmN++;}return _nm.apply(this,arguments);};}
-})();
-
 // === 1.086: менше повідомлень, старі читаються самі, зайнятий час ===
 (function(){
 const inToday=(i)=>{const P=phS();return P.m.filter(m=>m.to===i&&m.d===S.day&&m.o&&typeof m.f==='string').length;};
@@ -5345,48 +5305,71 @@ const MYO=[
  {me:'Познайомиш мене з подругами? 😅',q:'Ти впевнений? Вони прискіпливі 😂',o:[['Готовий до іспиту!',1,1],['Трохи страшно, але так',1,0],['Ой, ні, передумав',0,0]],bad:'Ну як хочеш 🙂'},
  {me:'Можна тебе побачити сьогодні? Хочу щось сказати.',q:'Звучить серйозно… Я теж хочу 🙈',o:[['Тоді біля мосту ввечері',1,1],['Давай завтра',1,0]]}];
 function busyWith(p,k){try{const q=(p.queue||[]).find(x=>x.day<=S.day+1&&/^ls_st_/.test(x.id)&&x.id.indexOf('ls_'+k+'_')!==0);if(!q)return null;return q.id.split('_').slice(1,3).join('_');}catch(e){return null;}}
-function yesOpt(p,k,s,label){const b=busyWith(p,k);if(!b)return [[label],[[{},PER[k].ok,{ls:{k,s}}]]];
- return [[`Сьогодні я з ${NM[b]}. Давай завтра?`,`Скасую ${NM[b]} заради тебе`],[[{},PER[k].later,{ls:{k,s,d:1}}],[{},PER[k].ok,{ls:{k,s},cancel:b}]]];}
+// відповіді на кожен етап: «так» і «ні» — свої, а не загальні
+const YES={st_oksana:['Тримай розклад. І не губись більше 😉','Тоді о третій біля корпусу ☕','Тоді о сьомій біля годинника 🌸 Не запізнюйся!','Ряд 7, місця 8 і 9 🍿 Чекаю біля ТЦ','Ура! Вони тебе не зʼїдять… мабуть 😂','Я чекатиму на мосту 💛'],
+ st_mom:['Ох, і це вся вечеря? Передам тобі котлет 😅','Водій — дядько Коля, у синій куртці. Подякуй йому!','Ой, бачу тебе! Тільки чого ти догори ногами? 😂','Синочку… ти найкращий ❤️ Чекаю','Біжи, бо борщ холоне! 🍲','І я тебе люблю, сонечко ❤️'],
+ st_dima:['Красень! Я беру швабру, ти — посуд 🧽','Тоді о десятій. Я на міді, ти на керрі 🎮','Дякую, бро! Ввечері все розповім, тільки не смійся 🙏','Дякую… Я не знав, до кого ще йти 😞','Добре… Посидимо ввечері, поговоримо','Тоді о восьмій у кімнаті! Я беру піцу 🍕'],
+ st_petro:['Чекаю в 214-й аудиторії.','Четвер, девʼята ранку. Без запізнень.','Добре. Після другої пари, на кафедрі.','Чудово. Доповідь на десять хвилин, не більше.','Дякую. Почнемо після обіду.','Чекаю на кафедрі.'],
+ st_valya:['Отож! Бо двері зачиню — і ночуй на лавці 😤','Заходь, поки гарячі 🥧','Дякую, синку! Він рудий, з дзвіночком на шиї 🐱','Ой, дякую! Він прийде о пʼятій, із зошитом','Дякую, синку… Ти хороший хлопець','Чекаю! Не забудь, бо образжуся']};
+const NO={st_oksana:['Ну… як хочеш','Шкода. Я вже уявила, як ми сидимо… ну нічого','Втомився? Ну добре… відпочивай','А я вже квитки взяла… 😔','Ти що, боїшся моїх подруг? 😅 Ну гаразд','Добре… Іншим разом. Мабуть.'],
+ st_mom:['Добре, синку, не заважаю…','Ну як не треба? Мама краще знає!','Добре… навчайся. Потім покажеш','Нічого, я сама. Не хвилюйся','Бардак? Синку, я ж мама, я все бачила 😄','👍… І це все, що ти мені скажеш?'],
+ st_dima:['Ну класно. Значить, знову я 🙄','Ну й сиди зі своїми книжками 😤','Ок… Сам так сам','Ага, дякую. Дуже допоміг 😒','Ну… ясно. Дякую, що вислухав','Ну й спи. Сам святкуватиму 🥲'],
+ st_petro:['Тоді не дивуйтесь оцінці.','Пізніше не буде.','Шкода. Задача цікава.','Я вже вас записав. Подумайте ще.','Розумію. Попрошу когось іншого.','Як скажете.'],
+ st_valya:['Ой, та ладно?! Подивимось, як заспіваєш о пів на дванадцяту!','Ну пізніше то пізніше. Тільки не забудь','Знайдеться… А якщо ні? 😿','Ну, нема то нема','Шкода… Я думала, ти інакший','Колись… Я не вічна, синку']};
+const LAUGH={st_oksana:'😂',st_mom:'😄',st_dima:'🤣',st_petro:'…',st_valya:'Ха!'};
+const yR=(k,s,d)=>((YES[k]||[])[s]||PER[k].ok)+`<small class="lsmeet">📌 Зустріч ${d?'завтра':'сьогодні'}</small>`;
+const nR=(k,s)=>(NO[k]||[])[s]||PER[k].no;
+function yesOpt(p,k,s,label){const b=busyWith(p,k);if(!b)return [[label],[[{},yR(k,s),{ls:{k,s}}]]];
+ return [[`Сьогодні я з ${NM[b]}. Давай завтра?`,`Скасую ${NM[b]} заради тебе`],[[{},PER[k].later+`<small class="lsmeet">📌 Зустріч завтра</small>`,{ls:{k,s,d:1}}],[{},yR(k,s),{ls:{k,s},cancel:b}]]];}
 function inviteMsg(i,p,k){const R=K().lr(p),s=R[k].s,st=K().L[k][s],per=PER[k];const y=yesOpt(p,k,s,st[1]);
- const jk=pk(JK[k],s);const o=[...y[0],'Давай завтра',jk[0],st[2]],fx=[...y[1],[{},per.later,{ls:{k,s,d:1}}],[{},jk[1],{next:{t:jk[1],o:[per.jy,per.jn],fx:[[{h:1},PER[k].ok,{ls:{k,s},lsRel:[k,1]}],[{},per.no,{}]]}}],[{},per.no,{lsNo:k}]];
+ const jk=pk(JK[k],s);const o=[...y[0],'Давай завтра',jk[0],st[2]],fx=[...y[1],[{},per.later+`<small class="lsmeet">📌 Зустріч завтра</small>`,{ls:{k,s,d:1}}],[{},LAUGH[k],{next:{t:jk[1],o:[per.jy,per.jn],fx:[[{h:1},yR(k,s),{ls:{k,s},lsRel:[k,1]}],[{},nR(k,s),{}]]}}],[{},nR(k,s),{lsNo:k}]];
  if(y[0].length>1){o.splice(2,1);fx.splice(2,1);}
  const m=push(i,k,st[0],o,{fx});m.lsk=k;p.lsN=(p.lsN||0)+1;}
 window.krLsInvite=function(i,p,R,P){if(Math.random()>0.75)return;if((p.lsN||0)>=1&&Math.random()<0.6)return;
- const ok=K().ORDER.filter(k=>R[k].s<K().L[k].length&&!R[k].wait&&R[k].r>1&&gate(k,R[k].s)&&!P.m.some(m=>m.to===i&&m.lsk===k&&m.st==='new')&&!(k==='st_oksana'&&(R[k].s<3||R[k].r<4)));if(!ok.length)return;
+ const ok=K().ORDER.filter(k=>R[k].s<K().L[k].length&&!R[k].wait&&!K().hurt(R[k])&&gate(k,R[k].s)&&!P.m.some(m=>m.to===i&&m.lsk===k&&m.st==='new')&&!(k==='st_oksana'&&(R[k].s<3||R[k].r<4)));if(!ok.length)return;
  inviteMsg(i,p,ok[Math.floor(Math.random()*ok.length)]);};
 // ✍️ ти пишеш першим: кнопка в розмові з людиною
 const MY={st_mom:['Мам, можна я приїду? ❤️','Мам, як ти там? Скучив','Мам, а що в тебе нового?'],st_dima:['Бро, є справа. Побалакаємо?','Дімон, ти де пропав?','Бро, що робиш увечері?'],st_petro:['Петре Івановичу, можна до вас звернутися?','Петре Івановичу, маю питання по курсовій','Доброго дня! Можна консультацію?'],st_valya:['Тьотю Валю, можна до вас на чай?','Тьотю Валю, як ваш тиск?','Тьотю Валю, вам нічого не треба принести?']};
 // 💬 просто поговорити — коли історія чекає або вже завершена
 const TALK={
- st_oksana:[{me:'Як пара? Не заснула? 😄',q:'Ледве! Петро Іванович сьогодні в ударі 😴',o:[['Наступного разу сяду поруч і буду штурхати',1,'Домовились 😂'],['Я взагалі проспав 😅',0,'Ну ти даєш… скину конспект'],['Мені сподобалось!',0,'Ботан 😏']]},
+ st_oksana:[{me:'Ти чого така сумна сьогодні?',q:'Петро Іванович сказав, що моя курсова «сира» 😞',o:[['Давай разом подивимось',1,'Справді? Ти б мене врятував 🥹',{t:'Переписала вступ, як ти казав. Петро Іванович сказав «уже краще»! Дякую 💛',fx:{h:2}}],['Та він усім так каже',0,'Може… але все одно прикро'],['Ну, може, справді сира',-1,'Дякую. Дуже підтримав 😒']]},
+  {me:'Бачила, яка сьогодні луна? 🌕',q:'Ти що, романтик? 😏 Бачила. Гарна.',o:[['Майже така, як ти 🙈',1,'Ой… 🙈 Ти що 😳'],['Просто гарна',0,'Ага 🙂'],['Ну, луна як луна',0,'Ну дякую за красиву розмову 😂']]},
+  {me:'Як пара? Не заснула? 😄',q:'Ледве! Петро Іванович сьогодні в ударі 😴',o:[['Наступного разу сяду поруч і буду штурхати',1,'Домовились 😂'],['Я взагалі проспав 😅',0,'Ну ти даєш… скину конспект'],['Мені сподобалось!',0,'Ботан 😏']]},
   {me:'Що слухаєш зараз? 🎧',q:'Тільки не смійся… Океан Ельзи на повторі 🙈',o:[['Класика! Я теж',1,'Знала, що ти зрозумієш 💛'],['А я щось новеньке',0,'Скинь мені!'],['Ну таке…',-1,'Ну й слухай свій шансон 😤']]},
-  {me:'Ти вже поїла? 🍲',q:'Тільки каву… а що?',o:[['Принесу тобі пиріжок',1,'Ти найкращий 🥹'],['Їж нормально, бо впадеш!',0,'Слухаюсь, мамо 😂'],['Та просто питаю',0,'Ну… дякую 🙂']]},
+  {me:'Ти вже поїла? 🍲',q:'Тільки каву… а що?',o:[['Принесу тобі пиріжок',1,'Ти найкращий 🥹',{t:'Дякую за пиріжок 🥹 Найсмачніший у моєму житті. Ну, після маминих 😄',fx:{h:1}}],['Їж нормально, бо впадеш!',0,'Слухаюсь, мамо 😂'],['Та просто питаю',0,'Ну… дякую 🙂']]},
   {me:'Бачила, що в місті коїться? 😮',q:'Ага! Знову Скарік став посеред дороги 😂',o:[['Я на ньому їхав!',1,'Бідолаха 😂 Тримайся!'],['Типовий Кривий Ріг',0,'Тут усе рівно 😄'],['Мені байдуже',-1,'Ну ок.']]}],
- st_mom:[{me:'Мам, як ти? ❤️',q:'Та нормально, синку. Тиск трохи, але то дрібниці. Ти як?',o:[['Все добре, не хвилюйся ❤️',1,'От і добре. Їж нормально!'],['Мам, бережи себе, будь ласка',1,'Ой, який ти в мене дорослий ❤️'],['Нормально',0,'Щось ти коротко… ну добре.']]},
+ st_mom:[{me:'Мам, а як було, коли ти вчилась?',q:'Ой, синку… Гуртожиток, одна плитка на поверх і твій тато під вікном з гітарою 😄',o:[['Тато грав на гітарі?!',1,'Ще й як! Попроси, хай заграє, як приїдеш 😄'],['Нічого не змінилось 😂',1,'Тільки плитка тепер, мабуть, електрична 😄'],['Цікаво',0,'Колись розкажу більше ❤️']]},
+  {me:'Мам, мені сьогодні сумно',q:'Синку, що сталося? Розкажи мамі',o:[['Просто втомився',1,'Ляж раніше спати. І поїж! Завтра буде краще ❤️',{t:'Синку, як ти сьогодні? Я цілий день думала ❤️',fx:{n:2}}],['Скучив за домом',1,'Приїжджай на вихідних. Я спечу пиріг 🥧'],['Та нічого, забудь',0,'Ти ж знаєш, що я завжди поруч ❤️']]},
+  {me:'Мам, як ти? ❤️',q:'Та нормально, синку. Тиск трохи, але то дрібниці. Ти як?',o:[['Все добре, не хвилюйся ❤️',1,'От і добре. Їж нормально!'],['Мам, бережи себе, будь ласка',1,'Ой, який ти в мене дорослий ❤️',{t:'Була в лікаря, все добре, не хвилюйся ❤️ Тиск у нормі. Дякую, що спитав.',fx:{n:1}}],['Нормально',0,'Щось ти коротко… ну добре.']]},
   {me:'Мам, а як ти робиш той борщ?',q:'О! Записуй: буряк, квасоля, і головне — з любовʼю ❤️',o:[['Записав! Спробую в гуртожитку',1,'Сфоткай, що вийде 😄'],['А можна просто приїхати й поїсти? 😄',1,'Можна, сонечко ❤️'],['Складно…',0,'Нічого складного, навчишся.']]},
   {me:'Мам, я сьогодні сам приготував вечерю! 🍳',q:'Та ти що! А що саме?',o:[['Яєчню з ковбасою 😎',0,'Ну, вже щось 😄'],['Макарони по-флотськи, як ти',1,'Мій син ❤️ Гордість!'],['Ну… майже приготував 😅',0,'Не спали гуртожиток!']]}],
- st_dima:[{me:'Бро, ти скоро?',q:'Пʼять хвилин. Може десять. Може завтра 😂',o:[['Класика 😂',0,'Ну а що 🤷'],['Тоді я сам іду в їдальню',0,'Візьми мені котлету!'],['Чекаю, без тебе нудно',1,'Ого, які ніжності 😂 Біжу']]},
+ st_dima:[{me:'Як там дівчина з третього поверху? 😏',q:'Тсс! Вона, здається, мене помітила… у ліфті посміхнулась 🙈',o:[['Пиши їй сьогодні!',1,'Сьогодні?! Ну… добре. Тримай за мене кулаки 🤞',{t:'БРО. Вона погодилась на каву!!! 🥳',fx:{h:2}}],['Не поспішай',0,'Ага… може, ти й правий'],['Вона всім посміхається 😂',-1,'Дякую, друже. Підбадьорив 😑']]},
+  {me:'Хто зʼїв мої пельмені? 🥟',q:'Які пельмені? Я нічого не знаю 😇',o:[['У тебе сметана на підборідді 😂',1,'Ох. Добре. Завтра куплю дві пачки 🙏',{t:'Купив пельмені! Дві пачки, як обіцяв 🥟 Вечеря за мною',fx:{h:1}}],['Діма!!!',0,'Ну я ж ненавмисно 😅'],['Все, ти мені більше не друг',-1,'Через пельмені?! 😱']]},
+  {me:'Бро, ти скоро?',q:'Пʼять хвилин. Може десять. Може завтра 😂',o:[['Класика 😂',0,'Ну а що 🤷'],['Тоді я сам іду в їдальню',0,'Візьми мені котлету!'],['Чекаю, без тебе нудно',1,'Ого, які ніжності 😂 Біжу']]},
   {me:'Що на вечір? 🎮',q:'Катка, шаурма і ніяких пар. План ідеальний.',o:[['Я в ділі!',1,'От це по-нашому 🤝'],['Мені треба вчитися…',0,'Ботан 😂 Але правильно'],['Знову ти зі своєю доткою',-1,'Не чіпай святе 😤']]},
-  {me:'Ти брав мою зарядку? 🔌',q:'Яку зарядку? 😇',o:[['Діма!!!',0,'Та віддам, віддам 😂'],['Ну все, тепер твоя черга мити посуд',1,'Справедливо 🤝'],['Ладно, бери',1,'Ти найкращий сусід 🙏']]}],
- st_petro:[{me:'Петре Івановичу, дякую за пару, було цікаво',q:'Приємно чути. Рідко хто так каже. Читайте розділ 4.',o:[['Обовʼязково!',1,'Перевірю на семінарі.'],['А можна щось додатково почитати?',1,'Зайдіть до кафедри. Дам книжку.'],['Ну… постараюсь',0,'Постарайтеся.']]},
+  {me:'Ти брав мою зарядку? 🔌',q:'Яку зарядку? 😇',o:[['Діма!!!',0,'Та віддам, віддам 😂'],['Ну все, тепер твоя черга мити посуд',1,'Справедливо 🤝',{t:'Посуд помитий 🫡 Зарядку повернув. І шаурму тобі купив — на столі 🌯',fx:{h:1,n:1}}],['Ладно, бери',1,'Ти найкращий сусід 🙏']]}],
+ st_petro:[{me:'Петре Івановичу, я не зрозумів останню тему',q:'Чесно сказати «не зрозумів» — це вже половина розуміння. Що саме?',o:[['Інтеграли частинами',1,'Зайдіть завтра на консультацію. Пояснимо.',{t:'Консультація о 14:00 в 214-й. Принесіть зошит.',fx:{h:1}}],['Все, якщо чесно 😅',0,'Тоді почніть із підручника. Розділ 2.'],['Та нічого, спишу',-1,'Списувати будете на іспиті? Спробуйте.']]},
+  {me:'Петре Івановичу, дякую за пару, було цікаво',q:'Приємно чути. Рідко хто так каже. Читайте розділ 4.',o:[['Обовʼязково!',1,'Перевірю на семінарі.'],['А можна щось додатково почитати?',1,'Зайдіть до кафедри. Дам книжку.',{t:'Книжку залишив на вахті у тьоті Валі. Розділ 3 — обовʼязково.',fx:{h:1}}],['Ну… постараюсь',0,'Постарайтеся.']]},
   {me:'Петре Івановичу, а ви завжди хотіли бути викладачем?',q:'Ні. Я хотів бути пілотом. Але математика виявилась сильнішою.',o:[['Це круто!',1,'Дякую. Не кидайте мрії, студенте.'],['Може, ще не пізно? 😄',1,'Хм. Може й не пізно.'],['Ясно',0,'Не відволікайтесь.']]}],
- st_valya:[{me:'Тьотю Валю, як справи? 🌸',q:'Та потрохи. Серіал цікавий, кіт гладкий, гуртожиток стоїть 😄',o:[['То все добре!',1,'Отож! Заходь на чай.'],['А що в серіалі?',1,'Ой, там така історія… заходь, розкажу!'],['Ну добре',0,'Ну-ну.']]},
-  {me:'Тьотю Валю, у нас знову кран тече 🚰',q:'Знову?! Хто ж там у вас такий богатир…',o:[['Це не я, чесно!',0,'Ага-ага. Гляну завтра.'],['Можу сам полагодити, дайте ключ',1,'Ого, майстер! Тримай ключ 🔧'],['Та нічого, потерпимо',0,'Терпіти не треба, скажу сантехніку.']]}]};
+ st_valya:[{me:'Тьотю Валю, як там Мурчик? 🐱',q:'Розтовстів, нахаба! Вчора зʼїв мою котлету 😾',o:[['Він просто вас любить',1,'Ох, любить він котлети, а не мене 😄'],['Може, на дієту його?',0,'Спробуй йому це сказати 😂'],['Котам котлети не можна',0,'Ой, та знаю я, знаю…']]},
+  {me:'Тьотю Валю, як справи? 🌸',q:'Та потрохи. Серіал цікавий, кіт гладкий, гуртожиток стоїть 😄',o:[['То все добре!',1,'Отож! Заходь на чай.'],['А що в серіалі?',1,'Ой, там така історія… заходь, розкажу!'],['Ну добре',0,'Ну-ну.']]},
+  {me:'Тьотю Валю, у нас знову кран тече 🚰',q:'Знову?! Хто ж там у вас такий богатир…',o:[['Це не я, чесно!',0,'Ага-ага. Гляну завтра.'],['Можу сам полагодити, дайте ключ',1,'Ого, майстер! Тримай ключ 🔧',{t:'Кран не тече! Ти золото, синку. Заходь — пиріжки з вишнею 🥧',fx:{h:1,n:1}}],['Та нічого, потерпимо',0,'Терпіти не треба, скажу сантехніку.']]}]};
 // ⏳ темп: роман на місяць; у коротких режимах — «далі буде»
 function gate(k,s){try{if(S.oneDay)return false;const W=S.W||1;if(W<2)return true;const T=k==='st_oksana'?[0,3,6,9,12,16]:[0,2,5,8,11,14];return S.day>=Math.floor((T[s]||0)*Math.min(1,W*5/20));}catch(e){return true;}}
 window.krLsGate=gate;
-function story(p,k){const R=K().lr(p)[k];return R.r>1&&R.s<6&&!R.wait&&gate(k,R.s);}
-function sessia(p,k){const R=K().lr(p)[k];return S.oneDay&&k==='st_oksana'&&R.s<6&&R.r>1;}
+function story(p,k){const R=K().lr(p)[k];return !K().hurt(R)&&R.s<6&&!R.wait&&gate(k,R.s);}
+function sessia(p,k){const R=K().lr(p)[k];return S.oneDay&&k==='st_oksana'&&R.s<6&&!K().hurt(R);}
 function canWrite(p,k){return (p.lsW||{})[k]!==S.day;}
-function talkOf(p,k){const T=TALK[k];return T[(S.day+(p.lsT||0))%T.length];}
-function writeBox(p,k){if(!canWrite(p,k))return '';const R=K().lr(p)[k];const t=R.r<=1?'Вибач мені, будь ласка 🙏':sessia(p,k)?MYO[Math.min(R.s,5)].me:!story(p,k)?talkOf(p,k).me:k==='st_oksana'?MYO[Math.min(R.s,5)].me:pk(MY[k]);return `<div class="phcomp lswr"><small>💬 Почати розмову</small><button data-ph="lswr" data-f="${k}">${t}</button></div>`;}
+function talkOf(p,k){const T=TALK[k];const U=(p.lsTU=p.lsTU||{});let u=U[k]=U[k]||[];if(u.length>=T.length)u=U[k]=[];if(p._tk&&p._tk[k]&&p._tk[k].d===S.day)return T[p._tk[k].n];const free=T.map((_,n)=>n).filter(n=>!u.includes(n));const n=free[Math.floor(Math.random()*free.length)];(p._tk=p._tk||{})[k]={d:S.day,n};return T[n];}
+function talkUse(p,k,T){const n=TALK[k].indexOf(T);const U=(p.lsTU=p.lsTU||{});(U[k]=U[k]||[]).push(n);}
+function writeBox(p,k){if(!canWrite(p,k))return '';const R=K().lr(p)[k];const t=K().hurt(R)?'Вибач мені, будь ласка 🙏':sessia(p,k)?MYO[Math.min(R.s,5)].me:!story(p,k)?talkOf(p,k).me:k==='st_oksana'?MYO[Math.min(R.s,5)].me:pk(MY[k]);return `<div class="phcomp lswr"><small>💬 Почати розмову</small><button data-ph="lswr" data-f="${k}">${t}</button></div>`;}
 {const _at=appThread;appThread=function(k){let h=_at.apply(this,arguments);try{const p=S.players[phI()];if(p&&p.id==='student'&&PER[k]){const j=h.lastIndexOf('</div>');const b=writeBox(p,k);if(b)h=j>0?h.slice(0,j)+b+h.slice(j):h+b;}}catch(e){}return h;};}
 {const _dp=doPhone;doPhone=function(i,ds){if(ds&&ds.k==='lswr'){try{const p=S.players[i];const k=ds.f;if(!p||!PER[k]||!canWrite(p,k))return;if(bat(p)<=0)return toastI(i,'📵 Телефон сів.');p.bat=Math.max(0,bat(p)-3);(p.lsW=p.lsW||{})[k]=S.day;const R=K().lr(p),s=R[k].s;
- if(R[k].r<=1){push(i,k,'<i>Ти: Вибач мені, будь ласка 🙏</i>');R[k].r=2;R[k].sorry=0;K().save(p);push(i,k,{st_oksana:'Добре… Але більше так не роби 🙂',st_mom:'Ну що ти, синку. Я ж мама ❤️',st_dima:'Та проїхали, бро 🤝',st_petro:'Вибачення прийнято. Надалі будьте уважнішим.',st_valya:'Ой, та годі вже. Заходь на чай.'}[k]);return;}
+ if(K().hurt(R[k])){push(i,k,'<i>Ти: Вибач мені, будь ласка 🙏</i>');R[k].r=1;R[k].sorry=0;K().save(p);push(i,k,{st_oksana:'Добре… Але більше так не роби 🙂',st_mom:'Ну що ти, синку. Я ж мама ❤️',st_dima:'Та проїхали, бро 🤝',st_petro:'Вибачення прийнято. Надалі будьте уважнішим.',st_valya:'Ой, та годі вже. Заходь на чай.'}[k]);return;}
  if(sessia(p,k)){push(i,k,`<i>Ти: ${MYO[Math.min(s,5)].me}</i>`);push(i,k,'Ой, сесія, голова кругом 🙈 Давай після заліків?',['Добре, я почекаю 🙂','Удачі на заліках! 🍀'],{fx:[[{},'Дякую, що розумієш 💛',{}],[{h:1},'Дякую! Мені приємно 🙈',{lsRel:[k,1]}]]});return;}
- if(!story(p,k)){const T=talkOf(p,k);p.lsT=(p.lsT||0)+1;push(i,k,`<i>Ти: ${T.me}</i>`);const m=push(i,k,T.q,T.o.map(x=>x[0]),{fx:T.o.map(x=>[x[1]>0?{h:1}:{},x[2],x[1]?{lsRel:[k,x[1]]}:{}])});return;}
+ if(!story(p,k)){const T=talkOf(p,k);talkUse(p,k,T);push(i,k,`<i>Ти: ${T.me}</i>`);const m=push(i,k,T.q,T.o.map(x=>x[0]),{fx:T.o.map(x=>[x[1]>0?{h:1}:{},x[2],Object.assign(x[1]?{lsRel:[k,x[1]]}:{},x[3]?{then:x[3]}:{})])});m.lsTalk=k;return;}
  if(k==='st_oksana'){const D=MYO[s];push(i,k,`<i>Ти: ${D.me}</i>`);const y=busyWith(p,k);
-  const o=D.o.map(x=>x[0]),fx=D.o.map(x=>x[1]?[{h:x[2]>0?1:0},PER[k].ok,y?{ls:{k,s,d:1}}:{ls:{k,s},lsRel:x[2]?[k,x[2]]:null}]:[{},D.bad||PER[k].no,x[2]<0?{lsNo:k}:{}]);
+  const o=D.o.map(x=>x[0]),fx=D.o.map(x=>x[1]?[{h:x[2]>0?1:0},yR(k,s,y?1:0),y?{ls:{k,s,d:1}}:{ls:{k,s},lsRel:x[2]?[k,x[2]]:null}]:[{},D.bad||PER[k].no,x[2]<0?{lsNo:k}:{}]);
   const m=push(i,k,D.q+(y?` (Ти ж сьогодні з ${NM[y]}, тож завтра 😉)`:''),o,{fx});m.lsk=k;}
  else{push(i,k,`<i>Ти: ${pk(MY[k])}</i>`);inviteMsg(i,p,k);}}catch(e){if(typeof console!=='undefined')console.error(e);}return;}return _dp.apply(this,arguments);};}
 {const _ck=phClick;phClick=function(e){const b=e.target.closest&&e.target.closest('[data-ph="lswr"]');if(b){e.stopPropagation();phSend({k:'lswr',f:b.dataset.f});setTimeout(phRefresh,80);return;}return _ck.apply(this,arguments);};}
@@ -5398,6 +5381,11 @@ if(window.krToday){const _t=window.krToday;window.krToday=function(p){const it=_
 
 // === 1.087: 🔔 звук нового повідомлення ===
 {const _p=push;let _lt=0;push=function(to,f,t,o){const m=_p.apply(this,arguments);try{if(!SIM&&o&&o.length&&typeof document!=='undefined'&&to===(typeof meIx==='function'?meIx():S.turn)){const n=Date.now();if(n-_lt>1500){_lt=n;setTimeout(()=>snd('msg'),250);try{navigator.vibrate&&navigator.vibrate([30,60,30]);}catch(e){}}}}catch(e){}return m;};}
+// === 1.090: розмови з наслідком наступного дня; твої репліки — справа синім ===
+{const _dp=doPhone;doPhone=function(i,ds){let th=null,f=null;try{if(ds&&ds.k==='qa'){const m=phS().m.find(x=>x.id===+ds.id&&x.to===i&&x.st==='new');if(m&&m.fx){const e=(m.fx[+ds.o]||[])[2];if(e&&e.then){th=e.then;f=m.f;}}}}catch(e){}
+ const r=_dp.apply(this,arguments);try{if(th){phS().q.push({to:i,at:S.day+1,f,t:th.t,fx:th.fx||null});}}catch(e){}return r;};}
+{const _at=appThread;appThread=function(k){let h=_at.apply(this,arguments);try{h=h.replace(/<div class="phmsg in"><i>Ти: ([^<]*)<\/i>(?:<br>)?([\s\S]*?)<\/div>/g,(a,me,rest)=>`<div class="phmsg out">${me}</div>`+(rest.trim()?`<div class="phmsg in">${rest}</div>`:''));}catch(e){}return h;};}
+
 })();
 
 // === 1.045: 📒 Альбом наліпок ===
@@ -6908,12 +6896,12 @@ function slides(p){const m=p&&p.money!=null?p.money:650;return [
  {img:'img/menu/city_evening.webp',t:'Виживи до зарплати.',x:'Кожен вибір — гроші, нерви і щастя. Головне — не здатися.',last:1}];}
 function show(p){if(document.getElementById('introov'))return;const L=slides(p);let i=0,tm=null;
  const ov=document.createElement('div');ov.id='introov';ov.setAttribute('role','dialog');ov.setAttribute('aria-label','Вступ');
- ov.innerHTML=`<div class="inbg"></div><div class="intx"><b></b><p></p></div><div class="indots">${L.map(()=>'<i></i>').join('')}</div><button class="inskip" type="button">Пропустити ›</button><button class="ingo" type="button" hidden>Почати 💪</button>`;
+ ov.innerHTML=`<div class="inblur"></div><div class="inmid"><div class="incard"><div class="inbg"></div></div><div class="intx"><b></b><p></p></div></div><div class="indots">${L.map(()=>'<i></i>').join('')}</div><button class="inskip" type="button">Пропустити ›</button><button class="ingo" type="button" hidden>Почати 💪</button>`;
  document.body.appendChild(ov);document.body.classList.add('noscroll');
  const bg=ov.querySelector('.inbg'),tb=ov.querySelector('.intx b'),tp=ov.querySelector('.intx p'),dots=[...ov.querySelectorAll('.indots i')],go=ov.querySelector('.ingo');
  function close(){clearTimeout(tm);mark();ov.classList.add('out');document.body.classList.remove('noscroll');setTimeout(()=>ov.remove(),450);}
  function step(){const s=L[i];const im=document.createElement('div');im.className='inimg';im.style.backgroundImage=`url("${s.img}")`;bg.appendChild(im);
-  requestAnimationFrame(()=>im.classList.add('on'));[...bg.children].slice(0,-2).forEach(x=>x.remove());
+  requestAnimationFrame(()=>im.classList.add('on'));ov.querySelector('.inblur').style.backgroundImage=`url("${s.img}")`;[...bg.children].slice(0,-2).forEach(x=>x.remove());
   const tx=ov.querySelector('.intx');tx.classList.remove('on');setTimeout(()=>{tb.textContent=s.t;tp.textContent=s.x;tx.classList.toggle('big',!!s.last);tx.classList.add('on');},250);
   dots.forEach((d,k)=>d.classList.toggle('on',k<=i));go.hidden=!s.last;ov.querySelector('.inskip').hidden=!!s.last;
   try{if(typeof snd==='function')snd(s.last?'ach':'click');}catch(e){}
@@ -6965,6 +6953,24 @@ function inj(){try{if(SIM||!S||!['end','done'].includes(S.phase)||!app.querySele
  const im=window.krHeroImg&&(window.krHeroImg('student',R.s>=3?'ok_cinema':R.s>=2?'ok_coffee':'c_starosta'))||'';
  fe.insertAdjacentHTML('afterend',`<div class="lsfin okmore">${im?`<div class="lsimg" style="background-image:url(${im})"></div>`:''}<div><b>💕 Оксана · ${R.s} з 6</b><small>${ST[Math.min(R.s,5)]}</small><small><i>${tail}</i></small></div></div>`);}catch(e){}}
 const _r=render;render=function(){_r.apply(this,arguments);inj();setTimeout(inj,200);};})();
+// === 1.090: 🎓 Студент не отримує «офісних» слів: шеф → Петро Іванович, нарада → пара ===
+(function(){
+const L='[\\p{L}]';
+const W=[['робочому чаті','чаті групи'],['робочий чат','чат групи'],['Робочий чат','Чат групи'],['після роботи','після пар'],['з роботи','з пар'],['на роботу','на пари'],['на роботі','на парах'],
+ ['Шефу','Петру Івановичу'],['шефу','Петру Івановичу'],['Шефа','Петра Івановича'],['шефа','Петра Івановича'],['Шефом','Петром Івановичем'],['шефом','Петром Івановичем'],['Шеф','Петро Іванович'],['шеф','Петро Іванович'],
+ ['колегами','одногрупниками'],['колегам','одногрупникам'],['колеги','одногрупники'],['Колеги','Одногрупники'],['колега','одногрупник'],['колег','одногрупників'],['колективу','групи'],['колектив','група'],
+ ['нараді','парі'],['нарада','пара'],['Нарада','Пара'],['нараду','пару'],['в офісі','в деканаті'],['офісу','потоку'],['лікарняний','довідку від лікаря'],['понаднормові','доплату'],['Понаднормові','Доплата']];
+const RX=W.map(([a,b])=>[new RegExp('(^|[^\\p{L}])'+a+'(?![\\p{L}-])','gu'),'$1'+b]);
+function fix(s){if(!s||typeof s!=='string')return s;let o=s;RX.forEach(([r,b])=>{o=o.replace(r,b);});return o;}
+window.krStFix=fix;
+// окремі картинки для перероблених подій
+try{const T=window.HEROART&&window.HEROART.student&&window.HEROART.student.t;const st=window.HEROART.student.s;const put=(t,s)=>{if(T&&st&&st.has(s))T[t]=s;};
+ put('Шеф пропонує переробку','petro_notice');put('Шеф помітив старанність','petro_notice');put('Шеф холодний','petro_late');put('ГРВІ','flu');put('Збір на день народження','group_starosta');}catch(e){}
+function isStu(){try{const p=S.players[S.room&&typeof meI==='function'?meI():S.turn];return p&&p.id==='student';}catch(e){return false;}}
+function walk(root){const tw=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let n;while((n=tw.nextNode())){const v=n.nodeValue;if(!/[Шш]еф|колег|нарад|роботі|роботу|роботи|офіс|лікарнян|понаднорм|робоч|Колег|Нарад|колектив|Понаднорм/.test(v))continue;const f=fix(v);if(f!==v)n.nodeValue=f;}}
+const _r=render;render=function(){_r.apply(this,arguments);try{if(SIM||!S||!S.players||!app||!app.querySelector||!isStu())return;if(S.ev&&S.ev.only&&S.ev.only.includes('student'))return;walk(app);const ap=document.getElementById('albpop');if(ap)walk(ap);setTimeout(()=>{try{const a2=document.getElementById('albpop');if(a2)walk(a2);}catch(e){}},400);}catch(e){}};
+})();
+
 render();
 </script>
 </body>
