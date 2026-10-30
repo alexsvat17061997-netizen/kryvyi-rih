@@ -1843,7 +1843,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.087 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.088 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2733,7 +2733,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.087 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.088 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -5110,7 +5110,7 @@ Object.keys(L).forEach(k=>L[k].forEach((st,s)=>{CHAINS['ls_'+k+'_'+s]=st[3];}));
 // ---------- памʼять між іграми ----------
 const KEY='kr-life-student';
 const lsg=k=>{try{return localStorage.getItem(k);}catch(e){return null;}},lss=(k,v)=>{try{localStorage.setItem(k,v);}catch(e){}};
-function loadLR(){let o=null;try{o=JSON.parse(lsg(KEY)||'null');}catch(e){}const r={};ORDER.forEach(k=>{const x=o&&o[k]||{};r[k]={r:x.r==null?3:x.r,s:x.s||0,wait:0};});return r;}
+function loadLR(){let o=null;try{if(!(S&&S.room))o=JSON.parse(lsg(KEY)||'null');}catch(e){}const r={};ORDER.forEach(k=>{const x=o&&o[k]||{};r[k]={r:x.r==null?3:x.r,s:x.s||0,wait:0};});return r;}
 function saveLR(p){if(!p||!p.lr||S.room)return;const o={};ORDER.forEach(k=>o[k]={r:p.lr[k].r,s:p.lr[k].s});lss(KEY,JSON.stringify(o));}
 const isSt=p=>p&&p.id==='student'&&!p.collector&&!p.out;
 function lr(p){if(!p.lr)p.lr=loadLR();return p.lr;}
