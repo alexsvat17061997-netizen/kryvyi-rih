@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -21,6 +22,8 @@ public class MainActivity extends Activity {
   static final String GAME = "https://alexsvat17061997-netizen.github.io/kryvyi-rih/";
   static final String LOCAL = "https://appassets.androidplatform.net/assets/index.html";
   WebView web;
+  ValueCallback<Uri[]> fileCb;
+  static final int PICK = 77;
   boolean fellBack = false;
   boolean loaded = false;
   final Handler h = new Handler(Looper.getMainLooper());
@@ -38,7 +41,18 @@ public class MainActivity extends Activity {
     s.setCacheMode(WebSettings.LOAD_DEFAULT);
     final WebViewAssetLoader loader = new WebViewAssetLoader.Builder()
         .addPathHandler("/assets/", new WebViewAssetLoader.AssetsPathHandler(this)).build();
-    web.setWebChromeClient(new WebChromeClient());
+    web.setWebChromeClient(new WebChromeClient() {
+      @Override public boolean onShowFileChooser(WebView v, ValueCallback<Uri[]> cb, FileChooserParams p) {
+        if (fileCb != null) fileCb.onReceiveValue(null);
+        fileCb = cb;
+        Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+        i.addCategory(Intent.CATEGORY_OPENABLE);
+        i.setType("audio/*");
+        i.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+        try { startActivityForResult(Intent.createChooser(i, "Обери пісні"), PICK); } catch (Exception e) { fileCb = null; return false; }
+        return true;
+      }
+    });
     web.setWebViewClient(new WebViewClient() {
       @Override public WebResourceResponse shouldInterceptRequest(WebView v, WebResourceRequest r) {
         return loader.shouldInterceptRequest(r.getUrl());
@@ -61,6 +75,18 @@ public class MainActivity extends Activity {
     });
     if (saved != null) web.restoreState(saved); else web.loadUrl(GAME);
     h.postDelayed(new Runnable() { public void run() { if (!loaded) fallBack(); } }, 10000);
+  }
+  @Override protected void onActivityResult(int req, int res, Intent data) {
+    super.onActivityResult(req, res, data);
+    if (req != PICK || fileCb == null) return;
+    Uri[] out = null;
+    if (res == RESULT_OK && data != null) {
+      if (data.getClipData() != null) {
+        int n = data.getClipData().getItemCount(); out = new Uri[n];
+        for (int k = 0; k < n; k++) out[k] = data.getClipData().getItemAt(k).getUri();
+      } else if (data.getData() != null) out = new Uri[]{ data.getData() };
+    }
+    fileCb.onReceiveValue(out); fileCb = null;
   }
   @Override protected void onSaveInstanceState(Bundle out) { super.onSaveInstanceState(out); web.saveState(out); }
   @Override protected void onPause() { super.onPause(); web.onPause(); }
