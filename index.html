@@ -1867,7 +1867,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.094 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.095 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2757,7 +2757,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.094 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.095 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -5359,9 +5359,26 @@ function inviteMsg(i,p,k){const R=K().lr(p),s=R[k].s,st=K().L[k][s],per=PER[k];c
  const jk=pk(JK[k],s);const o=[...y[0],'Давай завтра',jk[0],st[2]],fx=[...y[1],[{},per.later+`<small class="lsmeet">📌 Зустріч завтра</small>`,{ls:{k,s,d:1}}],[{},LAUGH[k],{next:{t:jk[1],o:[per.jy,per.jn],fx:[[{h:1},yR(k,s),{ls:{k,s},lsRel:[k,1]}],[{},nR(k,s),{}]]}}],[{},nR(k,s),{lsNo:k}]];
  if(y[0].length>1){o.splice(2,1);fx.splice(2,1);}
  const m=push(i,k,st[0],o,{fx});m.lsk=k;p.lsN=(p.lsN||0)+1;}
+// 💌 з ❤️ люди пишуть самі
+const INIT={st_oksana:[{q:'Підемо на каву після пар? ☕ Я пригощаю 😊',o:[['Залюбки!',1,'Тоді о третій біля корпусу 💛'],['Сьогодні не можу 😔',0,'Ну добре… завтра тоді?'],['А з якого приводу? 😏',1,'Без приводу. Просто хочу 🙈']]},{q:'Я тут подумала про тебе 🙈 Як твій день?',o:[['Тепер — чудовий 😊',1,'Ой… 🙈💛'],['Важкий, але тримаюсь',1,'Тримайся! Я поруч 💪'],['Нормально',0,'Ну добре 🙂']]}],
+ st_mom:[{q:'Синку, я спекла твій улюблений пиріг 🥧 Коли приїдеш?',o:[['На вихідних обовʼязково!',1,'Чекаю ❤️'],['Мам, ти найкраща',1,'Ой, ну ти скажеш ❤️'],['Як вийде',0,'Ну як вийде, то вийде…']]}],
+ st_dima:[{q:'Бро, шаурма за мій рахунок сьогодні 🌯 Йдеш?',o:[['Ти ще питаєш!',1,'Тоді о сьомій біля ринку 🤝'],['Я на дієті 😂',0,'Ага, на шаурмичній 😂'],['Дякую, бро',1,'Для друга не шкода 🤝']]},{q:'Бро, Петро Іванович питав про тебе — я тебе прикрив 😎',o:[['Ти найкращий!',1,'Знаю 😎 З тебе кава'],['Дякую, буду винен',1,'Записую 📝😂'],['А що він хотів?',0,'Каже, зайди після пари']]}],
+ st_petro:[{q:'Студенте, у мене є цікава стаття для вас. Зайдете?',o:[['Обовʼязково',1,'Чекаю на кафедрі.'],['Дякую, що думаєте про мене',1,'Ви на це заслуговуєте.'],['Може пізніше',0,'Як скажете.']]}],
+ st_valya:[{q:'Синку, я борщу наварила, а їсти нікому 🍲 Заходь!',o:[['Біжу!',1,'Отож! Тарілка вже на столі'],['Ви мене балуєте',1,'А кого ж мені ще балувати? 😄'],['Не можу сьогодні',0,'Ну, завтра то завтра']]}]};
 window.krLsInvite=function(i,p,R,P){if(Math.random()>0.75)return;if((p.lsN||0)>=1&&Math.random()<0.6)return;
- const ok=K().ORDER.filter(k=>R[k].s<K().L[k].length&&!R[k].wait&&!K().hurt(R[k])&&reqOk(k,R[k])&&gate(k,R[k].s)&&!P.m.some(m=>m.to===i&&m.lsk===k&&m.st==='new')&&!(k==='st_oksana'&&(R[k].s<3||R[k].r<4)));if(!ok.length)return;
- inviteMsg(i,p,ok[Math.floor(Math.random()*ok.length)]);};
+ const ok=K().ORDER.filter(k=>R[k].s<K().L[k].length&&!R[k].wait&&!K().hurt(R[k])&&reqOk(k,R[k])&&gate(k,R[k].s)&&!P.m.some(m=>m.to===i&&m.lsk===k&&m.st==='new')&&!(k==='st_oksana'&&(R[k].s<3||R[k].r<4))&&(R[k].s===0||k==='st_mom'||R[k].r>=2));
+ const warm=K().ORDER.filter(k=>R[k].r>=4&&INIT[k]&&!P.m.some(m=>m.to===i&&m.f===k&&m.st==='new')&&(p.lsIn||{})[k]!==S.day);
+ if(warm.length&&(!ok.length||Math.random()<0.4)){const k=warm[Math.floor(Math.random()*warm.length)];(p.lsIn=p.lsIn||{})[k]=S.day;const T=INIT[k][Math.floor(Math.random()*INIT[k].length)];const m=push(i,k,T.q,T.o.map(x=>x[0]),{fx:T.o.map(x=>[x[1]>0?{h:1}:{},x[2],x[1]?{lsRel:[k,x[1]]}:{}])});m.lsTalk=k;p.lsN=(p.lsN||0)+1;return;}
+ if(!ok.length)return;inviteMsg(i,p,ok[Math.floor(Math.random()*ok.length)]);};
+// 🙈 коли кличеш ти: спершу частіше відмовляють
+const EXC={st_oksana:['Сьогодні не можу, справи старости 😅','Ой, у мене реферат горить 🙈 Іншим разом?','Я вже з дівчатами домовилась. Може, потім?'],
+ st_mom:['Синку, я сьогодні на зміні. Давай іншим разом ❤️','Ой, тиск підскочив, полежу. Завтра поговоримо'],
+ st_dima:['Не можу, бро, катка вирішальна 🎮','Сорі, я сьогодні до батька їду','Давай не сьогодні, я як вичавлений лимон'],
+ st_petro:['Запишіться на консультацію на наступний тиждень.','Сьогодні засідання кафедри. Іншим разом.'],
+ st_valya:['Ой, синку, сьогодні перевірка з комендатури, не до того','Потім, потім, у мене серіал 📺']};
+const ACC=[0.3,0.45,0.6,0.75,0.92,0.98];
+function accepts(p,k,s){if(s===0)return true;const r=K().lr(p)[k].r;let a=ACC[Math.max(0,Math.min(5,r))];if(k==='st_mom')a=Math.min(0.98,a+0.3);return Math.random()<a;}
+function refuse(i,p,k){const E=EXC[k];const t=E[Math.floor(Math.random()*E.length)];push(i,k,t,['Добре, іншим разом 🙂','Шкода 😔'],{fx:[[{},{st_oksana:'Дякую, що розумієш 💛',st_mom:'Ти в мене золото ❤️',st_dima:'Ти норм, бро 🤝',st_petro:'Цінуйте час. Дякую.',st_valya:'Отож, молодець.'}[k],{lsRel:[k,1]}],[{},{st_oksana:'Не сумуй 🙂',st_mom:'Не сумуй, синку',st_dima:'Та не кисни 😄',st_petro:'Нічого.',st_valya:'Не кисни!'}[k],{}]]});}
 // ✍️ ти пишеш першим: кнопка в розмові з людиною
 const MY={st_mom:['Мам, можна я приїду? ❤️','Мам, як ти там? Скучив','Мам, а що в тебе нового?'],st_dima:['Бро, є справа. Побалакаємо?','Дімон, ти де пропав?','Бро, що робиш увечері?'],st_petro:['Петре Івановичу, можна до вас звернутися?','Петре Івановичу, маю питання по курсовій','Доброго дня! Можна консультацію?'],st_valya:['Тьотю Валю, можна до вас на чай?','Тьотю Валю, як ваш тиск?','Тьотю Валю, вам нічого не треба принести?']};
 // 💬 просто поговорити — коли історія чекає або вже завершена
@@ -5403,7 +5420,7 @@ const WAITT={st_oksana:[{me:'Ну що, скоро побачимось? 😊',q
  st_petro:[{me:'Петре Івановичу, у силі наша домовленість?',q:'Так. Не запізнюйтеся.',o:[['Буду вчасно',1,'Добре.'],['А можна раніше?',0,'Не можна.'],['Постараюсь',0,'Постарайтеся.']]}],
  st_valya:[{me:'Тьотю Валю, я памʼятаю, все в силі',q:'Отож! Я вже чайник поставила 🫖',o:[['Біжу!',1,'Не біжи, бо впадеш 😄'],['А пиріжки будуть?',1,'Аякже 🥧'],['Може пізніше',0,'Ну-ну.']]}]};
 const tierOf=(p,k)=>{try{return K().TIER(K().lr(p)[k].r);}catch(e){return 1;}};
-const qOf=(T,t)=>Array.isArray(T.q)?T.q[Math.min(t,T.q.length-1)]:T.q;
+const qOf=(T,t)=>Array.isArray(T.q)?T.q[Math.min(t>=2?2:1,T.q.length-1)]:T.q;
 function talkOf(p,k){const tt=tierOf(p,k);try{if(K().lr(p)[k].wait&&WAITT[k]&&(p.lsWT||{})[k]!==S.day){const W=WAITT[k];return W[S.day%W.length];}}catch(e){}const T=TALK[k].filter(x=>(x.min||0)<=tt).length?TALK[k]:TALK[k];const U=(p.lsTU=p.lsTU||{});let u=U[k]=U[k]||[];if(u.length>=T.length)u=U[k]=[];if(p._tk&&p._tk[k]&&p._tk[k].d===S.day)return T[p._tk[k].n];const free=T.map((_,n)=>n).filter(n=>!u.includes(n)&&(T[n].min||0)<=tt);if(!free.length){u=U[k]=[];T.forEach((x,n)=>{if((x.min||0)<=tt)free.push(n);});}const n=free[Math.floor(Math.random()*free.length)];(p._tk=p._tk||{})[k]={d:S.day,n};return T[n];}
 function talkUse(p,k,T){try{if(p._tk)delete p._tk[k];}catch(e){}try{if(WAITT[k]&&WAITT[k].includes(T))(p.lsWT=p.lsWT||{})[k]=S.day;}catch(e){}const n=TALK[k].indexOf(T);if(n<0)return;const U=(p.lsTU=p.lsTU||{});(U[k]=U[k]||[]).push(n);}
 function writeBox(p,k){if(!canWrite(p,k))return '';const R=K().lr(p)[k];const t=K().hurt(R)?'Вибач мені, будь ласка 🙏':sessia(p,k)?MYO[Math.min(R.s,5)].me:!story(p,k)?talkOf(p,k).me:k==='st_oksana'?MYO[Math.min(R.s,5)].me:pk(MY[k]);return `<div class="phcomp lswr"><small>💬 Почати розмову</small><button data-ph="lswr" data-f="${k}">${t}</button></div>`;}
@@ -5413,6 +5430,7 @@ function writeBox(p,k){if(!canWrite(p,k))return '';const R=K().lr(p)[k];const t=
  if(sessia(p,k)){push(i,k,`<i>Ти: ${MYO[Math.min(s,5)].me}</i>`);push(i,k,'Ой, сесія, голова кругом 🙈 Давай після заліків?',['Добре, я почекаю 🙂','Удачі на заліках! 🍀'],{fx:[[{},'Дякую, що розумієш 💛',{}],[{h:1},'Дякую! Мені приємно 🙈',{lsRel:[k,1]}]]});return;}
  if(!story(p,k)){const T=talkOf(p,k);talkUse(p,k,T);const hOk=(p.lsTh=p.lsTh||{})[k]!==S.day;p.lsTh[k]=S.day;push(i,k,`<i>Ти: ${T.me}</i>`);const m=push(i,k,qOf(T,tierOf(p,k)),T.o.map(x=>x[0]),{fx:T.o.map(x=>[x[1]>0&&hOk?{h:1}:{},x[2],Object.assign(x[1]?{lsRel:[k,x[1]]}:{},x[3]?{then:x[3]}:{})])});m.lsTalk=k;return;}
  (p.lsWS=p.lsWS||{})[k]=S.day;
+ if(!accepts(p,k,s)){push(i,k,`<i>Ти: ${k==='st_oksana'?MYO[s].me:pk(MY[k])}</i>`);refuse(i,p,k);return;}
  if(k==='st_oksana'){const D=MYO[s];push(i,k,`<i>Ти: ${D.me}</i>`);const y=busyWith(p,k);
   const o=D.o.map(x=>x[0]),fx=D.o.map(x=>x[1]?[{h:x[2]>0?1:0},yR(k,s,y?1:0),y?{ls:{k,s,d:1}}:{ls:{k,s},lsRel:x[2]?[k,x[2]]:null}]:[{},D.bad||PER[k].no,x[2]<0?{lsNo:k}:{}]);
   const m=push(i,k,D.q+(y?` (Ти ж сьогодні з ${NM[y]}, тож завтра 😉)`:''),o,{fx});m.lsk=k;}
