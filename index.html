@@ -978,6 +978,9 @@ body.gmode #albpop{transform:scale(.85);transform-origin:top right}
 .ctpbtn{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.ctpbtn button{background:#2f6fd6;color:#fff;border:0;border-radius:12px;padding:7px 12px;font:600 13px inherit;cursor:pointer}.ctpbtn button:disabled{background:#3b3660;opacity:.7}
 .ctsv{display:flex;align-items:center;gap:10px;width:100%;background:#22203a;border:1px solid #3b3660;color:#eee;border-radius:14px;padding:10px;margin:6px 0;text-align:left;cursor:pointer;font:inherit}.ctsv>span{font-size:24px}.ctsv div{flex:1;min-width:0}.ctsv b{display:block;font-size:14px}.ctsv small{font-size:12px;opacity:.7}.ctsv em{font-style:normal;font-weight:800;color:#F2A93B;white-space:nowrap}.ctsv:disabled{opacity:.5}
 .poster .panel > button.gtrorig{display:none!important}.gtrs2{margin:4px 0 10px}.gtrs2 .gtr{background:#FFF6E4}
+.phwr button.lsmain{background:#2f6fd6;border-color:#5b8ff0;font-weight:700}
+.mcitybtn{margin-top:8px;font-size:14px}
+.gomapw .dlabel{opacity:.45;font-size:8px!important}.gomapw .dlabel.water{opacity:.35}
 </style>
 </head>
 <body>
@@ -1102,7 +1105,7 @@ const DREAMS=[
  {t:'Велосипед дитині',extra:300}
 ];
 const SF={student:0.3,miner:1,seller:0.5,driver:0.8,pensioner:0.3,office:1,mom:0.4,teacher:0.4,rukha:0.5};
-window.krBusy=function(me){try{if(document.querySelector('.cbub'))return true;if(me!=='ph'&&document.getElementById('phnote'))return true;if(me!=='alb'&&document.getElementById('albpop'))return true;if(me!=='ach'){const t=document.getElementById('toast');if(t&&t.classList.contains('on'))return true;}if(document.getElementById('mgov')||document.getElementById('setov')&&document.getElementById('setov').style.display==='flex')return true;}catch(e){}return false;};
+window.krBusy=function(me){try{if(document.querySelector('.cbub'))return true;if(me!=='ph'&&document.getElementById('phnote'))return true;if(me!=='alb'&&document.getElementById('albpop'))return true;if(me!=='ach'){const t=document.getElementById('toast');if(t&&t.classList.contains('on'))return true;}if(me==='ph'){const rt=document.getElementById('rtoast');if(rt&&rt.classList.contains('on'))return true;}if(document.getElementById('mgov')||document.getElementById('setov')&&document.getElementById('setov').style.display==='flex')return true;}catch(e){}return false;};
 const ACH=[
  ...Object.keys({student:1,miner:1,seller:1,driver:1,pensioner:1,office:1,mom:1,teacher:1}).map(id=>({k:'s_'+id,t:'Дожив: '+({student:'Студент',miner:'Шахтар',seller:'Продавчиня',driver:'Водій маршрутки',pensioner:'Пенсіонерка',office:'Офісний планктон',mom:'Мама в декреті',teacher:'Вчителька'})[id]})),
  {k:'dream',t:'Мрія здійснилась'},{k:'legend',t:'Легенда Кривбасу: мрія і 8+ щастя'},{k:'nobus',t:'Дожив без маршрутки'},
@@ -1552,7 +1555,7 @@ function effective(p,ev,c){
   if(id==='gopnik'&&c.b&&d.m<0&&(c.go==='market'||c.go==='garages'))d.m=Math.round(d.m*0.7/10)*10;
   if(id==='gopnik'&&d.h>0&&/кіно|театр|концерт/i.test((ev.t||'')+' '+(c.l||'')))d.h=Math.ceil(d.h/2);
   if(crisisOn('prices')&&d.m<0)d.m=Math.round(d.m*1.25/10)*10;
-  if(p.items&&(p.items.power||p.items.lamp)&&/світл|розетк|блекаут|темр/i.test(ev.t)&&d.n<0)d.n=0;
+  if(p.items&&(p.items.power||p.items.lamp)&&/світл|розетк|блекаут|темр/i.test(ev.t)&&d.n<0){d.n=0;p._itMsg=(p.items.power?'🔋 Павербанк':'🔦 Ліхтар')+' врятував: нерви цілі';}
   if(ev.vet&&S.evPet&&S.evPet.b==='pure'&&d.m<0)d.m=Math.round(d.m*1.5/10)*10;
   if(S.mod&&S.mod.k==='cheap'&&d.m<0&&(locOf(ev)===S.mod.loc||c.go===S.mod.loc))d.m=Math.round(d.m*0.8/10)*10;
   if(id==='pensioner'&&/комуналк/i.test(ev.t)&&d.m<0)d.m=Math.round(d.m/20)*10;
@@ -1864,7 +1867,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.093 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.094 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2396,8 +2399,8 @@ app.addEventListener('click',e=>{
       if(p.id==='rukha'&&p.movedDay!==S.day){apply(p,{n:-1});msgs.push('Руха цілий день удома: нудно, −1 нерв');}
       if(S.hard&&p.items&&Math.random()<(crisisOn('crime')?0.25:0.06)){const ks=['bike','power','gym'].filter(k=>p.items[k]);if(ks.length){const k=ks[Math.floor(Math.random()*ks.length)];delete p.items[k];msgs.push(nm(p)+': поки нікого не було вдома, винесли '+ITEMS[k].ic+' '+ITEMS[k].n.toLowerCase()+'. Кривий Ріг…');}}
       if(crisisOn('blackout')&&!(p.items&&(p.items.power||p.items.lamp))){apply(p,{n:-1});msgs.push(nm(p)+': блекаут, −1 нерв');}
-      if(p.items&&p.items.gym&&S.day%2===1){apply(p,{n:1});msgs.push(nm(p)+': 🏋️ спортзал, +1 нерв');}
-      if(p.items&&p.items.jars>0){p.items.jars--;}
+      if(p.items&&p.items.gym&&S.day%2===1){apply(p,{n:1});msgs.push(nm(p)+': 🏋️ спортзал, +1 нерв');p._itMsg='🏋️ Спортзал: +1 нерв';}
+      if(p.items&&p.items.jars>0){p.items.jars--;msgs.push(nm(p)+`: 🫙 закрутки зекономили 30 грн (лишилось ${p.items.jars})`);p._itMsg=`🫙 Закрутки зекономили 30 грн на вечері`;}
       (p.pets||[]).forEach(x=>{if(x.k==='cat'){if(S.day%2===0){const d=x.b==='pure'?{n:1,h:1}:{n:1};apply(p,d);msgs.push(nm(p)+': 🐱 кіт муркотів, '+fmt(d));}}
         else{const d={h:x.b==='pure'?2:1,n:S.day%2===1?1:0};apply(p,d);msgs.push(nm(p)+(x.b==='archie'?': 🐕 Арчі радів, ':': 🐶 пес радів, ')+fmt(d));}});
       if((p.pets||[]).some(x=>x.b==='archie')&&p.nerves<=2&&!p.archieSaved){p.archieSaved=1;apply(p,{n:3});msgs.push('🐕 Арчі поклав голову Русі на коліна і не відходив. «Дякую, малий. Ти найкращий». +3 нерви');}
@@ -2754,7 +2757,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.093 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.094 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -2853,7 +2856,8 @@ function whoActs(){if(!S||!S.room)return '';if(S.phase==='mg')return 'усі г�
  const p=S.players[S.turn];return p?CHARS[p.id].name:'';}
 function myTurnNow(){return S&&S.room&&!R_GLOBAL.includes(S.phase)&&S.room.owners[S.turn]===myDev();}
 function rToast(t){let el=document.getElementById('rtoast');if(!el){el=document.createElement('div');el.id='rtoast';el.className='rtoast';document.body.appendChild(el);}
- el.textContent=t;el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('on'),2200);}
+ const Q=(window._rtq=window._rtq||[]);if(el.classList.contains('on')){if(el.textContent===t||Q.includes(t))return;if(Q.length<4)Q.push(t);return;}
+ el.textContent=t;el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(()=>{el.classList.remove('on');setTimeout(()=>{const n=Q.shift();if(n)rToast(n);},350);},2200);}
 // --- ведучий ---
 function newCode(){return String(10000+Math.floor(Math.random()*90000));}
 function roomHost(code,seats,cont){ROOM={role:'host',code:code||newCode(),dev:myDev(),seats:seats||[{dev:myDev(),char:null,online:true}],opts:{W:1,hard:false,season:'mid'},status:'conn',err:null};
@@ -4670,7 +4674,7 @@ window.forceEnd=forceEnd;
 // --- батарея ---
 {const _bt=beginTurn;beginTurn=function(){_bt.apply(this,arguments);try{if(!S||S.weekend)return;const p=cur();if(!p)return;const before=bat(p);
  p.bat=Math.max(0,before-(S.season==='winter'?10:6)-(S.hard&&crisisOn('blackout')&&!(p.items&&(p.items.power||p.items.lamp))?8:0));
- if(p.items&&p.items.power&&p.bat<=0&&p._pbDay!==S.day){p._pbDay=S.day;p.bat=50;}
+ if(p.items&&p.items.power&&p.bat<=0&&p._pbDay!==S.day){p._pbDay=S.day;p.bat=50;p._itMsg='🔋 Павербанк зарядив телефон до 50%';}
  batWarn(S.turn,before);}catch(e){}};}
 function batWarn(i,before){const p=S.players[i];if(before>20&&p.bat<=20&&p.bat>0)toastI(i,'🪫 Батарея сідає! '+p.bat+'%');if(before>0&&p.bat<=0)toastI(i,'📵 Телефон сів. Зарядити можна в ТЦ, офісі, універі чи кавʼярні.');}
 // дзвінок у службу з сілим телефоном неможливий
@@ -5184,7 +5188,7 @@ const hearts=n=>'❤️'.repeat(n)+'🤍'.repeat(5-n);
 {const _r=render;render=function(){_r.apply(this,arguments);try{if(SIM||!S||!['done','end'].includes(S.phase)||!app.querySelector)return;const me=S.room&&typeof meI==='function'?meI():0;const p=S.players[me];if(!p||p.id!=='student'||!p.lr)return;
  const fe=app.querySelector('.fends');if(!fe||fe.querySelector('.lsfin'))return;const R=p.lr;const best=ORDER.filter(k=>R[k].r>=4).map(k=>PEOPLE[k].n),bad=ORDER.filter(k=>hurtOf(R[k])).map(k=>PEOPLE[k].n);
  let h='';if(R.st_oksana.s>=6){const im=window.iurl?window.iurl(IM('ok_end','bridge_sunset')):IMG[IM('ok_end','bridge_sunset')];h+=`<div class="lsfin okfin"><div class="lsimg" style="background-image:url(${im})"></div><div><b>💕 Разом з Оксаною</b><small>Ваша історія дійшла до кінця. Продовження буде…</small></div></div>`;}
- h+=`<div class="lsfin"><div><b>💞 Твої люди</b><small>${ORDER.map(k=>PEOPLE[k].ic+' '+PEOPLE[k].n+' '+'❤️'.repeat(R[k].r)+(R[k].s>=6?' ✅':` ${R[k].s}/6`)).join('<br>')}</small>${best.length?`<small>Згадають добрим словом: ${best.join(', ')}</small>`:''}${bad.length?`<small class="neg">Ображені: ${bad.join(', ')}</small>`:''}</div></div>`;
+ 
  fe.insertAdjacentHTML('afterend',h);}catch(e){}};}
 // ---------- мрія «Диплом» і продовження в Айтівці ----------
 try{DREAMS_C.student.push({t:'Диплом і випускний',extra:450});if(HA())HA().dreams['Диплом і випускний']='diploma';}catch(e){}
@@ -5426,6 +5430,9 @@ if(window.krToday){const _t=window.krToday;window.krToday=function(p){const it=_
 {const _dp=doPhone;doPhone=function(i,ds){let th=null,f=null;try{if(ds&&ds.k==='qa'){const m=phS().m.find(x=>x.id===+ds.id&&x.to===i&&x.st==='new');if(m&&m.fx){const e=(m.fx[+ds.o]||[])[2];if(e&&e.then){th=e.then;f=m.f;}}}}catch(e){}
  const r=_dp.apply(this,arguments);try{if(th){phS().q.push({to:i,at:S.day+1,f,t:th.t,fx:th.fx||null});}}catch(e){}return r;};}
 {const _at=appThread;appThread=function(k){let h=_at.apply(this,arguments);try{h=h.replace(/<div class="phmsg in"><i>Ти: ([^<]*)<\/i>(?:<br>)?([\s\S]*?)<\/div>/g,(a,me,rest)=>`<div class="phmsg out">${me}</div>`+(rest.trim()?`<div class="phmsg in">${rest}</div>`:''));}catch(e){}return h;};}
+{const _at=appThread;appThread=function(k){let h=_at.apply(this,arguments);try{const m=h.match(/<div class="phcomp lswr"><small>[^<]*<\/small>(<button[^>]*>[\s\S]*?<\/button>)<\/div>/);if(m){const btn=m[1].replace('<button ','<button class="lsmain" ');
+ if(/<div class="phcomp phwr"><small>[^<]*<\/small>/.test(h)){h=h.replace(m[0],'');h=h.replace(/(<div class="phcomp phwr"><small>[^<]*<\/small>)/,'$1'+btn);}
+ else h=h.replace(m[0],'<div class="phcomp phwr"><small>✍️ Написати</small>'+btn+'</div>');}}catch(e){}return h;};}
 
 // === 1.093: 👥 Контакти Студента — «Твої люди» і «Служби» замість старих списків ===
 {const SVC=[{ic:'🔧',n:'Сантехнік Михалич',d:'кран, унітаз, батарея',m:150,fx:{n:1},r:'Кран полагоджено. Михалич ще й порадив, як не зламати знову.'},
@@ -5493,7 +5500,7 @@ const NEWQ=[];
  const before=donePages().length;NEWQ.push({t,i:S&&S.ev&&S.ev.img});
  for(const p of PAGES){if(pageDone(p[0])&&!lsG('kr-albp-'+p[0])){lsS('kr-albp-'+p[0],'1');NEWQ.push({page:p});}}};}
 {const _sr=setRes;setRes=function(c,d){_sr.apply(this,arguments);try{if(!S||!S.ev||!c)return;const M=metaGet();const m=M[S.ev.t];if(m&&!m.c){m.c=TX(c,'l')||c.l;m.r=S.res&&S.res.t;metaSet(M);}}catch(e){}};}
-function showNew(){if(!NEWQ.length||!document.body||document.getElementById('albpop'))return;try{if(S&&!['done','end'].includes(S.phase)){const d=S.day;window._snDay=window._snDay||{};if((window._snDay[d]||0)>=1){NEWQ.length=0;return;}}}catch(e){}if(window.krBusy&&window.krBusy('alb')){clearTimeout(window._snT);window._snT=setTimeout(showNew,900);return;}const x=NEWQ.shift();try{if(S&&!['done','end'].includes(S.phase)){window._snDay[S.day]=(window._snDay[S.day]||0)+1;}}catch(e){}const el=document.createElement('div');el.id='albpop';
+function showNew(){if(S&&S.players&&!['done','end'].includes(S.phase)){NEWQ.length=0;return;}if(!NEWQ.length||!document.body||document.getElementById('albpop'))return;try{if(S&&!['done','end'].includes(S.phase)){const d=S.day;window._snDay=window._snDay||{};if((window._snDay[d]||0)>=1){NEWQ.length=0;return;}}}catch(e){}if(window.krBusy&&window.krBusy('alb')){clearTimeout(window._snT);window._snT=setTimeout(showNew,900);return;}const x=NEWQ.shift();try{if(S&&!['done','end'].includes(S.phase)){window._snDay[S.day]=(window._snDay[S.day]||0)+1;}}catch(e){}const el=document.createElement('div');el.id='albpop';
  if(x.page)el.innerHTML=`<div class="albpop page"><b>🏅 Сторінку «${x.page[2]}» зібрано!</b><span>Звання «${x.page[3]}». Бонус +30 грн на старті кожної гри.</span></div>`;
  else el.innerHTML=`<div class="albpop"><span class="sim" style="background-image:url(${iurl(x.i)})"></span><span><b>📒 Нова наліпка!</b><small>${x.t}</small></span></div>`;
  document.body.appendChild(el);setTimeout(()=>el.classList.add('on'),30);setTimeout(()=>{el.classList.add('off');setTimeout(()=>{el.remove();showNew();},700);},x.page?3600:2200);}
@@ -7057,7 +7064,7 @@ const IC={uni:'🎓',market:'🧺',office:'🏙',bus:'🚌',quarry:'⛰',school:
 const short=()=>{try{return window.krShort?window.krShort():true;}catch(e){return true;}};
 function sheetHTML(p,k){const L=LOCS[k];const d=dist(p.pos,k);const mk=(typeof marks==='function'?marks(p,k):[]).join(' ');const pl=p.plan&&p.plan.s.includes(k)&&!p.plan.done.includes(k);
  let body;if(!d){body=`<button class="gtr gtr1" data-gt="here"><b>📍</b><span>Я вже тут</span><small>дорога не потрібна</small></button>`;}
- else{const t=travelOpts(p,k);body=t.opts.map(o=>{const poor=(o.d.m||0)<0&&avail(p)+(o.d.m||0)<0;const f=fmt(o.d);return `<button class="gtr" data-gt="${o.k}" ${poor?'disabled':''}><b>${TI[o.k]||'➡️'}</b><span>${TN[o.k]||o.l}</span><small>${poor?'бракує грошей':(f==='без наслідків'?'безкоштовно':f)}</small>${!short()&&o.note?`<em>${o.note}</em>`:''}</button>`;}).join('');}
+ else{const t=travelOpts(p,k);const bk=p.items&&p.items.bike;body=t.opts.map(o=>{const poor=(o.d.m||0)<0&&avail(p)+(o.d.m||0)<0;const f=fmt(o.d);const wb=o.k==='walk'&&bk;return `<button class="gtr" data-gt="${o.k}" ${poor?'disabled':''}><b>${wb?'🚲':TI[o.k]||'➡️'}</b><span>${wb?'Велосипед':TN[o.k]||o.l}</span><small>${poor?'бракує грошей':(f==='без наслідків'?'безкоштовно':f)}${o.note&&/🌧 дощ|🧊 ожеледь/.test(o.note)?' · '+o.note.match(/🌧 дощ|🧊 ожеледь/)[0]:''}</small>${!short()&&o.note?`<em>${o.note}</em>`:''}</button>`;}).join('');}
  return `<div class="gshd"><b>${IC[k]||'📍'} ${L.n}${pl?' · 📋':''}</b><span>${d?d+' зуп.':'ти тут'}${mk?' · '+mk:''}</span><button data-gt="x" aria-label="Закрити">✕</button></div>${!short()&&L.d?`<p class="gsx">${L.d}</p>`:''}<div class="gtrs">${body}</div>`;}
 function build(){if(SIM||!S||S.phase!=='go'||!app.querySelector)return;const p=cur();if(!p)return;const panel=app.querySelector('.poster .panel');if(!panel||panel.querySelector('.gsheet'))return;
  panel.classList.add('gomap');const P=panel.querySelector(':scope > p');if(P)P.innerHTML='👆 Тисни місце на карті';
@@ -7094,10 +7101,20 @@ function compact(){if(SIM||!S||S.phase!=='travel'||!app.querySelector)return;con
  const g=document.createElement('div');g.className='gtrs gtrs2';
  bs.forEach(b=>{const k=b.dataset.travel;const o=t&&t.opts.find(x=>x.k===k);const f=o?fmt(o.d):'';const c=document.createElement('button');c.className='gtr';c.disabled=b.disabled;
   const sm=b.querySelector('small');const extra=sm&&/дощ|страйк|сніг|ями|обʼїзд/i.test(sm.textContent)?' · '+(sm.textContent.match(/дощ|страйк[^;]*|сніг|ями|обʼїзд[^;]*/i)||[''])[0]:'';
-  c.innerHTML=`<b>${TI[k]||'➡️'}</b><span>${TN[k]||b.childNodes[0].textContent}</span><small>${b.disabled?'бракує грошей':(f==='без наслідків'?'безкоштовно':f)}${extra}</small>${!(window.krShort&&window.krShort())&&o&&o.note?`<em>${o.note}</em>`:''}`;
+  const wb=k==='walk'&&p.items&&p.items.bike;c.innerHTML=`<b>${wb?'🚲':TI[k]||'➡️'}</b><span>${wb?'Велосипед':TN[k]||b.childNodes[0].textContent}</span><small>${b.disabled?'бракує грошей':(f==='без наслідків'?'безкоштовно':f)}${extra}</small>${!(window.krShort&&window.krShort())&&o&&o.note?`<em>${o.note}</em>`:''}`;
   c.addEventListener('click',e=>{e.stopPropagation();b.click();});g.appendChild(c);b.classList.add('gtrorig');});
  bs[0].before(g);}
 const _r=render;render=function(){_r.apply(this,arguments);try{compact();setTimeout(compact,0);}catch(e){}};})();
+
+// === 1.094: предмети показують, що спрацювали ===
+(function(){
+{const _dt=doTravel;doTravel=function(p,o){const bike=p&&p.items&&p.items.bike&&o&&o.k==='walk';const r=_dt.apply(this,arguments);try{if(bike&&!SIM)p._itMsg='🚲 Велосипед: доїхав без втрати нервів';}catch(e){}return r;};}
+const _r=render;render=function(){_r.apply(this,arguments);try{if(SIM||!S||!S.players)return;S.players.forEach((p,i)=>{if(p._itMsg){const m=p._itMsg;p._itMsg=null;setTimeout(()=>{try{toastI(i,m);}catch(e){}},700);}});}catch(e){}};
+})();
+
+// === 1.094: ранок коротший — карта міста згорнута в кнопку ===
+(function(){const _r=render;render=function(){_r.apply(this,arguments);try{if(SIM||!S||S.phase!=='morning'||!app.querySelector)return;const s1=app.querySelector('.mslide[data-ms="1"]');if(!s1||s1.querySelector('.mcitybtn'))return;const w=s1.querySelector('.mcitywin');if(!w)return;
+ w.style.display='none';const h=s1.querySelector('.mhint');if(h)h.style.display='none';w.insertAdjacentHTML('afterend','<button class="btn btn-ghost mcitybtn" data-gmap="1">🗺 Карта міста: хто де і що сьогодні</button>');}catch(e){}};})();
 
 render();
 </script>
