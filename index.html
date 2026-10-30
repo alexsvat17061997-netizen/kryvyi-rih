@@ -941,6 +941,8 @@ body:has(.fwrap) #albpop{top:calc(env(safe-area-inset-top,0px) + 10px);bottom:au
 .gtodayb .gts{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
 body.gmode #albpop{transform:scale(.85);transform-origin:top right}
 .myrad .mynow{background:#E8532F;color:#fff;border-radius:12px;padding:10px 12px;margin:8px 0}.mybtns{display:flex;gap:8px;margin-top:8px}.mybtns button{flex:1;border:0;border-radius:10px;padding:8px;font-size:18px;background:rgba(255,255,255,.2);color:#fff;cursor:pointer}.mylist{display:grid;gap:6px;max-height:220px;overflow-y:auto}.myrow{display:flex;gap:6px}.myrow button{flex:1;text-align:left;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:10px;padding:8px 10px;font:600 13px var(--body);cursor:pointer;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.myrow.on button{border-color:#E8532F}.myrow .mydel{flex:none;width:36px;text-align:center}.myadd{display:block;text-align:center;margin-top:10px;cursor:pointer}
+.map.rain .pin,.map.snow .pin{background:#FFF6E4;border-color:#0E1030;box-shadow:0 2px 6px rgba(0,0,0,.65);font-weight:700}.map.rain .wx,.map.snow .wx{opacity:.45}.fmap .map.rain .pin.fnone,.fmap .map.snow .pin.fnone{opacity:.8}
+.gtmore{font-style:normal;background:var(--sun,#F2A93B);color:#1F2350;border-radius:8px;padding:0 6px;font-weight:700;font-size:11px;margin-left:4px}
 </style>
 </head>
 <body>
@@ -1767,7 +1769,7 @@ function mapHTML(target,click){
   const at={};S.players.forEach(p=>{(at[p.pos]=at[p.pos]||[]).push(p);});const md=S.mod||{};
   const banner=md.k==='tramDown'?'🚫 Скарік і трамваї сьогодні не ходять':md.k==='detour'?'🚧 Обʼїзд: маршрутки дорожчі':md.k==='walk'?'🕳 Ями: пішки важче':'';
   const wx=weather();const mimg=S.season==='winter'?IMG.map_winter:S.season==='mid'?IMG.map_rain:IMG.map;
-  return `<div class="map"><img class="m" src="${mimg}" alt="Карта Кривого Рогу">${wx?`<div class="wx ${wx}" aria-hidden="true"></div>`:''}${DLABELS.map(l=>`<div class="dlabel${l.water?' water':''}" style="left:${l.x}%;top:${l.y}%;width:${l.w}%;height:${l.h}%">${l.t}</div>`).join('')}${banner?`<div class="pin" style="left:50%;top:5%;background:var(--sun)">${banner}</div>`:''}${Object.entries(LOCS).map(([k,l])=>{
+  return `<div class="map${S.season==='mid'?' rain':S.season==='winter'?' snow':''}"><img class="m" src="${mimg}" alt="Карта Кривого Рогу">${wx?`<div class="wx ${wx}" aria-hidden="true"></div>`:''}${DLABELS.map(l=>`<div class="dlabel${l.water?' water':''}" style="left:${l.x}%;top:${l.y}%;width:${l.w}%;height:${l.h}%">${l.t}</div>`).join('')}${banner?`<div class="pin" style="left:50%;top:5%;background:var(--sun)">${banner}</div>`:''}${Object.entries(LOCS).map(([k,l])=>{
     const tag=md.loc===k&&md.k==='cheap'?' −20%':md.loc===k&&md.k==='closed'?' 🚫':'';const inner=`${l.n}${tag}${(at[k]||[]).map(p=>portrait(p.id)).join('')}`;
     return click&&!(md.k==='closed'&&md.loc===k)?`<button class="pin${k===target?' target':''}${tag?' target':''}" data-goto="${k}" data-loc="${k}" style="left:${l.x}%;top:${l.y}%">${inner}</button>`:`<div class="pin${k===target?' target':''}${tag?' target':''}" data-loc="${k}" style="left:${l.x}%;top:${l.y}%">${inner}</div>`;}).join('')}</div>`;
 }
@@ -1827,7 +1829,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.085 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.086 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2717,7 +2719,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.085 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.086 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -3136,7 +3138,7 @@ function mgPara(stage,done){const W=300,H=340,{c,x}=mgCanvas(stage,W,H);let px=4
   if(py>=H-48){const d=Math.abs(px-tx);stop();done(d<=12?2:d<=35?1:0,d<=12?'🎯 В яблучко! Інструктор аплодує.':d<=35?'✅ Поруч із мішенню. Непогано!':'❌ Приземлення на город. Бабуся вже біжить з віником.');return false;}});
  return stop;}
 // --- прив'язка до подій ---
-function mgKindOfChoice(c){if(!c||!c.risk)return null;const l=c.l||'';if(/торгу/i.test(l))return 'haggle';if(/вудк|рибал/i.test(l))return 'fish';if(/парашут/i.test(l))return 'para';return null;}
+function mgKindOfChoice(c){if(!c||!c.risk)return null;const l=c.l||'';const L=(S&&S.ev&&(S.ev.loc||(typeof locOf==='function'?locOf(S.ev):'')))||'';if(S&&S.ev&&S.ev.chain)return null;if(/торгу/i.test(l)&&L==='market')return 'haggle';if(/вудк|рибал/i.test(l)&&L==='river')return 'fish';if(/парашут/i.test(l)&&L==='airfield')return 'para';return null;}
 function mgDispatch(ds){if(ROOM&&ROOM.role==='guest'&&S&&S.room){NET.send('host',{t:'click',ds});return;}simClick(ds);}
 function mgRunChoice(i,kind){const T={haggle:['Торг на ринку','Зупини стрілку в зеленій зоні, і ціна твоя.',(s,d)=>mgHaggle(s,d)],
   fish:['Рибалка','Чекай, поки поплавок пірне, і тоді тисни «Підсікай!». Треба впіймати 2 риби.',(s,d,m)=>mgFish(s,d,m,'risk')],
@@ -3236,7 +3238,7 @@ window.addEventListener&&window.addEventListener('click',e=>{const b=e.target.cl
 },true);
 // --- кнопки міні-ігор на екранах ---
 function mgDecor(){if(!S||mgOff()||!app.querySelector)return;
- if(S.phase==='travel'){const t=app.querySelector('button[data-travel="tram"]');if(t&&!app.querySelector('[data-mg="tram"]'))t.insertAdjacentHTML('beforebegin','<button class="btn btn-choice mgbtn" data-mg="tram">🏃 Наздогнати Скарік <small>🎮 міні-гра: встигнеш — їдеш без поломок, ні — пішки</small></button>');}
+ if(S.phase==='travel'){const t=app.querySelector('button[data-travel="tram"]');const _pp=cur();const _late=_pp&&_pp.plan&&!S.weekend&&!_pp.plan.done.includes(_pp.plan.s[0])&&S.pending&&S.pending.target===_pp.plan.s[0];if(t&&_late&&!app.querySelector('[data-mg="tram"]'))t.insertAdjacentHTML('beforebegin','<button class="btn btn-choice mgbtn" data-mg="tram">🏃 Наздогнати Скарік <small>🎮 міні-гра: встигнеш — їдеш без поломок, ні — пішки</small></button>');}
  if(S.phase==='turn'&&S.ev)app.querySelectorAll('button[data-choice]').forEach(b=>{if(mgKindOfChoice(S.ev.c[+b.dataset.choice])&&!b.querySelector('.mgtag'))b.insertAdjacentHTML('beforeend','<span class="mgtag">🎮 міні-гра</span>');});
  if(S.phase==='result'&&S.res&&!S.res.mgDone){const tt=S.res.title||'';const k=/рибалк/i.test(tt)?'fish':/стрибок з парашутом|тандем-стрибок/i.test(tt)?'para':null;const ok=app.querySelector('button[data-act="resok"]');
   if(k&&ok&&!(S.res&&S.res.mgDone)&&!app.querySelector('[data-mg]'))ok.insertAdjacentHTML('beforebegin',`<button class="btn btn-choice mgbtn" data-mg="${k}">${k==='fish'?'🎣 Порибалити по-справжньому':'🪂 Керувати стрибком самому'} <small>🎮 міні-гра: ${k==='fish'?'улов продаси на ринку':'влучиш у мішень — більше щастя'}</small></button>`);}}
@@ -5099,21 +5101,18 @@ function saveLR(p){if(!p||!p.lr||S.room)return;const o={};ORDER.forEach(k=>o[k]=
 const isSt=p=>p&&p.id==='student'&&!p.collector&&!p.out;
 function lr(p){if(!p.lr)p.lr=loadLR();return p.lr;}
 function rel(p,k,x){const o=lr(p)[k];o.r=Math.max(0,Math.min(5,o.r+x));saveLR(p);}
-window.krLife={of:(p,k)=>lr(p)[k],rel,save:saveLR,L,PEOPLE,ORDER};window.krPh=(i,ds)=>doPhone(i,ds);
+window.krLife={of:(p,k)=>lr(p)[k],lr,rel,save:saveLR,L,PEOPLE,ORDER};window.krPh=(i,ds)=>doPhone(i,ds);
 // ---------- щодня: хтось із людей пише першим ----------
 {const _pd=phDay;phDay=function(i){const p=S.players[i];const fresh=p&&p.lsDay!==S.day;_pd.apply(this,arguments);try{if(!isSt(p))return;if(fresh){p.lsDay=S.day;p.lsN=0;}else if((p.lsN||0)>=2||Math.random()<0.5)return;const P=phS();const R=lr(p);
  // хто не дочекався відповіді — ображається
  if(fresh)P.m.filter(m=>m.to===i&&m.lsk&&m.st==='new'&&m.d<S.day).forEach(m=>{m.st='done';m.a='— без відповіді —';rel(p,m.lsk,-1);push(i,m.lsk,{st_oksana:'Ти навіть не відповів… 😔',st_mom:'Синку, я ж писала. Ти живий?',st_dima:'Бро, ти мене ігнориш? Ок.',st_petro:'Я чекав на вашу відповідь. Дарма.',st_valya:'Ну й не треба. Пиріжки собакам віддам.'}[m.lsk]);});
  // ображені просять вибачення
  const hurt=ORDER.find(k=>R[k].r<=1&&!R[k].sorry);if(hurt){R[hurt].sorry=1;push(i,hurt,{st_oksana:'Мені здається, тобі просто байдуже.',st_mom:'Синку, ти зовсім забув про маму.',st_dima:'Слухай, мені здавалось, ми друзі.',st_petro:'Я розчарований у вас, студенте.',st_valya:'Нічого мені від тебе не треба.'}[hurt],['🙏 Вибачитися (подарунок −80 грн)','Промовчати'],{fx:[[{m:-80,h:1},'Ну… добре. Проїхали.',{lsSorry:hurt}],[{},'']]});return;}
- if(Math.random()>0.8)return;
- const ok=ORDER.filter(k=>R[k].s<L[k].length&&!R[k].wait&&R[k].r>1&&!P.m.some(m=>m.to===i&&m.lsk===k&&m.st==='new'));if(!ok.length)return;
- const k=ok.find(x=>x==='st_oksana'&&Math.random()<0.4)||ok[Math.floor(Math.random()*ok.length)];const st=L[k][R[k].s];
- p.lsN=(p.lsN||0)+1;const m=push(i,k,st[0],[st[1],st[2]],{fx:[[{},{st_oksana:'😊',st_mom:'❤️',st_dima:'🤝',st_petro:'Добре.',st_valya:'Отож.'}[k],{ls:{k,s:R[k].s}}],[{},{st_oksana:'Ну… як знаєш.',st_mom:'Добре, синку…',st_dima:'Ясно.',st_petro:'Шкода.',st_valya:'Ну-ну.'}[k],{lsNo:k}]]});m.lsk=k;}catch(e){if(typeof console!=='undefined')console.error(e);}};}
+ if(window.krLsInvite)window.krLsInvite(i,p,R,P);}catch(e){if(typeof console!=='undefined')console.error(e);}};}
 // ---------- відповіді ----------
 {const _dp=doPhone;doPhone=function(i,ds){let m=null,ex=null;try{if(ds&&ds.k==='qa'){m=phS().m.find(x=>x.id===+ds.id&&x.to===i&&x.st==='new');if(m&&m.fx)ex=(m.fx[+ds.o]||[])[2];}}catch(e){}
  const r=_dp.apply(this,arguments);try{const p=S.players[i];if(ex&&isSt(p)){const R=lr(p);
-  if(ex.ls){R[ex.ls.k].wait=1;(p.queue=p.queue||[]).unshift({day:S.day,id:'ls_'+ex.ls.k+'_'+ex.ls.s});toastI(i,'📌 '+PEOPLE[ex.ls.k].n+': зустріч уже скоро');}
+  if(ex.cancel){const c=ex.cancel;p.queue=(p.queue||[]).filter(q=>!(q.id.indexOf('ls_'+c+'_')===0));if(R[c])R[c].wait=0;rel(p,c,-1);push(i,c,{st_oksana:'Серйозно? Ти скасував нашу зустріч… 😔',st_mom:'Ну що ж, синку. Значить, іншим разом.',st_dima:'Бро, ти мене кинув. Ок.',st_petro:'Я розраховував на вас. Шкода.',st_valya:'Ну й не приходь тоді!'}[c]);}if(ex.ls){R[ex.ls.k].wait=1;const dd=ex.ls.d||0;(p.queue=p.queue||[]).unshift({day:S.day+dd,id:'ls_'+ex.ls.k+'_'+ex.ls.s});toastI(i,'📌 '+PEOPLE[ex.ls.k].n+(dd?': домовились на завтра':': зустріч уже скоро'));}if(ex.next&&m){const n=ex.next;const mm=push(i,m.f,n.t,n.o,{fx:n.fx});mm.lsk=m.lsk||m.f;}if(ex.lsRel)rel(p,ex.lsRel[0],ex.lsRel[1]);
   if(ex.lsNo)rel(p,ex.lsNo,-1);
   if(ex.lsSorry){R[ex.lsSorry].r=2;R[ex.lsSorry].sorry=0;saveLR(p);}}}catch(e){}return r;};}
 // ---------- подія етапу: добрий вибір веде історію далі ----------
@@ -5132,9 +5131,6 @@ const hearts=n=>'❤️'.repeat(n)+'🤍'.repeat(5-n);
  const sec=`<div class="phsec"><h4>💞 Твої люди</h4><p class="note">Памʼятають, коли допоміг і коли відмовив. Історії тривають і в наступних іграх.</p>${ORDER.map(k=>{const P=PEOPLE[k],o=R[k];const used=(p.lsHelp||{})[k]===wk();
   return `<div class="phcon lscon"><img class="nbph" src="img/student/c_${P.av}.webp" alt=""><div><b>${P.n}</b><small>${hearts(o.r)} · історія ${Math.min(o.s,6)}/6${o.s>=6?' ✅':''}</small>${o.r>=4?`<div class="phbtns"><button data-ph="lshelp" data-f="${k}" ${used?'disabled':''}>${used?'Вже допомогли цього тижня':'🙏 '+HELP[k][0]}</button></div>`:o.r<=1?'<small class="neg">Ображені на тебе</small>':''}</div></div>`;}).join('')}</div>`;
  const j=h.indexOf('<div class="phsec">');h=j>=0?h.slice(0,j)+sec+h.slice(j):h+sec;}catch(e){}return h;};}
-// ---------- «Написати першим» Оксані про каву веде історію ----------
-{const _dp=doPhone;doPhone=function(i,ds){try{const p=S.players[i];if(ds&&ds.k==='wr'&&ds.f==='st_oksana'&&ds.s==='0'&&isSt(p)){const R=lr(p);const o=R.st_oksana;
- if(o.s<6&&!o.wait&&o.r>1&&(p.wr||{}).st_oksana!==S.day){p.wr=p.wr||{};p.wr.st_oksana=S.day;p.bat=Math.max(0,bat(p)-3);o.wait=1;(p.queue=p.queue||[]).unshift({day:S.day,id:'ls_st_oksana_'+o.s});push(i,'st_oksana','<i>Ти: Підемо кудись? ☕</i><br>Давай! 😊');toastI(i,'📌 Оксана: зустріч уже скоро');return;}}}catch(e){}return _dp.apply(this,arguments);};}
 // ---------- фінал: газета і «Разом з Оксаною» ----------
 {const _r=render;render=function(){_r.apply(this,arguments);try{if(SIM||!S||!['done','end'].includes(S.phase)||!app.querySelector)return;const me=S.room&&typeof meI==='function'?meI():0;const p=S.players[me];if(!p||p.id!=='student'||!p.lr)return;
  const fe=app.querySelector('.fends');if(!fe||fe.querySelector('.lsfin'))return;const R=p.lr;const best=ORDER.filter(k=>R[k].r>=4).map(k=>PEOPLE[k].n),bad=ORDER.filter(k=>R[k].r<=1).map(k=>PEOPLE[k].n);
@@ -5177,11 +5173,9 @@ function airLines(){const L=[];try{const n=newsAt(S.day);if(n)L.push('📰 Но�
  try{const w=S.wxT!=null?`${S.wxT>0?'+':''}${S.wxT}°`:'';L.push('🌦 Погода: '+(w||'як завжди — все рівно')+'. Парасольку не забудьте.');}catch(e){}
  try{if(S.soc&&S.soc.rum)L.push('🗣 Бабусі на лавці кажуть: '+S.soc.rum+'.');}catch(e){}
  L.push(['🚋 Скарік ходить за розкладом. Майже.','⚽ Кривбас готується до матчу. Місто вже співає.','🏭 Комбінат перевиконав план по диму.','🎵 Ви слухаєте Радіо Криворіжжя. Тут усе рівно, але душевно.','📞 Привіт передає баба Галя з Социка всім, хто не їв її пиріжків.'][(S?S.day:0)%5]);return L;}
-function appRadio(){const L=airLines();return `<div class="phsec"><h4>📻 Радіо Криворіжжя</h4><p class="note">Своя музика міста. Грає, поки граєш.</p>
- <div class="rdst">${ST.map(s=>`<button data-ph="radio" data-k="${s.k}" class="${on&&on.k===s.k?'on':''}"><span>${s.ic}</span><b>${s.n}</b><small>${on&&on.k===s.k?'▶ в ефірі':'слухати'}</small></button>`).join('')}</div>
- ${on?`<button class="phwide" data-ph="radio" data-k="off">⏹ Вимкнути</button>`:''}
+function appRadio(){const L=airLines();return `<div class="phsec"><h4>📻 Радіо Криворіжжя · ефір</h4>
  <div class="rdair">${L.map(x=>`<p>${x}</p>`).join('')}</div></div>`;}
-{const _ah=appHome;appHome=function(){let h=_ah.apply(this,arguments);try{h=h.replace('<div class="phapps">','<div class="phapps"><button data-ph="app" data-a="radio"><span class="phai">📻'+(on?'<i>▶</i>':'')+'</span><small>Радіо</small></button>');}catch(e){}return h;};}
+{const _ah=appHome;appHome=function(){let h=_ah.apply(this,arguments);try{h=h.replace('<div class="phapps">','<div class="phapps"><button data-ph="app" data-a="radio"><span class="phai">📻'+(window.krMyRadio&&window.krMyRadio.on?'<i>▶</i>':'')+'</span><small>Радіо</small></button>');}catch(e){}return h;};}
 {const _h=phHTML;phHTML=function(){if(PH.app==='radio'){const i=phI(),p=S.players[i];const b=bat(p);return `<div class="phone"><div class="phbar"><span>${clock()}</span><span>Кривбас-Звʼязок</span><span class="${b<=20?'low':''}">${b}% 🔋</span></div><div class="phscr">${appRadio()}</div><div class="phnav"><button data-ph="home" aria-label="Додому"></button></div><button class="phx" data-ph="close" aria-label="Закрити">✕</button></div>`;}return _h.apply(this,arguments);};}
 {const _ck=phClick;phClick=function(e){const b=e.target.closest&&e.target.closest('[data-ph="radio"]');if(b){e.stopPropagation();const k=b.dataset.k;if(k==='off'||(on&&on.k===k))stop();else{try{if(window.krAmb&&window.krAmb.stop)window.krAmb.stop();}catch(_){}play(k);}setTimeout(phRefresh,30);return;}return _ck.apply(this,arguments);};}
 // гімн і музика гри мають пріоритет: у фіналі радіо стихає
@@ -5223,7 +5217,7 @@ function _ctod(){try{if(SIM||!S||S.phase!=='morning'||!app.querySelector)return;
 {const _ph=phHTML;phHTML=function(){let h=_ph.apply(this,arguments);try{if(!S)return h;const sub=S.sub||0,ph=S.phase;const t=ph==='morning'?'city_morning':ph==='evening'?'city_evening':S.weekend?'city_day':sub>=2?'city_evening':'city_day';
  h=h.replace(/--wall:url\([^)]*\)/,`--wall:url(${M(t)})`);}catch(e){}return h;};}
 // обкладинка радіо
-{const _ph=phHTML;phHTML=function(){let h=_ph.apply(this,arguments);try{h=h.replace('<div class="phsec"><h4>📻 Радіо Криворіжжя</h4>',`<div class="phsec"><img class="rdcover" src="${M('radio')}" alt=""><h4>📻 Радіо Криворіжжя</h4>`);}catch(e){}return h;};}
+{const _ph=phHTML;phHTML=function(){let h=_ph.apply(this,arguments);try{h=h.replace('<div class="phsec"><h4>📻 Радіо Криворіжжя · ефір</h4>',`<div class="phsec"><img class="rdcover" src="${M('radio')}" alt=""><h4>📻 Радіо Криворіжжя · ефір</h4>`);}catch(e){}return h;};}
 })();
 
 // === 1.085: радіо грає пісні з телефона (зберігаються в грі, без інтернету) ===
@@ -5252,6 +5246,109 @@ document.addEventListener&&document.addEventListener('change',e=>{if(e.target&&e
  else if(k==='del'){const id=+b.dataset.id;if(id===cur)stopMine();del(id).then(refresh);}return;}
  const r=e.target.closest&&e.target.closest('[data-ph="radio"]');if(r)stopMine();return _ck.apply(this,arguments);};}
 {const _r=render;render=function(){_r.apply(this,arguments);try{if(cur&&(!S||['done','end'].includes(S.phase)))stopMine();}catch(e){}};}
+})();
+
+// === 1.086: живі розмови, зайнятий час, менше повідомлень ===
+(function(){if(!window.krLife)return;const LF=window.krLife,L=LF.L,PEOPLE=LF.PEOPLE,ORDER=LF.ORDER;
+const isSt=p=>p&&p.id==='student'&&!p.collector&&!p.out;
+const NAMEI={st_oksana:'Оксаною',st_mom:'мамою',st_dima:'Дімою',st_petro:'Петром Івановичем',st_valya:'тьотею Валею'};
+const meet=(p,d)=>{p.meet=p.meet||{};return p.meet[d]=p.meet[d]||[];};
+// Оксана: перші три кроки — твоя ініціатива; діалог у дві репліки
+const OKD=[['Привіт! Ти ж староста? Скинеш розклад? 🙏','Привіт 😏 А сам подивитись на стенді — ніяк?',[['Я дивився, але там хаос 😅',1,'Ну добре, тримай. І не запізнюйся більше!'],['Хотів привід тобі написати 🙈',1,'Ого… Ну, привід зараховано 😊'],['Та забудь, сам знайду',-1,'Як скажеш.']]],
+ ['Підемо на каву після пар? ☕','А з якого це приводу? 😏',[['Хочу подякувати за розклад 🙏',1,'Ну раз подякувати — підемо 😊'],['Просто хочу тебе побачити',2,'…Добре. Біля корпусу о третій 💛'],['Та так, нудно',-1,'Пошукай іншу компанію від нудьги 🙄']]],
+ ['Кажуть, біля квіткового годинника зараз гарно 🌸','І ти мене кличеш туди? 🙈',[['Так, ввечері, коли сонце сідає',2,'Звучить як побачення 😳 Я згодна'],['Можна з усією групою',0,'Ну… можна й так. Давай удвох краще 😊'],['Та це я так, просто кажу',-1,'Ааа. Ясно.']]]];
+function okDialog(i,p,stage){const D=OKD[stage];if(!D)return false;p.bat=Math.max(0,bat(p)-3);
+ const m=push(i,'st_oksana',`<i>Ти: ${D[0]}</i><br>${D[1]}`,D[2].map(x=>x[0]),{fx:D[2].map(x=>[{},x[2],x[1]>=0?{ls:{k:'st_oksana',s:stage},lsPlus:x[1]>1?1:0}:{lsNo:'st_oksana'}])});m.lsk='st_oksana';m.lsTalk=1;return true;}
+// запрошення від людей: 4 відповіді, зайнятий час
+function opts(p,k,s){const st=L[k][s];const busy=meet(p,S.day).filter(x=>x!==k);
+ if(busy.length>=2)return [[`Сьогодні вже ніяк, давай завтра?`,{lsTom:{k,s}},'Добре, завтра 👍']];
+ if(busy.length){const o=busy[0];return [[`Сьогодні я з ${NAMEI[o]}. Давай завтра?`,{lsTom:{k,s}},'Добре, тоді завтра 👍'],[`Скасую ${NAMEI[o]} заради тебе`,{ls:{k,s},lsCancel:o},'Оце так! Чекаю 😊'],[st[2],{lsNo:k},'Зрозуміло…']];}
+ return [[st[1]+' 😊',{ls:{k,s},lsPlus:1},{st_oksana:'Ура! 💛',st_mom:'Ой, як я рада ❤️',st_dima:'Красава, бро 🤝',st_petro:'От і добре.',st_valya:'Отож бо!'}[k]],[st[1],{ls:{k,s}},'Домовились.'],['Сьогодні не можу. Давай завтра?',{lsTom:{k,s}},'Ну добре, завтра.'],[st[2],{lsNo:k},{st_oksana:'Ну… як знаєш.',st_mom:'Добре, синку…',st_dima:'Ясно.',st_petro:'Шкода.',st_valya:'Ну-ну.'}[k]]];}
+function invite(i,p,k){const R=LF.of(p,k);const s=R.s;const st=L[k][s];if(!st)return;const O=opts(p,k,s);
+ const m=push(i,k,st[0],O.map(x=>x[0]),{fx:O.map(x=>[{},x[2],x[1]])});m.lsk=k;}
+// перехоплюємо щоденні запрошення v20: власний відбір
+{const _pd=phDay;phDay=function(i){const p=S.players[i];const fresh=p&&p.lsDay2!==S.day;
+ // не даємо v20 надсилати свої запрошення — робимо самі
+ const keepRand=Math.random;if(isSt(p))Math.random=()=>0.99;try{_pd.apply(this,arguments);}finally{Math.random=keepRand;}
+ try{if(!isSt(p)||!fresh)return;p.lsDay2=S.day;if(Math.random()>0.75)return;const P=phS();
+  const ok=ORDER.filter(k=>{const R=LF.of(p,k);if(R.s>=L[k].length||R.wait||R.r<=1)return false;if(k==='st_oksana'&&(R.s<3||R.r<4))return false;return !P.m.some(m=>m.to===i&&m.lsk===k&&m.st==='new');});
+  if(!ok.length)return;const k=ok.includes('st_mom')&&Math.random()<0.3?'st_mom':ok[Math.floor(Math.random()*ok.length)];invite(i,p,k);}catch(e){if(typeof console!=='undefined')console.error(e);}};}
+// відповіді: завтра / скасувати / записати в розклад
+{const _dp=doPhone;doPhone=function(i,ds){let ex=null;try{if(ds&&ds.k==='qa'){const m=phS().m.find(x=>x.id===+ds.id&&x.to===i&&x.st==='new');if(m&&m.fx)ex=(m.fx[+ds.o]||[])[2];}}catch(e){}
+ const r=_dp.apply(this,arguments);try{const p=S.players[i];if(!ex||!isSt(p))return r;
+  if(ex.ls){meet(p,S.day).push(ex.ls.k);if(ex.lsPlus)LF.rel(p,ex.ls.k,1);}
+  if(ex.lsTom){const {k,s}=ex.lsTom;const R=LF.of(p,k);R.wait=1;(p.queue=p.queue||[]).push({day:S.day+1,id:'ls_'+k+'_'+s});meet(p,S.day+1).push(k);toastI(i,'📅 '+PEOPLE[k].n+': завтра');}
+  if(ex.lsCancel){const o=ex.lsCancel;p.queue=(p.queue||[]).filter(q=>!(q.day<=S.day&&q.id.indexOf('ls_'+o+'_')===0));const M=meet(p,S.day);const j=M.indexOf(o);if(j>=0)M.splice(j,1);const R=LF.of(p,o);R.wait=0;LF.rel(p,o,-1);
+   push(i,o,{st_oksana:'Ти ж обіцяв… 😔',st_mom:'Синку, ми ж домовлялись…',st_dima:'Бро, серйозно? Ок.',st_petro:'Ви мене підвели.',st_valya:'Ну й не приходь.'}[o]);toastI(i,'💔 '+PEOPLE[o].n+' образилась(ся)');}}catch(e){}return r;};}
+// «Написати першим»: Оксана — діалог по етапах, інші — запросити самому
+{const _dp=doPhone;doPhone=function(i,ds){try{const p=S.players[i];if(ds&&ds.k==='wr'&&ds.f==='st_oksana'&&ds.s==='0'&&isSt(p)){const R=LF.of(p,'st_oksana');p.wr=p.wr||{};
+ if(p.wr.st_oksana===S.day)return toastI(i,'Сьогодні вже писав');if(R.wait)return toastI(i,'Ви вже домовились 😊');
+ if(meet(p,S.day).length>=2)return toastI(i,'Сьогодні вже дві зустрічі. Завтра!');
+ p.wr.st_oksana=S.day;if(R.s<3){okDialog(i,p,R.s);return;}if(R.s<L.st_oksana.length){invite(i,p,'st_oksana');return;}}}catch(e){}return _dp.apply(this,arguments);};}
+// фраза в «Написати» для Оксани залежить від етапу
+{const _at=appThread;appThread=function(k){let h=_at.apply(this,arguments);try{const p=S.players[phI()];if(k==='st_oksana'&&isSt(p)){const s=LF.of(p,'st_oksana').s;const D=OKD[s];const t=D?D[0]:'Підемо кудись? 💛';h=h.replace(/(<button data-ph="wr" data-f="st_oksana" data-s="0"[^>]*>)[^<]*/,'$1'+t);}}catch(e){}return h;};}
+// «Сьогодні»: зустрічі
+if(window.krToday){const _t=window.krToday;window.krToday=function(p){const it=_t(p);try{if(isSt(p))meet(p,S.day).forEach(k=>it.unshift({ic:'🕗',t:'Зустріч: '+PEOPLE[k].n,x:'сьогодні'}));}catch(e){}return it;};}
+// ліміт: не більше 1 випадкового повідомлення на день
+{const _nm=npcMsg;npcMsg=function(i){const p=S.players[i];if(p){if(p.nmDay!==S.day){p.nmDay=S.day;p.nmN=0;}if(p.nmN>=1)return;p.nmN++;}return _nm.apply(this,arguments);};}
+})();
+
+// === 1.086: менше повідомлень, старі читаються самі, зайнятий час ===
+(function(){
+const inToday=(i)=>{const P=phS();return P.m.filter(m=>m.to===i&&m.d===S.day&&m.o&&typeof m.f==='string').length;};
+// випадкові повідомлення — тільки якщо сьогодні їх ще мало
+{const _nm=npcMsg;npcMsg=function(i){try{if(S&&inToday(i)>=(S.players[i]&&S.players[i].id==='student'?2:3))return;}catch(e){}return _nm.apply(this,arguments);};}
+// новий день: прочитані все, на що не треба відповідати
+{const _pd=phDay;phDay=function(i){const p=S.players[i];const fresh=p&&p.phDay!==S.day;const r=_pd.apply(this,arguments);try{if(fresh&&!S.room){const ids=items().filter(x=>x.in&&x.d<S.day&&!(x.m&&x.m.st==='new')).map(x=>x.key);if(ids.length)seenAdd(ids);}}catch(e){}return r;};}
+// зайнятий час: одна зустріч з людьми на день
+window.krBusyDay=function(p){try{return (p.queue||[]).find(q=>q.day<=S.day+1&&/^ls_|^st_date|^st_momvisit/.test(q.id));}catch(e){return null;}};
+})();
+
+// === 1.086: живі розмови — ініціатива, діалоги в 2 кроки, «давай завтра», зайнятий час ===
+(function(){
+const K=()=>window.krLife;const NM={st_oksana:'Оксаною',st_mom:'мамою',st_dima:'Дімою',st_petro:'Петром Івановичем',st_valya:'тьотею Валею'};
+const NN={st_oksana:'Оксана',st_mom:'Мама',st_dima:'Діма',st_petro:'Петро Іванович',st_valya:'Тьотя Валя'};
+// характер: жарт від тебе, їхня відповідь на жарт, «давай завтра», відмова
+const PER={
+ st_oksana:{j:'Це побачення? 😏',jr:'А якщо так? 🙈',jy:'Тоді я точно прийду 💕',jn:'Давай просто як друзі',later:'Добре, завтра. Тільки не забудь 😉',no:'Ну… як знаєш.',ok:'Домовились 😊 До зустрічі!'},
+ st_mom:{j:'Мам, а борщ буде? 😄',jr:'Буде, буде, і пиріжки! То що, синку?',jy:'Буду ❤️',jn:'Цього разу ні, мам',later:'Добре, завтра то завтра. Бережи себе ❤️',no:'Добре, синку…',ok:'❤️'},
+ st_dima:{j:'Тільки якщо посуд миєш ти 😏',jr:'Та помию, помию 🙄 То що, бро?',jy:'Домовились 🤝',jn:'Не, бро, пас',later:'Ок, завтра. Не зливайся!',no:'Ясно.',ok:'🤝'},
+ st_petro:{j:'А залік автоматом буде? 😅',jr:'Жарти потім, студенте. Так чи ні?',jy:'Так, буду',jn:'Ні, вибачте',later:'Гаразд. Завтра. Без запізнень.',no:'Шкода.',ok:'Добре.'},
+ st_valya:{j:'Тьотю Валю, а пиріжки з чим? 😋',jr:'З капустою, як ти любиш. То прийдеш?',jy:'Прийду!',jn:'Не цього разу',later:'Ну завтра то завтра. Не забудь!',no:'Ну-ну.',ok:'Отож.'}};
+// Оксана на перших етапах сама НЕ пише: ти починаєш розмову
+const MYO=[
+ {me:'Привіт! Ти ж староста? Скинь розклад, будь ласка 🙏',q:'Привіт 🙂 Скину. А чого тебе на парах не видно?',o:[['Чесно — проспав 😅',1,1],['Я буваю, просто ти не помічаєш 😏',1,0],['Не твоя справа',0,-1]],bad:'Ок. Розклад у групі.'},
+ {me:'Підемо на каву після пар? ☕',q:'А чого раптом? 😏',o:[['Хочу подякувати за конспект',1,0],['Просто хочу тебе побачити',1,1],['Та так, нудно',0,0]],bad:'Нудно — то пограй у змійку 🙄'},
+ {me:'Підемо ввечері до квіткового годинника? 🌸',q:'Ти що, романтик? 🙈',o:[['Трошки 😊',1,1],['Ні, просто там гарно',1,0],['Забудь',0,-1]],bad:'Добре… забула.'},
+ {me:'Я скучив. Підемо в кіно? 🎬',q:'Я теж 🙈 Який фільм?',o:[['Який ти обереш',1,1],['Новий бойовик!',1,0],['Та будь-який',1,0]]},
+ {me:'Познайомиш мене з подругами? 😅',q:'Ти впевнений? Вони прискіпливі 😂',o:[['Готовий до іспиту!',1,1],['Трохи страшно, але так',1,0],['Ой, ні, передумав',0,0]],bad:'Ну як хочеш 🙂'},
+ {me:'Можна тебе побачити сьогодні? Хочу щось сказати.',q:'Звучить серйозно… Я теж хочу 🙈',o:[['Тоді біля мосту ввечері',1,1],['Давай завтра',1,0]]}];
+function busyWith(p,k){try{const q=(p.queue||[]).find(x=>x.day<=S.day+1&&/^ls_st_/.test(x.id)&&x.id.indexOf('ls_'+k+'_')!==0);if(!q)return null;return q.id.split('_').slice(1,3).join('_');}catch(e){return null;}}
+function yesOpt(p,k,s,label){const b=busyWith(p,k);if(!b)return [[label],[[{},PER[k].ok,{ls:{k,s}}]]];
+ return [[`Сьогодні я з ${NM[b]}. Давай завтра?`,`Скасую ${NM[b]} заради тебе`],[[{},PER[k].later,{ls:{k,s,d:1}}],[{},PER[k].ok,{ls:{k,s},cancel:b}]]];}
+function inviteMsg(i,p,k){const R=K().lr(p),s=R[k].s,st=K().L[k][s],per=PER[k];const y=yesOpt(p,k,s,st[1]);
+ const o=[...y[0],'Давай завтра',per.j,st[2]],fx=[...y[1],[{},per.later,{ls:{k,s,d:1}}],[{},per.jr,{next:{t:per.jr,o:[per.jy,per.jn],fx:[[{h:1},PER[k].ok,{ls:{k,s},lsRel:[k,1]}],[{},per.no,{}]]}}],[{},per.no,{lsNo:k}]];
+ if(y[0].length>1){o.splice(2,1);fx.splice(2,1);}
+ const m=push(i,k,st[0],o,{fx});m.lsk=k;p.lsN=(p.lsN||0)+1;}
+window.krLsInvite=function(i,p,R,P){if(Math.random()>0.75)return;if((p.lsN||0)>=1&&Math.random()<0.6)return;
+ const ok=K().ORDER.filter(k=>R[k].s<K().L[k].length&&!R[k].wait&&R[k].r>1&&!P.m.some(m=>m.to===i&&m.lsk===k&&m.st==='new')&&!(k==='st_oksana'&&(R[k].s<3||R[k].r<4)));if(!ok.length)return;
+ inviteMsg(i,p,ok[Math.floor(Math.random()*ok.length)]);};
+// ✍️ ти пишеш першим: кнопка в розмові з людиною
+const MY={st_mom:'Мам, можна я приїду? ❤️',st_dima:'Бро, є справа. Побалакаємо?',st_petro:'Петре Івановичу, можна до вас звернутися?',st_valya:'Тьотю Валю, можна до вас на чай?'};
+function canWrite(p,k){const R=K().lr(p)[k];return (R.s<6||R.r<=1)&&!R.wait&&(p.lsW||{})[k]!==S.day;}
+function writeBox(p,k){if(!canWrite(p,k))return '';const R=K().lr(p)[k];const t=R.r<=1?'Вибач мені, будь ласка 🙏':k==='st_oksana'?MYO[Math.min(R.s,5)].me:MY[k];return `<div class="phcomp lswr"><small>💬 Почати розмову</small><button data-ph="lswr" data-f="${k}">${t}</button></div>`;}
+{const _at=appThread;appThread=function(k){let h=_at.apply(this,arguments);try{const p=S.players[phI()];if(p&&p.id==='student'&&PER[k]){const j=h.lastIndexOf('</div>');const b=writeBox(p,k);if(b)h=j>0?h.slice(0,j)+b+h.slice(j):h+b;}}catch(e){}return h;};}
+{const _dp=doPhone;doPhone=function(i,ds){if(ds&&ds.k==='lswr'){try{const p=S.players[i];const k=ds.f;if(!p||!PER[k]||!canWrite(p,k))return;if(bat(p)<=0)return toastI(i,'📵 Телефон сів.');p.bat=Math.max(0,bat(p)-3);(p.lsW=p.lsW||{})[k]=S.day;const R=K().lr(p),s=R[k].s;
+ if(R[k].r<=1){push(i,k,'<i>Ти: Вибач мені, будь ласка 🙏</i>');R[k].r=2;R[k].sorry=0;K().save(p);push(i,k,{st_oksana:'Добре… Але більше так не роби 🙂',st_mom:'Ну що ти, синку. Я ж мама ❤️',st_dima:'Та проїхали, бро 🤝',st_petro:'Вибачення прийнято. Надалі будьте уважнішим.',st_valya:'Ой, та годі вже. Заходь на чай.'}[k]);return;}
+ if(k==='st_oksana'){const D=MYO[s];push(i,k,`<i>Ти: ${D.me}</i>`);const y=busyWith(p,k);
+  const o=D.o.map(x=>x[0]),fx=D.o.map(x=>x[1]?[{h:x[2]>0?1:0},PER[k].ok,y?{ls:{k,s,d:1}}:{ls:{k,s},lsRel:x[2]?[k,x[2]]:null}]:[{},D.bad||PER[k].no,x[2]<0?{lsNo:k}:{}]);
+  const m=push(i,k,D.q+(y?` (Ти ж сьогодні з ${NM[y]}, тож завтра 😉)`:''),o,{fx});m.lsk=k;}
+ else{push(i,k,`<i>Ти: ${MY[k]}</i>`);inviteMsg(i,p,k);}}catch(e){if(typeof console!=='undefined')console.error(e);}return;}return _dp.apply(this,arguments);};}
+{const _ck=phClick;phClick=function(e){const b=e.target.closest&&e.target.closest('[data-ph="lswr"]');if(b){e.stopPropagation();phSend({k:'lswr',f:b.dataset.f});setTimeout(phRefresh,80);return;}return _ck.apply(this,arguments);};}
+// стара фраза «Підемо на каву» з «Написати» — тепер через нову розмову
+{const _at=appThread;appThread=function(k){let h=_at.apply(this,arguments);try{if(k==='st_oksana')h=h.replace(/<button data-ph="wr" data-f="st_oksana" data-s="0"[^>]*>[^<]*<\/button>/,'');}catch(e){}return h;};}
+// «Сьогодні»: зустрічі з людьми
+if(window.krToday){const _t=window.krToday;window.krToday=function(p){const it=_t(p);try{(p.queue||[]).filter(q=>/^ls_st_/.test(q.id)&&q.day<=S.day+1).forEach(q=>{const k=q.id.split('_').slice(1,3).join('_');if(!it.some(x=>x.t&&x.t.indexOf(NN[k])>=0))it.unshift({ic:'💞',t:NN[k],x:q.day<=S.day?'сьогодні':'завтра'});});}catch(e){}return it;};}
 })();
 
 })();
@@ -5804,7 +5901,7 @@ function todayStrip(){const top=app.querySelector('.gtop');if(!top||!S||!S.playe
  const old=top.querySelector('.gplan');if(old)old.remove();if(top.querySelector('.gtoday'))return;
  const it=todayItems(p);const sl=slotsFor();const left=S.weekend?null:Math.max(0,sl-(S.sub||0));
  if(!it.length&&left==null)return;
- const sum=it.filter(x=>!x.done).map(x=>x.ic+' '+x.t).slice(0,3).join(' · ')||'усе зроблено ✅';
+ const _nd=it.filter(x=>!x.done);const sum=_nd.length?_nd[0].ic+' '+_nd[0].t+(_nd.length>1?` <em class="gtmore">+${_nd.length-1}</em>`:''):'усе зроблено ✅';
  const b=document.createElement('div');b.className='gtoday';
  b.innerHTML=`<button class="gtodayb" aria-expanded="false"><span class="gtl">Сьогодні</span><span class="gts">${sum}</span>${left!=null?`<span class="gta">⏱ ${left} з ${sl}</span>`:''}</button>
   <div class="gtlist" hidden>${it.map(x=>`<p class="${x.done?'dn':''}${x.urgent?' urg':''}">${x.ic} <b>${x.t}</b> <small>${x.x||''}</small></p>`).join('')||'<p>Справ немає — вільний день.</p>'}
@@ -6159,7 +6256,8 @@ const WG={
  rukha:['Парашут','Керуй куполом і сідай на мішень.',(s,d)=>mgPara(s,(r,t)=>d(r==null?null:Math.min(1,(+r||0)/2),t))]};
 window.WG=WG;
 function recs(){try{return JSON.parse(lsg('kr-wrec')||'{}');}catch(e){return {};}}
-function workOk(p){return S&&S.players&&!S.weekend&&p&&!p.collector&&WG[p.id]&&p.workMg!==S.day&&p.pos===HOME[p.id];}
+function workFits(p){if(!S)return false;if(window.krMgCap&&window.krMgCap())return false;if(S.phase==='free')return p.id!=='student';const e=S.ev;if(!e||e.chain||e._v3||e.hard||e.only&&!e.only.includes(p.id))return false;const t=(e.t||'')+' '+(e.x||'');if(/Оксан|побачен|мам[аиуо]|Дім|Валя|Петро Іванович|кава|кіно|свят|вечірк/i.test(t))return false;const RX={student:/пар[аиіу]|лекці|залік|іспит|сесі|лаб|семінар|курсов|декан|викладач|конспект|модул/i};const rx=RX[p.id];if(rx)return rx.test(t);return (e.loc||'')===HOME[p.id];}
+function workOk(p){return S&&S.players&&!S.weekend&&p&&!p.collector&&WG[p.id]&&p.workMg!==S.day&&p.pos===HOME[p.id]&&workFits(p);}
 window.krWorkOk=workOk;
 function workBtn(){if(!S||!S.players||!app.querySelector)return;const p=cur();if(!myTurn()||!workOk(p))return;if(!['turn','free'].includes(S.phase))return;if(S.phase==='turn'&&!S.ev)return;
  const panel=app.querySelector('.gcard .panel')||app.querySelector('.panel');if(!panel||panel.querySelector('[data-act=workmg]'))return;const g=WG[p.id];const r=recs()[p.id];const fc=panel.querySelector('.btn-choice');
@@ -6738,6 +6836,16 @@ const HP={ny:'ny_tree',miner:'miners_day',indep:'independence',easter:'easter',v
 
 // === 1.084: мʼякші нерви у звичайній грі ===
 {const _ap=apply;apply=function(p,d){if(d&&S&&!S.hard&&(d.n||0)<=-2){d=Object.assign({},d,{n:d.n+1});}return _ap.call(this,p,d);};}
+
+// === 1.086: міні-ігри в тему і не частіше 2 на день ===
+(function(){
+const cnt=()=>{if(!S)return 0;S.mgD=S.mgD||{};return S.mgD[S.day]||0;};
+window.krMgCap=()=>cnt()>=2;
+{const _mo=mgOpen;mgOpen=function(){try{if(S){S.mgD=S.mgD||{};S.mgD[S.day]=(S.mgD[S.day]||0)+1;}}catch(e){}return _mo.apply(this,arguments);};}
+{const _k=mgKindOfChoice;mgKindOfChoice=function(c){try{if(S&&(cnt()>=2||(S.ev&&(S.ev.chain||/^ls_|^st_date/.test(S.ev.id||'')))))return null;}catch(e){}return _k.apply(this,arguments);};}
+// «Наздогнати Скарік» — лише коли поспішаєш на справу дня
+{const _r=render;render=function(){_r.apply(this,arguments);try{if(SIM||!S||S.phase!=='travel'||!app.querySelector)return;const b=app.querySelector('[data-mg="tram"]');if(!b)return;const p=cur();const pd=S.pending||{};const need=p&&p.plan&&p.plan.s&&p.plan.s.find(k=>!p.plan.done.includes(k));if(cnt()>=2||!need||pd.target!==need)b.remove();}catch(e){}};}
+})();
 
 render();
 </script>
