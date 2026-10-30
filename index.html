@@ -931,6 +931,8 @@ body.noscroll .musbtn{display:none!important}
 .fmapw.list ~ button.fmorig{display:block!important}
 .tcards .mcard.tnew.big.wimg{min-height:150px}.tcards .mcard.tnew.wimg .mci{background-position:center 75%}
 .lsfin{display:flex;gap:12px;align-items:center;background:var(--panel,#fff);border:2px solid var(--line);border-radius:14px;padding:12px;margin:10px 0;color:var(--text)}.lsfin b{display:block;font-size:16px}.lsfin small{display:block;font-size:13px;line-height:1.45;margin-top:4px;opacity:.9}.lsfin .neg{color:#C0392B}.okfin{border-color:#E8532F}.lsimg{width:96px;height:72px;border-radius:10px;background-size:cover;background-position:center;flex:none}
+.rdst{display:grid;gap:8px;margin:8px 0}.rdst button{display:flex;align-items:center;gap:10px;text-align:left;border:2px solid var(--line);background:var(--panel);color:var(--text);border-radius:12px;padding:10px 12px;font:inherit;cursor:pointer}.rdst button.on{border-color:#E8532F;background:#E8532F;color:#fff}.rdst span{font-size:24px}.rdst b{flex:1}.rdst small{font-size:12px;opacity:.75}.rdair{margin-top:10px;border-left:3px solid #F2A93B;padding-left:10px}.rdair p{margin:6px 0;font-size:13px}
+.pin .lsav{width:20px;height:20px;border-radius:50%;border:2px solid #F2A93B;margin:0 2px;vertical-align:middle;object-fit:cover}
 </style>
 </head>
 <body>
@@ -1815,7 +1817,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.078 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.079 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2705,7 +2707,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.078 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.079 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -5136,6 +5138,55 @@ try{DREAMS_C.student.push({t:'Диплом і випускний',extra:450});if
  const fe=app.querySelector&&app.querySelector('.fends');const p=S.players.find(x=>x._saga);if(fe&&p&&!app.querySelector('.sagafin'))fe.insertAdjacentHTML('afterend','<div class="lsfin sagafin"><div><b>🎓 Диплом отримано!</b><small>Історія Студента збережена. Далі він стане Айтівцем — і Оксана буде поруч.</small></div></div>');}catch(e){}};}
 // старт гри: підтягнути памʼять
 {const _sg=startGame;startGame=function(){_sg.apply(this,arguments);try{S.players.forEach(p=>{if(p.id==='student')p.lr=loadLR();});}catch(e){}};}
+})();
+
+// === 1.079: 📻 Радіо Криворіжжя і живе місто ===
+(function(){
+// ---------- радіо: своя музика (генерується в телефоні, без чужих пісень) ----------
+const ST=[{k:'retro',n:'Ретро-Кривбас',ic:'🎷',bpm:92,root:57,scale:[0,2,4,7,9],wave:'triangle'},{k:'chill',n:'Тиха Саксагань',ic:'🌙',bpm:70,root:60,scale:[0,3,5,7,10],wave:'sine'},{k:'drive',n:'Скарік FM',ic:'⚡',bpm:118,root:52,scale:[0,3,5,6,7,10],wave:'square'}];
+let AC=null,timer=null,on=null,step=0,vol=null;
+const hz=n=>440*Math.pow(2,(n-69)/12);
+function note(t,f,d,type,g){const o=AC.createOscillator(),e=AC.createGain();o.type=type;o.frequency.value=f;e.gain.setValueAtTime(0,t);e.gain.linearRampToValueAtTime(g,t+0.02);e.gain.exponentialRampToValueAtTime(0.0008,t+d);o.connect(e);e.connect(vol);o.start(t);o.stop(t+d+0.05);}
+function kick(t){const o=AC.createOscillator(),e=AC.createGain();o.frequency.setValueAtTime(140,t);o.frequency.exponentialRampToValueAtTime(40,t+0.15);e.gain.setValueAtTime(0.5,t);e.gain.exponentialRampToValueAtTime(0.001,t+0.2);o.connect(e);e.connect(vol);o.start(t);o.stop(t+0.25);}
+let seed=1;const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647;};
+let prog=[0,3,4,2];
+function tick(){if(!AC||!on)return;const s=on,sp=60/s.bpm/2;const t0=AC.currentTime+0.05;
+ for(let k=0;k<8;k++){const t=t0+k*sp,st=step+k;const bar=Math.floor(st/16)%4,deg=prog[bar];
+  if(st%16===0&&rnd()<0.3)prog=[0,1+Math.floor(rnd()*4),3,4].map(x=>x%s.scale.length);
+  if(st%8===0)note(t,hz(s.root-12+s.scale[deg]),sp*7,'sine',0.18);
+  if(s.k!=='chill'&&st%4===0)kick(t);
+  if(st%2===0&&rnd()<(s.k==='chill'?0.35:0.6)){const n=s.scale[(deg+Math.floor(rnd()*4))%s.scale.length]+(rnd()<0.3?12:0);note(t,hz(s.root+n),sp*(s.k==='chill'?3:1.6),s.wave,s.k==='drive'?0.035:0.07);}
+  if(st%16===8)[0,2,4].forEach(x=>note(t,hz(s.root+s.scale[(deg+x)%s.scale.length]),sp*6,'triangle',0.035));}
+ step+=8;}
+function stop(){on=null;clearInterval(timer);timer=null;if(vol&&AC){try{vol.gain.setTargetAtTime(0,AC.currentTime,0.1);}catch(e){}}}
+function play(k){const s=ST.find(x=>x.k===k);if(!s)return;try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();if(AC.state==='suspended')AC.resume();if(!vol){vol=AC.createGain();vol.connect(AC.destination);}vol.gain.setValueAtTime(0.5,AC.currentTime);}catch(e){return;}
+ on=s;seed=7+ST.indexOf(s)*13+(S?S.day:0);step=0;clearInterval(timer);tick();timer=setInterval(tick,60/s.bpm/2*8*1000);}
+window.krRadio={play,stop,get on(){return on&&on.k;}};
+// ефіри: новини гри
+function airLines(){const L=[];try{const n=newsAt(S.day);if(n)L.push('📰 Новини дня: '+n.t+'. '+(n.x||''));}catch(e){}
+ try{const w=S.wxT!=null?`${S.wxT>0?'+':''}${S.wxT}°`:'';L.push('🌦 Погода: '+(w||'як завжди — все рівно')+'. Парасольку не забудьте.');}catch(e){}
+ try{if(S.soc&&S.soc.rum)L.push('🗣 Бабусі на лавці кажуть: '+S.soc.rum+'.');}catch(e){}
+ L.push(['🚋 Скарік ходить за розкладом. Майже.','⚽ Кривбас готується до матчу. Місто вже співає.','🏭 Комбінат перевиконав план по диму.','🎵 Ви слухаєте Радіо Криворіжжя. Тут усе рівно, але душевно.','📞 Привіт передає баба Галя з Социка всім, хто не їв її пиріжків.'][(S?S.day:0)%5]);return L;}
+function appRadio(){const L=airLines();return `<div class="phsec"><h4>📻 Радіо Криворіжжя</h4><p class="note">Своя музика міста. Грає, поки граєш.</p>
+ <div class="rdst">${ST.map(s=>`<button data-ph="radio" data-k="${s.k}" class="${on&&on.k===s.k?'on':''}"><span>${s.ic}</span><b>${s.n}</b><small>${on&&on.k===s.k?'▶ в ефірі':'слухати'}</small></button>`).join('')}</div>
+ ${on?`<button class="phwide" data-ph="radio" data-k="off">⏹ Вимкнути</button>`:''}
+ <div class="rdair">${L.map(x=>`<p>${x}</p>`).join('')}</div></div>`;}
+{const _ah=appHome;appHome=function(){let h=_ah.apply(this,arguments);try{h=h.replace('<div class="phapps">','<div class="phapps"><button data-ph="app" data-a="radio"><span class="phai">📻'+(on?'<i>▶</i>':'')+'</span><small>Радіо</small></button>');}catch(e){}return h;};}
+{const _h=phHTML;phHTML=function(){if(PH.app==='radio'){const i=phI(),p=S.players[i];const b=bat(p);return `<div class="phone"><div class="phbar"><span>${clock()}</span><span>Кривбас-Звʼязок</span><span class="${b<=20?'low':''}">${b}% 🔋</span></div><div class="phscr">${appRadio()}</div><div class="phnav"><button data-ph="home" aria-label="Додому"></button></div><button class="phx" data-ph="close" aria-label="Закрити">✕</button></div>`;}return _h.apply(this,arguments);};}
+{const _ck=phClick;phClick=function(e){const b=e.target.closest&&e.target.closest('[data-ph="radio"]');if(b){e.stopPropagation();const k=b.dataset.k;if(k==='off'||(on&&on.k===k))stop();else{try{if(window.krAmb&&window.krAmb.stop)window.krAmb.stop();}catch(_){}play(k);}setTimeout(phRefresh,30);return;}return _ck.apply(this,arguments);};}
+// гімн і музика гри мають пріоритет: у фіналі радіо стихає
+{const _r=render;render=function(){_r.apply(this,arguments);try{if(on&&(!S||['done','end'].includes(S.phase)))stop();}catch(e){}};}
+// ---------- живе місто: твої люди теж ходять містом ----------
+const SPOTS={st_oksana:['uni','uni','mall','office','playground'],st_dima:['stadium','garages','mall','uni'],st_petro:['uni','uni','office','clinic'],st_valya:['market','clinic','bus'],st_mom:['bus']};
+const AV={st_oksana:'starosta',st_dima:'roommate',st_petro:'lecturer',st_valya:'valya',st_mom:'mom'};
+const NM={st_oksana:'Оксану',st_dima:'Діму',st_petro:'Петра Івановича',st_valya:'тьотю Валю',st_mom:'маму'};
+const MEET={st_oksana:['Оксана махає тобі здалеку й усміхається 😊','Оксана пригостила жуйкою й побігла на пару.'],st_dima:['Діма купив тобі шаурму «за минулий раз» 🌯','Діма показав новий мем. Ржали обидва.'],st_petro:['Петро Іванович кивнув: «Сподіваюсь, ви до заліку готові».','Петро Іванович порадив книжку. Дивно, але цікаву.'],st_valya:['Тьотя Валя сунула пиріжок: «Їж, бо худий».','Тьотя Валя розповіла всі новини гуртожитку за 5 хвилин.'],st_mom:['Мама приїхала на базар і обійняла тебе посеред автостанції ❤️']};
+function whereToday(p){if(!p||p.id!=='student'||!S)return {};if(p._wd===S.day&&p._where)return p._where;const o={};let sd=S.day*31+7;const r=()=>{sd=(sd*9301+49297)%233280;return sd/233280;};
+ Object.keys(SPOTS).forEach(k=>{if(k==='st_mom'&&!(S.day%5===4&&r()<0.6))return;if(r()<0.75){const L=SPOTS[k];o[k]=L[Math.floor(r()*L.length)];}});p._wd=S.day;p._where=o;return o;}
+window.krWhere=whereToday;
+{const _m=mapHTML;mapHTML=function(){let h=_m.apply(this,arguments);try{const p=S.players[S.room&&typeof meI==='function'?meI():S.turn];const w=whereToday(p);Object.entries(w).forEach(([k,loc])=>{const re=new RegExp(`(data-loc="${loc}"[^>]*>)`);h=h.replace(re,`$1<img class="lsav" src="img/student/c_${AV[k]}.webp" alt="">`);});}catch(e){}return h;};}
+{const _dl=drawLoc;drawLoc=function(key){const e=_dl.apply(this,arguments);try{const p=cur(),i=S.turn;if(!p||p.id!=='student'||p.collector)return e;const w=whereToday(p);p._met=p._met||{};
+ Object.entries(w).forEach(([k,loc])=>{if(loc!==key||p._met[k]===S.day)return;p._met[k]=S.day;const L=MEET[k];const t=L[Math.floor(Math.random()*L.length)];toastI(i,'💞 Зустрів '+NM[k]+'. '+t);apply(p,{h:1});try{if(window.krLife)window.krLife.rel(p,k,1);}catch(_){}});}catch(err){}return e;};}
 })();
 
 })();
