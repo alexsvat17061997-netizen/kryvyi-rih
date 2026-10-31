@@ -6067,7 +6067,13 @@ function amHost(){return !S||!S.room||!ROOM||ROOM.role==='host';}
 // ---------- А. рятувальна кнопка ----------
 function usable(){if(!app||!app.querySelectorAll)return 1;if(app.querySelector('[data-v2pin]:not(.v2off)'))return 1;return [...app.querySelectorAll('button')].filter(b=>!b.disabled&&b.offsetParent&&!b.classList.contains('gmapbtn')&&!b.dataset.phopen&&!b.classList.contains('gset')&&!b.classList.contains('q')&&!b.classList.contains('gchip')&&!b.classList.contains('gback')&&!b.classList.contains('gtoday')&&b.id!=='tutok'&&b.id!=='tutskip').length;}
 function rescueHide(){const r=document.getElementById('rescue');if(r)r.remove();}
-function rescueShow(why){if(document.getElementById('rescue')||!amHost())return;const r=document.createElement('div');r.id='rescue';
+function errLog(m){try{const L=JSON.parse(localStorage.getItem('kr-errlog')||'[]');L.push(new Date().toTimeString().slice(0,8)+' '+(S&&S.players?S.phase+'|d'+S.day+'|s'+(S.sub||0)+(S.hard?'|hard':''):'menu')+' '+String(m).slice(0,220));localStorage.setItem('kr-errlog',JSON.stringify(L.slice(-30)));}catch(e){}}
+window.krErrLog=errLog;
+window.addEventListener&&window.addEventListener('error',e=>{try{errLog('js: '+(e.message||'')+' @'+(e.lineno||'')+':'+(e.colno||''));}catch(x){}});
+let _rsT=0;
+function rescueShow(why){try{errLog('rescue: '+(why||'stuck'));}catch(e){}
+ if(window.krV2&&window.krV2()){if(why!=='Сталася помилка на екрані.')return;const n=Date.now();if(n-_rsT>3000){_rsT=n;setTimeout(()=>{try{render();}catch(e){}},30);return;}}
+ if(document.getElementById('rescue')||!amHost())return;const r=document.createElement('div');r.id='rescue';
  r.innerHTML=`<div class="rsbox"><b>🛟 Щось пішло не так</b><p>${why||'Гра застрягла на цьому кроці.'} Натисни, і гра безпечно піде далі. Нічого не втратиш.</p><button class="btn btn-main" id="rsgo">Продовжити гру</button></div>`;
  document.body.appendChild(r);document.getElementById('rsgo').addEventListener('click',e=>{e.stopPropagation();rescueRun();});}
 function rescueRun(){rescueHide();try{['phov','mgov','chov','agegate'].forEach(id=>{const e=document.getElementById(id);if(e)e.remove();});document.body.classList.remove('noscroll');}catch(e){}
@@ -6086,7 +6092,7 @@ function watch(){clearTimeout(WT);rescueHide();if(!S||!S.players||WAITPH.include
  WT=setTimeout(()=>{if(!S||!S.players||WAITPH.includes(S.phase))return;if(document.querySelector('#mgov,#chov,#agegate,#phov,#gmapov.on,#setov,#help.on'))return;
   if([S.phase,S.day,S.sub,S.turn].join('|')!==WSIG)return;if(S.room&&S.pday&&S.done&&S.done[meIx()])return;
   if(usable()===0)rescueShow();},2500);}
-{const _r=render;render=function(){try{_r.apply(this,arguments);}catch(e){if(typeof console!=='undefined')console.error(e);if(S&&S.players&&amHost())setTimeout(()=>rescueShow('Сталася помилка на екрані.'),50);return;}try{if(!SIM&&app&&app.querySelector&&typeof document!=='undefined'&&document.body)watch();}catch(e){}};}
+{const _r=render;render=function(){try{_r.apply(this,arguments);}catch(e){if(typeof console!=='undefined')console.error(e);try{errLog('render: '+(e&&e.message)+' | '+String(e&&e.stack||'').split('\n').slice(1,3).join(' ').replace(/\s+/g,' ').slice(0,160));}catch(x){}if(S&&S.players&&amHost())setTimeout(()=>rescueShow('Сталася помилка на екрані.'),50);return;}try{if(!SIM&&app&&app.querySelector&&typeof document!=='undefined'&&document.body)watch();}catch(e){}};}
 // кнопка «не спрацювала» двічі поспіль — пропонуємо врятувати
 function bigSig(){try{return [S.phase,S.day,S.sub,S.turn,S.res?1:0,JSON.stringify(S.pending||0),JSON.stringify(S.eve||0),JSON.stringify(S.group||0),S.players.map(p=>p.money+'/'+p.nerves+'/'+p.happy).join(',')].join('|');}catch(e){return Math.random();}}
 let DEAD=0;
@@ -7297,7 +7303,7 @@ document.addEventListener&&document.addEventListener('click',e=>{const pin=e.tar
 
 // === 2.0 (бета): новий день Студента — пари → 2 вільні дії на карті → вечір ===
 (function(){
-const V2=()=>{try{return !!window.KR_V2&&S&&S.players&&S.players.length===1&&!S.room&&!S.hard&&S.players[0].id==='student'&&!S.players[0].collector;}catch(e){return false;}};
+const V2=()=>{try{return !!window.KR_V2&&S&&S.players&&S.players.length===1&&!S.room&&S.players[0].id==='student'&&!S.players[0].collector;}catch(e){return false;}};
 window.krV2=V2;
 // ---------- дії по місцях (з плану «Як працює день») ----------
 const ACT={
@@ -7365,7 +7371,7 @@ function mgCan(p){const n=(p.v2mgD===S.day?(p.v2mgN||0):0)+(p.workMg===S.day?1:0
 function findA(loc,k){return k==='_errand'?{k,t:'Доручення',d:{}}:(ACT[loc]||[]).concat(WACT[loc]||[]).find(x=>x.k===k);}
 function start(p,loc,k,rk){const a=findA(loc,k);let off=false;try{off=mgOff();}catch(e){}if(a&&a.mg&&MGT[a.mg]&&!off&&mgCan(p)){if(p.v2mgD!==S.day){p.v2mgD=S.day;p.v2mgN=0;}p.v2mgN++;const T=MGT[a.mg];mgOpen(T[0],T[1],T[2],r=>doAct(p,loc,k,rk,r));return;}doAct(p,loc,k,rk);}
 function doAct(p,loc,k,rk,mr){const a=k==='_errand'?{k,t:'Доручення',d:{},r:'Зайшов, віддав, подякували.'}:(ACT[loc]||[]).concat(WACT[loc]||[]).find(x=>x.k===k);if(!a)return;let msg='';
- if(dist(p.pos,loc)>0){const R=roadOpt(p,loc);const rr=(rk&&R.o.find(o=>o.k===rk))||R.r;msg=doTravel(p,rr)||'';p.pos=loc;msg=' ('+TN[rr.k]+(fx(rr.d)?' '+fx(rr.d):'')+')'+msg;tAdd(p,rr.min);if(rr.k==='walk'&&tNow(p)>=22*60&&Math.random()<0.3){apply(p,{n:-1});msg+=', у темному дворі причепились гопники — ледве відбрехався, −1 нерв';}}
+ if(dist(p.pos,loc)>0){const R=roadOpt(p,loc);const rr=(rk&&R.o.find(o=>o.k===rk))||R.r;msg=doTravel(p,rr)||'';p.pos=loc;msg=' ('+TN[rr.k]+(fx(rr.d)?' '+fx(rr.d):'')+')'+msg;tAdd(p,rr.min);if(rr.k==='walk'&&tNow(p)>=NT()&&Math.random()<(S.hard?0.5:0.3)){apply(p,{n:-1});msg+=', у темному дворі причепились гопники — ледве відбрехався, −1 нерв';}}
  tAdd(p,DUR[a.k]!=null?DUR[a.k]:120);
  apply(p,a.d);const jn=(a.mg==='borsch'&&mr!=null)?Math.max(0,+mr||0):a.jars;if(jn){p.items=p.items||{};p.items.jars=(p.items.jars||0)+jn;}if(a.wk)(p.v2wk=p.v2wk||{})[a.k]=Math.floor(S.day/5);
  let extra='';const wkn=Math.floor(S.day/5);
@@ -7384,6 +7390,7 @@ function doAct(p,loc,k,rk,mr){const a=k==='_errand'?{k,t:'Доручення',d:
 const ICAP=2;const cnt=p=>{if(p.v2iD!==S.day){p.v2iD=S.day;p.v2iN=0;p.v2iI=0;}return p.v2iN;};
 {const _bt=beginTurn;beginTurn=function(){const r=_bt.apply(this,arguments);try{if(!V2()||S.weekend||S.sub<1)return r;const p=cur();
   if(S.phase==='turn'&&S.ev&&S.ev.chain&&/^ls_/.test(S.ev.chain)){const id=S.ev.chain;p.queue=p.queue||[];if(!p.queue.some(q=>q.id===id))p.queue.unshift({day:S.day,id});S.ev=null;S._qIt=null;S.phase='free';S._v2free=1;return r;}
+  if(S.hard&&S.phase==='turn'&&S.ev&&!(S.ev.chain&&/^ls_/.test(S.ev.chain))&&p.v2hT!==S.day&&p.nerves>3&&Math.random()<0.3){p.v2hT=S.day;cnt(p);p.v2iI=1;p.v2iN=ICAP;S.ev=Object.assign({},S.ev,{_v2k:'hard'});return r;}
   if(S.phase==='turn'&&S.ev&&!(S.ev.chain&&/^ls_/.test(S.ev.chain))){if(cnt(p)<ICAP&&!p.v2iI&&Math.random()<0.5){p.v2iN++;p.v2iI=1;S._v2int=1;S.ev=Object.assign({},S.ev,{_v2k:'int'});return r;}if(S._qIt)(p.queue=p.queue||[]).push(Object.assign({},S._qIt,{day:S.day+1}));}
   S.ev=null;S._qIt=null;S.phase='free';S._v2free=1;}catch(e){}return r;};}
 {const _nt=nextTurn;nextTurn=function(){try{if(V2()&&!S.weekend){const p=cur();
@@ -7421,13 +7428,14 @@ const DUR={sleep:120,cook:90,lib:120,dept:180,load:180,shop:60,haggle:45,flyers:
 const RT=(k,d)=>({walk:20*d,tram:10*d+5,bus:7*d+10,taxi:4*d+5}[k]||10*d);
 const hm=m=>{m=Math.round(m);return `${Math.floor(m/60)%24}:${String(m%60).padStart(2,'0')}`;};
 const durT=m=>m>=60?(m%60?`${Math.floor(m/60)} год ${m%60} хв`:`${m/60} год`):`${m} хв`;
-function cfOf(){return (S.day%5===4)?24*60:23*60;}
+function cfOf(){return (S.day%5===4?60:0)+(S.hard?22:23)*60;}
+const LB=()=>S.hard?21*60:22*60,NT=()=>S.hard?21*60:22*60;
 function tNow(p){const key=S.weekend?('w'+S.day+'|'+((S.v2w||0)<2?0:1)):'d'+S.day;if(p.v2tK!==key){p.v2tK=key;p.v2t=S.weekend?600:480;}return p.v2t;}
 function tAdd(p,m){tNow(p);p.v2t+=m;}
 function parsTime(p){if(S.weekend||p.v2pD===S.day)return;p.v2pD=S.day;tNow(p);p.v2t=Math.max(p.v2t,p.plan&&p.plan.skip?540:840);}
 function roadAt(p,o,d,t){const x=Object.assign({},o,{d:Object.assign({},o.d)});x.min=RT(o.k,d);x.off='';
- if(o.k==='bus'&&t>22*60)x.off='остання маршрутка о 22:00 вже пішла';if(o.k==='tram'&&t>23*60)x.off='Скарік уже не ходить';
- if(o.k==='taxi'&&t>=22*60)x.d.m=Math.round((x.d.m||0)*1.5/10)*10;return x;}
+ if(o.k==='bus'&&t>LB())x.off=`остання маршрутка о ${LB()/60}:00 вже пішла`;if(o.k==='tram'&&t>23*60)x.off='Скарік уже не ходить';
+ if(o.k==='taxi'&&t>=NT())x.d.m=Math.round((x.d.m||0)*(S.hard?2:1.5)/10)*10;return x;}
 
 
 // ---------- 🐾 тварина ввечері (за бажанням) ----------
@@ -7438,8 +7446,8 @@ const PETG={walk:['Вигул пса','◀ ▶ або свайп. Обходь �
 // ---------- 🏠 дорога додому і вахта тьоті Валі ----------
 function homeScreen(p){const gb=app.querySelector('.gl .gbody')||app;const t=tNow(p);const tr=travelOpts(p,'uni');const cf=cfOf();
  const o=tr.opts.map(x=>x.k==='walk'?Object.assign({},x,{d:Object.assign({},x.d,{n:Math.max(-1,x.d.n||0)})}):x).map(x=>roadAt(p,x,tr.d,t));
- gb.innerHTML=strip(p)+`<div class="v2free"><div class="v2hd"><b>🏠 Додому, в гуртожиток</b><span>зараз ${hm(t)} · вахта до ${hm(cf)} · вдома до 22:00 — виспишся (+1 😌)</span></div><div class="v2sheet" style="position:static">${o.map(x=>{const ar=t+x.min;const poor=(x.d.m||0)<0&&avail(p)+(x.d.m||0)<0;const late=ar>cf;return `<button class="v2act${late?' v2late':''}" data-v2home="${x.k}" ${x.off||poor?'disabled':''}><b>${TI[x.k]||'🚕'} ${TN[x.k]||'Таксі'}</b><small>${x.off?x.off:poor?'не вистачає грошей':(fx(x.d)||'безкоштовно')+` · вдома о ${hm(ar)}${late?' — ⚠️ вахта вже зачинена':''}`}</small></button>`;}).join('')}</div></div>`;}
-function curfew(p,ar,cb){const cf=cfOf();p.v2home=ar;p.v2hD=S.day;if(ar<=22*60)p.v2rest=S.day;if(ar<=cf){cb();return;}
+ gb.innerHTML=strip(p)+`<div class="v2free"><div class="v2hd"><b>🏠 Додому, в гуртожиток</b><span>зараз ${hm(t)} · вахта до ${hm(cf)} · вдома до ${S.hard?21:22}:00 — виспишся (+1 😌)</span></div><div class="v2sheet" style="position:static">${o.map(x=>{const ar=t+x.min;const poor=(x.d.m||0)<0&&avail(p)+(x.d.m||0)<0;const late=ar>cf;return `<button class="v2act${late?' v2late':''}" data-v2home="${x.k}" ${x.off||poor?'disabled':''}><b>${TI[x.k]||'🚕'} ${TN[x.k]||'Таксі'}</b><small>${x.off?x.off:poor?'не вистачає грошей':(fx(x.d)||'безкоштовно')+` · вдома о ${hm(ar)}${late?' — ⚠️ вахта вже зачинена':''}`}</small></button>`;}).join('')}</div></div>`;}
+function curfew(p,ar,cb){const cf=cfOf();p.v2home=ar;p.v2hD=S.day;if(ar<=(S.hard?21:22)*60)p.v2rest=S.day;if(ar<=cf){cb();return;}
  let fr=false;try{fr=window.krLife.of(p,'st_valya').r>=3&&(p.v2late||0)<2;}catch(e){}p.v2late=(p.v2late||0)+1;
  if(fr){S.last=(S.last?S.last+'. ':'')+'🚪 Тьотя Валя відчинила: «Востаннє пускаю, чуєш?!»';cb();return;}
  const fail=()=>{apply(p,{n:-1});try{window.krLife.rel(p,'st_valya',-1);}catch(e){}S.last=(S.last?S.last+'. ':'')+'🔦 Тьотя Валя спіймала тебе на драбині: −1 нерв';cb();};
@@ -7454,7 +7462,7 @@ const _r=render;render=function(){try{if(V2()&&S.phase==='oblig'){startPars(S.pl
   if(!['morning','evening','oblig'].includes(S.phase)){const ev=S.weekend?((S.v2w||0)%2===1):((S.sub||0)>=2);const ek=S.day+'|'+(S.weekend?S.v2w:'w');if(ev&&p.v2eK!==ek){p.v2eK=ek;tNow(p);p.v2t=Math.max(p.v2t,18*60);}}
   if(S.phase==='evening'&&!S.weekend&&p.v2hD!==S.day){if(dist(p.pos,'uni')===0){curfew(p,tNow(p),()=>{});}else{homeScreen(p);return;}}
   if(S.phase==='free'&&(!S.weekend||V2())){const gb=app.querySelector('.gl .gbody');if(gb){gb.className='gbody v2gbody';gb.innerHTML=freeBody(p);}else app.innerHTML=freeHTML(p);decorate(p);}
-  if(S.phase==='turn'&&S.ev){const k=app.querySelector('.kicker');if(k&&!k.querySelector('.v2chip')){const t=S.ev._v2k==='int'?'⚡ Між справами · дію не забирає':S.ev._v2k==='tw'?'⚡ Поки ти тут…':S.ev._v2k==='pars'?'☀️ Пари':'';if(t)k.insertAdjacentHTML('afterbegin',`<span class="v2chip">${t}</span> `);}
+  if(S.phase==='turn'&&S.ev){const k=app.querySelector('.kicker');if(k&&!k.querySelector('.v2chip')){const t=S.ev._v2k==='hard'?'🔥 Місто втрутилось · ця дія зайнята':S.ev._v2k==='int'?'⚡ Між справами · дію не забирає':S.ev._v2k==='tw'?'⚡ Поки ти тут…':S.ev._v2k==='pars'?'☀️ Пари':'';if(t)k.insertAdjacentHTML('afterbegin',`<span class="v2chip">${t}</span> `);}
    if(S.ev._v2k==='pars'){const wb=app.querySelector('.wgbtn');if(wb)wb.innerHTML='🎮 Швидкий тест<small>3 питання по 6 секунд · відповіси добре — до +100 грн</small>';const pn=app.querySelector('.poster .panel');if(pn&&!pn.querySelector('[data-v2skip]'))pn.insertAdjacentHTML('beforeend','<button class="btn btn-choice v2skip" data-v2skip="1">🚶 Прогуляти пари<small>ця дія стане вільною, але ввечері −2 нерви, і Петро Іванович запамʼятає</small></button>');}}
   app.querySelectorAll('details.mapbox,.tools').forEach(x=>x.remove());
   if(!(S.phase==='result'&&S.ev&&!S.ev._v2k))app.querySelectorAll('.detail').forEach(x=>{if(/Тут можна купити/.test(x.textContent))x.remove();});
@@ -7471,7 +7479,7 @@ document.addEventListener&&document.addEventListener('click',e=>{if(!V2())return
  const gg=t.closest('[data-v2go]');if(gg&&!gg.disabled){e.stopPropagation();e.preventDefault();const [loc,k,rk]=gg.dataset.v2go.split('|');try{snd('click');}catch(_){}start(p,loc,k,rk);return;}
  const bk=t.closest('[data-v2back]');if(bk){e.stopPropagation();e.preventDefault();sheet(p,bk.dataset.v2back);return;}
  const pt=t.closest('[data-v2pet]');if(pt){e.stopPropagation();e.preventDefault();const g=pt.dataset.v2pet;const T=PETG[g];p.v2petD=S.day;if(p.v2mgD!==S.day){p.v2mgD=S.day;p.v2mgN=0;}p.v2mgN++;mgOpen(T[0],T[1],T[2],r=>{if(r==null){render();return;}const ok=r===true;const fx2=g==='walk'?(ok?{n:1,h:1}:{n:-1}):g==='pet'?(ok?{n:2}:{h:-1}):(ok?{h:1,n:1}:{});apply(p,fx2);S.last=(S.last?S.last+'. ':'')+({walk:ok?'🐕 Гарно погуляли з псом':'🐕 Пес потягнув через калюжу',pet:ok?'🐱 Кіт замуркотів на колінах':'🐱 Кіт подряпав',find:ok?'🐾 Знайшов кота за шафою':'🐾 Кіт так і не вийшов'}[g])+(fx(fx2)?' '+fx(fx2):'');render();});return;}
- const hb=t.closest('[data-v2home]');if(hb&&!hb.disabled){e.stopPropagation();e.preventDefault();const tr=travelOpts(p,'uni');const now=tNow(p);let x=tr.opts.find(o=>o.k===hb.dataset.v2home);if(!x)return;if(x.k==='walk')x=Object.assign({},x,{d:Object.assign({},x.d,{n:Math.max(-1,x.d.n||0)})});x=roadAt(p,x,tr.d,now);const m=x.k==='tram'?(apply(p,x.d),''):(doTravel(p,x)||'');p.pos='uni';const ar=now+x.min;p.v2t=ar;if(x.k==='walk'&&ar>=22*60&&Math.random()<0.3){apply(p,{n:-1});S.last=(S.last?S.last+'. ':'')+'У темному дворі причепились гопники — ледве відбрехався, −1 нерв';}S.last=(S.last?S.last+'. ':'')+`🏠 Додому: ${TN[x.k]||'таксі'}${fx(x.d)?' '+fx(x.d):''}${m}, вдома о ${hm(ar)}`;curfew(p,ar,()=>{render();window.scrollTo(0,0);});return;}
+ const hb=t.closest('[data-v2home]');if(hb&&!hb.disabled){e.stopPropagation();e.preventDefault();const tr=travelOpts(p,'uni');const now=tNow(p);let x=tr.opts.find(o=>o.k===hb.dataset.v2home);if(!x)return;if(x.k==='walk')x=Object.assign({},x,{d:Object.assign({},x.d,{n:Math.max(-1,x.d.n||0)})});x=roadAt(p,x,tr.d,now);const m=x.k==='tram'?(apply(p,x.d),''):(doTravel(p,x)||'');p.pos='uni';const ar=now+x.min;p.v2t=ar;if(x.k==='walk'&&ar>=NT()&&Math.random()<(S.hard?0.5:0.3)){apply(p,{n:-1});S.last=(S.last?S.last+'. ':'')+'У темному дворі причепились гопники — ледве відбрехався, −1 нерв';}S.last=(S.last?S.last+'. ':'')+`🏠 Додому: ${TN[x.k]||'таксі'}${fx(x.d)?' '+fx(x.d):''}${m}, вдома о ${hm(ar)}`;curfew(p,ar,()=>{render();window.scrollTo(0,0);});return;}
  const mr=t.closest('[data-v2mom]');if(mr&&!mr.disabled){e.stopPropagation();e.preventDefault();const d=mr.dataset.v2mom==='bus'?{m:-40}:{m:-15,n:-1};apply(p,d);p._v2momTrip=0;p.pos='uni';S.last=nm(p)+': від мами на пари ('+fx(d)+')';startPars(p);render();window.scrollTo(0,0);return;}
  const lg=t.closest('[data-lsgo]');if(lg&&!lg.disabled){try{const sh=app.querySelector('.v2sheet');const loc=sh&&sh.dataset.loc;const d=loc?dist(p.pos,loc):0;tAdd(p,(d?RT('bus',d):0)+90);if(loc)p.pos=loc;}catch(_){}}
  const sk=t.closest('[data-v2skip]');if(sk){e.stopPropagation();e.preventDefault();p.plan.skip=true;S.last=nm(p)+': прогуляв пари';S.ev=null;S.phase='free';render();window.scrollTo(0,0);return;}
@@ -7604,6 +7612,15 @@ try{new MutationObserver(()=>{hide();try{app.querySelectorAll('h3.msec').forEach
 // === 2.0 · стабільні картинки: без перевороту, стрибків і дзеркала на тому ж зображенні ===
 (function(){if(!window.KR_V2)return;
 let last='';{const _cw=cardWrap;cardWrap=function(img,kicker,title,body){let h=_cw.apply(this,arguments);try{const k=img+'|'+title;if(k===last)h=h.replace('class="poster flip"','class="poster"');last=k;}catch(e){}return h;};}
+})();
+
+
+// === 2.0 · 🐞 звіт про помилки в налаштуваннях ===
+(function(){
+document.addEventListener&&document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-errlog]');if(!b)return;e.stopPropagation();e.preventDefault();let t='';try{t=JSON.parse(localStorage.getItem('kr-errlog')||'[]').join('\n');}catch(x){}
+ if(!t){b.querySelector('small').textContent='Помилок не записано ✅';return;}
+ const done=()=>{b.querySelector('small').textContent='Скопійовано! Встав у чат з Claude';};try{navigator.clipboard.writeText('Звіт 2.0:\n'+t).then(done,()=>{prompt('Скопіюй:',t);});}catch(x){try{prompt('Скопіюй:',t);}catch(y){}}},true);
+try{new MutationObserver(()=>{try{const g=document.querySelector('.setgrp.setnav');if(g&&!document.querySelector('[data-errlog]')){let n=0;try{n=JSON.parse(localStorage.getItem('kr-errlog')||'[]').length;}catch(x){}g.insertAdjacentHTML('beforebegin',`<div class="setgrp"><b>🐞 Звіт про помилки</b><button class="btn btn-ghost" data-errlog="1">Скопіювати звіт<small style="display:block;font-weight:400">${n?'записано: '+n:'помилок не записано'}</small></button></div>`);}}catch(x){}}).observe(document.body,{childList:true,subtree:true});}catch(e){}
 })();
 
 render();
