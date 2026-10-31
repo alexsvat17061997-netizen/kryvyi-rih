@@ -1005,7 +1005,7 @@ body.krv2 .gtoday{display:none!important}body.krv2 .xtra{display:none!important}
 .mgwf{position:relative;height:230px;margin:6px auto;max-width:300px;border-radius:12px;overflow:hidden;background:linear-gradient(90deg,#3a4256 33%,#424b61 33% 66%,#3a4256 66%);touch-action:none}.mgwf i{position:absolute;transform:translateX(-50%);font-size:30px;font-style:normal}.mgwd{position:absolute;bottom:8px;transform:translateX(-50%);font-size:40px;transition:left .1s}.mgwf.shake{animation:mglsh .3s}
 .mgfg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:280px;margin:8px auto}.mgfg button{font-size:36px;padding:10px 0;border-radius:12px;border:2px solid rgba(128,128,128,.3);background:rgba(128,128,128,.1)}.mgfg button.wig{animation:mglsh .18s 3}.mgfg button.ok{background:#5DBB63}.mgfg button.no{background:#E4502E;opacity:.6}.mgft{font-weight:700;min-height:1.4em}
 .mgbr{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:6px 0;font-size:14px;transition:opacity .4s}.mgbr span{background:rgba(242,169,59,.25);padding:3px 8px;border-radius:8px}.mgbr.hid{opacity:0}.mgbpot{font-size:56px}.mgbpot.shake{animation:mglsh .3s}.mgbi{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:300px;margin:6px auto}.mgbi button{font-size:28px;padding:6px 0;border-radius:12px;border:2px solid rgba(128,128,128,.3);background:rgba(128,128,128,.1)}.mgbi button small{display:block;font-size:12px}.mgbi button.ok{background:#5DBB63;opacity:.6}.mgbi button.no{background:#E4502E}.mgbd{margin-top:8px}.mgbd[hidden]{display:none!important}
-.v2back{display:block;width:100%;margin-top:6px;padding:10px;border:0;background:transparent;color:inherit;opacity:.8;font:inherit;font-weight:700}
+body.krv2 .art{animation:none!important}.v2back{display:block;width:100%;margin-top:6px;padding:10px;border:0;background:transparent;color:inherit;opacity:.8;font:inherit;font-weight:700}
 </style>
 </head>
 <body>
@@ -4419,6 +4419,7 @@ function look(img,title,body){if(!S||/^(it|pet)_/.test(img))return null;const h=
  const z=(1+((h%4)*0.07)).toFixed(2),px=[50,22,78,36,64][h%5],py=[50,38,62][(h>>3)%3],mir=!NOMIR.has(img)&&((h>>6)%3===0);
  const night=/вночі|ніч|23:00|третій ночі|друга ночі|темн/i.test(body||'');const slots=(typeof slotsFor==='function'?slotsFor():3)||3;const tp=night?'night':S.weekend?'day':((S.sub||0)===0?'morning':(S.sub||0)>=slots-1?'evening':'day');
  const wx=OUT.has(img)?weather():'';const F={morning:'brightness(1.06) saturate(1.06)',day:'',evening:'brightness(.9) sepia(.18) saturate(1.12)',night:'brightness(.6) saturate(.85) hue-rotate(14deg) contrast(1.12)'}[tp]+(wx==='rain'?' saturate(.85) brightness(.93)':wx==='snow'?' brightness(1.04) saturate(.78) hue-rotate(-8deg)':'');
+ if(window.KR_V2){const h2=hs(img+'|'+S.day);return {z:'1.04',px:[50,40,60][h2%3],py:50,mir:false,tp,wx,F,dir:1,hard:!!(S.ev&&S.ev.hard)};}
  return {z,px,py,mir,tp,wx,F,dir:(h>>9)%2?1:-1,hard:!!(S.ev&&S.ev.hard)};}
 {const _cw=cardWrap;cardWrap=function(img,kicker,title,body){let h=_cw.apply(this,arguments);try{const L=look(img,title,body);if(!L)return h;
  const re=/<img class="art([^"]*)" src="([^"]*)" alt="">/;if(!re.test(h))return h;
@@ -6064,7 +6065,7 @@ const WAITPH=['done','end','pwait','handoff'];
 function meIx(){return S&&S.room&&typeof meI==='function'?meI():(S?S.turn:0);}
 function amHost(){return !S||!S.room||!ROOM||ROOM.role==='host';}
 // ---------- А. рятувальна кнопка ----------
-function usable(){if(!app||!app.querySelectorAll)return 1;return [...app.querySelectorAll('button')].filter(b=>!b.disabled&&b.offsetParent&&!b.classList.contains('gmapbtn')&&!b.dataset.phopen&&!b.classList.contains('gset')&&!b.classList.contains('q')&&!b.classList.contains('gchip')&&!b.classList.contains('gback')&&!b.classList.contains('gtoday')&&b.id!=='tutok'&&b.id!=='tutskip').length;}
+function usable(){if(!app||!app.querySelectorAll)return 1;if(app.querySelector('[data-v2pin]:not(.v2off)'))return 1;return [...app.querySelectorAll('button')].filter(b=>!b.disabled&&b.offsetParent&&!b.classList.contains('gmapbtn')&&!b.dataset.phopen&&!b.classList.contains('gset')&&!b.classList.contains('q')&&!b.classList.contains('gchip')&&!b.classList.contains('gback')&&!b.classList.contains('gtoday')&&b.id!=='tutok'&&b.id!=='tutskip').length;}
 function rescueHide(){const r=document.getElementById('rescue');if(r)r.remove();}
 function rescueShow(why){if(document.getElementById('rescue')||!amHost())return;const r=document.createElement('div');r.id='rescue';
  r.innerHTML=`<div class="rsbox"><b>🛟 Щось пішло не так</b><p>${why||'Гра застрягла на цьому кроці.'} Натисни, і гра безпечно піде далі. Нічого не втратиш.</p><button class="btn btn-main" id="rsgo">Продовжити гру</button></div>`;
@@ -6090,7 +6091,7 @@ function watch(){clearTimeout(WT);rescueHide();if(!S||!S.players||WAITPH.include
 function bigSig(){try{return [S.phase,S.day,S.sub,S.turn,S.res?1:0,JSON.stringify(S.pending||0),JSON.stringify(S.eve||0),JSON.stringify(S.group||0),S.players.map(p=>p.money+'/'+p.nerves+'/'+p.happy).join(',')].join('|');}catch(e){return Math.random();}}
 let DEAD=0;
 document.addEventListener&&document.addEventListener('click',e=>{if(SIM||!S||!S.players||!amHost())return;const b=e.target.closest&&e.target.closest('#app button');if(!b||b.disabled)return;const ds=b.dataset;
- if(!Object.keys(ds).length||ds.help||ds.phopen||ds.gmap||ds.gtph||ds.pwph||ds.gopin||ds.gt||ds.fm||ds.intro||ds.lsreset||ds.v2road||ds.v2x||b.closest('.gsheet,.gomapw,.fmapw')||(typeof WAITPH!=='undefined'&&WAITPH.includes(S.phase))||(S.room&&typeof R_GLOBAL!=='undefined'&&!R_GLOBAL.includes(S.phase)&&!myTurnNow())||['talk','mute','settings','menu','room','share','shareimg','copystory','ruslan','again','extra4'].includes(ds.act)||b.closest('.gtop'))return;
+ if(!Object.keys(ds).length||Object.keys(ds).some(k=>/^(v2|lsgo|mgl|pp2)/.test(k))||b.closest('.v2sheet,.v2map,.v2free')||ds.help||ds.phopen||ds.gmap||ds.gtph||ds.pwph||ds.gopin||ds.gt||ds.fm||ds.intro||ds.lsreset||ds.v2road||ds.v2x||b.closest('.gsheet,.gomapw,.fmapw')||(typeof WAITPH!=='undefined'&&WAITPH.includes(S.phase))||(S.room&&typeof R_GLOBAL!=='undefined'&&!R_GLOBAL.includes(S.phase)&&!myTurnNow())||['talk','mute','settings','menu','room','share','shareimg','copystory','ruslan','again','extra4'].includes(ds.act)||b.closest('.gtop'))return;
  const s0=bigSig();setTimeout(()=>{if(!S||!S.players)return;if([...document.querySelectorAll('#mgov,#phov,#gmapov.on,#help.on,#setov,#chov,#agegate,#hinfo')].some(x=>x.getClientRects().length))return;if(bigSig()===s0&&document.body.contains(b)){DEAD++;if(DEAD>=2)rescueShow('Кнопка не спрацювала.');}else DEAD=0;},1300);},true);
 // ---------- Б. навчання ----------
 Object.assign(TUT,{go:'.',result:'.'});
@@ -7598,6 +7599,12 @@ const hide=()=>{try{if(!app||!app.querySelectorAll||(S&&S.players&&!['end','done
  app.querySelectorAll('h3,h4,.mgrp,.mhead,p.mlabel').forEach(h=>{if(/Разом|з друзями/i.test(h.textContent||'')&&h.textContent.length<40)h.remove();});}catch(e){}};
 const _r=render;render=function(){_r.apply(this,arguments);hide();setTimeout(hide,0);};
 try{new MutationObserver(()=>{hide();try{app.querySelectorAll('h3.msec').forEach(h=>{if(/Разом/.test(h.textContent))h.remove();});app.querySelectorAll('.foot').forEach(f=>{if(/патч 1\.097/.test(f.innerHTML))f.innerHTML=f.innerHTML.replace('патч 1.097','версія 2.0');});}catch(e){}}).observe(app,{childList:true,subtree:true});}catch(e){}})();
+
+
+// === 2.0 · стабільні картинки: без перевороту, стрибків і дзеркала на тому ж зображенні ===
+(function(){if(!window.KR_V2)return;
+let last='';{const _cw=cardWrap;cardWrap=function(img,kicker,title,body){let h=_cw.apply(this,arguments);try{const k=img+'|'+title;if(k===last)h=h.replace('class="poster flip"','class="poster"');last=k;}catch(e){}return h;};}
+})();
 
 render();
 </script>
