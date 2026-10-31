@@ -982,6 +982,9 @@ body.gmode #albpop{transform:scale(.85);transform-origin:top right}
 .mcitybtn{margin-top:8px;font-size:14px}
 .gomapw .dlabel{opacity:.45;font-size:8px!important}.gomapw .dlabel.water{opacity:.35}
 .hbtns{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.hbtns .hintro{margin:0}.hreset small{display:block;font-size:10px;font-weight:600;opacity:.8}
+.gts.gslots{display:flex;gap:4px;overflow:hidden}.gsl{font-style:normal;font-size:12px;padding:1px 6px;border-radius:8px;white-space:nowrap;background:rgba(31,35,80,.06)}.gsl.d{opacity:.5;text-decoration:line-through}.gsl.c{background:#F2A93B;color:#1F2350;font-weight:700}
+.lsgow{margin:4px 0 10px}.lsgo{background:#d4517a!important;color:#fff!important;border-color:#a8335a!important}.lsgo small{display:block;color:#ffe3ec!important}.lsgon{font-size:12px;margin:4px 0 0;opacity:.8}
+.dayhint{background:#2E3576;color:#F5E7CF;border-radius:12px;padding:8px 12px;margin:6px 0;font-size:13px;line-height:1.4;border-left:4px solid #F2A93B}
 </style>
 </head>
 <body>
@@ -1868,7 +1871,7 @@ function renderSetup(){
     <button class="btn btn-choice" data-step="collection" style="text-align:center">📒 Альбом і досягнення<small>${albumGet().filter(t=>albumAll().includes(t)).length} наліпок · ${getAch().length} з ${ACH.length} досягнень</small></button>
     <button class="btn btn-choice" data-act="room" style="text-align:center">🌐 Грати з друзями<small>кімната за кодом: кожен зі свого телефона</small></button>
     <button class="btn btn-choice" data-act="settings" style="text-align:center">⚙ Налаштування<small>звук, гімн, розмір тексту, перенесення прогресу</small></button>
-    <p class="foot">© 2026 Kryvbas Games · патч 1.095 · усі права захищено</p>`;return;}
+    <p class="foot">© 2026 Kryvbas Games · патч 1.096 · усі права захищено</p>`;return;}
   if(st==='rules'){
     app.innerHTML=stepHead(1,'Як грати')+rulesHTML(true)+`<button class="btn btn-main" data-step="modes">Зрозуміло, далі</button>`+back('title');return;}
   if(st==='collection'){
@@ -2758,7 +2761,7 @@ function settingsHTML(msg){const fz=lsG('kr-fz')||'1';
  <textarea id="progin" rows="3" placeholder="Вставте сюди код KR1-…" aria-label="Код прогресу"></textarea>
  <button class="btn btn-ghost" data-s="paste">📥 Застосувати код</button>
  ${msg?`<p class="setmsg">${msg}</p>`:''}</div>
- <p class="foot">© 2026 Kryvbas Games · патч 1.095 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
+ <p class="foot">© 2026 Kryvbas Games · патч 1.096 · усі права захищено<br>Фонові звуки: freesound.org, ліцензія CC0</p></div>`;}
 function refreshBehind(){try{if(S)render();else renderSetup();}catch(e){}}
 function settingsOpen(msg){if(!document.createElement)return;let ov=document.getElementById('setov');
  if(!ov){ov=document.createElement('div');ov.id='setov';ov.addEventListener('click',settingsClick);document.body.appendChild(ov);}
@@ -4696,8 +4699,9 @@ FREE.slice(-2).forEach(a=>{const r=a.c.r;if(/\[[^\]]*\|/.test(r)){a.c.r=r.replac
  return _pd.apply(this,arguments);};}
 // --- сповіщення згори, як на справжньому телефоні ---
 const _bnSeen=new Set();function banner(x,w0){if(S&&['end','done'].includes(S.phase))return;const key=(x.th||'')+'|'+String(x.t).slice(0,60);if(!w0){if(_bnSeen.has(key))return;_bnSeen.add(key);}if(window.krBusy&&window.krBusy('ph')&&(w0||0)<10){setTimeout(()=>banner(x,(w0||0)+1),800);return;}const w=x.th==='room'?{n:'Чат кімнати',ic:'<span class="phic">💬</span>'}:who(/^p\d+$/.test(x.th)?+x.th.slice(1):x.th);
- let el=document.getElementById('phnote');if(el)el.remove();el=document.createElement('div');el.id='phnote';el.innerHTML=`${w.ic}<span><b>${w.n}</b><small>${x.t.replace(/<[^>]+>/g,'').slice(0,90)}</small></span>`;
- el.addEventListener('click',()=>{el.remove();phOpen('msgs',x.th);});document.body.appendChild(el);setTimeout(()=>el.classList.add('on'),20);setTimeout(()=>{el.classList.remove('on');setTimeout(()=>el.remove(),400);},3200);
+ let el=document.getElementById('phnote');const agg=el&&el.classList.contains('on')?(+el.dataset.n||1)+1:0;if(el)el.remove();el=document.createElement('div');el.id='phnote';
+ if(agg){el.dataset.n=agg;el.innerHTML=`<span class="phic">📱</span><span><b>${agg} нових повідомлення</b><small>Тисни, щоб прочитати</small></span>`;el.classList.add('on');el.addEventListener('click',()=>{el.remove();phOpen('msgs');});}
+ else{el.innerHTML=`${w.ic}<span><b>${w.n}</b><small>${x.t.replace(/<[^>]+>/g,'').slice(0,90)}</small></span>`;el.addEventListener('click',()=>{el.remove();phOpen('msgs',x.th);});}document.body.appendChild(el);setTimeout(()=>el.classList.add('on'),20);setTimeout(()=>{el.classList.remove('on');setTimeout(()=>el.remove(),400);},3200);
  try{navigator.vibrate&&navigator.vibrate([90,60,90]);}catch(e){}try{snd('click');}catch(e){}}
 {const _pdc=phDecor;phDecor=function(){const _t=rToast;let caught=null;rToast=function(t){if(/^📱 /.test(t)){caught=t;return;}return _t.apply(this,arguments);};try{_pdc.apply(this,arguments);}finally{rToast=_t;}
  if(caught){const L=items().filter(x=>x.in).sort((a,b)=>a.ord-b.ord);const x=L[L.length-1];if(x)banner(x);}
@@ -5471,6 +5475,32 @@ const isStu=p=>p&&p.id==='student';
 {const _dp=doPhone;doPhone=function(i,ds){if(ds&&ds.k==='svc'){try{const p=S.players[i];const n=+ds.s;const s=SVC[n];if(!p||!s)return;p.svcD=p.svcD||{};if(p.svcD[n]===S.day)return;if(avail(p)<s.m)return toastI(i,'💸 Не вистачає грошей');
   p.svcD[n]=S.day;spend(p,s.m);apply(p,s.fx);if(s.bat)p.bat=100;toastI(i,`${s.ic} ${s.r} −${s.m} грн`);}catch(e){}return;}return _dp.apply(this,arguments);};}
 {const _ck=phClick;phClick=function(e){const b=e.target.closest&&e.target.closest('[data-ph="svc"]');if(b){e.stopPropagation();if(!b.disabled){phSend({k:'svc',s:b.dataset.s});setTimeout(phRefresh,80);}return;}return _ck.apply(this,arguments);};}
+}
+
+// === 1.096: 📱 спокійний телефон Студента — свої люди, ≤3 нових на день, доручення «по дорозі», зустрічі на твій вибір ===
+{const isStu=p=>p&&p.id==='student'&&!p.collector&&!p.out;const K=()=>window.krLife;
+ const inOk=p=>{if(p.inD!==S.day){p.inD=S.day;p.inN=0;}return p.inN<3;};const inAdd=p=>{if(p.inD!==S.day){p.inD=S.day;p.inN=0;}p.inN++;};
+ // старі загальні контакти (кум, сусідка, банк…) Студенту не пишуть
+ {const _nm=npcMsg;npcMsg=function(i){try{if(isStu(S.players[i]))return;}catch(e){}return _nm.apply(this,arguments);};}
+ // запрошення й «просто так» — у межах ліміту
+ if(window.krLsInvite){const _li=window.krLsInvite;window.krLsInvite=function(i,p,R,P){if(!inOk(p))return;const n0=p.lsN||0;_li.apply(this,arguments);if((p.lsN||0)>n0)inAdd(p);};}
+ // 📌 доручення «по дорозі»
+ const AT={uni:'в універі',market:'на ринку',office:'в центрі',clinic:'в поліклініці',mall:'в ТЦ',bus:'на автостанції',school:'біля школи',playground:'біля дитмайданчика',stadium:'біля стадіону',garages:'в гаражах',river:'біля річки',quarry:'біля карʼєру',dacha:'на дачі',airfield:'на аеродромі'};
+ const IT={uni:['журнал групи з деканату','книжку з бібліотеки','довідку з деканату'],market:['яблук','меду','хліба'],office:['квитки в кіно','каву навинос'],clinic:['вітаміни в аптеці','краплі в аптеці'],mall:['зарядку','батарейки'],bus:['посилку з маршрутки'],school:['зошити'],stadium:['квиток на Кривбас'],garages:['ключ на 10'],playground:['мʼяч'],river:['наживку'],quarry:['камінчик на памʼять'],dacha:['кабачок'],airfield:['наліпку парашутистів']};
+ const TPL={st_oksana:'Коли будеш {at}, захопи {it} для групи? 🙏',st_mom:'Синку, будеш {at} — купи собі {it}. Я скинула 100 грн ❤️',st_dima:'Бро, ти ж сьогодні {at}? Візьми мені {it}, з мене шаурма 🌯',st_petro:'Студенте, будете {at} — принесіть {it} на кафедру.',st_valya:'Синку, як будеш {at}, принеси мені {it}, будь ласка'};
+ function errand(i,p){try{if(S.weekend||!inOk(p)||(p.tasks||[]).some(t=>!t.done&&!t.failed))return;if(Math.random()>0.55)return;
+  const locs=[...(p.plan&&p.plan.s||[])].filter(k=>AT[k]&&!(p.plan.done||[]).includes(k));const loc=locs.length?locs[Math.floor(Math.random()*locs.length)]:(AT[p.pos]?p.pos:null);if(!loc)return;
+  const R=K().lr(p);const who=K().ORDER.filter(k=>(R[k].r>=1||k==='st_mom')&&!K().hurt(R[k]));if(!who.length)return;const k=who[Math.floor(Math.random()*who.length)];
+  const L=IT[loc]||['дещо'];const it=L[Math.floor(Math.random()*L.length)];const t=TPL[k].replace('{at}',AT[loc]).replace('{it}',it);
+  const m=push(i,k,t+`<small class="lsmeet">📌 ${LOCS[loc].n} · сьогодні · за бажанням</small>`,['Добре, захоплю 👍','Сьогодні не вийде'],{fx:[[k==='st_mom'?{m:100}:{},'Дякую! 💛',{errand:{k,loc,it}}],[{},'Нічого, іншим разом 🙂',{}]]});m.lsTalk=k;inAdd(p);}catch(e){}}
+ {const _dp=doPhone;doPhone=function(i,ds){let er=null;try{if(ds&&ds.k==='qa'){const m=phS().m.find(x=>x.id===+ds.id&&x.to===i&&x.st==='new');if(m&&m.fx){const e=(m.fx[+ds.o]||[])[2];if(e&&e.errand)er=e.errand;}}}catch(e){}
+  const r=_dp.apply(this,arguments);try{if(er){const p=S.players[i];const t=addTask(i,er.k,{loc:er.loc,item:er.it,u:0,rw:{h:1},rwT:'Дякую! Ти найкращий 💛',fail:{},failT:'Нічого страшного, іншим разом 🙂'});t.lsk=er.k;toastI(i,'📌 '+LOCS[er.loc].n+': '+er.it);if(p.pos===er.loc)completeTask(i,t);}}catch(e){}return r;};}
+ {const _ct=completeTask;completeTask=function(i,t){const was=t&&t.done;_ct.apply(this,arguments);try{if(!was&&t&&t.lsk)K().rel(S.players[i],t.lsk,1);}catch(e){}};}
+ {const _ft=failTask;failTask=function(i,t){if(t&&t.lsk){if(t.done||t.failed)return;t.failed=1;try{push(i,t.lsk,'Нічого страшного, іншим разом 🙂');}catch(e){}return;}return _ft.apply(this,arguments);};}
+ // новий день: доручення і пропущені зустрічі
+ {const _pd=phDay;phDay=function(i){const p=S.players[i];const fresh=p&&p.phDay!==S.day;const r=_pd.apply(this,arguments);try{if(!fresh||!isStu(p)||S.room)return r;
+  const R=K().lr(p);const miss=(p.queue||[]).filter(q=>/^ls_st_/.test(q.id)&&q.day<S.day);if(miss.length){p.queue=p.queue.filter(q=>!miss.includes(q));miss.forEach(q=>{const k=q.id.split('_').slice(1,3).join('_');if(R[k])R[k].wait=0;K().rel(p,k,-1);push(i,k,{st_oksana:'Я вчора чекала… Ти так і не прийшов 😔',st_mom:'Синку, я тебе вчора чекала…',st_dima:'Бро, ти вчора злився. Ок.',st_petro:'Ви не прийшли. Шкода.',st_valya:'Чай вистиг, а тебе так і не було.'}[k]);});K().save(p);}
+  errand(i,p);}catch(e){}return r;};}
 }
 
 })();
@@ -7134,6 +7164,34 @@ const _r=render;render=function(){_r.apply(this,arguments);try{if(SIM||!S||!S.pl
 // === 1.094: ранок коротший — карта міста згорнута в кнопку ===
 (function(){const _r=render;render=function(){_r.apply(this,arguments);try{if(SIM||!S||S.phase!=='morning'||!app.querySelector)return;const s1=app.querySelector('.mslide[data-ms="1"]');if(!s1||s1.querySelector('.mcitybtn'))return;const w=s1.querySelector('.mcitywin');if(!w)return;
  w.style.display='none';const h=s1.querySelector('.mhint');if(h)h.style.display='none';w.insertAdjacentHTML('afterend','<button class="btn btn-ghost mcitybtn" data-gmap="1">🗺 Карта міста: хто де і що сьогодні</button>');}catch(e){}};})();
+
+// === 1.096: 🗓 день із 3 слотів, зустрічі — на твій вибір, підказки першого дня ===
+(function(){
+const stu=p=>p&&p.id==='student'&&!p.collector&&!p.out;
+const NMI={st_oksana:'Оксаною',st_mom:'мамою',st_dima:'Дімою',st_petro:'Петром Івановичем',st_valya:'тьотею Валею'};
+const solo=()=>S&&!S.room;
+// зустрічі не стаються самі — чекають, поки ти їх обереш
+{const _bt=beginTurn;beginTurn=function(){const p=cur();let st=null;try{if(solo()&&stu(p)&&p.queue){st=p.queue.filter(q=>/^ls_st_/.test(q.id));p.queue=p.queue.filter(q=>!/^ls_st_/.test(q.id));}}catch(e){}
+ try{return _bt.apply(this,arguments);}finally{try{if(st&&st.length)p.queue=(p.queue||[]).concat(st);}catch(e){}}};}
+function meets(p){try{return (p.queue||[]).filter(q=>/^ls_st_/.test(q.id)&&q.day<=S.day&&CHAINS[q.id]);}catch(e){return [];}}
+function card(p){const M=meets(p);if(!M.length)return '';return `<div class="lsgow">${M.slice(0,2).map(q=>{const k=q.id.split('_').slice(1,3).join('_');const e=CHAINS[q.id];return `<button class="btn btn-main lsgo" data-lsgo="${q.id}">💞 ${e.t}<small>зустріч з ${NMI[k]||''} · займе цю дію · ❤️ +1</small></button>`;}).join('')}<p class="note lsgon">Домовлялись у телефоні. Не прийдеш сьогодні — образяться.</p></div>`;}
+function addCard(){if(SIM||!solo()||!app.querySelector)return;if(!['go','free'].includes(S.phase))return;const p=cur();if(!stu(p))return;const panel=app.querySelector('.poster .panel');if(!panel||panel.querySelector('.lsgow'))return;const h=card(p);if(!h)return;
+ const P=panel.querySelector(':scope > p');if(P)P.insertAdjacentHTML('afterend',h);else panel.insertAdjacentHTML('afterbegin',h);}
+document.addEventListener&&document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('[data-lsgo]');if(!b)return;e.stopPropagation();e.preventDefault();try{const p=cur();const id=b.dataset.lsgo;const j=(p.queue||[]).findIndex(q=>q.id===id);if(j<0)return;const it=p.queue.splice(j,1)[0];
+ let ev=CHAINS[id];if(Array.isArray(ev))ev=ev[0];S.ev=Object.assign({},ev,{chain:id,_im:1});S._qIt=it;S.phase='turn';try{snd('click');}catch(x){}render();}catch(x){if(typeof console!=='undefined')console.error(x);}},true);
+// 🗓 смужка «Сьогодні» як 3 слоти
+const IC=['☀️','🌤','🌆','🌙'];
+function slotsSum(p){const sl=slotsFor();const sub=S.sub||0;const out=[];for(let n=0;n<sl;n++){let t;if(n===0&&p.plan&&!S.weekend)t=LOCS[p.plan.s[0]]?LOCS[p.plan.s[0]].n:'справа';else t='вільно';
+ const st=n<sub?'d':n===sub&&!['evening','payday','payweek','morning'].includes(S.phase)?'c':S.phase==='morning'&&n===0?'c':'f';out.push(`<i class="gsl ${st}">${IC[n]||'•'} ${st==='d'?'✓':''}${t}</i>`);}return out.join('');}
+function applySlots(){try{if(SIM||!app||!app.querySelector)return;const g=app.querySelector('.gtoday .gts');if(!g||!S||!S.players||g.classList.contains('gslots'))return;const p=S.players[typeof meIx==='function'?meIx():S.turn];if(!p||S.weekend)return;g.innerHTML=slotsSum(p);g.classList.add('gslots');const a=app.querySelector('.gtoday .gta');if(a)a.style.display='none';}catch(e){}}
+// 💡 підказки перших днів
+function hintOf(){const ph=S.phase;if(ph==='oblig')return '☀️ <b>Перша дія дня — обовʼязкова.</b> Пари, робота чи справа. Тисни «Вирушити».';
+ if(ph==='go'||ph==='free')return '🌤 <b>Вільна дія.</b> Сам вирішуєш: заробити, відпочити або піти на зустріч 💞, про яку домовився в телефоні.';
+ if(ph==='evening')return '🌙 <b>Вечір.</b> Заплати за побут або зекономиш нервами. Завтра — новий день і нові 3 дії.';return '';}
+let shown=0;try{shown=+(localStorage.getItem('kr-dayhint')||0);}catch(e){}
+const _r=render;render=function(){_r.apply(this,arguments);try{addCard();setTimeout(addCard,0);applySlots();setTimeout(applySlots,0);setTimeout(applySlots,120);if(SIM||!S||!S.players||S.room||S.day>1||shown>=2||document.getElementById('tutbox'))return;const p=cur();if(!stu(p))return;const t=hintOf();if(!t)return;const top=app.querySelector('.gtop');if(!top||app.querySelector('.dayhint'))return;top.insertAdjacentHTML('afterend',`<div class="dayhint">${t}</div>`);
+ if(S.phase==='evening'&&S.day===1&&!S._dhInc){S._dhInc=1;try{localStorage.setItem('kr-dayhint',String(shown+1));}catch(e){}}}catch(e){}};
+})();
 
 render();
 </script>
