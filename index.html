@@ -2179,7 +2179,7 @@ function v1Card(){const e=G.ev;const pars=e.kind==='pars';const bd=(G.bills||[])
  return gl((e.kind==='meet'&&G.road?`<p class="last">Дорога: ${esc(G.road)}</p>`:'')+sayL+poster(imgOf(e),kick,(pars?'🎓 ':'')+e.t,body,G.clock>=1260?'night':''),dayHint());}
 function v1Result(){const r=G.res;const sl=(r.d&&r.d.m)?sayHTML(sLine(r.d.m>0?'good':'bad')):'';return gl((r.road?`<p class="last">Дорога: ${esc(r.road)}</p>`:'')+sl+poster(imgOf(r),'Що було далі',r.t,`<p style="font-size:18px">${txt(r.r,'r'+G.dk+r.t)}</p>${fx(r.d)?`<p class="note">${fx(r.d)}</p>`:''}<button class="btn btn-main" data-a="next">Далі</button>`,G.clock>=1260?'night':''));}
 function v1MapInner(click){const P0=G.wk?Object.assign({},HERO.places,D.wplaces):HERO.places;
- return `<div class="map${wxToday()==='rain'?' rain':wxToday()==='snow'||wxToday()==='ice'?' snow':''}"><img class="m" src="${SRC(V1+(G.season==='winter'?'map_winter':G.season==='mid'?'map_rain':'map')+'.webp')}" alt="Карта Кривого Рогу">${wxLayer()}${decorLayer()}${Object.entries(P0).map(([k,p])=>{const M=meetsAt(k),T=G.tasks.filter(t=>!t.done&&t.day===G.day&&t.loc===k);const n=actsAt(k).length+M.length+T.length;const here=G.pos===k;
+ return `<div class="map${wxToday()==='rain'?' rain':wxToday()==='snow'||wxToday()==='ice'?' snow':''}"><img class="m" src="${SRC(V1+mapImg()+'.webp')}" alt="Карта Кривого Рогу">${wxLayer()}${decorLayer()}${Object.entries(P0).map(([k,p])=>{const M=meetsAt(k),T=G.tasks.filter(t=>!t.done&&t.day===G.day&&t.loc===k);const n=actsAt(k).length+M.length+T.length;const here=G.pos===k;
   const badge=M.map(x=>PIC[x.k][0]).join('')+(T.length?'📌':'');const av=M.length?`<img class="lsav" src="${SRC(PAV(M[0].k))}" alt="">`:'';
   return `<${click?'button':'div'} class="pin${here?' target':''}${n?' fhas':' fnone'}${UI.sheet===k?' fsel':''}" ${click?`data-a="pin" data-k="${k}"`:''} style="left:${p.x}%;top:${p.y}%">${badge?`<i class="fbadge">${badge}</i>`:here?'<i class="fbadge">📍</i>':''}${av}${HERO.icon[k]||''} ${esc(p.n)}${here?`<img src="${SRC(V1+'student.webp')}" alt="">`:''}</${click?'button':'div'}>`;}).join('')}</div>`;}
 function v1Map(){const body=`<p class="note">${G.wk?'Вихідний: на карті зʼявились Карʼєр, Дача й Аеродром.':'Дивись на прогноз 💡 і вирішуй: заробити, відпочити чи піти на зустріч.'}</p><div class="fmapw"><div class="fmhead"><b>🗺 Обери місце на мапі</b><button class="fmtog" data-a="maplist">${UI.mapList?'🗺 Мапою':'📋 Списком'}</button></div>${UI.mapList?mapList():`<div class="fmap">${v1MapInner(true)}</div>`}</div>`;
@@ -2356,7 +2356,7 @@ function storyShare(){if(!G||!G.ended)return;try{const c=document.createElement(
 function wrapT(x,t,X,Y,W,lh){const w=String(t).split(' ');let line='',y=Y;w.forEach(s=>{const tt=line?line+' '+s:s;if(x.measureText(tt).width>W&&line){x.fillText(line,X,y);line=s;y+=lh;}else line=tt;});if(line)x.fillText(line,X,y);}
 
 function routeMap(R,to){if(!R||!R.d)return '';to=to||UI.sheet;const A=placeOf(G.pos),B=placeOf(to);if(!A||!B)return '';const w=wxToday();
- const veh=['🚶','🚋','🚌','🚕'];return `<details class="routebox" ${UI.routeOpen?'open':''}><summary data-a="routetog">🗺 Показати маршрут</summary><div class="map rmap${w==='rain'?' rain':''}"><img class="m" src="${SRC(V1+(G.season==='winter'?'map_winter':G.season==='mid'?'map_rain':'map')+'.webp')}" alt="">${wxLayer()}${decorLayer()}
+ const veh=['🚶','🚋','🚌','🚕'];return `<details class="routebox" ${UI.routeOpen?'open':''}><summary data-a="routetog">🗺 Показати маршрут</summary><div class="map rmap${w==='rain'?' rain':''}"><img class="m" src="${SRC(V1+mapImg()+'.webp')}" alt="">${wxLayer()}${decorLayer()}
  <svg class="groute" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="${A.x}" y1="${A.y}" x2="${B.x}" y2="${B.y}"/></svg>
  <div class="pin here" style="left:${A.x}%;top:${A.y}%">📍 ${esc(A.n)}</div><div class="pin dest" style="left:${B.x}%;top:${B.y}%">${esc(B.n)}</div>${veh.map((v,i)=>`<span class="rveh" style="--x1:${A.x}%;--y1:${A.y}%;--x2:${B.x}%;--y2:${B.y}%;animation-delay:${i*0.9}s">${v}</span>`).join('')}</div></details>`;}
 function wxLayer(){const w=wxToday();const cls={rain:'rain',snow:'snow',heat:'heat',ice:'snow d-ice',fog:'d-fog',sun:'d-sun'}[w];return cls?`<div class="wx ${cls}" aria-hidden="true"></div>`:'';}
@@ -2372,6 +2372,9 @@ var DECOR={ny:()=>`<div class="mgarl">${Array.from({length:22},(_,i)=>`<i style=
  hallo:()=>`<div class="mdark"></div>`+['20%:40%','50%:25%','72%:60%','35%:75%','82%:35%'].map((p,i)=>`<span class="mdeco" style="left:${p.split(':')[0]};top:${p.split(':')[1]}">${i%2?'🎃':'🦇'}</span>`).join('')};
 function decorLayer(){const k=G&&holToday();return k&&DECOR[k]?`<div class="mdecor">${DECOR[k]()}</div>`:'';}
 function holTop(){const k=G&&holToday();return k?`<div class="holtop h-${k}"></div>`:'';}
+
+// карта за погодою саме цього дня: дощ і туман — дощова, сніг, ожеледь і зима — зимова, інакше — ясна
+function mapImg(){const w=wxToday();if(w==='snow'||w==='ice'||G.season==='winter')return 'map_winter';if(w==='rain'||w==='fog')return 'map_rain';return 'map';}
 
 // ===================== Кривий Ріг 3.0 · механіки з 1.97 =====================
 // кредит і колектор, великі витрати й дилеми, розстрочки, секрет, авторитет у районі,
