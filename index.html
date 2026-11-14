@@ -2014,6 +2014,8 @@ let ANTH=null;
 function anthemOn(){return !!(ANTH&&!ANTH.paused);}
 function anthemToggle(){try{if(!ANTH){ANTH=new Audio(AUD('audio/anthem.mp3'));ANTH.loop=false;ANTH.onended=()=>render();}if(ANTH.paused){ambStop();ANTH.currentTime=ANTH.currentTime||0;ANTH.play().catch(()=>{});}else ANTH.pause();}catch(e){}}
 function anthemStop(){try{if(ANTH&&!ANTH.paused)ANTH.pause();}catch(e){}}
+// гімн при запуску (як у 1.97): у застосунку грає одразу; якщо браузер не дозволяє звук без дотику — вмикається з першим дотиком будь-де
+function anthemAuto(){try{if(!SET.mus()||G||P||anthemOn())return;anthemToggle();setTimeout(()=>{if(anthemOn()){render();return;}const go=e=>{document.removeEventListener('pointerdown',go,true);if(e.target&&e.target.closest&&e.target.closest('[data-a="anthem"]'))return;if(!G&&!P&&SET.mus()&&!anthemOn()){anthemToggle();setTimeout(render,50);}};document.addEventListener('pointerdown',go,true);},500);}catch(e){}}
 function musBtn(){if(!SET.mus())return '';const show=!G||G.phase==='end'||(P&&P.phase==='final');if(!show)return '';return `<button class="musbtn3" data-a="anthem">${anthemOn()?'⏸':'🎵'} Гімн</button>`;}
 // 🌧 фонові звуки по місцях
 const AMBF={uni:'school',market:'market',office:'city',bus:'bus',clinic:'clinic',river:'river',mall:'mall',stadium:'stadium',garages:'workshop',quarry:'quarry',dacha:'crickets',airfield:'wind',home:'home'};
@@ -2696,7 +2698,7 @@ function doA(ds){const a=ds.a,k=ds.k;const b={dataset:ds,classList:{contains:c=>
   case 'mgres':mgDone(ds.v);return go();
   case 'ladres':ladderDone(ds.v);return go();
  }}
-render();
+render();anthemAuto();
 try{Object.defineProperty(window,'G',{get:()=>G});window.hm=hm;window.kr3={save,render,D,setEv,UI};window.kr3i={newGame,startPars,momRoad,choose,next,toMap,actsAt,doAct,roads,goHome,evening,sleep,afterPay,payBill,canDo,blocked,effOf,pobutCost,curfew,stops,placeOf,meetsAt,doMeet,ladderDone,mgDone,HERO,D,SET:()=>SET,heroId:()=>HERO.id,setHero};Object.defineProperty(window,'P',{get:()=>P});}catch(e){}
 
 document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('button'))snd('click');},true);
