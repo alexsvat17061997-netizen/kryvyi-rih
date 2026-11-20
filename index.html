@@ -1448,7 +1448,9 @@ function travel(to,k){const R=roads(to,G.clock);if(!R.d)return '';const x=R.o.fi
 function wactsAt(loc){return (HERO.wacts[loc]||[]).filter(a=>!(a.sat&&(G.wk!==1||G.slot!==1))&&!(a.need&&G.rel[a.need[0]].r<a.need[1]));}
 function findAct(loc,k){return (HERO.acts[loc]||[]).concat(HERO.wacts[loc]||[]).find(x=>x.k===k);}
 function actsAt(loc){if(G.wk){const W=wactsAt(loc);const B=(HERO.acts[loc]||[]).filter(a=>!['lib','dept'].includes(a.k)&&!(a.weekly&&G.weekly[a.k]===Math.floor(G.day/5)));return W.concat(B).slice(0,3);}
- const L=(HERO.acts[loc]||[]).filter(a=>!(a.weekly&&G.weekly[a.k]===Math.floor(G.day/5)));if(L.length<=3)return L;const s=G.day%L.length;return [0,1,2].map(i=>L[(s+i)%L.length]);}
+ const L=(HERO.acts[loc]||[]).filter(a=>!(a.weekly&&G.weekly[a.k]===Math.floor(G.day/5)));if(L.length<=3)return L;const s=G.day%L.length;const R=[0,1,2].map(i=>L[(s+i)%L.length]);
+ // коли сил майже нема — у гуртожитку завжди можна виспатися
+ if(loc===HERO.home&&G.nerves<=2&&!R.some(a=>a.k==='sleep')){const sl=L.find(a=>a.k==='sleep');if(sl)R[2]=sl;}return R;}
 function effOf(a){const d=Object.assign({},a.d);if(a.k==='run'&&G.items.gym)d.n=(d.n||0)+1;return d;}
 function canDo(a){const d=effOf(a);if((d.m||0)<0&&G.money+d.m<0)return 'не вистачає грошей';if((d.n||0)<0&&G.nerves+d.n<=0)return 'не вистачить сил — спершу відпочинь';return '';}
 function doAct(loc,k,rk){const a=findAct(loc,k);if(!a)return;let msg='';if(rk==='tramg'){if(canMg()){startMg('tram',{after:{loc,k}});save();return;}rk='tram';}
