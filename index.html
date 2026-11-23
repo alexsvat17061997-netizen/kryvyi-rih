@@ -82,19 +82,12 @@ h1,h2,h3{font-family:var(--display);margin:0}
 .modes .btn b{font-family:var(--display)}
 .foot{text-align:center;font-size:12px;color:var(--muted);margin-top:16px}
 /* міні-ігри */
-#mg{position:fixed;inset:0;z-index:80;background:rgba(10,8,20,.75);display:flex;align-items:center;justify-content:center;padding:12px}
-#mg .box{background:var(--bg);color:var(--text);border-radius:16px;padding:14px;width:100%;max-width:420px}
+#mg{position:fixed;inset:0;z-index:80;background:rgba(10,8,20,.75);display:flex;overflow-y:auto;padding:12px}
+#mg .box{background:var(--bg);color:var(--text);border-radius:16px;padding:14px;width:100%;max-width:420px;margin:auto}
 #mg .mh{display:flex;justify-content:space-between;align-items:center;font-family:var(--display)}
 #mg .mh button{border:0;background:var(--panel);border-radius:8px;padding:4px 10px;font-size:13px}
 #mg .msg{min-height:1.4em;font-weight:700;text-align:center;margin-top:6px}
 .bar{height:6px;background:rgba(128,128,128,.3);border-radius:4px;overflow:hidden;margin:6px 0}.bar i{display:block;height:100%;background:var(--sun);width:100%}
-.lad{position:relative;height:230px;margin:6px auto;max-width:260px;border-radius:12px;background:linear-gradient(#1b1f3b,#2c2450);overflow:hidden}
-.lad.lit{background:linear-gradient(#5b5220,#3b3420)}
-.lad .win{position:absolute;top:6px;left:50%;transform:translateX(-50%);font-size:34px}
-.lad .rail{position:absolute;left:50%;transform:translateX(-50%);bottom:4px;top:46px;width:56px;border-left:5px solid #a9773b;border-right:5px solid #a9773b;display:flex;flex-direction:column-reverse;justify-content:space-between;padding:6px 0}
-.lad .rail i{display:block;height:5px;background:#a9773b}
-.lad .me{position:absolute;left:50%;transform:translateX(-50%);font-size:34px;transition:bottom .12s}
-.lad .torch{position:absolute;right:10px;top:8px;font-size:30px;opacity:.15}.lad .torch.on{opacity:1}
 .shake{animation:sh .3s}@keyframes sh{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 .two{display:flex;gap:8px}.two .btn{flex:1;text-align:center;margin:0}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--text);color:var(--bg);padding:8px 14px;border-radius:16px;font-size:14px;font-weight:600;z-index:90;max-width:92vw;text-align:center;pointer-events:none;animation:in .2s}
@@ -123,23 +116,130 @@ h1,h2,h3{font-family:var(--display);margin:0}
 .pin em{font-style:normal}
 
 .chart{margin:10px 0;padding:10px;border-radius:12px;background:rgba(0,0,0,.04)}.chart svg{width:100%;height:100px;display:block;margin:6px 0}.chart polyline{fill:none;stroke:var(--sun,#f5b400);stroke-width:3;stroke-linejoin:round}.chart circle{fill:var(--sun,#f5b400)}.chart .z{stroke:#c33;stroke-dasharray:4 4;stroke-width:1}.chart small{opacity:.7}
-.dwho{display:flex;gap:10px;align-items:center;background:var(--panel);border-radius:12px;padding:8px 10px;margin:6px 0}.dwho p{margin:2px 0 0;font-size:14px;line-height:1.35}.dwic{font-size:32px;flex:0 0 auto}.dwimg{width:60px;height:60px;border-radius:10px;object-fit:cover;flex:0 0 auto}.dphone{background:#1d1b2e;border-radius:16px;padding:8px;display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0}.dapp{grid-column:1/-1;color:#f5e7cf;font:700 13px var(--display);text-align:center;padding:2px 0 4px}.dcard{border:0;border-radius:10px;padding:10px 6px;background:#f5e7cf;color:#2b2140;font:600 12px/1.25 var(--body);display:flex;flex-direction:column;align-items:center;gap:2px;min-height:64px;cursor:pointer}.dcard span{font-size:22px}.dcard.good{background:var(--ok);color:#fff}.dcard.badx{background:var(--bad);color:#fff}.scall{text-align:center;background:var(--panel);border-radius:12px;padding:10px;margin:6px 0}.scall span{font-size:30px;display:block}.scall small{display:block;opacity:.7}.cmap{position:relative;height:210px;border-radius:12px;overflow:hidden;margin:6px 0;background-color:#cfc3a8;background-image:linear-gradient(90deg,rgba(0,0,0,.08) 1px,transparent 1px),linear-gradient(rgba(0,0,0,.08) 1px,transparent 1px);background-size:28px 28px;background-position:center}.cmap .box2{position:absolute;font-size:30px;border:0;background:none;padding:4px;transform:translate(-50%,-50%);cursor:pointer}.cgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:6px auto;max-width:240px}.cgrid i{aspect-ratio:1;background:var(--panel);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:26px;font-style:normal}.cgrid i.wl{background:#8a5a44}.cgrid i.bad{background:var(--bad)}.cprog{min-height:32px;text-align:center;font-size:20px;letter-spacing:2px;margin:4px 0}.cbtns{display:flex;gap:6px;justify-content:center}.cbtns .btn{flex:1;font-size:20px;padding:8px 0;text-align:center}.crun{width:100%;margin-top:6px;text-align:center}.bbq{position:relative;height:120px;border-radius:12px;overflow:hidden;margin:6px 0;background:#3b2a3f center/cover;display:flex;flex-direction:column;align-items:center;justify-content:center}.bbq .sk{font-size:46px;transition:transform .2s}.bbq .fire{font-size:24px}.dbar{position:relative;height:22px;border-radius:11px;background:#e8d9bd;margin:6px 0;overflow:hidden}.dbar .gz{position:absolute;left:60%;width:22%;top:0;bottom:0;background:#e0a52b}.dbar .dn{position:absolute;top:0;bottom:0;width:4px;background:#2b2140;left:0}.docsapp .docc{background:linear-gradient(135deg,#f5e7cf,#e9d3b0);color:#2b2140;border-radius:12px;padding:10px 12px;margin:8px 0}.docc b{display:block;font:700 15px var(--display);margin-bottom:4px}.docc small{display:block;font-size:12px}.docc i{font-style:normal;font-weight:700}
+
 #mg .stage{position:relative}#mg .small{font-size:13px;text-align:center;margin:6px 0}#mg .q{margin:6px 0}
 #mg .btn.good{background:var(--ok);color:#fff}#mg .btn.badx{background:var(--bad);color:#fff}#mg .big{font-size:22px;padding:18px}
-.pond,.hag,.pet,.field,.pot,.road,.run,.chase,.sky2{position:relative;border-radius:12px;overflow:hidden;margin:6px 0;user-select:none;-webkit-user-select:none}
-.pond{height:150px;background:linear-gradient(#7fb6d8,#2f6f9a)}.pond .fl{position:absolute;left:10px;top:8px;font-size:34px}.pond .flt{position:absolute;left:58%;top:52%;font-size:22px;transition:transform .12s}.pond .flt.dip{transform:translateY(16px) scale(.7)}
-.hag{height:44px;background:#e8d9bd;border:2px solid var(--line)}.hag .zone{position:absolute;top:0;bottom:0;background:var(--ok);opacity:.8}.hag .nd{position:absolute;top:-2px;bottom:-2px;width:4px;background:var(--text);margin-left:-2px}
-.pet{height:150px;background:#f3dcc0;text-align:center}.pet .cat{font-size:80px;display:inline-block;margin-top:20px}.pet .cat.pur{animation:pur .25s}.pet .tail{position:absolute;right:24%;bottom:30px;font-size:30px;opacity:.3}.pet .tail.on{opacity:1;animation:sh .25s infinite}
+.field{position:relative;border-radius:12px;overflow:hidden;margin:6px 0;user-select:none;-webkit-user-select:none;height:260px;background:linear-gradient(#9dc183,#6f9a55)}.field .hero,.field .ob{position:absolute;transform:translateX(-50%);font-size:32px}.field .hero{bottom:6%}.field .ob{top:-10%}
+/* 3.3 · міні-ігри з картинками: сцена (фон) + предмети з прозорим фоном */
+.mgs{position:relative;width:100%;aspect-ratio:864/482;border-radius:12px;overflow:hidden;margin:6px 0;background:#2c2450 center/cover no-repeat;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+.mgs.tall{aspect-ratio:1/1}.mgs.map{aspect-ratio:4/3}.mgs.ban{aspect-ratio:12/5}
+@media (max-height:700px){.mgs.tall{aspect-ratio:5/4}.mgs.ban{aspect-ratio:3/1}}
+.mgs .sp{position:absolute;display:block;pointer-events:none;-webkit-user-drag:none;max-width:none}
 @keyframes pur{50%{transform:scale(1.08)}}
-.grid9{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.grid9 button,.grid4 button,.pad button{font-size:32px;padding:10px 0;border-radius:10px;border:2px solid var(--line);background:var(--panel)}.grid9 .wig{animation:sh .2s 2}.grid9 .hit{background:var(--ok)}.grid9 .no{opacity:.35}
-.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-.field{height:260px;background:linear-gradient(#9dc183,#6f9a55)}.field .hero,.field .ob{position:absolute;transform:translateX(-50%);font-size:32px}.field .hero{bottom:6%}.field .ob{top:-10%}
-.pot{height:120px;background:#3a2f4f;color:#fff;text-align:center;font-size:44px}.pot .rec{font-size:28px;letter-spacing:4px}.pot .dima{position:absolute;right:-90px;top:10px;font-size:34px;transition:right .3s;cursor:pointer}.pot .dima.on{right:10px}
-.road{height:110px;background:linear-gradient(#ffcf87 60%,#555 60%)}.road .stop{position:absolute;left:66%;top:20px;font-size:34px}.road .van{position:absolute;bottom:6px;font-size:40px;transform:translateX(-50%) scaleX(-1)}
-.run{height:130px;background:linear-gradient(#c9e4f5 70%,#8a8f99 70%)}.run .me{position:absolute;left:14%;font-size:34px;transform:scaleX(-1)}.run .tr{position:absolute;right:4px;bottom:8px;font-size:40px}.run .ob{position:absolute;bottom:6px;font-size:26px}
-.chase{height:90px;background:#2c2450}.chase .me,.chase .bad{position:absolute;bottom:14px;font-size:36px;transform:scaleX(-1);transition:left .08s}.chase .me{left:30%}.chase .bad{left:6%}
-.disp{font-size:34px;text-align:center;font-weight:800;letter-spacing:4px;margin:6px 0}.pad{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.pad button{font-size:24px}
-.sky2{height:260px;background:linear-gradient(#7ec3f0,#d7f0ff 70%,#9cc96b 70%)}.sky2 .chute{position:absolute;font-size:36px;transform:translateX(-50%)}.sky2 .tgt{position:absolute;bottom:6%;font-size:30px;transform:translateX(-50%)}.sky2 .wind{position:absolute;right:8px;top:6px;font-size:20px}
+@keyframes shc{0%,100%{transform:translateX(-50%)}25%{transform:translateX(calc(-50% - 5px))}75%{transform:translateX(calc(-50% + 5px))}}
+/* драбина */
+.mgs .lad-l{left:50%;bottom:0;height:57%;transform:translateX(-50%)}
+.mgs .lad-me{left:50%;bottom:2%;height:24%;transform:translateX(-50%);transition:bottom .12s}
+.mgs .beam{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .12s;background:radial-gradient(ellipse 42% 55% at 50% 62%,rgba(255,236,150,.8),rgba(255,236,150,.3) 55%,transparent 80%)}
+.mgs.lit .beam{opacity:1}
+/* рибалка */
+.mgs .flw{position:absolute;left:66%;top:52%;width:5.5%;aspect-ratio:110/187;overflow:hidden;transform:translateX(-50%)}
+.mgs .flw .sp{position:static;width:100%;height:auto;transition:transform .12s}
+.mgs.dip .flw .sp{transform:translateY(38%)}
+.mgs .rip{left:66%;top:69%;width:17%;transform:translate(-50%,-50%) scale(.6);opacity:0;transition:opacity .15s,transform .25s}
+.mgs.dip .rip{opacity:.95;transform:translate(-50%,-50%) scale(1)}
+.mgs .carp{left:57%;top:44%;width:17%;opacity:0}
+.mgs .carp.jump{animation:carp .9s ease-out forwards}
+@keyframes carp{0%{opacity:0;transform:translateY(60%) rotate(25deg)}25%{opacity:1}100%{opacity:1;transform:translateY(-30%) rotate(-20deg)}}
+/* торг */
+.mgs .bub{position:absolute;left:4%;top:5%;max-width:60%;background:#fff8ec;color:#2b2140;border:2px solid #2b2140;border-radius:12px;padding:5px 9px;font:700 13px/1.3 var(--body);box-shadow:0 2px 0 rgba(0,0,0,.25)}
+.hag{position:relative;border-radius:12px;overflow:hidden;margin:6px 0;user-select:none;-webkit-user-select:none;height:44px;background:#e8d9bd;border:2px solid var(--line)}.hag .zone{position:absolute;top:0;bottom:0;background:var(--ok);opacity:.8}.hag .nd{position:absolute;top:-2px;bottom:-2px;width:4px;background:var(--text);margin-left:-2px}
+/* кіт */
+.mgs .cat{left:50%;bottom:12%;height:54%;transform:translateX(-50%)}
+.mgs .cat.ang{visibility:hidden}
+.mgs.angry .cat.ang{visibility:visible;animation:shc .25s infinite}
+.mgs.angry .cat:not(.ang){visibility:hidden}
+.mgs .cat.pur{animation:pur2 .25s}
+@keyframes pur2{50%{transform:translateX(-50%) scale(1.06)}}
+/* знайди кота */
+.mgs.find{aspect-ratio:auto;padding:8px}
+.mgs.find:before{content:'';position:absolute;inset:0;background:rgba(24,18,44,.45)}
+.mgs .g9{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.mgs .g9 button{position:relative;aspect-ratio:6/5;border-radius:12px;border:2px solid rgba(255,248,236,.4);background:rgba(255,248,236,.16);padding:0;cursor:pointer}
+.mgs .g9 .it{left:12%;top:8%;width:76%;height:84%;object-fit:contain}
+.mgs .g9 .pk{left:6%;bottom:4%;width:88%;height:74%;object-fit:contain;object-position:50% 100%;display:none}
+.mgs .g9 .hit{background:rgba(110,190,90,.6)}
+.mgs .g9 .hit .pk,.mgs .g9 .show .pk{display:block}.mgs .g9 .hit .it,.mgs .g9 .show .it{opacity:.3}
+.mgs .g9 .no{opacity:.35}
+.mgs .g9 .wig .it{animation:wig .22s 2}
+@keyframes wig{25%{transform:rotate(-7deg) translateY(-4%)}75%{transform:rotate(7deg) translateY(-4%)}}
+/* борщ */
+.mgs .rec{position:absolute;left:50%;top:5%;transform:translateX(-50%);display:flex;gap:5px;background:rgba(24,18,44,.75);border-radius:12px;padding:5px}
+.mgs .rec i{width:40px;height:40px;border-radius:8px;background:rgba(255,248,236,.16);display:flex;align-items:center;justify-content:center;font:800 20px var(--display);color:#f5e7cf;font-style:normal}
+.mgs .rec img{width:100%;height:100%;object-fit:contain;display:block}
+.mgs .dima2{position:absolute;left:-34%;bottom:0;width:31%;border:0;background:none;padding:0;transition:left .3s;cursor:pointer}
+.mgs .dima2.on{left:-3%}
+.mgs .dima2 .sp{position:static;width:100%;height:auto}
+.ings{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+.ings button{flex:0 0 calc(20% - 5px);aspect-ratio:1;padding:4px;border-radius:10px;border:2px solid var(--line);background:var(--panel);cursor:pointer}
+.ings .sp{position:static;width:100%;height:100%;object-fit:contain;display:block;pointer-events:none}
+.ings button:disabled{opacity:.45}
+/* маршрутка */
+.mgs .stp{left:72%;bottom:9%;height:42%;transform:translateX(-50%)}
+.mgs .van{bottom:1%;width:31%;transform:translateX(-50%) scaleX(-1)}
+/* Скарік */
+.mgs .me{left:8%;bottom:3%;height:40%}
+.mgs .trm{right:-9%;bottom:13%;height:44%}
+.mgs .ob{bottom:1%;width:14%}
+/* втеча */
+.mgs .rme,.mgs .gop{bottom:3%;height:42%}
+.mgs .rme{left:30%;transition:left .08s}.mgs .gop{left:2%}
+/* набери номер */
+.disp{font-size:34px;text-align:center;font-weight:800;letter-spacing:4px;margin:6px 0}
+.mgs .disp{position:absolute;left:50%;top:7%;transform:translateX(-50%);margin:0;background:rgba(20,16,40,.86);color:#fff;border-radius:10px;padding:0 16px;font-size:30px;white-space:nowrap}
+.mgs .disp.shake{animation:shc .3s}
+.pad{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.pad button{font-size:24px;padding:10px 0;border-radius:10px;border:2px solid var(--line);background:var(--panel)}
+/* парашут */
+.mgs .tgt{bottom:2%;width:22%;transform:translateX(-50%) scaleY(.42);transform-origin:50% 100%}
+.mgs .chute{left:50%;top:0;width:19%;transform:translateX(-50%)}
+.mgs .wnd{position:absolute;top:3%;display:flex;align-items:center;gap:4px}
+.mgs .wnd.wl{left:3%}.mgs .wnd.wr{right:3%;flex-direction:row-reverse}
+.mgs .wnd .sp{position:static;width:58px}
+.mgs .wnd.wr .sp{transform:scaleX(-1)}
+.mgs .wnd b{background:rgba(20,16,40,.78);color:#fff;border-radius:8px;padding:2px 7px;font:700 12px var(--body);white-space:nowrap}
+/* курʼєр */
+.mgs .box2{position:absolute;width:15%;border:0;background:none;padding:0;transform:translate(-50%,-50%);cursor:pointer;animation:pop .18s ease-out}
+.mgs .box2 .sp{position:static;width:100%;height:auto}
+.mgs .box2.ok:after{content:'✓';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:70%;aspect-ratio:1;border-radius:50%;background:var(--ok);color:#fff;font:800 22px/1 var(--display);display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+@keyframes pop{from{transform:translate(-50%,-50%) scale(.4)}to{transform:translate(-50%,-50%) scale(1)}}
+/* шашлик */
+.mgs .skw{position:absolute;left:50%;bottom:47%;width:46%;aspect-ratio:300/69;transform:translateX(-50%);transition:transform .2s}
+.mgs .skw.fl{transform:translateX(-50%) scaleX(-1)}
+.mgs .skw .sp{left:0;bottom:0;width:100%;height:auto;visibility:hidden}
+.mgs .skw[data-s="0"] .s0,.mgs .skw[data-s="1"] .s1,.mgs .skw[data-s="2"] .s2{visibility:visible}
+.dbar{position:relative;height:22px;border-radius:11px;background:#e8d9bd;margin:6px 0;overflow:hidden}.dbar .gz{position:absolute;left:60%;width:22%;top:0;bottom:0;background:#e0a52b}.dbar .dn{position:absolute;top:0;bottom:0;width:4px;background:#2b2140;left:0}
+/* перша програма: екран ноутбука */
+.cgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin:6px auto;max-width:240px;background:#0f1a2a;border:3px solid #2b2140;border-radius:12px;padding:6px}
+.cgrid i{aspect-ratio:1;background:#17283f;border-radius:5px;display:flex;align-items:center;justify-content:center;font-style:normal}
+.cgrid i svg{width:74%;height:74%;display:block}
+.cgrid i.wl{background-color:#8a4b37;background-image:linear-gradient(#5c2f23 2px,transparent 2px),linear-gradient(90deg,#5c2f23 2px,transparent 2px);background-size:100% 33.4%,50% 33.4%}
+.cgrid i.bad{background:var(--bad)}
+.cprog{min-height:28px;text-align:center;font:800 20px var(--display);letter-spacing:3px;margin:4px 0}.cprog .small{font:13px var(--body);letter-spacing:0}
+.cbtns{display:flex;gap:6px;justify-content:center}.cbtns .btn{flex:1;font:800 20px var(--display);padding:8px 0;text-align:center}.crun{width:100%;margin-top:6px;text-align:center}
+/* шахрайський дзвінок */
+.scall{text-align:center;background:var(--panel);border-radius:12px;padding:8px 10px;margin:6px 0}.scall small{display:block;opacity:.7}
+.scall .ring{display:inline-block;width:10px;height:10px;border-radius:50%;background:#3fb950;margin-right:7px;vertical-align:middle;animation:ring 1s infinite}
+@keyframes ring{50%{opacity:.2}}
+/* покажи документ */
+.dwho{display:flex;gap:10px;align-items:center;background:var(--panel);border-radius:12px;padding:8px 10px;margin:6px 0}.dwho p{margin:2px 0 0;font-size:14px;line-height:1.35}
+.dwimg{width:72px;height:72px;border-radius:12px;object-fit:cover;flex:0 0 auto}
+.dphone{background:#1d1b2e;border-radius:16px;padding:8px;display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:6px 0}
+.dapp{grid-column:1/-1;color:#f5e7cf;font:700 13px var(--display);text-align:center;padding:2px 0 4px}
+.dcard{border:0;border-radius:10px;padding:8px 6px;color:#2b2140;font:600 12px/1.25 var(--body);display:flex;flex-direction:column;align-items:center;gap:4px;min-height:70px;cursor:pointer}
+.dcard span{font-size:12px}
+.dcard .dph{width:30px;height:40px;border-radius:5px;object-fit:cover;display:block}
+.dcard .chip,.docc .chip{display:block;width:30px;height:22px;border-radius:5px;background:linear-gradient(135deg,#f6d77a,#c99a2e);border:1px solid rgba(0,0,0,.25)}
+.dcard .lines{display:block;width:30px;height:38px;border-radius:4px;border:1px solid #9bb3b0;background:#fff repeating-linear-gradient(transparent 0 6px,#a9c1be 6px 7px)}
+.dk-stud{background:linear-gradient(135deg,#d3eaff,#eef7e3)}.dk-id{background:linear-gradient(135deg,#ffe2cc,#f3efd6)}.dk-card{background:linear-gradient(135deg,#3b2f6e,#6d52a8);color:#fff}.dk-med{background:linear-gradient(135deg,#ffffff,#e2f1ee)}
+.dcard.good{background:var(--ok);color:#fff}.dcard.badx{background:var(--bad);color:#fff}
+.docsapp .docc{border-radius:14px;padding:10px 12px;margin:8px 0;color:#2b2140}
+.docc .dch{font:800 15px var(--display);margin-bottom:6px}
+.docc .dcb{display:flex;gap:10px;align-items:flex-start}.docc .dcb>div{flex:1;min-width:0}
+.docc .dph{width:66px;height:88px;border-radius:8px;object-fit:cover;flex:0 0 auto;border:2px solid rgba(255,255,255,.75)}
+.docc small{display:block;font-size:11px;opacity:.75}
+.docc i{display:block;font-style:normal;font-weight:700;font-size:13px;margin-bottom:5px}
+.docsapp .docc.dk-card{color:#fff}.docc .cnum{font:700 16px var(--display);letter-spacing:2px;margin:8px 0 6px}
+.docc .stamp{flex:0 0 auto;align-self:center;width:58px;height:58px;border-radius:50%;border:3px double #3c6fb4;color:#3c6fb4;display:flex;align-items:center;justify-content:center;font:800 11px var(--body);margin:0;transform:rotate(-14deg);opacity:.8}
 .lab .row{display:flex;gap:10px;align-items:center;background:var(--panel);border:2px solid var(--line);border-radius:12px;padding:8px 10px;margin:6px 0}.lab .row>span{font-size:28px}.lab .row div{flex:1}.lab .row small{display:block;font-size:12px;opacity:.75}.lab .row em{display:block;font-style:normal;font-size:12px;font-weight:700;color:var(--ok)}.lab .row button{border:0;background:var(--sun);border-radius:8px;padding:8px 12px;font-weight:700}
 .pchips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0}.pchips span{font-size:12px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:3px 8px}.pchips span.on{background:var(--sun);font-weight:700}.pchips span.fin{opacity:.5}
 .prow{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin:6px 0}.prow small{opacity:.8}
@@ -1376,7 +1476,7 @@ function choose(i,forced){const e=G.ev;if(!e)return;let c=i===-1?{l:'Нічог�
  let ro=null;if(c.risk){const ok=forced!==undefined?forced:rnd()<c.risk.p;G.risk[ok?'w':'l']++;const o=ok?c.risk.win:c.risk.lose;ro=o;d={m:d.m+(o.m||0),n:d.n+(o.n||0),h:d.h+(o.h||0)};r=(forced!==undefined?(ok?'🏃 Втік! ':'🏃 Не втік. '):ok?'🎲 Пощастило! ':'🎲 Не пощастило. ')+(o.r||'');if(o.failPlan)fail=true;if(o.ch)queueChain(o.ch,o.in||1);if(!ok&&(o.n||0)<=-50){G.deathR=o.r;G.res={kind:e.kind,t:e.t,art:e.art,r:'🎲 Не пощастило. '+o.r,d:{},dead:1};G.phase='result';G.ev=null;return;}}
  if(c.ch)queueChain(c.ch,c.in||1);
  d=itemShield(e,d);
- add(d);try{v197AfterChoice(c,ro);if(/Кошеня|Цуценя/.test(e.t)&&/Забрати|Взяти|Підібрати/.test(c.l))achGet('g_pet');if(/102|поліці/i.test(c.l)&&G.hard&&canMg())G.mgNext={k:'dial',num:'102'};}catch(x){}
+ add(d);try{v197AfterChoice(c,ro);if(/Кошеня|Цуценя/.test(e.t)&&/Забрати|Взяти|Підібрати/.test(c.l))achGet('g_pet');if((/102/.test(c.l)||/поліці/i.test(c.l)&&/виклик|дзвон|набра/i.test(c.l))&&G.hard&&canMg())G.mgNext={k:'dial',num:'102'};}catch(x){}
  if(e.kind==='meet')meetResult(e.meet,c);
  if(c.rel&&G.rel[c.rel[0]])rel(c.rel[0],c.rel[1]>0?3:-1,true);
  G.res={kind:e.kind,t:e.t,art:c.art?HERO.img+c.art+'.webp':e.art,img:e.img,r,d,road:e.kind==='meet'?G.road:''};
@@ -1664,15 +1764,15 @@ function mgFrame(title,intro,run,onDone,opt){opt=opt||{};const ov=document.creat
  ov.addEventListener('click',e=>{if(e.target.closest('[data-mgx]')){e.stopPropagation();done(null);}});
  stop=run(stage,done);}
 // 🪜 Драбина в гуртожиток
-function mgLadder(cb){mgFrame('Драбина в гуртожиток','Тисни по черзі «Ліва» і «Права». Засвітить 🔦 — завмри! Двічі одна рука — драбина хитається.',(stage,done)=>{
- const need=10,dur=11000;const w=document.createElement('div');w.style.textAlign='center';
- w.innerHTML=`<div class="lad"><div class="win">🪟</div><div class="rail">${'<i></i>'.repeat(need)}</div><div class="me">🧗</div><div class="torch">🔦</div></div><div class="bar"><i></i></div><p class="msg" style="margin:4px 0">Сходинка 0 / ${need} · хитання 0 / 3</p><div class="two"><button class="btn main" data-h="L">🖐 Ліва</button><button class="btn main" data-h="R">Права 🖐</button></div>`;
- stage.appendChild(w);const lad=w.querySelector('.lad'),me=w.querySelector('.me'),torch=w.querySelector('.torch'),info=w.querySelector('p'),bar=w.querySelector('.bar i');
+function mgLadder(cb){mgPre('ladder');mgFrame('Драбина в гуртожиток','Тисни по черзі «Ліва» і «Права». Засвітить ліхтарик — завмри! Двічі одна рука — драбина хитається.',(stage,done)=>{
+ const need=10,dur=11000;const w=document.createElement('div');
+ w.innerHTML=scn(MGI('mg_ladder'),spr('ladder','lad-l')+spr('me_climb','lad-me')+'<i class="beam"></i>','tall')+`<div class="bar"><i></i></div><p class="msg" style="margin:4px 0">Сходинка 0 / ${need} · хитання 0 / 3</p><div class="two"><button class="btn main" data-h="L">Ліва</button><button class="btn main" data-h="R">Права</button></div>`;
+ stage.appendChild(w);const lad=w.querySelector('.mgs'),me=w.querySelector('.lad-me'),info=w.querySelector('p'),bar=w.querySelector('.bar i');
  let n=0,wob=0,last=null,over=false,light=false,lt=0;const t0=performance.now();let nextL=t0+1800+Math.random()*1500;
- const upd=()=>{me.style.bottom=(4+n/need*78)+'%';info.textContent=`Сходинка ${n} / ${need} · хитання ${wob} / 3`;};
+ const upd=()=>{me.style.bottom=(2+n/need*44)+'%';info.textContent=`Сходинка ${n} / ${need} · хитання ${wob} / 3`;};
  const fin=(ok,t)=>{if(over)return;over=true;w.querySelectorAll('button').forEach(b=>b.disabled=true);done(ok,t);};
  const loop=t=>{if(over)return;const el=t-t0;bar.style.width=Math.max(0,100-el/dur*100)+'%';
-  if(!light&&t>=nextL){light=true;lt=t;torch.classList.add('on');lad.classList.add('lit');setTimeout(()=>{if(over)return;light=false;torch.classList.remove('on');lad.classList.remove('lit');nextL=performance.now()+1500+Math.random()*1800;},1100+Math.random()*500);}
+  if(!light&&t>=nextL){light=true;lt=t;lad.classList.add('lit');setTimeout(()=>{if(over)return;light=false;lad.classList.remove('lit');nextL=performance.now()+1500+Math.random()*1800;},1100+Math.random()*500);}
   if(el>=dur)return fin(false,'⏰ Не встиг — у вікні загорілось світло.');requestAnimationFrame(loop);};requestAnimationFrame(loop);
  w.querySelectorAll('[data-h]').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();if(over)return;const h=b.dataset.h;
   if(light&&performance.now()-lt>350)return fin(false,'🔦 Ліхтарик тебе засік! «А ну злазь, голубчику!»');
@@ -1685,49 +1785,63 @@ const R_=(a,b)=>a+Math.random()*(b-a);
 function el(h){const d=document.createElement('div');d.innerHTML=h;return d;}
 function timer(stage,dur,onEnd){const b=el('<div class="bar"><i></i></div>').firstChild;stage.prepend(b);const t0=performance.now();let on=true;
  const f=t=>{if(!on)return;const k=(t-t0)/dur;b.firstChild.style.width=Math.max(0,100-k*100)+'%';if(k>=1){on=false;onEnd();return;}requestAnimationFrame(f);};requestAnimationFrame(f);return ()=>{on=false;};}
+// картинки міні-ігор: фон — img/<герой>/<f>.webp, предмет — img/<герой>/mg/<f>.webp
+const MGI=f=>SRC(HERO.img+f+'.webp'),MGS=f=>SRC(HERO.img+'mg/'+f+'.webp');
+const spr=(f,cls,st)=>`<img class="sp${cls?' '+cls:''}" src="${MGS(f)}" alt="" draggable="false"${st?` style="${st}"`:''}>`;
+const scn=(bg,inner,cls,st)=>`<div class="mgs${cls?' '+cls:''}" style="${bg?`background-image:url('${bg}');`:''}${st||''}">${inner||''}</div>`;
+// що підвантажити заздалегідь, поки гравець читає результат: [фони, предмети]
+const MGA={ladder:[['mg_ladder'],['ladder','me_climb']],quiz:[['petro_late','petro_notice'],[]],fish:[['mg_fish'],['float','ripples','carp']],haggle:[['mg_haggle'],[]],
+ pet:[['mg_pet'],['cat_g_calm','cat_g_angry','cat_p_calm','cat_p_angry']],find:[['mg_pet'],['hide_pillow','hide_box','hide_basket','hide_plant','hide_shoes','hide_backpack','hide_bin','hide_jacket','hide_books','cat_g_peek','cat_p_peek']],
+ borsch:[['mg_borsch'],['beet','cabbage','potato','carrot','onion','tomato','meat','garlic','dill','dima_ladle']],bus:[['mg_bus'],['minibus','stop_sign']],tram:[['mg_tram'],['me_run','tram','puddle','pothole','pothole2']],
+ run:[['mg_run'],['me_run','gopnik_run']],dial:[['mg_dial'],[]],para:[['mg_para'],['parachute','target','wind']],docs:[['doc_photo','p_driver','p_police','p_bank','p_instr','p_doctor'],[]],
+ scam:[['scam_dorm'],[]],courier:[['mg_courier'],['hide_box']],riddle:[['petro_riddle','petro_notice'],[]],code:[['code_night','code_win'],[]],bbq:[['mg_bbq'],['skewer_raw','skewer_ok','skewer_burnt']]};
+const MGPRE={};
+function mgPre(k){if(!k||MGPRE[k]||!MGA[k]||typeof HERO==='undefined')return;MGPRE[k]=1;const [b,s]=MGA[k];b.forEach(f=>{const i=new Image();i.src=MGI(f);});s.forEach(f=>{const i=new Image();i.src=MGS(f);});}
+// заміна фону сцени (наприклад, на кадр перемоги)
+const setBg=(n,f)=>{if(n)n.style.backgroundImage=`url('${MGI(f)}')`;};
 
 // 🎓 Швидкий тест — 3 питання, по 8 секунд
-function gQuiz(qs,onScore){return (stage,done)=>{let i=0,ok=0,stop=null,over=false;const w=el('');stage.appendChild(w);
- const ask=()=>{if(i>=qs.length){over=true;onScore&&onScore(ok);return done(ok>=2,`Правильно ${ok} з ${qs.length}`);}const q=qs[i];const o=q[1].map((t,j)=>[t,j===q[2]]).sort(()=>Math.random()-.5);
+function gQuiz(qs,onScore){return (stage,done)=>{let i=0,ok=0,stop=null,over=false;stage.insertAdjacentHTML('beforeend',scn(MGI('petro_late'),'','ban','background-position:50% 30%'));const ban=stage.lastElementChild;const w=el('');stage.appendChild(w);
+ const ask=()=>{if(i>=qs.length){over=true;onScore&&onScore(ok);if(ok>=2)setBg(ban,'petro_notice');return done(ok>=2,`Правильно ${ok} з ${qs.length}`);}const q=qs[i];const o=q[1].map((t,j)=>[t,j===q[2]]).sort(()=>Math.random()-.5);
   w.innerHTML=`<p class="q"><b>${i+1}/${qs.length}.</b> ${esc(q[0])}</p>`+o.map((x,j)=>`<button class="btn" data-o="${j}">${esc(x[0])}</button>`).join('');
   stop&&stop();stop=timer(w,8000,()=>{i++;ask();});
   w.querySelectorAll('[data-o]').forEach(b=>b.onclick=e=>{e.stopPropagation();if(over)return;stop();const good=o[+b.dataset.o][1];if(good)ok++;b.classList.add(good?'good':'badx');w.querySelectorAll('[data-o]').forEach(x=>x.disabled=true);setTimeout(()=>{i++;ask();},600);});};
  ask();return ()=>{over=true;stop&&stop();};};}
 
 // 🎣 Рибалка — чекай, поки поплавок пірне
-function gFish(stage,done){const w=el(`<div class="pond"><span class="fl">🎣</span><span class="flt">🔴</span></div><p class="small">Спроби: <b>3</b></p><button class="btn main" style="text-align:center">Підсікай!</button>`);stage.appendChild(w);
- const flt=w.querySelector('.flt'),btn=w.querySelector('button'),tr=w.querySelector('b');let tries=3,bite=false,over=false,to=null;
- const wait=()=>{bite=false;flt.classList.remove('dip');to=setTimeout(()=>{bite=true;flt.classList.add('dip');to=setTimeout(()=>{if(over)return;bite=false;flt.classList.remove('dip');miss('Риба зірвалась — не встиг');},850);},R_(1500,4500));};
+function gFish(stage,done){const w=el(scn(MGI('mg_fish'),spr('ripples','rip')+`<span class="flw">${spr('float')}</span>`+spr('carp','carp'))+`<p class="small">Спроби: <b>3</b></p><button class="btn main" style="text-align:center">Підсікай!</button>`);stage.appendChild(w);
+ const sc=w.querySelector('.mgs'),btn=w.querySelector('button'),tr=w.querySelector('b'),carp=w.querySelector('.carp');let tries=3,bite=false,over=false,to=null;
+ const wait=()=>{bite=false;sc.classList.remove('dip');to=setTimeout(()=>{bite=true;sc.classList.add('dip');to=setTimeout(()=>{if(over)return;bite=false;sc.classList.remove('dip');miss('Риба зірвалась — не встиг');},850);},R_(1500,4500));};
  const miss=t=>{tries--;tr.textContent=tries;if(tries<=0){over=true;return done(false,t+'. Сьогодні без улову.');}wait();};
- btn.onclick=e=>{e.stopPropagation();if(over)return;clearTimeout(to);if(bite){over=true;done(true,'🐟 Є! Карась на пів кіло.');}else miss('Зарано — сполохав');};
+ btn.onclick=e=>{e.stopPropagation();if(over)return;clearTimeout(to);if(bite){over=true;sc.classList.remove('dip');carp.classList.add('jump');done(true,'🐟 Є! Карась на пів кіло.');}else miss('Зарано — сполохав');};
  wait();return ()=>{over=true;clearTimeout(to);};}
 
 // крок кадру: 1 = кадр на 60 Гц; на 120 Гц ≈ 0.5 — швидкість однакова на будь-якому екрані
 const FRK=()=>{let p=null;return t=>{const k=p==null?1:Math.max(0,Math.min(3,(t-p)/16.667));p=t;return k;};};
 // 🧺 Торг — зупини стрілку в зеленій зоні
-function gHaggle(stage,done){const z=R_(15,62);const w=el(`<p class="small">«Сто гривень, і ні копійки менше!»</p><div class="hag"><i class="zone" style="left:${z}%;width:20%"></i><i class="nd"></i></div><p class="small">Спроби: <b>2</b></p><button class="btn main" style="text-align:center">Стоп! Моя ціна</button>`);stage.appendChild(w);
- const nd=w.querySelector('.nd'),tr=w.querySelector('b');let x=0,v=0.07,over=false,tries=2;const K=FRK();
+function gHaggle(stage,done){const z=R_(15,62);const w=el(scn(MGI('mg_haggle'),'<div class="bub">«Сто гривень, і ні копійки менше!»</div>')+`<div class="hag"><i class="zone" style="left:${z}%;width:20%"></i><i class="nd"></i></div><p class="small">Спроби: <b>2</b></p><button class="btn main" style="text-align:center">Стоп! Моя ціна</button>`);stage.appendChild(w);
+ const nd=w.querySelector('.nd'),tr=w.querySelector('b'),bub=w.querySelector('.bub');let x=0,v=0.07,over=false,tries=2;const K=FRK();
  const f=t=>{if(over)return;x+=v*16*K(t);if(x>=100||x<=0)v=-v;x=Math.max(0,Math.min(100,x));nd.style.left=x+'%';requestAnimationFrame(f);};requestAnimationFrame(f);
- w.querySelector('button').onclick=e=>{e.stopPropagation();if(over)return;if(x>=z&&x<=z+20){over=true;return done(true,'🤝 «Ну добре, бери за сімдесят».');}tries--;tr.textContent=tries;v*=1.15;if(tries<=0){over=true;done(false,'«Не хочеш — не бери!»');}};
+ w.querySelector('button').onclick=e=>{e.stopPropagation();if(over)return;if(x>=z&&x<=z+20){over=true;bub.textContent='«Ну добре, бери за сімдесят».';return done(true,'🤝 «Ну добре, бери за сімдесят».');}tries--;tr.textContent=tries;v*=1.15;bub.textContent=tries?'«Та ви що! Це ж домашнє!»':'«Не хочеш — не бери!»';if(tries<=0){over=true;done(false,'«Не хочеш — не бери!»');}};
  return ()=>{over=true;};}
 
-// 🐱 Погладь кота — 8 погладжувань, хвіст смикнувся — завмри
-function gPet(stage,done){const need=8;const w=el(`<div class="pet"><span class="cat">🐈</span><span class="tail">〰️</span></div><p class="small">Муркотіння: <b>0</b> / ${need}</p><button class="btn main" style="text-align:center">✋ Погладити</button>`);stage.appendChild(w);
- const tail=w.querySelector('.tail'),cnt=w.querySelector('b'),cat=w.querySelector('.cat');let n=0,over=false,angry=false,at=0,to;
- const sched=()=>{to=setTimeout(()=>{angry=true;at=performance.now();tail.classList.add('on');to=setTimeout(()=>{angry=false;tail.classList.remove('on');sched();},1000);},R_(1200,2600));};sched();
+// 🐱 Погладь кота — 8 погладжувань; настовбурчився — завмри
+function gPet(stage,done){const need=8,b=G&&G.petPure?'cat_p':'cat_g';const w=el(scn(MGI('mg_pet'),spr(b+'_calm','cat')+spr(b+'_angry','cat ang'))+`<p class="small">Муркотіння: <b>0</b> / ${need}</p><button class="btn main" style="text-align:center">✋ Погладити</button>`);stage.appendChild(w);
+ const sc=w.querySelector('.mgs'),cnt=w.querySelector('b'),cat=w.querySelector('.cat');let n=0,over=false,angry=false,at=0,to;
+ const sched=()=>{to=setTimeout(()=>{angry=true;at=performance.now();sc.classList.add('angry');to=setTimeout(()=>{angry=false;sc.classList.remove('angry');sched();},1000);},R_(1200,2600));};sched();
  const stop=timer(stage,10000,()=>{if(!over){over=true;done(false,'Кіт пішов спати на твою подушку.');}});
  w.querySelector('button').onclick=e=>{e.stopPropagation();if(over)return;if(angry&&performance.now()-at>250){over=true;stop();return done(false,'😾 Кіт куснув за палець!');}
   n++;cnt.textContent=n;cat.classList.remove('pur');void cat.offsetWidth;cat.classList.add('pur');if(n>=need){over=true;stop();done(true,'😻 Мрррр… Нерви на місці.');}};
  return ()=>{over=true;clearTimeout(to);stop();};}
 
 // 🐾 Знайди кота — що ворухнеться, туди й тисни
-function gFind(stage,done){const O=['🛋','📦','🧺','🪴','👟','🎒','🗑','🧥','📚'];let round=0,won=0,tries=2,cat=-1,over=false,to;
- const w=el(`<p class="small">Раунд <b>1</b>/3 · знайдено <i>0</i></p><div class="grid9">${O.map((o,i)=>`<button data-i="${i}">${o}</button>`).join('')}</div>`);stage.appendChild(w);
+function gFind(stage,done){const O=['hide_pillow','hide_box','hide_basket','hide_plant','hide_shoes','hide_backpack','hide_bin','hide_jacket','hide_books'],pk=G&&G.petPure?'cat_p_peek':'cat_g_peek';let round=0,won=0,tries=2,cat=-1,over=false,to;
+ const w=el(`<p class="small">Раунд <b>1</b>/3 · знайдено <i>0</i></p>`+scn(MGI('mg_pet'),`<div class="g9">${O.map((o,i)=>`<button data-i="${i}">${spr(o,'it')}${spr(pk,'pk')}</button>`).join('')}</div>`,'find'));stage.appendChild(w);
  const B=[...w.querySelectorAll('[data-i]')],rb=w.querySelector('b'),fb=w.querySelector('i');
- const next=()=>{if(round>=3){over=true;return done(won>=2,won>=2?`😺 Знайшов ${won} з 3!`:`Кіт переграв тебе (${won} з 3)`);}round++;rb.textContent=round;tries=2;cat=Math.floor(Math.random()*9);B.forEach(b=>{b.disabled=false;b.classList.remove('hit','no');});
+ const next=()=>{if(round>=3){over=true;return done(won>=2,won>=2?`😺 Знайшов ${won} з 3!`:`Кіт переграв тебе (${won} з 3)`);}round++;rb.textContent=round;tries=2;cat=Math.floor(Math.random()*9);B.forEach(b=>{b.disabled=false;b.classList.remove('hit','no','show');});
   to=setTimeout(()=>{B[cat].classList.add('wig');setTimeout(()=>B[cat].classList.remove('wig'),450);},R_(500,1300));};
- B.forEach(b=>b.onclick=e=>{e.stopPropagation();if(over)return;const i=+b.dataset.i;if(i===cat){b.classList.add('hit');b.textContent='🐱';won++;fb.textContent=won;setTimeout(()=>{b.textContent=O[i];next();},700);B.forEach(x=>x.disabled=true);}
-  else{b.classList.add('no');b.disabled=true;tries--;if(tries<=0){B[cat].textContent='🐱';B.forEach(x=>x.disabled=true);setTimeout(()=>{B[cat].textContent=O[cat];next();},800);}}});
+ B.forEach(b=>b.onclick=e=>{e.stopPropagation();if(over)return;const i=+b.dataset.i;if(i===cat){clearTimeout(to);b.classList.add('hit');won++;fb.textContent=won;B.forEach(x=>x.disabled=true);setTimeout(next,700);}
+  else{b.classList.add('no');b.disabled=true;tries--;if(tries<=0){clearTimeout(to);B[cat].classList.add('show');B.forEach(x=>x.disabled=true);setTimeout(next,800);}}});
  next();return ()=>{over=true;clearTimeout(to);};}
 
 // поле з доріжками для бігових ігор
@@ -1745,57 +1859,66 @@ function gWalk(stage,done){const w=lanes(stage,{hero:'🐕',info:'Удари: <b
   obs=obs.filter(o=>{if(o.y>105){o.s.remove();return false;}return !o.done;});requestAnimationFrame(loop);};requestAnimationFrame(loop);
  return ()=>{over=true;stop();};}
 
-// 🍳 Борщ — запамʼятай рецепт і кидай по порядку; Діма з ложкою — відганяй
-function gBorsch(stage,done){const ALL=['🥔','🥕','🧅','🫑','🍅','🥩','🧄','🌿'];const rec=ALL.slice().sort(()=>Math.random()-.5).slice(0,4);let i=0,over=false,dima=false,dt;
- const w=el(`<div class="pot">🍲<div class="rec">${rec.join(' ')}</div><span class="dima">🥄😋</span></div><p class="small">Запамʼятай! Через 3 с рецепт зникне</p><div class="grid4">${ALL.map(x=>`<button data-x="${x}" disabled>${x}</button>`).join('')}</div>`);stage.appendChild(w);
- const recEl=w.querySelector('.rec'),inf=w.querySelector('.small'),dm=w.querySelector('.dima'),B=[...w.querySelectorAll('[data-x]')];let stop=()=>{};
- const t1=setTimeout(()=>{recEl.textContent='? ? ? ?';inf.textContent='Кидай у правильному порядку';B.forEach(b=>b.disabled=false);stop=timer(stage,12000,()=>{if(!over){over=true;done(false,'Борщ википів, поки згадував…');}});
+// 🍳 Борщ — запамʼятай рецепт і кидай по порядку; Діма з ополоником — відганяй
+function gBorsch(stage,done){const ALL=['beet','cabbage','potato','carrot','onion','tomato','meat','garlic','dill'];const rec=ALL.slice().sort(()=>Math.random()-.5).slice(0,4);let i=0,over=false,dima=false,dt;
+ const slots=k=>rec.map((x,j)=>`<i>${j<k?`<img src="${MGS(x)}" alt="">`:'?'}</i>`).join('');
+ const w=el(scn(MGI('mg_borsch'),`<div class="rec">${slots(4)}</div><button class="dima2" aria-label="Діма з ополоником">${spr('dima_ladle')}</button>`)+`<p class="small">Запамʼятай! Через 3 с рецепт зникне</p><div class="ings">${ALL.map(x=>`<button data-x="${x}" disabled>${spr(x)}</button>`).join('')}</div>`);stage.appendChild(w);
+ const recEl=w.querySelector('.rec'),inf=w.querySelector('.small'),dm=w.querySelector('.dima2'),B=[...w.querySelectorAll('[data-x]')];let stop=()=>{};
+ const t1=setTimeout(()=>{recEl.innerHTML=slots(0);inf.textContent='Кидай у правильному порядку';B.forEach(b=>b.disabled=false);stop=timer(stage,12000,()=>{if(!over){over=true;done(false,'Борщ википів, поки згадував…');}});
   dt=setTimeout(()=>{dima=true;dm.classList.add('on');dt=setTimeout(()=>{if(over||!dima)return;over=true;stop();done(false,'😋 Діма зʼїв половину каструлі.');},1500);},R_(1500,4000));},3000);
  dm.onclick=e=>{e.stopPropagation();if(!dima)return;dima=false;dm.classList.remove('on');clearTimeout(dt);};
- B.forEach(b=>b.onclick=e=>{e.stopPropagation();if(over)return;if(b.dataset.x===rec[i]){b.disabled=true;i++;recEl.textContent=rec.slice(0,i).join(' ')+' ?'.repeat(4-i);if(i>=4){over=true;stop();clearTimeout(dt);done(true,'🍲 Борщ як у мами!');}}else{over=true;stop();clearTimeout(dt);done(false,`Не те! Треба було ${rec[i]}`);}});
+ const NAME={beet:'буряк',cabbage:'капуста',potato:'картопля',carrot:'морква',onion:'цибуля',tomato:'помідор',meat:'мʼясо',garlic:'часник',dill:'кріп'};
+ B.forEach(b=>b.onclick=e=>{e.stopPropagation();if(over)return;if(b.dataset.x===rec[i]){b.disabled=true;i++;recEl.innerHTML=slots(i);if(i>=4){over=true;stop();clearTimeout(dt);done(true,'🍲 Борщ як у мами!');}}else{over=true;stop();clearTimeout(dt);recEl.innerHTML=slots(4);done(false,`Не те! Треба було: ${NAME[rec[i]]}`);}});
  return ()=>{over=true;clearTimeout(t1);clearTimeout(dt);stop();};}
 
 // 🚐 Остання маршрутка — махни, коли вона біля зупинки
-function gBus(stage,done){const w=el(`<div class="road"><span class="stop">🚏</span><span class="van">🚐</span></div><p class="small">Спроби: <b>2</b></p><button class="btn main" style="text-align:center">🙋 Махнути!</button>`);stage.appendChild(w);
- const van=w.querySelector('.van'),tr=w.querySelector('b');let x=-10,over=false,tries=2,sp=0.32;const K=FRK();
- const f=t=>{if(over)return;x+=sp*K(t);if(x>110){x=-10;miss('Проїхала повз!');}van.style.left=x+'%';requestAnimationFrame(f);};requestAnimationFrame(f);
+const BUSZ=[72,88];// де має бути середина маршрутки, щоб водій зупинився
+function gBus(stage,done){const w=el(scn(MGI('mg_bus'),spr('stop_sign','stp')+spr('minibus','van'))+`<p class="small">Спроби: <b>2</b></p><button class="btn main" style="text-align:center">🙋 Махнути!</button>`);stage.appendChild(w);
+ const van=w.querySelector('.van'),tr=w.querySelector('b');let x=-18,over=false,tries=2,sp=0.32;const K=FRK();
+ const f=t=>{if(over)return;x+=sp*K(t);if(x>118){x=-18;miss('Проїхала повз!');}van.style.left=x+'%';requestAnimationFrame(f);};requestAnimationFrame(f);
  const miss=t=>{tries--;tr.textContent=tries;sp*=1.25;if(tries<=0){over=true;done(false,t+' Остання… Пішки.');}};
- w.querySelector('button').onclick=e=>{e.stopPropagation();if(over)return;if(x>=58&&x<=74){over=true;return done(true,'🚐 Водій пригальмував. Встиг!');}miss(x<58?'Зарано махнув.':'Запізно!');x=-10;};
+ w.querySelector('button').onclick=e=>{e.stopPropagation();if(over)return;if(x>=BUSZ[0]&&x<=BUSZ[1]){over=true;return done(true,'🚐 Водій пригальмував. Встиг!');}miss(x<BUSZ[0]?'Зарано махнув.':'Запізно!');x=-18;};
  return ()=>{over=true;};}
 
 // 🚋 Встигни на Скарік — перестрибуй калюжі та ями
-function gTram(stage,done){const w=el(`<div class="run"><span class="me">🏃</span><span class="tr">🚋</span></div><p class="small">Падіння: <b>0</b>/2</p><button class="btn main" style="text-align:center">⤴ Стрибок!</button>`);stage.appendChild(w);
- const f=w.querySelector('.run'),me=w.querySelector('.me'),hb=w.querySelector('b');let over=false,jump=0,hits=0,obs=[],last=0;const K=FRK();
+function gTram(stage,done){const w=el(scn(MGI('mg_tram'),spr('tram','trm')+spr('me_run','me'))+`<p class="small">Падіння: <b>0</b>/2</p><button class="btn main" style="text-align:center">⤴ Стрибок!</button>`);stage.appendChild(w);
+ const f=w.querySelector('.mgs'),me=w.querySelector('.me'),hb=w.querySelector('b');let over=false,jump=0,hits=0,obs=[],last=0;const K=FRK();
  const stop=timer(stage,10000,()=>{if(!over){over=true;done(true,'🚋 Заскочив в останні двері!');}});
  const jmp=e=>{e.stopPropagation();if(!jump)jump=performance.now();};w.querySelector('button').onclick=jmp;f.onclick=jmp;f.style.cursor='pointer';
- const loop=t=>{if(over)return;const kk=K(t);let y=0;if(jump){const k=(t-jump)/760;if(k>=1)jump=0;else y=Math.sin(k*Math.PI)*60;}me.style.bottom=(8+y)+'px';
-  if(t-last>R_(1000,1600)&&!obs.some(o=>o.x>68)){last=t;const s=document.createElement('span');s.className='ob';s.textContent=Math.random()<0.5?'💧':'🕳';f.appendChild(s);obs.push({s,x:100});}
-  obs.forEach(o=>{o.x-=0.9*kk;o.s.style.left=o.x+'%';if(!o.done&&o.x<22&&o.x>10){if(y<20){o.done=true;hits++;hb.textContent=hits;f.classList.remove('shake');void f.offsetWidth;f.classList.add('shake');if(hits>=2){over=true;stop();done(false,'💦 Перечепився — Скарік поїхав без тебе.');}}else o.done=true;}});
-  obs=obs.filter(o=>{if(o.x<-10){o.s.remove();return false;}return true;});requestAnimationFrame(loop);};requestAnimationFrame(loop);
+ // висота стрибка — у відсотках висоти сцени (пік 30 %, безпечно від 10 %)
+ const loop=t=>{if(over)return;const kk=K(t);let y=0;if(jump){const k=(t-jump)/760;if(k>=1)jump=0;else y=Math.sin(k*Math.PI)*30;}me.style.bottom=(3+y)+'%';
+  if(t-last>R_(1000,1600)&&!obs.some(o=>o.x>68)){last=t;const s=document.createElement('img');const kind=pick(['puddle','pothole','pothole2']);s.className='sp ob '+kind;s.src=MGS(kind);s.alt='';s.draggable=false;f.appendChild(s);obs.push({s,x:100});}
+  obs.forEach(o=>{o.x-=0.9*kk;o.s.style.left=o.x+'%';if(!o.done&&o.x<22&&o.x>10){if(y<10){o.done=true;hits++;hb.textContent=hits;f.classList.remove('shake');void f.offsetWidth;f.classList.add('shake');if(hits>=2){over=true;stop();done(false,'💦 Перечепився — Скарік поїхав без тебе.');}}else o.done=true;}});
+  obs=obs.filter(o=>{if(o.x<-18){o.s.remove();return false;}return true;});requestAnimationFrame(loop);};requestAnimationFrame(loop);
  return ()=>{over=true;stop();};}
 
 // 🏃 Втеча — 22 натискання за 4,5 секунди
-function gRun(stage,done){const need=22;const w=el(`<div class="chase"><span class="me">🏃</span><span class="bad">👤</span></div><p class="small">Ривків: <b>0</b>/${need}</p><button class="btn main big" style="text-align:center">Тікати!</button>`);stage.appendChild(w);
- const me=w.querySelector('.me'),cb=w.querySelector('b');let n=0,over=false;
- const stop=timer(stage,4500,()=>{if(!over){over=true;done(false,'Наздогнали…');}});
- w.querySelector('button').onclick=e=>{e.stopPropagation();if(over)return;n++;cb.textContent=n;me.style.left=(30+n/need*62)+'%';if(n>=need){over=true;stop();done(true,'💨 Відірвався! Серце калатає.');}};
+function gRun(stage,done){const need=22,dur=4500;const w=el(scn(MGI('mg_run'),spr('gopnik_run','gop')+spr('me_run','rme'))+`<p class="small">Ривків: <b>0</b>/${need}</p><button class="btn main big" style="text-align:center">Тікати!</button>`);stage.appendChild(w);
+ const me=w.querySelector('.rme'),gop=w.querySelector('.gop'),cb=w.querySelector('b');let n=0,over=false;const t0=performance.now();
+ const stop=timer(stage,dur,()=>{if(!over){over=true;done(false,'Наздогнали…');}});
+ // переслідувач поволі наближається: коли час вийде — він поруч
+ const chase=t=>{if(over)return;gop.style.left=(2+Math.min(1,(t-t0)/dur)*24)+'%';requestAnimationFrame(chase);};requestAnimationFrame(chase);
+ w.querySelector('button').onclick=e=>{e.stopPropagation();if(over)return;n++;cb.textContent=n;me.style.left=(30+n/need*52)+'%';if(n>=need){over=true;stop();done(true,'💨 Відірвався! Серце калатає.');}};
  return ()=>{over=true;stop();};}
 
-// 📞 Набери 103 — цифри скачуть
-function gDial(stage,done,num){num=num||'103';let got='',over=false,iv;const w=el(`<div class="disp">_ _ _</div><div class="pad"></div>`);stage.appendChild(w);
+// 📞 Набери номер — цифри скачуть (103 — своя картинка, 102 — картинка події)
+function gDial(stage,done,num){num=num||'103';let got='',over=false,iv;const bg=num==='103'?MGI('mg_dial'):(G&&G.res&&G.res.art?SRC(G.res.art):'');
+ const w=el((bg?scn(bg,'<div class="disp">_ _ _</div>','ban','background-position:50% 60%'):'<div class="disp">_ _ _</div>')+`<div class="pad"></div>`);stage.appendChild(w);
  const pad=w.querySelector('.pad'),disp=w.querySelector('.disp');
  const draw=()=>{const d=[1,2,3,4,5,6,7,8,9,0].sort(()=>Math.random()-.5);pad.innerHTML=d.map(x=>`<button data-d="${x}">${x}</button>`).join('');};draw();iv=setInterval(draw,3000);
  const stop=timer(stage,10000,()=>{if(!over){over=true;clearInterval(iv);done(false,'Пальці не слухались… Хтось інший встиг подзвонити.');}});
- pad.onclick=e=>{const b=e.target.closest('[data-d]');if(!b||over)return;e.stopPropagation();const d=b.dataset.d;if(d===num[got.length]){got+=d;clearInterval(iv);if(got!==num)iv=setInterval(draw,3000);disp.textContent=(got+'___').slice(0,3).split('').join(' ');if(got===num){over=true;clearInterval(iv);stop();done(true,'📞 «Швидка, слухаю». Встиг!');}}else{disp.classList.remove('shake');void disp.offsetWidth;disp.classList.add('shake');}};
+ pad.onclick=e=>{const b=e.target.closest('[data-d]');if(!b||over)return;e.stopPropagation();const d=b.dataset.d;if(d===num[got.length]){got+=d;clearInterval(iv);if(got!==num)iv=setInterval(draw,3000);disp.textContent=(got+'___').slice(0,3).split('').join(' ');if(got===num){over=true;clearInterval(iv);stop();done(true,num==='102'?'📞 «Поліція, слухаю». Встиг!':'📞 «Швидка, слухаю». Встиг!');}}else{disp.classList.remove('shake');void disp.offsetWidth;disp.classList.add('shake');}};
  return ()=>{over=true;clearInterval(iv);stop();};}
 
 // 🪂 Парашут — керуй куполом і сідай на мішень
-function gPara(stage,done){const tx=R_(20,80);const w=el(`<div class="sky2"><span class="chute">🪂</span><span class="tgt" style="left:${tx}%">🎯</span><span class="wind">💨</span></div><div class="two"><button class="btn main" data-d="-1">◀</button><button class="btn main" data-d="1">▶</button></div>`);stage.appendChild(w);
- const ch=w.querySelector('.chute'),wd=w.querySelector('.wind');let x=50,y=0,vx=0,wind=R_(-0.12,0.12),over=false,hold=0;const K=FRK();
- wd.textContent=wind<0?'💨◀':'▶💨';
+function gPara(stage,done){const tx=R_(20,80);const w=el(scn(MGI('mg_para'),`${spr('target','tgt',`left:${tx}%`)}${spr('parachute','chute')}<span class="wnd">${spr('wind')}<b></b></span>`,'tall')+`<div class="two"><button class="btn main" data-d="-1">◀</button><button class="btn main" data-d="1">▶</button></div>`);stage.appendChild(w);
+ const ch=w.querySelector('.chute'),wd=w.querySelector('.wnd'),wb=wd.querySelector('b');let x=50,y=0,vx=0,wind=R_(-0.12,0.12),over=false,hold=0;const K=FRK();
+ // хмара з вітром: дме вправо — зліва, дме вліво — справа (віддзеркалена)
+ const showW=()=>{wd.className='wnd '+(wind<0?'wr':'wl');wb.textContent=wind<0?'◀ вітер':'вітер ▶';};showW();
  w.querySelectorAll('[data-d]').forEach(b=>{const d=+b.dataset.d;b.addEventListener('pointerdown',e=>{e.stopPropagation();hold=d;});['pointerup','pointerleave','pointercancel'].forEach(ev=>b.addEventListener(ev,()=>{if(hold===d)hold=0;}));b.onclick=e=>{e.stopPropagation();x+=d*3;};});
- const loop=t=>{if(over)return;const k=K(t);if(Math.random()<0.01*k)wind=R_(-0.15,0.15),wd.textContent=wind<0?'💨◀':'▶💨';vx=vx*Math.pow(0.9,k)+(wind*0.1+hold*0.08)*k;x=Math.max(2,Math.min(98,x+vx*k));y+=0.22*k;ch.style.left=x+'%';ch.style.top=y+'%';
-  if(y>=82){over=true;const d=Math.abs(x-tx);return done(d<=9,d<=9?'🎯 Точно в коло! Інструктор аплодує.':'🌻 Сів у соняшники. Зате живий.');}requestAnimationFrame(loop);};requestAnimationFrame(loop);
+ // y — верх купола у % висоти сцени; ноги торкаються землі на y=73
+ const loop=t=>{if(over)return;const k=K(t);if(Math.random()<0.01*k){wind=R_(-0.15,0.15);showW();}vx=vx*Math.pow(0.9,k)+(wind*0.1+hold*0.08)*k;x=Math.max(2,Math.min(98,x+vx*k));y+=0.196*k;ch.style.left=x+'%';ch.style.top=y+'%';
+  if(y>=73){over=true;const d=Math.abs(x-tx);return done(d<=9,d<=9?'🎯 Точно в коло! Інструктор аплодує.':'🌻 Сів у соняшники. Зате живий.');}requestAnimationFrame(loop);};requestAnimationFrame(loop);
  return ()=>{over=true;};}
 
 // ---------- реєстр ігор ----------
@@ -1804,15 +1927,15 @@ const MG={
  fish:{ic:'🎣',n:'Рибалка',w:'Річка · «Порибалити з дідами»',i:'Чекай, поки поплавок пірне, і тисни «Підсікай!». 3 спроби.',f:gFish},
  haggle:{ic:'🧺',n:'Торг на ринку',w:'Ринок · «Поторгуватися за дрібниці»',i:'Зупини стрілку в зеленій зоні. 2 спроби.',f:gHaggle},
  ladder:{ic:'🪜',n:'Драбина в гуртожиток',w:'Прийшов після вахти, Валя не відчинила',i:'',f:null},
- pet:{ic:'🐱',n:'Погладь кота',w:'Вечір удома, якщо є кіт',i:'Тисни «Погладити» 8 разів. Хвіст смикнувся — завмри!',f:gPet},
+ pet:{ic:'🐱',n:'Погладь кота',w:'Вечір удома, якщо є кіт',i:'Тисни «Погладити» 8 разів. Кіт настовбурчився — завмри!',f:gPet},
  find:{ic:'🐾',n:'Знайди кота',w:'Вечір: кіт сховався (якщо є кіт), інколи',i:'Дивись, що ворухнеться, і тицяй туди. 3 раунди по 2 спроби.',f:gFind},
  walk:{ic:'🐕',n:'Вигул пса',w:'Вечір удома, якщо є пес',i:'◀ ▶ або свайп. Обходь 💧 і 🐈, збирай 🦴. 3 удари — програв.',f:gWalk},
- borsch:{ic:'🍳',n:'Борщ',w:'Вдома · «Приготувати на кілька днів»',i:'Запамʼятай рецепт за 3 секунди й кидай по порядку. Зʼявиться Діма з ложкою — тисни на нього!',f:gBorsch},
- bus:{ic:'🚐',n:'Остання маршрутка',w:'Дорога додому маршруткою за пів години до останньої',i:'Махни, коли маршрутка буде біля зупинки 🚏. 2 спроби.',f:gBus},
+ borsch:{ic:'🍳',n:'Борщ',w:'Вдома · «Приготувати на кілька днів»',i:'Запамʼятай рецепт за 3 секунди й кидай по порядку. Зʼявиться Діма з ополоником — тисни на нього!',f:gBorsch},
+ bus:{ic:'🚐',n:'Остання маршрутка',w:'Дорога додому маршруткою за пів години до останньої',i:'Махни, коли маршрутка буде біля зупинки. 2 спроби.',f:gBus},
  tram:{ic:'🚋',n:'Встигни на Скарік',w:'Дорога Скаріком, інколи',i:'Тисни «Стрибок!» над калюжами та ямами. 2 падіння — не встиг.',f:gTram},
  run:{ic:'🏃',n:'Втеча',w:'Ситуації, де можна «тікати»',i:'22 ривки за 4,5 секунди!',f:gRun},
  dial:{ic:'📞',n:'Набери 103',w:'Тільки справжні аварії: ДТП, людина тоне',i:'Цифри скачуть. Швидко набери номер!',f:gDial},
- para:{ic:'🪂',n:'Парашут',w:'Аеродром у вихідні · «Тандем-стрибок»',i:'Тримай ◀ ▶, борись з вітром і сідай на 🎯.',f:gPara}};
+ para:{ic:'🪂',n:'Парашут',w:'Аеродром у вихідні · «Тандем-стрибок»',i:'Тримай ◀ ▶, борись із вітром і сідай у центр мішені.',f:gPara}};
 
 // ===================== 3.2 · нові міні-ігри Студента =====================
 // 🪪 «Мої документи» в телефоні й міні-гра «Покажи документ»
@@ -1823,15 +1946,14 @@ const DOCWHO={
  bank:{ic:'🏦',n:'Працівниця банку',ask:[['id','Паспорт, будь ласка.'],['stud','І студентський — для стипендії.'],['card','Покажіть картку в застосунку, звірю номер.']]},
  instr:{ic:'🪂',n:'Інструктор',ask:[['id','Паспорт — тобі ж є 18?'],['med','Медична довідка є?'],['id','Ще раз паспорт — вписую в журнал.']]},
  doctor:{ic:'👩‍⚕️',n:'Лікарка',ask:[['id','Паспорт, будь ласка, — заведу картку.'],['stud','Студентський — для довідки в деканат.'],['med','А стара довідка 086 є?']]}};
-// портрет: якщо картинки ще немає — лишається значок
-// нові картинки з Gemini: файл додається сюди, коли він уже лежить у img/student/
-const MGART=new Set([]);
-function mgFace(ic,file,known){if(!known&&!MGART.has(file))return `<span class="dwic">${ic}</span>`;return `<span class="dwic">${ic}</span><img class="dwimg" src="${SRC(HERO.img+file)}" alt="" onload="this.previousElementSibling&&this.previousElementSibling.remove()" onerror="this.remove()">`;}
+// маленька картка документа в телефоні: фото Студента, чип картки або аркуш довідки
+const DOCK={stud:'dk-stud',id:'dk-id',card:'dk-card',med:'dk-med'};
+const docMini=k=>k==='stud'||k==='id'?`<img class="dph" src="${MGI('doc_photo')}" alt="">`:k==='card'?'<i class="chip"></i>':'<i class="lines"></i>';
 function gDocs(stage,done,opt){opt=opt||{};const who=DOCWHO[opt.who]?opt.who:pick(Object.keys(DOCWHO));const W=DOCWHO[who];const R=W.ask.slice().sort(()=>Math.random()-.5);let i=0,ok=0,over=false,lock=false,stop=null;
  const w=el('');stage.appendChild(w);
  const ask=()=>{if(over)return;if(i>=R.length){over=true;return done(ok>=2,ok>=2?`${W.ic} «Дякую, все гаразд».`:`${W.ic} «Ну й довго ж ви шукаєте…»`);}
   const need=R[i][0],line=R[i][1];const keys=Object.keys(DOCS).sort(()=>Math.random()-.5);lock=false;
-  w.innerHTML=`<div class="dwho">${mgFace(W.ic,'p_'+who+'.webp')}<div><b>${W.n}</b><p>«${line}»</p></div></div><div class="dphone"><div class="dapp">🪪 Мої документи</div>${keys.map(k=>`<button class="dcard" data-k="${k}"><span>${DOCS[k][0]}</span>${DOCS[k][1]}</button>`).join('')}</div><p class="small">Раунд ${i+1} з ${R.length} · показано правильно: ${ok}</p>`;
+  w.innerHTML=`<div class="dwho"><img class="dwimg" src="${MGI('p_'+who)}" alt=""><div><b>${W.n}</b><p>«${line}»</p></div></div><div class="dphone"><div class="dapp">Мої документи</div>${keys.map(k=>`<button class="dcard ${DOCK[k]}" data-k="${k}">${docMini(k)}<span>${DOCS[k][1]}</span></button>`).join('')}</div><p class="small">Раунд ${i+1} з ${R.length} · показано правильно: ${ok}</p>`;
   stop=timer(w,4500-i*500,()=>{if(over||lock)return;lock=true;i++;ask();});
   w.querySelector('.dphone').onclick=e=>{const b=e.target.closest('[data-k]');if(!b||over||lock)return;e.stopPropagation();lock=true;stop&&stop();if(b.dataset.k===need){ok++;b.classList.add('good');}else b.classList.add('badx');i++;setTimeout(ask,380);};};
  ask();return ()=>{over=true;stop&&stop();};}
@@ -1843,19 +1965,18 @@ const SCAM=[
  ['«Ваш брат потрапив у ДТП, терміново потрібні гроші!»','Зараз сам йому передзвоню','Скільки треба?'],
  ['«Продиктуйте номер картки і три цифри ззаду — для перевірки».','Ці цифри нікому не кажуть','Записуйте…'],
  ['«Встановіть застосунок для захисту картки, я надішлю посилання».','Нічого не встановлюю','Надсилайте посилання']];
-function gScam(stage,done){const L=SCAM.slice().sort(()=>Math.random()-.5).slice(0,3);let i=0,over=false,lock=false,stop=null;const w=el('');stage.appendChild(w);
+function gScam(stage,done){const L=SCAM.slice().sort(()=>Math.random()-.5).slice(0,3);let i=0,over=false,lock=false,stop=null;stage.insertAdjacentHTML('beforeend',scn(MGI('scam_dorm'),'','ban','background-position:50% 40%'));const w=el('');stage.appendChild(w);
  const ask=()=>{if(over)return;if(i>=L.length){over=true;return done(true,'📵 Шахрай кинув трубку першим. Гроші цілі!');}const q=L[i][0];const o=[[L[i][1],1],[L[i][2],0]].sort(()=>Math.random()-.5);lock=false;
-  w.innerHTML=`<div class="scall"><span>📞</span><b>Невідомий номер</b><small>+380 •• ••• •• ••</small></div><p class="q">${q}</p>${o.map(([t,g])=>`<button class="btn btn-choice" data-g="${g}">${t}</button>`).join('')}<p class="small">Крок ${i+1} з ${L.length}</p>`;
+  w.innerHTML=`<div class="scall"><b><i class="ring"></i>Невідомий номер</b><small>+380 •• ••• •• ••</small></div><p class="q">${q}</p>${o.map(([t,g])=>`<button class="btn btn-choice" data-g="${g}">${t}</button>`).join('')}<p class="small">Крок ${i+1} з ${L.length}</p>`;
   stop=timer(w,6000,()=>{if(over||lock)return;over=true;done(false,'😰 Поки думалось, шахрай усе вивідав.');});
   w.onclick=e=>{const b=e.target.closest('[data-g]');if(!b||over||lock)return;e.stopPropagation();lock=true;stop&&stop();if(b.dataset.g==='1'){b.classList.add('good');i++;setTimeout(ask,450);}else{b.classList.add('badx');over=true;done(false,'💸 Шахраї списали гроші з картки.');}};};
  ask();return ()=>{over=true;stop&&stop();};}
 // 📦 Курʼєр — встигни забрати замовлення, щойно воно зʼявилось
 function gCourier(stage,done){const need=4,total=5;let n=0,got=0,over=false,to=null;
- const w=el(`<div class="cmap"></div><p class="small">Доставлено: <b>0</b> з ${need}</p>`);stage.appendChild(w);const map=w.querySelector('.cmap'),cnt=w.querySelector('b');
- if(MGART.has('mg_courier.webp')){const bg=SRC(HERO.img+'mg_courier.webp');map.style.backgroundImage=`url(${bg})`;}
+ const w=el(scn(MGI('mg_courier'),'','map')+`<p class="small">Доставлено: <b>0</b> з ${total} · треба ${need}</p>`);stage.appendChild(w);const map=w.querySelector('.mgs'),cnt=w.querySelector('b');
  const spawn=()=>{if(over)return;if(n>=total){over=true;return done(got>=need,got>=need?'📦 Усе вчасно — чайові!':'📦 Доставка запізнилась — без чайових');}n++;
-  map.innerHTML=`<button class="box2" style="left:${R_(10,88)}%;top:${R_(12,86)}%">📦</button>`;to=setTimeout(spawn,Math.max(900,1750-n*130));};
- map.onclick=e=>{const b=e.target.closest('.box2');if(!b||over||b.dataset.ok)return;e.stopPropagation();b.dataset.ok=1;clearTimeout(to);got++;cnt.textContent=got;b.textContent='✅';setTimeout(spawn,250);};
+  map.innerHTML=`<button class="box2" style="left:${R_(12,86)}%;top:${R_(16,84)}%" aria-label="Замовлення">${spr('hide_box')}</button>`;to=setTimeout(spawn,Math.max(900,1750-n*130));};
+ map.onclick=e=>{const b=e.target.closest('.box2');if(!b||over||b.dataset.ok)return;e.stopPropagation();b.dataset.ok=1;clearTimeout(to);got++;cnt.textContent=got;b.classList.add('ok');setTimeout(spawn,250);};
  setTimeout(spawn,500);return ()=>{over=true;clearTimeout(to);};}
 // 🧩 Задача Петра Івановича — 15 секунд на відповідь
 const RIDDLES=[
@@ -1873,11 +1994,15 @@ const RIDDLES=[
  ['Батькові й синові разом 36 років. Батько старший на 30 років. Скільки років синові?',['3','6','5'],0]];
 function gRiddle(stage,done){let seen=[];try{seen=JSON.parse(localStorage.getItem('kr3-rd')||'[]');}catch(e){}let idx=RIDDLES.map((_,i)=>i).filter(i=>!seen.includes(i));if(!idx.length){seen=[];idx=RIDDLES.map((_,i)=>i);}const k=idx[Math.floor(Math.random()*idx.length)];try{localStorage.setItem('kr3-rd',JSON.stringify(seen.concat(k)));}catch(e){}
  const q=RIDDLES[k];let over=false;const o=q[1].map((t,j)=>[t,j===q[2]]).sort(()=>Math.random()-.5);
- const w=el(`<div class="dwho">${mgFace('👨‍🏫','c_lecturer.webp',1)}<div><b>Петро Іванович</b><p>«${q[0]}»</p></div></div>${o.map(([t,g])=>`<button class="btn btn-choice" data-g="${g?1:0}">${t}</button>`).join('')}`);stage.appendChild(w);
+ const w=el(scn(MGI('petro_riddle'),'','ban','background-position:50% 35%')+`<p class="q"><b>Петро Іванович:</b> «${q[0]}»</p>${o.map(([t,g])=>`<button class="btn btn-choice" data-g="${g?1:0}">${t}</button>`).join('')}`);stage.appendChild(w);
+ const ban=w.querySelector('.mgs');
  const stop=timer(stage,15000,()=>{if(over)return;over=true;done(false,'«Час вийшов. Подумайте вдома».');});
- w.onclick=e=>{const b=e.target.closest('[data-g]');if(!b||over)return;e.stopPropagation();over=true;stop();if(b.dataset.g==='1'){b.classList.add('good');done(true,'«Правильно. Сідайте — пʼять».');}else{b.classList.add('badx');done(false,'«Неправильно. Подумайте ще вдома».');}};
+ w.onclick=e=>{const b=e.target.closest('[data-g]');if(!b||over)return;e.stopPropagation();over=true;stop();if(b.dataset.g==='1'){b.classList.add('good');setBg(ban,'petro_notice');done(true,'«Правильно. Сідайте — пʼять».');}else{b.classList.add('badx');done(false,'«Неправильно. Подумайте ще вдома».');}};
  return ()=>{over=true;stop();};}
-// 💻 Перша програма — склади команди, щоб робот дійшов до зірки
+// 💻 Перша програма — склади команди, щоб робот дійшов до зірки (на екрані ноутбука, піксельна графіка)
+const PX=(rows,c)=>`<svg viewBox="0 0 10 10" shape-rendering="crispEdges" aria-hidden="true">${rows.map((r,y)=>[...r].map((ch,x)=>ch==='#'?`<rect x="${x}" y="${y}" width="1" height="1" fill="${c[0]}"/>`:ch==='o'?`<rect x="${x}" y="${y}" width="1" height="1" fill="${c[1]}"/>`:'').join('')).join('')}</svg>`;
+const PXBOT=PX(['....##....','..######..','..#o##o#..','..######..','..#oooo#..','..######..','...####...','.########.','...#..#...','..##..##..'],['#7fd1ff','#0f1a2a']);
+const PXSTAR=PX(['....##....','....##....','...####...','##########','.########.','..######..','..######..','.###..###.','.##....##.','..........'],['#ffd23f','#0f1a2a']);
 function gCode(stage,done){const N=4;let tries=2,over=false,prog=[],run=false;
  const lay=()=>{const rc=()=>[Math.floor(Math.random()*N),Math.floor(Math.random()*N)],eq=(a,b)=>a[0]===b[0]&&a[1]===b[1],key=c=>c[0]+','+c[1];
   for(let g=0;g<80;g++){const s=rc(),t=rc();const dist=Math.abs(s[0]-t[0])+Math.abs(s[1]-t[1]);if(dist<3||dist>5)continue;const walls=[];for(let k=0;k<2;k++){const c=rc();if(!eq(c,s)&&!eq(c,t)&&!walls.some(x=>eq(x,c)))walls.push(c);}
@@ -1885,45 +2010,51 @@ function gCode(stage,done){const N=4;let tries=2,over=false,prog=[],run=false;
    if(best>0&&best<=7)return {s,t,walls};}
   return {s:[0,0],t:[3,2],walls:[[1,1]]};};
  const L=lay();
- const w=el(`<div class="cgrid"></div><div class="cprog"></div><div class="cbtns"><button class="btn" data-c="U">⬆️</button><button class="btn" data-c="L">⬅️</button><button class="btn" data-c="R">➡️</button><button class="btn" data-c="D">⬇️</button><button class="btn" data-c="X">⌫</button></div><button class="btn main crun" data-c="GO">▶ Запустити</button><p class="small ctr">Спроби: <b>2</b></p>`);stage.appendChild(w);
- const grid=w.querySelector('.cgrid'),pr=w.querySelector('.cprog'),tr=w.querySelector('.ctr b');
- const draw=(pos,bad)=>{let h='';for(let y=0;y<N;y++)for(let x=0;x<N;x++){const isW=L.walls.some(c=>c[0]===x&&c[1]===y),isT=L.t[0]===x&&L.t[1]===y,isR=pos[0]===x&&pos[1]===y;h+=`<i class="${isW?'wl':''}${bad&&isR?' bad':''}">${isR?'🤖':isT?'⭐':isW?'🧱':''}</i>`;}grid.innerHTML=h;};
- const ARR={U:'⬆️',D:'⬇️',L:'⬅️',R:'➡️'};const showP=()=>{pr.innerHTML=prog.length?prog.map(c=>ARR[c]).join(' '):'<span class="small">Склади програму: до 8 команд</span>';};
+ const w=el(scn(MGI('code_night'),'','ban','background-position:50% 45%')+`<div class="cgrid"></div><div class="cprog"></div><div class="cbtns"><button class="btn" data-c="U" aria-label="Вгору">↑</button><button class="btn" data-c="L" aria-label="Вліво">←</button><button class="btn" data-c="R" aria-label="Вправо">→</button><button class="btn" data-c="D" aria-label="Вниз">↓</button><button class="btn" data-c="X" aria-label="Стерти">⌫</button></div><button class="btn main crun" data-c="GO">▶ Запустити</button><p class="small ctr">Спроби: <b>2</b></p>`);stage.appendChild(w);
+ const ban=w.querySelector('.mgs'),grid=w.querySelector('.cgrid'),pr=w.querySelector('.cprog'),tr=w.querySelector('.ctr b');
+ const draw=(pos,bad)=>{let h='';for(let y=0;y<N;y++)for(let x=0;x<N;x++){const isW=L.walls.some(c=>c[0]===x&&c[1]===y),isT=L.t[0]===x&&L.t[1]===y,isR=pos[0]===x&&pos[1]===y;h+=`<i class="${isW?'wl':''}${bad&&isR?' bad':''}">${isR?PXBOT:isT?PXSTAR:''}</i>`;}grid.innerHTML=h;};
+ const ARR={U:'↑',D:'↓',L:'←',R:'→'};const showP=()=>{pr.innerHTML=prog.length?prog.map(c=>ARR[c]).join(' '):'<span class="small">Склади програму: до 8 команд</span>';};
  draw(L.s);showP();
  const stop=timer(stage,45000,()=>{if(over)return;over=true;done(false,'⏰ Дедлайн. Програма так і не запрацювала.');});
  const fail=t=>{tries--;tr.textContent=tries;if(tries<=0){over=true;stop();return done(false,t+' Спроби скінчились.');}setTimeout(()=>{if(!over)draw(L.s);},700);};
- const exec=()=>{run=true;let pos=L.s.slice(),i=0;const step=()=>{if(over)return;if(i>=prog.length){run=false;if(pos[0]===L.t[0]&&pos[1]===L.t[1]){over=true;stop();return done(true,'💻 Працює! Перша програма в житті!');}return fail('🤖 Робот зупинився не там — баг.');}
+ const exec=()=>{run=true;let pos=L.s.slice(),i=0;const step=()=>{if(over)return;if(i>=prog.length){run=false;if(pos[0]===L.t[0]&&pos[1]===L.t[1]){over=true;stop();setBg(ban,'code_win');return done(true,'💻 Працює! Перша програма в житті!');}return fail('🤖 Робот зупинився не там — баг.');}
    const d={U:[0,-1],D:[0,1],L:[-1,0],R:[1,0]}[prog[i++]];const n=[pos[0]+d[0],pos[1]+d[1]];
    if(n[0]<0||n[1]<0||n[0]>=N||n[1]>=N||L.walls.some(x=>x[0]===n[0]&&x[1]===n[1])){draw(pos,true);run=false;return fail('💥 Робот врізався — баг.');}
    pos=n;draw(pos);setTimeout(step,260);};step();};
  w.onclick=e=>{const b=e.target.closest('[data-c]');if(!b||over||run)return;e.stopPropagation();const c=b.dataset.c;if(c==='GO'){if(prog.length)exec();return;}if(c==='X')prog.pop();else if(prog.length<8)prog.push(c);showP();};
  return ()=>{over=true;stop();};}
-// 🍢 Шашлик — перевертай, коли стрілка в золотій зоні
-function gBbq(stage,done){const sides=3;let side=0,good=0,x=0,over=false,v=0.045;const K=FRK();
- const w=el(`<div class="bbq"><span class="sk">🍢</span><span class="fire">🔥🔥🔥</span></div><div class="dbar"><i class="gz"></i><i class="dn"></i></div><p class="small">Бік <b>1</b> з ${sides} · вдалих: <span>0</span></p><button class="btn main" style="text-align:center">🔄 Перевернути!</button>`);stage.appendChild(w);
- const box=w.querySelector('.bbq'),dn=w.querySelector('.dn'),sb=w.querySelector('p b'),gs=w.querySelector('p span'),sk=w.querySelector('.sk');
- if(MGART.has('mg_bbq.webp')){const bg=SRC(HERO.img+'mg_bbq.webp');box.style.backgroundImage=`url(${bg})`;}
- const next=(okSide,why)=>{side++;if(okSide)good++;gs.textContent=good;sk.style.transform=`scaleX(${side%2?-1:1})`;if(side>=sides){over=true;return done(good>=2,good>=2?'🍢 Золотиста скоринка — всі хвалять!':'🍢 Не вийшло: '+why+'.');}sb.textContent=side+1;x=0;v*=1.15;};
- const f=t=>{if(over)return;x+=v*16*K(t);dn.style.left=Math.min(100,x)+'%';if(x>=100)next(false,'згоріло');requestAnimationFrame(f);};requestAnimationFrame(f);
+// 🍢 Шашлик — перевертай, коли стрілка в золотій зоні; мʼясо на мангалі сиріє, підрумʼянюється, горить
+function gBbq(stage,done){const sides=3;let side=0,good=0,x=0,over=false,v=0.045,st=-1;const K=FRK();
+ const w=el(scn(MGI('mg_bbq'),`<span class="skw" data-s="0">${spr('skewer_raw','s0')}${spr('skewer_ok','s1')}${spr('skewer_burnt','s2')}</span>`)+`<div class="dbar"><i class="gz"></i><i class="dn"></i></div><p class="small">Бік <b>1</b> з ${sides} · вдалих: <span>0</span></p><button class="btn main" style="text-align:center">🔄 Перевернути!</button>`);stage.appendChild(w);
+ const dn=w.querySelector('.dn'),sb=w.querySelector('p b'),gs=w.querySelector('p span'),sk=w.querySelector('.skw');
+ const look=()=>{const s=x<60?0:x<=82?1:2;if(s!==st){st=s;sk.dataset.s=s;}};
+ const next=(okSide,why)=>{side++;if(okSide)good++;gs.textContent=good;sk.classList.toggle('fl',side%2===1);if(side>=sides){over=true;return done(good>=2,good>=2?'🍢 Золотиста скоринка — всі хвалять!':'🍢 Не вийшло: '+why+'.');}sb.textContent=side+1;x=0;v*=1.15;look();};
+ const f=t=>{if(over)return;x+=v*16*K(t);dn.style.left=Math.min(100,x)+'%';look();if(x>=100)next(false,'згоріло');requestAnimationFrame(f);};requestAnimationFrame(f);
  w.querySelector('button').onclick=e=>{e.stopPropagation();if(over)return;if(x>=60&&x<=82)next(true);else next(false,x<60?'сире всередині':'підгоріло');};
  return ()=>{over=true;};}
 Object.assign(MG,{
  docs:{ic:'🪪',n:'Покажи документ',w:'Маршрутка, банк, аеродром, патруль',i:'Тебе просять документ. Відкрий потрібний у «Моїх документах», поки не минув час. Треба 2 з 3.',f:gDocs},
  scam:{ic:'📵',n:'Шахрайський дзвінок',w:'Дзвінок «з банку»',i:'Не дай себе обдурити: на кожну фразу шахрая обери безпечну відповідь.',f:gScam},
- courier:{ic:'📦',n:'Курʼєр',w:'Центр · «Курʼєр на вечір»',i:'Тисни на 📦, щойно зʼявиться. Треба встигнути 4 з 5.',f:gCourier},
+ courier:{ic:'📦',n:'Курʼєр',w:'Центр · «Курʼєр на вечір»',i:'Тисни на коробку, щойно зʼявиться. Треба встигнути 4 з 5.',f:gCourier},
  riddle:{ic:'🧩',n:'Задача Петра Івановича',w:'Пари: інколи замість тесту',i:'15 секунд на відповідь. Подумай!',f:gRiddle},
- code:{ic:'💻',n:'Перша програма',w:'Гуртожиток · «Писати першу програму»',i:'Склади команди, щоб робот 🤖 дійшов до ⭐ і не врізався. 2 спроби.',f:gCode},
+ code:{ic:'💻',n:'Перша програма',w:'Гуртожиток · «Писати першу програму»',i:'Склади команди, щоб робот дійшов до зірки й не врізався в стіну. 2 спроби.',f:gCode},
  bbq:{ic:'🍢',n:'Шашлик',w:'Шашлики з одногрупниками чи сусідом',i:'Перевертай шампур, коли стрілка в золотій зоні. Із 3 боків треба 2 вдалих.',f:gBbq}});
 Object.assign(MGFX,{docs:[{h:1},{n:-1}],scam:[{h:2},{m:-500,n:-1}],courier:[{m:100},{}],riddle:[{h:1},{n:-1}],code:[{h:2},{n:-1}],bbq:[{h:2},{h:-1}]});
 Object.assign(MGTXT,{docs:['Документ показано — усе гаразд','Документ не знайшовся вчасно'],scam:['Шахраї залишились ні з чим','Шахраї списали 500 грн'],courier:['Чайові за швидкість','Без чайових'],riddle:['Петро Іванович схвально кивнув','«Подумайте ще вдома»'],code:['Програма запрацювала!','Знову баг…'],bbq:['Шашлик удався!','Шашлик не вдався']});
 // результат «Покажи документ» залежить від того, хто питав
 const DOCRES={driver:['Студентський показано — проїзд за півціни','Довелось платити повну ціну',{},{m:-20}],police:['Патрульний подякував і відпустив','Протокол «до зʼясування»: година нервів',{},{n:-2}],bank:['Картку для стипендії оформлено','Доведеться прийти ще раз',{h:1},{n:-1}],instr:['Інструктор кивнув: 18 є','Інструктор довго хмурився',{},{n:-1}],doctor:['Лікарка все оформила','Картку заводили пів години',{h:1},{n:-1}]};
-// 🪪 додаток «Мої документи»
-function appDocs(){const by=gDate().getFullYear()-18;const L=[['🎓','Студентський квиток',[['Курс','1, денна форма'],['Дійсний до','30.06.'+(by+22)]]],['🪪','Паспорт (ID-картка)',[['Дата народження','12.04.'+by],['Місце проживання',HERO.contactHome.st_mom]]],['💳','Картка для стипендії',[['Номер','•••• '+(4100+((G.rs||7)%5800))],['Баланс',G.money+' грн']]],['🩺','Медична довідка 086/о',[['Висновок','здоровий, навчатися може']]]];
- return phHead('🪪 Мої документи')+`<div class="phsec docsapp">${L.map(([ic,n,f])=>`<div class="docc"><b>${ic} ${n}</b>${f.map(([a,b])=>`<small>${a}: <i>${esc(String(b))}</i></small>`).join('')}</div>`).join('')}<p class="note">Знадобляться в маршрутці, банку, на аеродромі й під час перевірки документів.</p></div>`;}
+// 🪪 додаток «Мої документи»: картки з фото Студента
+function appDocs(){const by=gDate().getFullYear()-18;const ph=`<img class="dph" src="${MGI('doc_photo')}" alt="Фото">`;const f=(a,b)=>`<small>${a}</small><i>${esc(String(b))}</i>`;
+ const num=String(4100+((G.rs||7)%5800));
+ return phHead('🪪 Мої документи')+`<div class="phsec docsapp">`+
+  `<div class="docc dk-stud"><div class="dch">Студентський квиток</div><div class="dcb">${ph}<div>${f('Курс','1, денна форма')}${f('Дійсний до','30.06.'+(by+22))}</div></div></div>`+
+  `<div class="docc dk-id"><div class="dch">Паспорт (ID-картка)</div><div class="dcb">${ph}<div>${f('Дата народження','12.04.'+by)}${f('Місце проживання',HERO.contactHome.st_mom)}</div></div></div>`+
+  `<div class="docc dk-card"><div class="dch">Картка для стипендії</div><i class="chip"></i><div class="cnum">•••• •••• •••• ${num}</div>${f('Баланс',G.money+' грн')}</div>`+
+  `<div class="docc dk-med"><div class="dch">Медична довідка 086/о</div><div class="dcb"><div>${f('Висновок','здоровий, навчатися може')}</div><i class="stamp">ЛІКАР</i></div></div>`+
+  `<p class="note">Знадобляться в маршрутці, банку, на аеродромі й під час перевірки документів.</p></div>`;}
 
 // запуск будь-якої гри: cb(true|false|null)
-function playMg(k,cb,opt){opt=opt||{};if(k==='ladder')return mgLadder(cb);const g=MG[k];const f=k==='quiz'?gQuiz(opt.qs):k==='dial'?((s,d)=>gDial(s,d,opt.num)):((s,d)=>g.f(s,d,opt));
+function playMg(k,cb,opt){opt=opt||{};mgPre(k);mgPre(opt.then);if(k==='ladder')return mgLadder(cb);const g=MG[k];const f=k==='quiz'?gQuiz(opt.qs):k==='dial'?((s,d)=>gDial(s,d,opt.num)):((s,d)=>g.f(s,d,opt));
  mgFrame(k==='dial'&&opt.num?'Набери '+opt.num:g.n,k==='dial'&&opt.num?`Руки трусяться, цифри скачуть. Швидко набери <b>${opt.num}</b>!`:g.i,f,r=>cb(r),{noSkip:!!(opt&&opt.noSkip)});}
 
 // ===================== Кривий Ріг 3.0 · гра з друзями =====================
@@ -2056,10 +2187,10 @@ function gPen(stage,done,onScore){let shot=0,goals=0,over=false,x=50,v=0.6,kx=50
  w.querySelector('button').onclick=e=>{e.stopPropagation();if(over)return;shot++;const goal=Math.abs(x-kx)>13;if(goal)goals++;bl.style.left=x+'%';bl.classList.remove('fly');void bl.offsetWidth;bl.classList.add('fly');gi.textContent=goals;
   if(shot>=3){over=true;onScore(goals);return done(goals>=2,`Голів: ${goals} з 3`);}sb.textContent=shot+1;v*=1.25;kv*=1.3;};
  return ()=>{over=true;};}
-function gBusR(stage,done,onScore){const w=el(`<div class="road"><span class="stop">🚏</span><span class="van">🚐</span></div><p class="small">Одна спроба!</p><button class="btn main" style="text-align:center">🙋 Махнути!</button>`);stage.appendChild(w);
- const van=w.querySelector('.van');let x=-10,over=false;const sp=R_(0.45,0.7);
- const f=()=>{if(over)return;x+=sp;if(x>110){over=true;onScore(0);return done(false,'Проїхала повз!');}van.style.left=x+'%';requestAnimationFrame(f);};requestAnimationFrame(f);
- w.querySelector('button').onclick=e=>{e.stopPropagation();if(over)return;over=true;const s=Math.max(0,Math.round(100-Math.abs(x-66)*5));onScore(s);done(s>=50,`Точність: ${s} очок`);};
+function gBusR(stage,done,onScore){const w=el(scn(MGI('mg_bus'),spr('stop_sign','stp')+spr('minibus','van'))+`<p class="small">Одна спроба!</p><button class="btn main" style="text-align:center">🙋 Махнути!</button>`);stage.appendChild(w);
+ const van=w.querySelector('.van');let x=-18,over=false;const sp=R_(0.45,0.7),c=(BUSZ[0]+BUSZ[1])/2;
+ const f=()=>{if(over)return;x+=sp;if(x>118){over=true;onScore(0);return done(false,'Проїхала повз!');}van.style.left=x+'%';requestAnimationFrame(f);};requestAnimationFrame(f);
+ w.querySelector('button').onclick=e=>{e.stopPropagation();if(over)return;over=true;const s=Math.max(0,Math.round(100-Math.abs(x-c)*5));onScore(s);done(s>=50,`Точність: ${s} очок`);};
  return ()=>{over=true;};}
 
 // ---------- екрани гри з друзями (розмітка 1.97) ----------
@@ -2479,7 +2610,7 @@ function gameScreenV1(){if(!G)return null;switch(G.phase){
  case 'map':return v1Map();
  case 'home':return v1Home();
  case 'ladder':return gl(poster(SI('dorm_raid'),`${DOW[dow()]}, ніч`,HERO.t.gateCap+' зачинена',`<p>Ти прийшов о ${hm(G.home)}, а ${HERO.t.guard} зачинила двері о ${hm(curfew())}. Лишається драбина під вікном…</p>`,'night'));
- case 'mg':return gl(poster(null,'🎮 Міні-гра',MG[G.mg.k].n,`<p>${MG[G.mg.k].i||''}</p>`));
+ case 'mg':return gl(poster(null,'🎮 Міні-гра',G.mg.k==='dial'&&G.mg.num?'Набери '+G.mg.num:MG[G.mg.k].n,`<p>${MG[G.mg.k].i||''}</p>`));
  case 'evening':return v1Evening();
  case 'payday':return v1Payday();
  case 'mom':return gl(poster(SI('home_visit'),'Понеділок, 6:00','Від мами — на пари',`<p>Мама загорнула пиріжки і перехрестила на дорогу. Пари о восьмій, а ти за 60 км.</p><button class="btn btn-choice" data-a="momroad" data-k="bus" ${G.money<40?'disabled':''}>🚌 Ранкова маршрутка<small>💰−40 · встигаєш спокійно</small></button><button class="btn btn-choice" data-a="momroad" data-k="train" ${G.money<15?'disabled':''}>🚆 Електричка о 5:20<small>💰−15 😌−1 · дешево, але рано</small></button>${G.money<15?'<button class="btn btn-choice" data-a="momroad" data-k="free">🙏 Мама дала на дорогу<small>без витрат</small></button>':''}`));
@@ -2805,7 +2936,8 @@ function recountUnread(k){G.ph.unread=G.ph.m.filter(m=>!m.me&&(m.st==='new'||(m.
 
 // ---------- малювання ----------
 function render(){try{if(typeof pCheck==='function')pCheck();let h=(typeof partyScreen==='function'&&partyScreen())||screenHTML();h+=musBtn();if(G&&UI.phone)h+=phoneV1();h+=gmapOverlay();if(_toast&&!/class="toast"/.test(h)){h+=`<div class="toast">${esc(_toast)}</div>`;_toast=null;}app.innerHTML=h;if(typeof pAfterRender==='function')pAfterRender();frontAfter();}catch(e){console.error(e);app.innerHTML=`<p>Помилка екрана: ${esc(e.message)}</p><button class="btn main" data-a="tomenu">Меню</button>`;}
- if(G&&G.phase==='ladder'&&!document.getElementById('mg')&&iOwnCur())mgLadder(ok=>fire({a:'ladres',v:ok}));
+ if(G&&G.mgNext){mgPre(G.mgNext.k);mgPre(G.mgNext.then);}
+  if(G&&G.phase==='ladder'&&!document.getElementById('mg')&&iOwnCur())mgLadder(ok=>fire({a:'ladres',v:ok}));
  if(G&&G.phase==='mg'&&G.mg&&!document.getElementById('mg')&&iOwnCur())playMg(G.mg.k,r=>{fire({a:'mgres',v:r});window.scrollTo(0,0);},Object.assign({},G.mg,{noSkip:['run','bus'].includes(G.mg.k)}));}
 
 // ---------- кліки ----------
@@ -2858,7 +2990,7 @@ function doA(ds){const a=ds.a,k=ds.k;const b={dataset:ds,classList:{contains:c=>
   case 'ladres':ladderDone(ds.v);return go();
  }}
 render();anthemAuto();
-try{Object.defineProperty(window,'G',{get:()=>G});window.hm=hm;window.kr3={save,render,D,setEv,UI};window.kr3i={newGame,startPars,momRoad,choose,next,toMap,actsAt,doAct,roads,goHome,evening,sleep,afterPay,payBill,canDo,blocked,effOf,pobutCost,curfew,stops,placeOf,meetsAt,doMeet,meetBlock,meetDay,ladderDone,mgDone,HERO,D,SET:()=>SET,heroId:()=>HERO.id,setHero,sitPool,cur:()=>({HERO,D,DP,D7}),newParty};Object.defineProperty(window,'P',{get:()=>P});}catch(e){}
+try{Object.defineProperty(window,'G',{get:()=>G});window.hm=hm;window.kr3={save,render,D,setEv,UI};window.kr3i={playMg,newGame,startPars,momRoad,choose,next,toMap,actsAt,doAct,roads,goHome,evening,sleep,afterPay,payBill,canDo,blocked,effOf,pobutCost,curfew,stops,placeOf,meetsAt,doMeet,meetBlock,meetDay,ladderDone,mgDone,HERO,D,SET:()=>SET,heroId:()=>HERO.id,setHero,sitPool,cur:()=>({HERO,D,DP,D7}),newParty};Object.defineProperty(window,'P',{get:()=>P});}catch(e){}
 
 document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('button'))snd('click');},true);
 
