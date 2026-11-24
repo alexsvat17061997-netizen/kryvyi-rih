@@ -119,7 +119,6 @@ h1,h2,h3{font-family:var(--display);margin:0}
 
 #mg .stage{position:relative}#mg .small{font-size:13px;text-align:center;margin:6px 0}#mg .q{margin:6px 0}
 #mg .btn.good{background:var(--ok);color:#fff}#mg .btn.badx{background:var(--bad);color:#fff}#mg .big{font-size:22px;padding:18px}
-.field{position:relative;border-radius:12px;overflow:hidden;margin:6px 0;user-select:none;-webkit-user-select:none;height:260px;background:linear-gradient(#9dc183,#6f9a55)}.field .hero,.field .ob{position:absolute;transform:translateX(-50%);font-size:32px}.field .hero{bottom:6%}.field .ob{top:-10%}
 /* 3.3 · міні-ігри з картинками: сцена (фон) + предмети з прозорим фоном */
 .mgs{position:relative;width:100%;aspect-ratio:864/482;border-radius:12px;overflow:hidden;margin:6px 0;background:#2c2450 center/cover no-repeat;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 .mgs.tall{aspect-ratio:1/1}.mgs.map{aspect-ratio:4/3}.mgs.ban{aspect-ratio:12/5}
@@ -184,6 +183,11 @@ h1,h2,h3{font-family:var(--display);margin:0}
 /* втеча */
 .mgs .rme,.mgs .gop{bottom:3%;height:42%}
 .mgs .rme{left:30%;transition:left .08s}.mgs .gop{left:2%}
+/* вигул пса: фон — дзеркальна смуга заввишки у дві сцени, її зсуваємо вниз */
+.mgs.walk{background-size:auto 200%;background-repeat:repeat-y;background-position:50% 0}
+.mgs .dog{left:50%;bottom:5%;height:24%;transform:translateX(-50%);transition:left .12s;animation:trot .32s infinite}
+@keyframes trot{50%{transform:translateX(-50%) translateY(-5%)}}
+.mgs .ob2{transform:translateX(-50%)}.mgs .ob2.bone{height:10%}.mgs .ob2.cat{height:13%}.mgs .ob2.puddle{height:8%}
 /* набери номер */
 .disp{font-size:34px;text-align:center;font-weight:800;letter-spacing:4px;margin:6px 0}
 .mgs .disp{position:absolute;left:50%;top:7%;transform:translateX(-50%);margin:0;background:rgba(20,16,40,.86);color:#fff;border-radius:10px;padding:0 16px;font-size:30px;white-space:nowrap}
@@ -1793,7 +1797,7 @@ const scn=(bg,inner,cls,st)=>`<div class="mgs${cls?' '+cls:''}" style="${bg?`bac
 const MGA={ladder:[['mg_ladder'],['ladder','me_climb']],quiz:[['petro_late','petro_notice'],[]],fish:[['mg_fish'],['float','ripples','carp']],haggle:[['mg_haggle'],[]],
  pet:[['mg_pet'],['cat_g_calm','cat_g_angry','cat_p_calm','cat_p_angry']],find:[['mg_pet'],['hide_pillow','hide_box','hide_basket','hide_plant','hide_shoes','hide_backpack','hide_bin','hide_jacket','hide_books','cat_g_peek','cat_p_peek']],
  borsch:[['mg_borsch'],['beet','cabbage','potato','carrot','onion','tomato','meat','garlic','dill','dima_ladle']],bus:[['mg_bus'],['minibus','stop_sign']],tram:[['mg_tram'],['me_run','tram','puddle','pothole','pothole2']],
- run:[['mg_run'],['me_run','gopnik_run']],dial:[['mg_dial'],[]],para:[['mg_para'],['parachute','target','wind']],docs:[['doc_photo','p_driver','p_police','p_bank','p_instr','p_doctor'],[]],
+ run:[['mg_run'],['me_run','gopnik_run']],walk:[['mg_walk'],['dog_mutt','dog_husky','bone','puddle','cat_g_angry']],dial:[['mg_dial'],[]],para:[['mg_para'],['parachute','target','wind']],docs:[['doc_photo','p_driver','p_police','p_bank','p_instr','p_doctor'],[]],
  scam:[['scam_dorm'],[]],courier:[['mg_courier'],['hide_box']],riddle:[['petro_riddle','petro_notice'],[]],code:[['code_night','code_win'],[]],bbq:[['mg_bbq'],['skewer_raw','skewer_ok','skewer_burnt']]};
 const MGPRE={};
 function mgPre(k){if(!k||MGPRE[k]||!MGA[k]||typeof HERO==='undefined')return;MGPRE[k]=1;const [b,s]=MGA[k];b.forEach(f=>{const i=new Image();i.src=MGI(f);});s.forEach(f=>{const i=new Image();i.src=MGS(f);});}
@@ -1844,18 +1848,19 @@ function gFind(stage,done){const O=['hide_pillow','hide_box','hide_basket','hide
   else{b.classList.add('no');b.disabled=true;tries--;if(tries<=0){clearTimeout(to);B[cat].classList.add('show');B.forEach(x=>x.disabled=true);setTimeout(next,800);}}});
  next();return ()=>{over=true;clearTimeout(to);};}
 
-// поле з доріжками для бігових ігор
-function lanes(stage,opt){const w=el(`<div class="field"><span class="hero">${opt.hero}</span></div><p class="small">${opt.info}</p><div class="two">${opt.btns}</div>`);stage.appendChild(w);return w;}
-
-// 🐕 Вигул пса — обходь калюжі й котів, збирай кістки
-function gWalk(stage,done){const w=lanes(stage,{hero:'🐕',info:'Удари: <b>0</b>/3 · 🦴 <i>0</i>',btns:'<button class="btn main" data-d="-1">◀</button><button class="btn main" data-d="1">▶</button>'});
- const f=w.querySelector('.field'),h=w.querySelector('.hero'),hb=w.querySelector('b'),bb=w.querySelector('i');let lane=1,hits=0,bones=0,over=false,obs=[],last=0;const K=FRK();
- const put=()=>{h.style.left=(lane*33.3+16.6)+'%';};put();
+// 🐕 Вигул пса — алея згори біжить назустріч; обходь калюжі й котів, збирай кістки
+// доріжка на фоні займає середину картинки: смуги рахуємо від розміру сцени, щоб усі три були на бруківці
+function gWalk(stage,done){const dg=G&&G.petPure?'dog_husky':'dog_mutt',KIND={bone:'bone',puddle:'puddle',cat:'cat_g_angry'};
+ const w=el(scn(MGI('mg_walk'),spr(dg,'dog'),'tall walk')+`<p class="small">Удари: <b>0</b>/3 · кісток: <b class="bn">0</b></p><div class="two"><button class="btn main" data-d="-1" aria-label="Ліворуч">◀</button><button class="btn main" data-d="1" aria-label="Праворуч">▶</button></div>`);stage.appendChild(w);
+ const f=w.querySelector('.mgs'),h=w.querySelector('.dog'),hb=w.querySelector('b'),bb=w.querySelector('.bn');const FH=f.clientHeight||300,FW=f.clientWidth||300;
+ const LX=i=>50+(i-1)*23.2*FH/FW;let lane=1,hits=0,bones=0,over=false,obs=[],last=0,by=0;const K=FRK();
+ const put=()=>{h.style.left=LX(lane)+'%';};put();
  w.querySelectorAll('[data-d]').forEach(b=>b.onclick=e=>{e.stopPropagation();lane=Math.max(0,Math.min(2,lane+ +b.dataset.d));put();});
  let sx=null;f.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;},{passive:true});f.addEventListener('touchend',e=>{if(sx==null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>30){lane=Math.max(0,Math.min(2,lane+(dx>0?1:-1)));put();}sx=null;});
  const stop=timer(stage,12000,()=>{if(!over){over=true;done(true,`🐕 Нагулялись! Кісток: ${bones}`);}});
- const loop=t=>{if(over)return;const k=K(t);if(t-last>650){last=t;const kind=Math.random()<0.3?'🦴':(Math.random()<0.5?'💧':'🐈');const s=document.createElement('span');s.className='ob';s.textContent=kind;const L=Math.floor(Math.random()*3);s.style.left=(L*33.3+16.6)+'%';f.appendChild(s);obs.push({s,L,y:-10,kind});}
-  obs.forEach(o=>{o.y+=1.6*k;o.s.style.top=o.y+'%';if(!o.done&&o.y>78&&o.y<92&&o.L===lane){o.done=true;o.s.remove();if(o.kind==='🦴'){bones++;bb.textContent=bones;}else{hits++;hb.textContent=hits;f.classList.remove('shake');void f.offsetWidth;f.classList.add('shake');if(hits>=3){over=true;stop();done(false,o.kind==='🐈'?'🐕 Пес погнався за котом. Шукай тепер…':'💦 Обидва в калюжі по вуха.');}}}});
+ const loop=t=>{if(over)return;const k=K(t);by=(by+0.016*FH*k)%(2*FH);f.style.backgroundPositionY=by+'px';
+  if(t-last>650){last=t;const kind=Math.random()<0.3?'bone':(Math.random()<0.5?'puddle':'cat');const s=document.createElement('img');s.className='sp ob2 '+kind;s.src=MGS(KIND[kind]);s.alt='';s.draggable=false;const L=Math.floor(Math.random()*3);s.style.left=LX(L)+'%';s.style.top='-14%';f.appendChild(s);obs.push({s,L,y:-14,kind});}
+  obs.forEach(o=>{o.y+=1.6*k;o.s.style.top=o.y+'%';if(!o.done&&o.y>64&&o.y<78&&o.L===lane){o.done=true;o.s.remove();if(o.kind==='bone'){bones++;bb.textContent=bones;}else{hits++;hb.textContent=hits;f.classList.remove('shake');void f.offsetWidth;f.classList.add('shake');if(hits>=3){over=true;stop();done(false,o.kind==='cat'?'🐕 Пес погнався за котом. Шукай тепер…':'💦 Обидва в калюжі по вуха.');}}}});
   obs=obs.filter(o=>{if(o.y>105){o.s.remove();return false;}return !o.done;});requestAnimationFrame(loop);};requestAnimationFrame(loop);
  return ()=>{over=true;stop();};}
 
@@ -1929,7 +1934,7 @@ const MG={
  ladder:{ic:'🪜',n:'Драбина в гуртожиток',w:'Прийшов після вахти, Валя не відчинила',i:'',f:null},
  pet:{ic:'🐱',n:'Погладь кота',w:'Вечір удома, якщо є кіт',i:'Тисни «Погладити» 8 разів. Кіт настовбурчився — завмри!',f:gPet},
  find:{ic:'🐾',n:'Знайди кота',w:'Вечір: кіт сховався (якщо є кіт), інколи',i:'Дивись, що ворухнеться, і тицяй туди. 3 раунди по 2 спроби.',f:gFind},
- walk:{ic:'🐕',n:'Вигул пса',w:'Вечір удома, якщо є пес',i:'◀ ▶ або свайп. Обходь 💧 і 🐈, збирай 🦴. 3 удари — програв.',f:gWalk},
+ walk:{ic:'🐕',n:'Вигул пса',w:'Вечір удома, якщо є пес',i:'Перемикай доріжку ◀ ▶ або свайпом. Обходь калюжі й котів, збирай кістки. 3 удари — програв.',f:gWalk},
  borsch:{ic:'🍳',n:'Борщ',w:'Вдома · «Приготувати на кілька днів»',i:'Запамʼятай рецепт за 3 секунди й кидай по порядку. Зʼявиться Діма з ополоником — тисни на нього!',f:gBorsch},
  bus:{ic:'🚐',n:'Остання маршрутка',w:'Дорога додому маршруткою за пів години до останньої',i:'Махни, коли маршрутка буде біля зупинки. 2 спроби.',f:gBus},
  tram:{ic:'🚋',n:'Встигни на Скарік',w:'Дорога Скаріком, інколи',i:'Тисни «Стрибок!» над калюжами та ямами. 2 падіння — не встиг.',f:gTram},
