@@ -162,6 +162,13 @@ h1,h2,h3{font-family:var(--display);margin:0}
 .mgs .g9 .no{opacity:.35}
 .mgs .g9 .wig .it{animation:wig .22s 2}
 @keyframes wig{25%{transform:rotate(-7deg) translateY(-4%)}75%{transform:rotate(7deg) translateY(-4%)}}
+/* 3.4: як грати, кіт пальцем, відлік борщу */
+#mg .mh span{display:flex;gap:6px}
+.mghelp{position:relative;background:var(--panel);border-radius:12px;padding:14px;margin:6px 0;text-align:center}.mghelp h3{margin:0 0 6px;font-family:var(--display)}.mghelp p{font-size:16px;line-height:1.45;margin:0 0 10px}.mghelp.over{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;justify-content:center}.stage{position:relative}
+.mgs.petz{touch-action:none}.mgs .nope{position:absolute;left:50%;top:8%;transform:translateX(-50%);background:#c0392b;color:#fff;font-weight:800;font-size:22px;padding:6px 14px;border-radius:12px;display:none;z-index:3}.mgs.angry .nope{display:block;animation:wig .25s 3}
+.purbar{height:10px;border-radius:6px;background:var(--panel);overflow:hidden;margin:4px 0}.purbar i{display:block;height:100%;width:0;background:#e08a55;transition:width .1s}
+.mgs .rec.big{top:22%;gap:8px;padding:8px}.mgs .rec.big i{width:62px;height:62px}.mgs .cdn{position:absolute;left:50%;top:62%;transform:translateX(-50%);font-size:46px;font-weight:800;color:#fff;text-shadow:0 2px 8px #000}
+.phwait{display:block;font-style:normal;font-size:12px;color:#e08a55;font-weight:700}
 /* борщ */
 .mgs .rec{position:absolute;left:50%;top:5%;transform:translateX(-50%);display:flex;gap:5px;background:rgba(24,18,44,.75);border-radius:12px;padding:5px}
 .mgs .rec i{width:40px;height:40px;border-radius:8px;background:rgba(255,248,236,.16);display:flex;align-items:center;justify-content:center;font:800 20px var(--display);color:#f5e7cf;font-style:normal}
@@ -1450,7 +1457,7 @@ const DOWG=['понеділка','вівторка','середи','четвер
 function startDay(){G.log=[];G.dk=(G.dk||0)+1;G.phase='morning';G.slot=G.wk?1:0;G.clock=G.wk?600:480;G.skip=false;G.home=null;G.ev=null;G.res=null;
  G.day0={m:G.money,n:G.nerves,h:G.happy,r:Object.fromEntries(DP.order.map(k=>[k,G.rel[k].r]))};if(G.day>0)missedMeets();
  // газета: новина дня з ефектом
- const N=D.news.filter(n=>!n.season||n.season===G.season);const nw=N[(G.dk*7+3)%N.length];G.news={t:nw.t,x:nw.x,img:nw.img,d:{m:nw.m||0,n:nw.n||0,h:nw.h||0},heads:shuffle(D.heads).slice(0,3)};
+ const N=D.news.filter(n=>!n.season||n.season===G.season);const nw=N[(G.dk*7+3)%N.length];G.news={t:nw.t,x:nw.x,img:nw.img,d:{m:nw.m||0,n:nw.n||0,h:nw.h||0},heads:shuffle(D.heads).slice(0,3)};if(nw.dinner&&!G.wk)G.newsDin={w:Math.floor(G.day/5),v:nw.dinner};
  let msg=[];
  if(G.rest===G.dk-1){add({n:1});msg.push('😴 Ліг вчасно і виспався: +1 нерв');}
  add(G.news.d);if(fx(G.news.d))msg.push('📰 '+fx(G.news.d));
@@ -1756,17 +1763,19 @@ function askHelp(k){const wk=Math.floor(G.day/5);if(G.rel[k].r<4||G.help[k]===wk
 function useSvc(n){const s=DP.svc[n];if(!s||G.svcD[n]===G.dk||G.money<s.m)return;G.svcD[n]=G.dk;add({m:-s.m});add(s.fx||{});toastLater(`${s.ic} ${s.r}`);}
 
 // ---------- контакти реагують на те, що відбувається в грі (не більше однієї реакції на день) ----------
-function react(ev){try{if(!G||!G.ph||!DP.react||!DP.react[ev])return;if(G.ph.rD===G.dk)return;const L=DP.react[ev].filter(([k,min])=>G.rel[k]&&G.rel[k].r>=min);if(!L.length)return;const [k,,T]=pick(L);const seen=G.ph.rs||(G.ph.rs={});const fresh=T.filter(t=>!seen[t]);const t=pick(fresh.length?fresh:T);seen[t]=1;G.ph.rD=G.dk;msg(k,t,null,true);}catch(e){}}
+function react(ev){try{if(!G||!G.ph||!DP.react||!DP.react[ev])return;if(G.ph.rD===G.dk)return;const L=DP.react[ev].filter(([k,min])=>G.rel[k]&&G.rel[k].r>=min);if(!L.length)return;const [k,,T]=pick(L);const seen=G.ph.rs||(G.ph.rs={});const fresh=T.filter(t=>!seen[t]);if(!fresh.length)return;const t=pick(fresh);seen[t]=1;G.ph.rD=G.dk;msg(k,t,null,true);}catch(e){}}
 
 // ===================== Кривий Ріг 3.0 · міні-ігри =====================
 'use strict';
 // спільна рамка: заголовок, правила, сцена, результат
+function mgHelpSeen(k){try{return (JSON.parse(localStorage.getItem('kr3-mghelp')||'[]')).includes(k);}catch(e){return true;}}
+function mgHelpSet(k){try{const a=JSON.parse(localStorage.getItem('kr3-mghelp')||'[]');if(!a.includes(k)){a.push(k);localStorage.setItem('kr3-mghelp',JSON.stringify(a));}}catch(e){}}
 function mgFrame(title,intro,run,onDone,opt){opt=opt||{};const ov=document.createElement('div');ov.id='mg';
- ov.innerHTML=`<div class="box"><div class="mh"><b>🎮 ${title}</b>${opt.noSkip?'':'<button data-mgx="1">Пропустити</button>'}</div><p style="font-size:14px;margin:6px 0">${intro}</p><div class="stage"></div><div class="msg"></div></div>`;
+ ov.innerHTML=`<div class="box"><div class="mh"><b>🎮 ${title}</b><span><button data-mgq="1" aria-label="Як грати">?</button> ${opt.noSkip?'':'<button data-mgx="1">Пропустити</button>'}</span></div><p style="font-size:14px;margin:6px 0">${intro}</p><div class="stage"></div><div class="msg"></div></div>`;
  document.body.appendChild(ov);const stage=ov.querySelector('.stage'),msg=ov.querySelector('.msg');let fin=false,stop=null;
  const done=(r,text)=>{if(fin)return;fin=true;try{stop&&stop();}catch(e){}msg.textContent=text||'';setTimeout(()=>{ov.remove();onDone(r);},text?1500:30);};
- ov.addEventListener('click',e=>{if(e.target.closest('[data-mgx]')){e.stopPropagation();done(null);}});
- stop=run(stage,done);}
+ ov.addEventListener('click',e=>{if(e.target.closest('[data-mgx]')){e.stopPropagation();done(null);return;}if(e.target.closest('[data-mgq]')){e.stopPropagation();const hp=ov.querySelector('.mghelp');if(hp){hp.remove();return;}const d=document.createElement('div');d.className='mghelp over';d.innerHTML=`<h3>Як грати</h3><p>${intro}</p><button class="btn main" data-mgok="1">Зрозуміло</button>`;stage.appendChild(d);return;}if(e.target.closest('[data-mgok]')){e.stopPropagation();const hp=ov.querySelector('.mghelp');if(hp)hp.remove();}});
+ const go_=()=>{stop=run(stage,done);};const hk=opt.k||title;if(!mgHelpSeen(hk)){const d=document.createElement('div');d.className='mghelp first';d.innerHTML=`<h3>Як грати</h3><p>${intro}</p><button class="btn main" data-mgstart="1">▶ Грати</button>`;stage.appendChild(d);d.querySelector('[data-mgstart]').onclick=e=>{e.stopPropagation();mgHelpSet(hk);d.remove();go_();};}else go_();}
 // 🪜 Драбина в гуртожиток
 function mgLadder(cb){mgPre('ladder');mgFrame('Драбина в гуртожиток','Тисни по черзі «Ліва» і «Права». Засвітить ліхтарик — завмри! Двічі одна рука — драбина хитається.',(stage,done)=>{
  const need=10,dur=11000;const w=document.createElement('div');
@@ -1830,12 +1839,17 @@ function gHaggle(stage,done){const z=R_(15,62);const w=el(scn(MGI('mg_haggle'),'
  return ()=>{over=true;};}
 
 // 🐱 Погладь кота — 8 погладжувань; настовбурчився — завмри
-function gPet(stage,done){const need=8,b=G&&G.petPure?'cat_p':'cat_g';const w=el(scn(MGI('mg_pet'),spr(b+'_calm','cat')+spr(b+'_angry','cat ang'))+`<p class="small">Муркотіння: <b>0</b> / ${need}</p><button class="btn main" style="text-align:center">✋ Погладити</button>`);stage.appendChild(w);
- const sc=w.querySelector('.mgs'),cnt=w.querySelector('b'),cat=w.querySelector('.cat');let n=0,over=false,angry=false,at=0,to;
- const sched=()=>{to=setTimeout(()=>{angry=true;at=performance.now();sc.classList.add('angry');to=setTimeout(()=>{angry=false;sc.classList.remove('angry');sched();},1000);},R_(1200,2600));};sched();
- const stop=timer(stage,10000,()=>{if(!over){over=true;done(false,'Кіт пішов спати на твою подушку.');}});
- w.querySelector('button').onclick=e=>{e.stopPropagation();if(over)return;if(angry&&performance.now()-at>250){over=true;stop();return done(false,'😾 Кіт куснув за палець!');}
-  n++;cnt.textContent=n;cat.classList.remove('pur');void cat.offsetWidth;cat.classList.add('pur');if(n>=need){over=true;stop();done(true,'😻 Мрррр… Нерви на місці.');}};
+function gPet(stage,done){const need=8,b=G&&G.petPure?'cat_p':'cat_g';const w=el(scn(MGI('mg_pet'),spr(b+'_calm','cat')+spr(b+'_angry','cat ang')+'<div class="nope">✋ Не чіпай!</div><div class="strk"></div>','petz')+`<p class="small">Муркотіння: <b>0</b> / ${need}</p><div class="purbar"><i></i></div><p class="small">Проводь пальцем по коту</p>`);stage.appendChild(w);
+ const sc=w.querySelector('.mgs'),cnt=w.querySelector('b'),cat=w.querySelector('.cat'),bar=w.querySelector('.purbar i');let n=0,over=false,angry=false,at=0,to,dist=0,last=null;
+ const sched=()=>{to=setTimeout(()=>{angry=true;at=performance.now();sc.classList.add('angry');to=setTimeout(()=>{angry=false;sc.classList.remove('angry');sched();},1100);},R_(1300,2600));};sched();
+ const stop=timer(stage,12000,()=>{if(!over){over=true;done(false,'Кіт пішов спати на твою подушку.');}});
+ const onCat=(x,y)=>{const r=cat.getBoundingClientRect();return x>r.left-10&&x<r.right+10&&y>r.top-10&&y<r.bottom+10;};
+ const mv=(x,y)=>{if(over)return;if(!last){last=[x,y];return;}const d=Math.hypot(x-last[0],y-last[1]);last=[x,y];if(!onCat(x,y))return;
+  if(angry&&performance.now()-at>300){over=true;stop();return done(false,'😾 Кіт куснув за палець!');}
+  dist+=d;bar.style.width=Math.min(100,(n+(dist%110)/110)/need*100)+'%';if(dist>=110){dist-=110;n++;cnt.textContent=n;cat.classList.remove('pur');void cat.offsetWidth;cat.classList.add('pur');if(n>=need){over=true;stop();done(true,'😻 Мрррр… Нерви на місці.');}}};
+ sc.addEventListener('pointerdown',e=>{last=[e.clientX,e.clientY];try{sc.setPointerCapture(e.pointerId);}catch(_){}});
+ sc.addEventListener('pointermove',e=>{if(e.buttons||e.pointerType==='touch')mv(e.clientX,e.clientY);});
+ sc.addEventListener('pointerup',()=>{last=null;});
  return ()=>{over=true;clearTimeout(to);stop();};}
 
 // 🐾 Знайди кота — що ворухнеться, туди й тисни
@@ -1867,14 +1881,15 @@ function gWalk(stage,done){const dg=G&&G.petPure?'dog_husky':'dog_mutt',KIND={bo
 // 🍳 Борщ — запамʼятай рецепт і кидай по порядку; Діма з ополоником — відганяй
 function gBorsch(stage,done){const ALL=['beet','cabbage','potato','carrot','onion','tomato','meat','garlic','dill'];const rec=ALL.slice().sort(()=>Math.random()-.5).slice(0,4);let i=0,over=false,dima=false,dt;
  const slots=k=>rec.map((x,j)=>`<i>${j<k?`<img src="${MGS(x)}" alt="">`:'?'}</i>`).join('');
- const w=el(scn(MGI('mg_borsch'),`<div class="rec">${slots(4)}</div><button class="dima2" aria-label="Діма з ополоником">${spr('dima_ladle')}</button>`)+`<p class="small">Запамʼятай! Через 3 с рецепт зникне</p><div class="ings">${ALL.map(x=>`<button data-x="${x}" disabled>${spr(x)}</button>`).join('')}</div>`);stage.appendChild(w);
- const recEl=w.querySelector('.rec'),inf=w.querySelector('.small'),dm=w.querySelector('.dima2'),B=[...w.querySelectorAll('[data-x]')];let stop=()=>{};
- const t1=setTimeout(()=>{recEl.innerHTML=slots(0);inf.textContent='Кидай у правильному порядку';B.forEach(b=>b.disabled=false);stop=timer(stage,12000,()=>{if(!over){over=true;done(false,'Борщ википів, поки згадував…');}});
+ const w=el(scn(MGI('mg_borsch'),`<div class="rec big">${slots(4)}</div><div class="cdn">3</div><button class="dima2" aria-label="Діма з ополоником">${spr('dima_ladle')}</button>`)+`<p class="small">Запамʼятай рецепт: 4 продукти по черзі</p><div class="ings">${ALL.map(x=>`<button data-x="${x}" disabled>${spr(x)}</button>`).join('')}</div>`);stage.appendChild(w);
+ const recEl=w.querySelector('.rec'),inf=w.querySelector('.small'),dm=w.querySelector('.dima2'),cd=w.querySelector('.cdn'),B=[...w.querySelectorAll('[data-x]')];let stop=()=>{};
+ const c2=setTimeout(()=>{cd.textContent='2';},1000),c1=setTimeout(()=>{cd.textContent='1';},2000);
+ const t1=setTimeout(()=>{cd.remove();recEl.classList.remove('big');recEl.innerHTML=slots(0);inf.innerHTML='<b>Тепер кидай по черзі!</b>';B.forEach(b=>b.disabled=false);stop=timer(stage,12000,()=>{if(!over){over=true;done(false,'Борщ википів, поки згадував…');}});
   dt=setTimeout(()=>{dima=true;dm.classList.add('on');dt=setTimeout(()=>{if(over||!dima)return;over=true;stop();done(false,'😋 Діма зʼїв половину каструлі.');},1500);},R_(1500,4000));},3000);
  dm.onclick=e=>{e.stopPropagation();if(!dima)return;dima=false;dm.classList.remove('on');clearTimeout(dt);};
  const NAME={beet:'буряк',cabbage:'капуста',potato:'картопля',carrot:'морква',onion:'цибуля',tomato:'помідор',meat:'мʼясо',garlic:'часник',dill:'кріп'};
  B.forEach(b=>b.onclick=e=>{e.stopPropagation();if(over)return;if(b.dataset.x===rec[i]){b.disabled=true;i++;recEl.innerHTML=slots(i);if(i>=4){over=true;stop();clearTimeout(dt);done(true,'🍲 Борщ як у мами!');}}else{over=true;stop();clearTimeout(dt);recEl.innerHTML=slots(4);done(false,`Не те! Треба було: ${NAME[rec[i]]}`);}});
- return ()=>{over=true;clearTimeout(t1);clearTimeout(dt);stop();};}
+ return ()=>{over=true;clearTimeout(t1);clearTimeout(c1);clearTimeout(c2);clearTimeout(dt);stop();};}
 
 // 🚐 Остання маршрутка — махни, коли вона біля зупинки
 const BUSZ=[72,88];// де має бути середина маршрутки, щоб водій зупинився
@@ -1932,10 +1947,10 @@ const MG={
  fish:{ic:'🎣',n:'Рибалка',w:'Річка · «Порибалити з дідами»',i:'Чекай, поки поплавок пірне, і тисни «Підсікай!». 3 спроби.',f:gFish},
  haggle:{ic:'🧺',n:'Торг на ринку',w:'Ринок · «Поторгуватися за дрібниці»',i:'Зупини стрілку в зеленій зоні. 2 спроби.',f:gHaggle},
  ladder:{ic:'🪜',n:'Драбина в гуртожиток',w:'Прийшов після вахти, Валя не відчинила',i:'',f:null},
- pet:{ic:'🐱',n:'Погладь кота',w:'Вечір удома, якщо є кіт',i:'Тисни «Погладити» 8 разів. Кіт настовбурчився — завмри!',f:gPet},
+ pet:{ic:'🐱',n:'Погладь кота',w:'Вечір удома, якщо є кіт',i:'Проводь пальцем по коту туди-сюди, поки шкала муркотіння не заповниться. Кіт настовбурчився і зʼявилось «Не чіпай!» — прибери палець, бо вкусить.',f:gPet},
  find:{ic:'🐾',n:'Знайди кота',w:'Вечір: кіт сховався (якщо є кіт), інколи',i:'Дивись, що ворухнеться, і тицяй туди. 3 раунди по 2 спроби.',f:gFind},
  walk:{ic:'🐕',n:'Вигул пса',w:'Вечір удома, якщо є пес',i:'Перемикай доріжку ◀ ▶ або свайпом. Обходь калюжі й котів, збирай кістки. 3 удари — програв.',f:gWalk},
- borsch:{ic:'🍳',n:'Борщ',w:'Вдома · «Приготувати на кілька днів»',i:'Запамʼятай рецепт за 3 секунди й кидай по порядку. Зʼявиться Діма з ополоником — тисни на нього!',f:gBorsch},
+ borsch:{ic:'🍳',n:'Борщ',w:'Вдома · «Приготувати на кілька днів»',i:'Спершу на 3 секунди покажемо рецепт — 4 продукти. Потім кидай їх у каструлю в тому самому порядку. Прийде Діма з ополоником — тисни на нього, щоб не зʼїв.',f:gBorsch},
  bus:{ic:'🚐',n:'Остання маршрутка',w:'Дорога додому маршруткою за пів години до останньої',i:'Махни, коли маршрутка буде біля зупинки. 2 спроби.',f:gBus},
  tram:{ic:'🚋',n:'Встигни на Скарік',w:'Дорога Скаріком, інколи',i:'Тисни «Стрибок!» над калюжами та ямами. 2 падіння — не встиг.',f:gTram},
  run:{ic:'🏃',n:'Втеча',w:'Ситуації, де можна «тікати»',i:'22 ривки за 4,5 секунди!',f:gRun},
@@ -2060,7 +2075,7 @@ function appDocs(){const by=gDate().getFullYear()-18;const ph=`<img class="dph" 
 
 // запуск будь-якої гри: cb(true|false|null)
 function playMg(k,cb,opt){opt=opt||{};mgPre(k);mgPre(opt.then);if(k==='ladder')return mgLadder(cb);const g=MG[k];const f=k==='quiz'?gQuiz(opt.qs):k==='dial'?((s,d)=>gDial(s,d,opt.num)):((s,d)=>g.f(s,d,opt));
- mgFrame(k==='dial'&&opt.num?'Набери '+opt.num:g.n,k==='dial'&&opt.num?`Руки трусяться, цифри скачуть. Швидко набери <b>${opt.num}</b>!`:g.i,f,r=>cb(r),{noSkip:!!(opt&&opt.noSkip)});}
+ mgFrame(k==='dial'&&opt.num?'Набери '+opt.num:g.n,k==='dial'&&opt.num?`Руки трусяться, цифри скачуть. Швидко набери <b>${opt.num}</b>!`:g.i,f,r=>cb(r),{noSkip:!!(opt&&opt.noSkip),k});}
 
 // ===================== Кривий Ріг 3.0 · гра з друзями =====================
 'use strict';
@@ -2564,7 +2579,7 @@ function wxToday(){if(!G||!G.wxd)return '';const n=G.news&&NEWSWX[G.news.t];if(n
 function wxAt(off){const i=calIdx()+off;return G.wxd?G.wxd[i%G.wxd.length]||'':'';}
 function wcard(){return G&&G.wcard&&G.wcard.w===Math.floor(G.day/5)?WCARDS.find(c=>c.k===G.wcard.k):null;}
 function worldMorning(msg){if(!G.date0)worldInit();const w=Math.floor(G.day/5);
- if(!G.wk&&G.day%5===0&&G.mode!=='day'&&(!G.wcard||G.wcard.w!==w)){const pool=WCARDS.filter(c=>!G.wcUsed.includes(c.k)&&!(c.k==='rain'&&G.season==='winter'));const PL=pool.length?pool:WCARDS;const c=PL[hsh(String(G.date0)+'w'+w)%PL.length];G.wcard={k:c.k,w};G.wcUsed.push(c.k);msg.push(`🃏 Карта тижня: ${c.t}`);}
+ if(!G.wk&&G.day%5===0&&G.mode!=='day'&&(!G.wcard||G.wcard.w!==w)){const pool=WCARDS.filter(c=>!G.wcUsed.includes(c.k)&&!(c.k==='rain'&&G.season==='winter')&&!(c.k==='mil'&&HERO.id==='student'));const PL=pool.length?pool:WCARDS.filter(c=>!(c.k==='mil'&&HERO.id==='student'));const c=PL[hsh(String(G.date0)+'w'+w)%PL.length];G.wcard={k:c.k,w};G.wcUsed.push(c.k);msg.push(`🃏 Карта тижня: ${c.t}`);}
  const c=wcard();if(c&&!G.wk){if(c.k==='mil'){add({n:1});msg.push('🃏 Теща нагодувала: +1 нерв');}if(c.k==='water'&&G.day%5%2===0){add({n:-1});msg.push('🃏 Без гарячої води: −1 нерв');}}
  const d=wxToday();if(d==='sun'){add({h:1});msg.push('☀️ Сонечко: +1 щастя');}if(d==='heat'){add({n:-1});msg.push('🔥 Спека: −1 нерв');}
  G.bat=100;}
@@ -2572,7 +2587,7 @@ function worldRoads(o,d){const w=wxToday();const c=wcard();o.forEach(x=>{if(x.k=
  if(x.k==='bus'){if(w==='fog'){x.min+=10;x.wx='🌫 туман — маршрутка повзе';}if(c&&c.k==='strike'){x.d.m=(x.d.m||0)*2;x.wx='🃏 страйк — удвічі дорожче';}}
  if(x.k==='tram'&&w==='ice')x.wx='🧊 ожеледь — ламається частіше';});
  o.forEach(x=>{x.poor=(x.d.m||0)<0&&G.money+x.d.m<0;x.weak=(x.d.n||0)<0&&G.nerves+x.d.n<=0;});}
-function worldDinner(){const c=wcard();return c?(c.k==='mil'?40:c.k==='sale'?-25:0):0;}
+function worldDinner(){const c=wcard();const nd=G&&G.newsDin&&G.newsDin.w===Math.floor(G.day/5)?G.newsDin.v:0;return (c?(c.k==='mil'?40:c.k==='sale'?-25:0):0)+nd;}
 function worldPay(){const c=wcard();return c&&c.k==='bonus'?250:0;}
 function cityToday(){const w=wxToday();if(G.news&&/Кривбас/.test(G.news.t))return ['city_matchday','Сьогодні все місто в червоно-білому: фанати йдуть на стадіон.'];
  if(w==='rain')return ['city_rain','Дощ. Парасольки, калюжі й Скарік, що світиться у сутінках.'];if(w==='snow'||G.season==='winter')return ['city_snow','Сніг укрив двори. Діти ловлять сніжинки, пес щасливий.'];
@@ -2670,7 +2685,7 @@ function v1Evening(){const c=pobutCost();const s=G.day0;const pets=G.pet?` + к�
  <p><b>За день:</b> 💰${sg(G.money-s.m)} · 😌${sg(G.nerves-s.n)} · 😊${sg(G.happy-s.h)}${chg.length?'<br><b>Люди:</b> '+chg.join(' · '):''}<br><b>Тиждень:</b> 🎓 курсова ${G.courseW===Math.floor(G.day/5)?Math.min(3,G.course):0}/3 · 💪 форма ${G.forma}/3 · 🫙 ${G.jars}</p>
  <p>Продукти, комуналка, дрібниці. Вирішуй сам: заплатити чи затягнути пасок.${G.skip?' <b>Прогул: −2 нерви.</b>':''} ${qBtn('evening')}</p>${(G.loans||[]).some(l=>l.due<=G.day)?'<p class="note">🏦 Сьогодні банк спише кредит. Не вистачить — пеня 20% і колектор.</p>':''}`;
  if(G.pet&&!G.evDone&&G.petD!==G.dk&&canMg())b+=G.pet==='cat'?`<button class="btn btn-choice" data-a="evemg" data-k="pet">🐱 Погладити кота<small>міні-гра · вийде — 😌+1</small></button>`:`<button class="btn btn-choice" data-a="evemg" data-k="walk">🐕 Вигуляти пса<small>міні-гра · вийде — 😌+1 😊+1</small></button>`;
- b+=G.evDone?`<button class="btn btn-main" data-a="sleep">Лягти спати</button>`:`<div style="margin:12px 0"><div class="row2"><button class="btn btn-choice" style="margin:0" data-a="pay" ${G.money<c?'disabled':''}>Оплатити побут<small>💰−${c}: побут ${HERO.pobut}${pets}${G.jars>0?' − 30 закрутка':''}${din?(din>0?' + 40 теща':' − 25 знижки'):''}</small></button><button class="btn btn-choice" style="margin:0;background:var(--sun)" data-a="eco" ${G.nerves<=2?'disabled':''}>Зекономити<small>${G.nerves<=2?'не вистачить сил':'😌−2 😊−1'}</small></button></div></div>`+(G.money<c&&G.nerves<=2?`<button class="btn btn-choice" data-a="debt">🤝 Позичити в Діми на вечерю<small>😊−1 · віддаси ${c} грн зі ${HERO.t.payGen}</small></button>`:'');
+ b+=G.evDone?`<button class="btn btn-main" data-a="sleep">Лягти спати</button>`:`<div style="margin:12px 0"><div class="row2"><button class="btn btn-choice" style="margin:0" data-a="pay" ${G.money<c?'disabled':''}>Оплатити побут<small>💰−${c}: побут ${HERO.pobut}${pets}${G.jars>0?' − 50 закрутка':''}${din?(din>0?' + '+din+' дорожче':' − '+(-din)+' знижки'):''}</small></button><button class="btn btn-choice" style="margin:0;background:var(--sun)" data-a="eco" ${G.nerves<=2?'disabled':''}>Зекономити<small>${G.nerves<=2?'не вистачить сил':'😌−2 😊−1'}</small></button></div></div>`+(G.money<c&&G.nerves<=2?`<button class="btn btn-choice" data-a="debt">🤝 Позичити в Діми на вечерю<small>😊−1 · віддаси ${c} грн зі ${HERO.t.payGen}</small></button>`:'');
  const due=(G.bills||[]).map((x,i)=>({x,i})).filter(o=>o.x.due<=G.day);if(due.length)b=`<div class="billdue"><b>🧾 Сьогодні строк оплати:</b>${due.map(o=>`<button class="btn btn-choice" data-a="paybill" data-k="${o.i}" ${G.money>=o.x.amt?'':'disabled'}>${esc(o.x.t)}${o.x.late?' (з пенею)':''}<small>💰−${o.x.amt} · не оплатиш — пеня 20% і −1 нерв</small></button>`).join('')}</div>`+b;
  return gl(sayHTML(sLine('eve'))+poster(SI('evening_budget'),`${DOW[dow()]}, вечір`,'Вечеря і побут',b),dayHint());}
 function v1Payday(){const p=G.pay;const last=G.payLast;
@@ -2710,8 +2725,8 @@ function phoneV1(){const v=UI.phone;const wall=G.phase==='morning'?'city_morning
  else if(v==='radio')body=appRadio();else if(v==='msgs')body=appMsgs();else if(String(v).startsWith('th:'))body=appThread(v.slice(3));else if(v==='tasks')body=appTasks();else if(v==='dream')body=appDream();else if(v==='bank')body=appBank();else if(v==='docs')body=appDocs();else if(v==='contacts')body=appContacts();else if(v==='nav')body=appNav();else if(v==='news')body=appNews();else if(v==='wx')body=appWx();else if(v==='gal')body=appGal();else if(v==='cal')body=appCal();else if(v==='calls')body=appCalls();else if(v==='snake')body=appSnake();else if(v==='loan')body=appLoan();
  return `<div class="v1"><div id="phov"><div class="phone${v==='home'?' home':''}" style="--wall:url(${MI(wall)})"><div class="phbar"><span>${hm(G.clock)}</span><span>${v==='radio'||v==='dream'?'Кривбас-Звʼязок':d.getDate()+' '+MON_G[d.getMonth()]}</span><span class="${(G.bat||0)<=20?'low':''}">${Math.max(0,G.bat||0)}% 🔋</span></div><div class="phscr">${body}</div><div class="phnav"><button data-a="ph" data-v="home" aria-label="Додому"></button></div><button class="phx" data-a="phx" aria-label="Закрити">✕</button></div></div></div>`;}
 function appMsgs(){const last={};G.ph.m.forEach(m=>last[m.f]=m);const L=DP.order.filter(k=>last[k]).sort((a,b)=>last[b].id-last[a].id);
- return phHead('💬 Повідомлення')+`<div class="phlist">${L.length?L.map(k=>{const m=last[k];const un=G.ph.m.filter(x=>x.f===k&&!x.me&&(x.st==='new'||!x.seen)).length;return `<button class="phrow" data-a="ph" data-v="th:${k}"><img class="phic" src="${SRC(PAV(k))}" alt=""><span><b>${esc(PN(k))}</b><small>${esc((m.me?'Ти: ':'')+m.t).slice(0,60)}</small></span>${un?`<i>${un}</i>`:''}</button>`;}).join(''):'<p class="note">Поки тихо. Навіть шахраї не пишуть. Напиши комусь у «Контактах».</p>'}</div>`;}
-function appThread(k){const M=G.ph.m.filter(m=>m.f===k).slice(-30);G.ph.m.forEach(m=>{if(m.f===k&&m.st==='read'&&!m.me)m.seen=1;});recountUnread(k);const dead=(G.bat||0)<=0;
+ return phHead('💬 Повідомлення')+`<div class="phlist">${L.length?L.map(k=>{const m=last[k];const un=G.ph.m.filter(x=>x.f===k&&!x.me&&!x.seen).length;const wt=G.ph.m.some(x=>x.f===k&&x.st==='new'&&x.o);return `<button class="phrow" data-a="ph" data-v="th:${k}"><img class="phic" src="${SRC(PAV(k))}" alt=""><span><b>${esc(PN(k))}</b><small>${esc((m.me?'Ти: ':'')+m.t).slice(0,60)}</small>${wt?'<em class="phwait">💬 чекає відповіді</em>':''}</span>${un?`<i>${un}</i>`:''}</button>`;}).join(''):'<p class="note">Поки тихо. Навіть шахраї не пишуть. Напиши комусь у «Контактах».</p>'}</div>`;}
+function appThread(k){const M=G.ph.m.filter(m=>m.f===k).slice(-30);G.ph.m.forEach(m=>{if(m.f===k&&!m.me)m.seen=1;});recountUnread(k);const dead=(G.bat||0)<=0;
  let fd=0;const bub=(t,fresh)=>{if(!fresh)return `<div class="phwho"><img src="${SRC(PAV(k))}" alt=""><div class="phmsg in">${t}</div></div>`;const a=fd,b2=fd+0.9;fd=b2+0.25;return `<div class="phwho phtyp" style="--a:${a}s;--b:${b2}s"><img src="${SRC(PAV(k))}" alt=""><div class="phmsg in"><i></i><i></i><i></i></div></div><div class="phwho fresh" style="--d:${b2}s"><img src="${SRC(PAV(k))}" alt=""><div class="phmsg in">${t}</div></div>`;};
  const parts=t=>{const L=String(t).split('\n');const out=[];let pin=[];L.forEach(x=>{if(/^📌/.test(x))pin.push(x);else if(x.trim()){if(x.length>95){const m=x.slice(40).search(/[.!?…»](\s|$)/);if(m>=0&&40+m+1<x.length-15){out.push(x.slice(0,40+m+1).trim());out.push(x.slice(40+m+1).trim());return;}}out.push(x);}});return {out,pin};};
  let b=M.map(m=>{const fresh=!m.me&&!m.shown;m.shown=1;if(/^📌/.test(m.t))return `<div class="phmsg sys">${esc(m.t)}</div>`;if(m.me)return `<div class="phmsg out">${esc(m.t).replace(/\n/g,'<br>')}</div>`;const P=parts(m.t);let h=P.out.map(x=>bub(esc(x),fresh)).join('')+P.pin.map(x=>`<div class="phmsg sys${fresh?' fresh':''}" style="--d:${fd}s">${esc(x)}</div>`).join('');if(m.st==='new'&&m.o)h+=`<div class="phopts${fresh?' fresh':''}" style="--d:${fd}s">${m.o.map((o,i)=>`<button data-a="ans" data-id="${m.id}" data-i="${i}" ${dead?'disabled':''}>${esc(o)}</button>`).join('')}</div>`;return h;}).join('')||'<p class="note">Тут поки порожньо.</p>';
@@ -2937,10 +2952,10 @@ function screenHTML(){
 function labScreen(){return `<div class="title"><h1>🎮 Полігон</h1><p>Тільки для розробника: кожна гра окремо, на сейв не впливає.</p></div><div class="lab">${Object.entries(MG).map(([k,g])=>`<div class="row"><span>${g.ic}</span><div><b>${g.n}</b><small>${esc(g.w)}</small>${UI.labR[k]?`<em>${UI.labR[k]}</em>`:''}</div><button data-a="labplay" data-k="${k}">Грати</button></div>`).join('')}</div><button class="btn ghost" data-a="tomenu">← Меню</button>`;}
 function menuScreen(){if(UI.menu==='lab')return labScreen();return frontScreen()||v1Title();}
 // ---------- 📱 телефон ----------
-function recountUnread(k){G.ph.unread=G.ph.m.filter(m=>!m.me&&(m.st==='new'||(m.st==='read'&&!m.seen))).length;}
+function recountUnread(k){if(!G||!G.ph)return;G.ph.unread=G.ph.m.filter(m=>!m.me&&!m.seen).length;}
 
 // ---------- малювання ----------
-function render(){try{if(typeof pCheck==='function')pCheck();let h=(typeof partyScreen==='function'&&partyScreen())||screenHTML();h+=musBtn();if(G&&UI.phone)h+=phoneV1();h+=gmapOverlay();if(_toast&&!/class="toast"/.test(h)){h+=`<div class="toast">${esc(_toast)}</div>`;_toast=null;}app.innerHTML=h;if(typeof pAfterRender==='function')pAfterRender();frontAfter();}catch(e){console.error(e);app.innerHTML=`<p>Помилка екрана: ${esc(e.message)}</p><button class="btn main" data-a="tomenu">Меню</button>`;}
+function render(){try{if(typeof pCheck==='function')pCheck();if(G&&G.ph){if(UI.phone&&/^th:/.test(UI.phone)){const k0=UI.phone.slice(3);G.ph.m.forEach(m=>{if(m.f===k0&&!m.me)m.seen=1;});}recountUnread();}let h=(typeof partyScreen==='function'&&partyScreen())||screenHTML();h+=musBtn();if(G&&UI.phone)h+=phoneV1();h+=gmapOverlay();if(_toast&&!/class="toast"/.test(h)){h+=`<div class="toast">${esc(_toast)}</div>`;_toast=null;}app.innerHTML=h;if(typeof pAfterRender==='function')pAfterRender();frontAfter();}catch(e){console.error(e);app.innerHTML=`<p>Помилка екрана: ${esc(e.message)}</p><button class="btn main" data-a="tomenu">Меню</button>`;}
  if(G&&G.mgNext){mgPre(G.mgNext.k);mgPre(G.mgNext.then);}
   if(G&&G.phase==='ladder'&&!document.getElementById('mg')&&iOwnCur())mgLadder(ok=>fire({a:'ladres',v:ok}));
  if(G&&G.phase==='mg'&&G.mg&&!document.getElementById('mg')&&iOwnCur())playMg(G.mg.k,r=>{fire({a:'mgres',v:r});window.scrollTo(0,0);},Object.assign({},G.mg,{noSkip:['run','bus'].includes(G.mg.k)}));}
@@ -2995,7 +3010,7 @@ function doA(ds){const a=ds.a,k=ds.k;const b={dataset:ds,classList:{contains:c=>
   case 'ladres':ladderDone(ds.v);return go();
  }}
 render();anthemAuto();
-try{Object.defineProperty(window,'G',{get:()=>G});window.hm=hm;window.kr3={save,render,D,setEv,UI};window.kr3i={playMg,newGame,startPars,momRoad,choose,next,toMap,actsAt,doAct,roads,goHome,evening,sleep,afterPay,payBill,canDo,blocked,effOf,pobutCost,curfew,stops,placeOf,meetsAt,doMeet,meetBlock,meetDay,ladderDone,mgDone,HERO,D,SET:()=>SET,heroId:()=>HERO.id,setHero,sitPool,cur:()=>({HERO,D,DP,D7}),newParty};Object.defineProperty(window,'P',{get:()=>P});}catch(e){}
+try{Object.defineProperty(window,'G',{get:()=>G});window.hm=hm;window.kr3={save,render,D,setEv,UI};window.kr3i={playMg,newGame,startPars,momRoad,choose,next,toMap,actsAt,doAct,roads,goHome,evening,sleep,afterPay,payBill,canDo,blocked,effOf,pobutCost,curfew,stops,placeOf,meetsAt,doMeet,meetBlock,meetDay,ladderDone,mgDone,HERO,D,SET:()=>SET,heroId:()=>HERO.id,setHero,sitPool,cur:()=>({HERO,D,DP,D7}),newParty,t34:{G:()=>G,msg,rel,answer,react,startDay,arriveHome,evening:typeof eveningIn==='function'?eveningIn:null,UI:()=>UI,render}};Object.defineProperty(window,'P',{get:()=>P});}catch(e){}
 
 document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('button'))snd('click');},true);
 
