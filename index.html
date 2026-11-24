@@ -162,6 +162,8 @@ h1,h2,h3{font-family:var(--display);margin:0}
 .mgs .g9 .no{opacity:.35}
 .mgs .g9 .wig .it{animation:wig .22s 2}
 @keyframes wig{25%{transform:rotate(-7deg) translateY(-4%)}75%{transform:rotate(7deg) translateY(-4%)}}
+/* 3.4: наслідки */
+.c34ev{background:var(--panel);border-radius:12px;padding:10px;margin:8px 0}.c34ev img{width:100%;border-radius:8px;display:block;margin-bottom:6px}.c34ev p{margin:0 0 6px}
 /* 3.4: як грати, кіт пальцем, відлік борщу */
 #mg .mh span{display:flex;gap:6px}
 .mghelp{position:relative;background:var(--panel);border-radius:12px;padding:14px;margin:6px 0;text-align:center}.mghelp h3{margin:0 0 6px;font-family:var(--display)}.mghelp p{font-size:16px;line-height:1.45;margin:0 0 10px}.mghelp.over{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;justify-content:center}.stage{position:relative}
@@ -1304,7 +1306,7 @@ const HERO={id:'student',name:'Студент',tag:'пільговий прої�
  places:D.places,
  // дії по місцях: d — ефект, dur — хвилини, особливі прапорці
  acts:{
-  uni:[{k:'sleep',t:'Виспатися в гуртожитку',d:{n:2},dur:120,r:'Проспав до обіду. Світ став добрішим.',art:'dorm_morning'},
+  uni:[{k:'otrab',c34:'otrab',t:'Відпрацювати пропуск на кафедрі',d:{n:-1},dur:120,r:'Переписав пропущену лекцію й розвʼязав задачі. Одну «н» закрито.',art:'petro_office'},{k:'peace',c34:'peace',t:'Помиритися з тьотею Валею (торт)',d:{m:-150},dur:60,r:'Вибачився, допоміг Валі з Мурчиком і приніс торт. Можна повертатися в гуртожиток.',art:'valya_peace'},{k:'chore',c34:'chore',t:'Прибрати в кімнаті (твоя черга)',d:{h:1},dur:45,r:'Підмів, виніс сміття, Діма задоволений.',art:'dima_sweeps'},{k:'sleep',t:'Виспатися в гуртожитку',d:{n:2},dur:120,r:'Проспав до обіду. Світ став добрішим.',art:'dorm_morning'},
    {k:'cook',t:'Приготувати на кілька днів',d:{m:-100},dur:90,jars:3,r:'Каструля борщу на три вечори.',art:'dorm_kitchen'},
    {k:'lib',t:'Бібліотека: курсова',d:{n:-1},dur:120,course:1,r:'Ще один розділ курсової готовий.',art:'library'},
    {k:'dept',t:'Підробіток на кафедрі',d:{m:300,n:-1},dur:180,r:'Допоміг лаборантці розкласти журнали й протерти колби.',art:'petro_notice'},
@@ -1335,7 +1337,7 @@ const HERO={id:'student',name:'Студент',tag:'пільговий прої�
   quarry:[{k:'swim',t:'Покупатись на карʼєрі',d:{n:2,h:1},dur:180,r:'Бірюзова вода і скелі. Як на морі, тільки Кривбас.',art:'quarry_swim'},{k:'walkq',t:'Прогулянка до карʼєру',d:{h:1,n:1},dur:120,r:'Вітер, простір і видно півміста.',art:'quarry_view'}],
   dacha:[{k:'dig',t:'Допомогти на дачі',d:{m:200,n:-1,h:1},dur:240,jars:2,r:'Викопали картоплю, бабуся дала закрутки і двісті гривень.',art:'dacha'}],
   airfield:[{k:'watch',t:'Дивитися стрибки парашутистів',d:{h:2,n:1},dur:120,r:'Купола розкриваються в небі, як кульбаби.',art:'airfield_wind'},{k:'jump',t:'Тандем-стрибок з парашутом',d:{m:-4500,h:5},dur:180,r:'Хвилина вільного падіння — і тиша над Кривим Рогом.',art:'airfield_jump'}]},
- ends:{end2:['Найкращий студент','Петро Іванович рекомендував тебе на конкурс. Тепер на тебе рівняється вся група.'],end4:['Свій підробіток','Тебе знають на ринку, в гаражах і в центрі. Роботи вистачає — тепер ти сам обираєш.'],end3:['Назад до мами','Гроші скінчились, зате мамин борщ — безкінечний. Наступного семестру — з новими силами.']},
+ ends:{end12:['Відрахування','Забагато «н». Петро Іванович підписав наказ, і ти виніс з університету коробку з речами. Наступного року — спробуєш знову.'],end13:['Вʼязниця','Тебе затримали. Мама приходить на побачення й плаче через скло. Легкі гроші коштували найдорожче.'],end2:['Найкращий студент','Петро Іванович рекомендував тебе на конкурс. Тепер на тебе рівняється вся група.'],end4:['Свій підробіток','Тебе знають на ринку, в гаражах і в центрі. Роботи вистачає — тепер ти сам обираєш.'],end3:['Назад до мами','Гроші скінчились, зате мамин борщ — безкінечний. Наступного семестру — з новими силами.']},
  icon:{uni:'🎓',market:'🧺',office:'🏙',bus:'🚌',clinic:'🏥',river:'🎣',mall:'🛍',stadium:'⚽',garages:'🔧',quarry:'🏞',dacha:'🥔',airfield:'🪂'},
  // предмети: де купити, ціна, що дають (логіка в правилах нижче)
  shop:{market:[['power',800],['jars',150]],garages:[['bike',2500],['lamp',300]],stadium:[['gym',700]]},
@@ -1346,7 +1348,7 @@ const HERO={id:'student',name:'Студент',tag:'пільговий прої�
   jars:{n:'Закрутки',ic:'🫙',img:'it_jars',d:'кожна — вечеря на 50 грн дешевша'}},
  dreams:D.dreams||[{t:'Кросівки, як у всіх',extra:250}],
  // кінцівки героя (end11 — «нерви не витримали»), фінал історії з Оксаною
- endArt:{end1:'end1',end2:'end2',end3:'end3',end4:'end4',end5:'end5',end6:'end6',end7:'end7',end8:'end8',end9:'end9',end10:'end10',end11:'sick'},okEnd:'ok_end',
+ endArt:{end1:'end1',end2:'end2',end3:'end3',end4:'end4',end5:'end5',end6:'end6',end7:'end7',end8:'end8',end9:'end9',end10:'end10',end11:'sick',end12:'expelled',end13:'prison_visit'},okEnd:'ok_end',
  crisisArt:{flu:'flu',prices:'prices',blackout:'blackout_cold',water:'no_water',crime:'gopstop',cuts:'bills'},
  bills:[{t:'Гуртожиток',amt:200,dow:2},{t:'Телефон та інтернет',amt:100,dow:4}],
  pobut:150
@@ -1389,7 +1391,7 @@ HERO.endTitle=function(){const k=G.ended.k;return {end1:'Мрія здійсни
 // з game_v1.js
 HERO.endHeadline=function(){const k=G.ended.k;return {end1:`Студент купив мрію: «${G.dream.t}». Сусіди в шоці`,end8:'Студент здійснив мрію і ще й заощадив — учені розводять руками',end2:'Петро Іванович назвав студента найкращим на курсі',end3:'Студента бачили на автостанції з торбою маминих пиріжків',end4:'Ринок, центр і гаражі: студент заробляє більше за декана',end5:'Студент ризикував увесь тиждень — і досі живий',end6:'Студент дожив до стипендії на останніх нервах',end7:'Найщасливіший студент Кривого Рогу живе в гуртожитку',end9:'Студент винен усім — і все одно усміхається',end10:'У гуртожитку все рівно: студент дожив до стипендії',end11:'Нерви студента не витримали. Місто — все рівно'}[k]||'Все рівно';}
 // з game_v1.js
-HERO.endStory=function(){const r=[];r.push(`${HERO.t.whoCap} прожив ${G.mode==='day'?'один день':G.day+1+' днів'}${G.momTrips?`, ${G.momTrips} раз(и) їздив до мами`:''}.`);if(G.work)r.push(`Підробітками заробив ${G.work} грн.`);if(G.late)r.push(`${G.late} раз(и) повертався після ${HERO.t.gateGen}.`);r.push(G.pet?`Удома його чекав ${PETIC[G.pet]}.`:'Удома його чекала тиша.');return r.join(' ');}
+HERO.endStory=function(){const r=[];r.push(`${HERO.t.whoCap} прожив ${G.mode==='day'?'один день':G.day+1+' днів'}${G.momTrips?`, ${G.momTrips} раз(и) їздив до мами`:''}.`);if(G.work)r.push(`Підробітками заробив ${G.work} грн.`);if(G.late)r.push(`${G.late} раз(и) повертався після ${HERO.t.gateGen}.`);if(G.session)r.push(G.session==='ok'?'Сесію здав: Петро Іванович підписав залікову.':'Сесію не закрив: хвости на наступний семестр.');r.push(G.pet?`Удома його чекав ${PETIC[G.pet]}.`:'Удома його чекала тиша.');return r.join(' ');}
 // з people.js
 HERO.mlab={st_oksana:'Зустрітися з Оксаною',st_mom:'Зустріти маму',st_dima:'Посидіти з Дімою',st_petro:'Зайти на кафедру',st_valya:'Зайти на вахту'};
 // з people.js
@@ -1441,7 +1443,7 @@ function newGame(mode,pet,opt){opt=opt||{};G=null;setHero(opt.hero||'student');N
   dream:{t:dr.t,cost:M.hard&&dr.h&&dr.h[M.weeks]!=null?dr.h[M.weeks]:dr.c&&dr.c[M.weeks]!=null?dr.c[M.weeks]:M.dreamBase+(dr.extra||0),art:dr.art||null},course:0,courseW:-1,forma:0,
   sit:{d:-1,n:0},seen:{},queue:[],log:[],ev:null,res:null,plan:null,skip:false,
   day0:null,home:null,late:0,rest:-99,stats:{earn:0,spend:0},weekly:{},ended:null,wk:0,hard:!!M.hard,hist:[HERO.money],risk:{w:0,l:0},work:0,momTrips:0,petPure:!!opt.pure,daily:opt.daily||null,rs:NEXT_SEED,optSeason:opt.season||'life',iron:!!opt.iron,bills:[]};NEXT_SEED=null;
- initPeople();if(!P)loadRel();worldInit();endBonuses();startDay();save();}
+ initPeople();if(!P)loadRel();DP.order.forEach(k=>{G.rel[k].gm=G.rel[k].r;});worldInit();endBonuses();startDay();save();}
 // стосунки й історії зберігаються між іграми
 function relKey(){return HERO.id==='student'?'kr3-rel':'kr3-rel-'+HERO.id;}
 function loadRel(){try{const s=JSON.parse(localStorage.getItem(relKey())||'null');if(!s)return;DP.order.forEach(k=>{if(s[k]){G.rel[k].r=s[k].r;G.rel[k].s=s[k].s;G.rel[k].mx=s[k].mx;}});}catch(e){}}
@@ -1462,11 +1464,11 @@ function startDay(){G.log=[];G.dk=(G.dk||0)+1;G.phase='morning';G.slot=G.wk?1:0;
  if(G.rest===G.dk-1){add({n:1});msg.push('😴 Ліг вчасно і виспався: +1 нерв');}
  add(G.news.d);if(fx(G.news.d))msg.push('📰 '+fx(G.news.d));
  worldMorning(msg);crisisMorning(msg);if(G.day>0||G.wk)tasksMissed(msg);billsMorning(msg);collectorMorning(msg);
- if(G.pet&&G.dk%2===0){add({n:1});msg.push(G.pet==='cat'?'🐱 Кіт муркотів під боком: +1 нерв':'🐕 Пес розбудив і потягнув на прогулянку: +1 нерв');}
+ if(G.pet&&!G.catMom&&G.dk%2===0){add({n:1});msg.push(G.pet==='cat'?'🐱 Кіт муркотів під боком: +1 нерв':'🐕 Пес розбудив і потягнув на прогулянку: +1 нерв');}
  if(dow()===2&&!G.wk&&G.mode!=='day'){add({n:-1});msg.push('📚 Середа: пари до вечора — −1 нерв');}
  // рахунки списуються самі
  billsWeek(msg);
- G.morningLog=msg;{const w=wxToday();if((w==='rain'||w==='snow')&&G.dk-(G.ph.wxR||-9)>=3&&rnd()<0.5){G.ph.wxR=G.dk;react(w);}}tryInbound();G.hist.push(G.money);
+ G.morningLog=msg;{const w=wxToday();if((w==='rain'||w==='snow')&&G.dk-(G.ph.wxR||-9)>=3&&rnd()<0.5){G.ph.wxR=G.dk;react(w);}}try{c34Silence();c34Chores();c34Daily();}catch(x){}tryInbound();G.hist.push(G.money);
  // план пар
  const P=D.plans.filter(p=>(p.s||[])[0]==='uni');G.plan=Object.assign({},pick(P.length?P:D.plans));G.planOk=null;
  checkEnd();}
@@ -1477,24 +1479,25 @@ function logp(t){G.log.push(t);if(G.log.length>3)G.log.shift();}
 // ---------- пари ----------
 // пари: лекція, лаба, контрольна чи іспит — свої варіанти
 function parsEvent(){const p=G.plan||{};const E=p.ev;const pk=p.pk||'lecture';const base=E?E.c:((D.pars&&D.pars[pk])||D.obl);const c=base.filter(x=>needOk(x.need)).slice(0,3).concat(!E&&pk!=='test'&&SET.mg()&&G.quizD!==G.dk?[G.day%2?{l:'🧩 Задача від Петра Івановича',riddle:1,r:'Петро Іванович написав на дошці задачу й хитро примружився.'}:{l:'🎓 Написати швидкий тест',quiz:1,r:'Викладач роздав тести на три питання.'}]:[]);return {kind:'pars',t:p.t,x:E?p.x+' '+E.x:p.x,art:artFor(p.t,'lecture'),c};}
-function startPars(){if(G.wk){toMap();return;}if(G.momTrip){G.phase='mom';return;}G.pos='uni';G.ev=parsEvent();G.phase='card';}
-function momRoad(k){const d=k==='bus'?{m:-40}:{m:-15,n:-1};add(d);G.momTrip=0;G.clock=k==='bus'?470:450;logp('🏠 Від мами на пари: '+(k==='bus'?'🚌 маршрутка о 6:40':'🚆 електричка')+' '+fx(d));G.pos='uni';G.ev=parsEvent();G.phase='card';save();}
-function skipPars(){G.skip=true;G.planOk=false;G.ev=null;G.clock=540;G.slot=1;toMap();logp('🚶 Прогуляв пари: ввечері −2 нерви');}
+function startPars(){if(G.wk){toMap();return;}if(G.momTrip){G.phase='mom';return;}try{c34Morning();if(c34ExpelCheck())return;}catch(x){}G.pos='uni';G.ev=parsEvent();G.phase='card';}
+function momRoad(k){const d=k==='bus'?{m:-40}:{m:-15,n:-1};add(d);G.momTrip=0;G.clock=k==='bus'?470:450;logp('🏠 Від мами на пари: '+(k==='bus'?'🚌 маршрутка о 6:40':'🚆 електричка')+' '+fx(d));try{if(k==='bus'&&rnd()<0.25)c34Late('маршрутка від мами застрягла в заторі');if(c34ExpelCheck())return;}catch(x){}G.pos='uni';G.ev=parsEvent();G.phase='card';save();}
+function skipPars(){G.skip=true;G.planOk=false;G.ev=null;G.clock=540;G.slot=1;try{c34Skip();}catch(x){}toMap();logp('🚶 Прогуляв пари: ввечері −2 нерви');try{c34ExpelCheck();}catch(x){}}
 
 // ---------- вибір у картці ----------
 function choose(i,forced){const e=G.ev;if(!e)return;let c=i===-1?{l:'Нічого не робити',r:'Іноді краще просто пройти повз.'}:e.c[i];if(!c)return;
  if(c.risk&&forced===undefined&&/тіка|втек/i.test(c.l)&&!lethal(c)&&canMg()){startMg('run',{ci:i});return;}let d={m:c.m||0,n:c.n||0,h:c.h||0},r=c.r||'',fail=false;
- let ro=null;if(c.risk){const ok=forced!==undefined?forced:rnd()<c.risk.p;G.risk[ok?'w':'l']++;const o=ok?c.risk.win:c.risk.lose;ro=o;d={m:d.m+(o.m||0),n:d.n+(o.n||0),h:d.h+(o.h||0)};r=(forced!==undefined?(ok?'🏃 Втік! ':'🏃 Не втік. '):ok?'🎲 Пощастило! ':'🎲 Не пощастило. ')+(o.r||'');if(o.failPlan)fail=true;if(o.ch)queueChain(o.ch,o.in||1);if(!ok&&(o.n||0)<=-50){G.deathR=o.r;G.res={kind:e.kind,t:e.t,art:e.art,r:'🎲 Не пощастило. '+o.r,d:{},dead:1};G.phase='result';G.ev=null;return;}}
+ let ro=null;G._rk=null;if(c.risk){const ok=forced!==undefined?forced:rnd()<c.risk.p;G._rk=ok;G.risk[ok?'w':'l']++;const o=ok?c.risk.win:c.risk.lose;ro=o;d={m:d.m+(o.m||0),n:d.n+(o.n||0),h:d.h+(o.h||0)};r=(forced!==undefined?(ok?'🏃 Втік! ':'🏃 Не втік. '):ok?'🎲 Пощастило! ':'🎲 Не пощастило. ')+(o.r||'');if(o.failPlan)fail=true;if(o.ch)queueChain(o.ch,o.in||1);if(!ok&&(o.n||0)<=-50){G.deathR=o.r;G.res={kind:e.kind,t:e.t,art:e.art,r:'🎲 Не пощастило. '+o.r,d:{},dead:1};G.phase='result';G.ev=null;return;}}
  if(c.ch)queueChain(c.ch,c.in||1);
  d=itemShield(e,d);
  add(d);try{v197AfterChoice(c,ro);if(/Кошеня|Цуценя/.test(e.t)&&/Забрати|Взяти|Підібрати/.test(c.l))achGet('g_pet');if((/102/.test(c.l)||/поліці/i.test(c.l)&&/виклик|дзвон|набра/i.test(c.l))&&G.hard&&canMg())G.mgNext={k:'dial',num:'102'};}catch(x){}
  if(e.kind==='meet')meetResult(e.meet,c);
+ if(c.c34){try{c34Choice(c.c34,c);}catch(x){}}
  if(c.rel&&G.rel[c.rel[0]])rel(c.rel[0],c.rel[1]>0?3:-1,true);
  G.res={kind:e.kind,t:e.t,art:c.art?HERO.img+c.art+'.webp':e.art,img:e.img,r,d,road:e.kind==='meet'?G.road:''};
- if(e.kind==='pars'){G.planOk=!fail;if(G.planOk){add(G.plan.ok||{});G.plansOk=(G.plansOk||0)+1;if(G.plansOk>=3)achGet('g_plans');}else{add(G.plan.bad||{});react('skip');}if(c.quiz&&G.quizD!==G.dk&&canMg()){G.quizD=G.dk;G.mgNext={k:'quiz',qs:quizQs()};}if(c.riddle&&G.quizD!==G.dk&&canMg()){G.quizD=G.dk;G.mgNext={k:'riddle'};}}
+ if(e.kind==='pars'){try{c34Pars(c,G._rk);}catch(x){}G.planOk=!fail;if(G.planOk){add(G.plan.ok||{});G.plansOk=(G.plansOk||0)+1;if(G.plansOk>=3)achGet('g_plans');}else{add(G.plan.bad||{});react('skip');}if(c.quiz&&G.quizD!==G.dk&&canMg()){G.quizD=G.dk;G.mgNext={k:'quiz',qs:quizQs()};}if(c.riddle&&G.quizD!==G.dk&&canMg()){G.quizD=G.dk;G.mgNext={k:'riddle'};}}
  if(/103|швидку/i.test(c.l)&&canMg())G.mgNext={k:'dial'};
  if(c.mg&&MG[c.mg]&&canMg())G.mgNext=Object.assign({k:c.mg},c.mgo||{});
- G.phase='result';G.ev=null;checkEnd();}
+ G.phase='result';G.ev=null;checkEnd();try{c34ExpelCheck();}catch(x){}}
 function lethal(c){return !!(c.risk&&c.risk.lose&&(c.risk.lose.n||0)<=-50);}
 function worstN(c,e){let n=c.n||0;if(c.risk){n+=Math.min(0,(c.risk.lose&&!(G.hard&&lethal(c))&&c.risk.lose.n)||0,(c.risk.win&&c.risk.win.n)||0);if(e&&e.kind==='pars'&&c.risk.lose&&c.risk.lose.failPlan)n+=Math.min(0,(G.plan.bad&&G.plan.bad.n)||0);}return n;}
 function blocked(c,e){if((c.m||0)<0&&G.money+c.m<0)return 'не вистачає грошей';return '';}
@@ -1558,10 +1561,10 @@ function travel(to,k){const R=roads(to,G.clock);if(!R.d)return '';const x=R.o.fi
  return msg;}
 function wactsAt(loc){return (HERO.wacts[loc]||[]).filter(a=>!(a.sat&&(G.wk!==1||G.slot!==1))&&!(a.need&&G.rel[a.need[0]].r<a.need[1]));}
 function findAct(loc,k){return (HERO.acts[loc]||[]).concat(HERO.wacts[loc]||[]).find(x=>x.k===k);}
-function actsAt(loc){if(G.wk){const W=wactsAt(loc);const B=(HERO.acts[loc]||[]).filter(a=>!['lib','dept'].includes(a.k)&&!(a.weekly&&G.weekly[a.k]===Math.floor(G.day/5)));return W.concat(B).slice(0,3);}
- const L=(HERO.acts[loc]||[]).filter(a=>!(a.weekly&&G.weekly[a.k]===Math.floor(G.day/5)));if(L.length<=3)return L;const s=G.day%L.length;const R=[0,1,2].map(i=>L[(s+i)%L.length]);
+function actsAt(loc){if(G.wk){const W=wactsAt(loc);const B=(HERO.acts[loc]||[]).filter(a=>!a.c34&&!['lib','dept'].includes(a.k)&&!(a.weekly&&G.weekly[a.k]===Math.floor(G.day/5)));return W.concat(B).slice(0,3);}
+ const X34=c34Acts(loc);const L=(HERO.acts[loc]||[]).filter(a=>!a.c34&&!(a.k==='dept'&&c34On()&&spoiled('st_petro'))&&!(a.weekly&&G.weekly[a.k]===Math.floor(G.day/5)));if(L.length<=3)return X34.concat(L);const s=G.day%L.length;const R=[0,1,2].map(i=>L[(s+i)%L.length]);
  // коли сил майже нема — у гуртожитку завжди можна виспатися
- if(loc===HERO.home&&G.nerves<=2&&!R.some(a=>a.k==='sleep')){const sl=L.find(a=>a.k==='sleep');if(sl)R[2]=sl;}return R;}
+ if(loc===HERO.home&&G.nerves<=2&&!R.some(a=>a.k==='sleep')){const sl=L.find(a=>a.k==='sleep');if(sl)R[2]=sl;}return X34.concat(R);}
 function effOf(a){const d=Object.assign({},a.d);if(a.k==='run'&&G.items.gym)d.n=(d.n||0)+1;return d;}
 function canDo(a){const d=effOf(a);if((d.m||0)<0&&G.money+d.m<0)return 'не вистачає грошей';if((d.n||0)<0&&G.nerves+d.n<=0)return 'не вистачить сил — спершу відпочинь';return '';}
 function doAct(loc,k,rk){const a=findAct(loc,k);if(!a)return;let msg='';if(rk==='tramg'){if(canMg()){startMg('tram',{after:{loc,k}});save();return;}rk='tram';}
@@ -1569,6 +1572,7 @@ function doAct(loc,k,rk){const a=findAct(loc,k);if(!a)return;let msg='';if(rk===
  G.clock+=a.dur;const d=effOf(a);add(d);if(d.m>0)achGet('g_gig');let extra='';checkTasks();
  if(d.m>0)G.work+=d.m;if(loc==='clinic')G.fluOk=1;
  if(a.rel)rel(a.rel,3,true);
+ if(a.c34){try{c34DoAct(a);}catch(x){}}
  if(a.jars){G.jars+=a.jars;extra+=` 🫙 +${a.jars} закрутки.`;}
  if(a.weekly)G.weekly[a.k]=Math.floor(G.day/5);
  const wk=Math.floor(G.day/5);
@@ -1585,11 +1589,12 @@ function curfew(){return ((dow()===4&&!G.wk)||G.wk===1?(G.hard?23:24):(G.hard?22
 function goHomePhase(){if(G.pos===HERO.home){arriveHome(G.clock);}else G.phase='home';}
 function goHome(k,forced,note){if(k==='bus'&&!forced&&G.clock>=(G.hard?21:22)*60-30&&canMg()){startMg('bus');save();return;}
  const msg=travel(HERO.home,k);if(G.nerves<1)G.nerves=1;logp('🏠 Додому: '+(note?note+'. ':'')+msg+', вдома о '+hm(G.clock));arriveHome(G.clock);checkEnd();save();}
-function arriveHome(t){G.home=t;if(t<=(G.hard?21:22)*60)G.rest=G.dk;
+function arriveHome(t){G.home=t;if(t>=24*60)G.lateNight=G.dk;if(t<=(G.hard?21:22)*60)G.rest=G.dk;
+ if(c34On()&&dorm().evicted){if(t>21*60){add({m:-300});logp('🚕 Остання маршрутка до мами пішла о 21:00 — таксі −300 грн');}else{add({m:-40});logp('🚌 Маршрутка до мами −40 грн');}eveningIn();return;}
  if(t>curfew()){if(G.rel.st_valya.r>=3&&G.late<2){G.late++;logp('🚪 '+HERO.t.guardCap+' відчинила: «Востаннє пускаю, чуєш?!»');eveningIn();return;}G.phase='ladder';return;}
  eveningIn();}
-function eveningIn(){G.phase='evening';if(G.nerves<=3)react('tired');if(G.pet==='cat'&&G.findD!==G.dk&&canMg()&&rnd()<0.25){G.findD=G.dk;logp('🐾 Кіт кудись сховався…');startMg('find',{back:'evening'});}}
-function ladderDone(ok){G.late++;react('ladder');if(ok)logp('🪜 Заліз у вікно по драбині. '+HERO.t.guardCap+' нічого не помітила.');else{if(G.nerves>1)add({n:-1});rel('st_valya',-1,true);logp('🔦 '+HERO.t.guardCap+' спіймала тебе на драбині: −1 нерв');}eveningIn();checkEnd();save();}
+function eveningIn(){G.phase='evening';if(G.nerves<=3)react('tired');try{c34Cat();}catch(x){}if(G.pet==='cat'&&!G.catMom&&!(G.dorm&&G.dorm.evicted&&false)&&G.findD!==G.dk&&canMg()&&rnd()<0.25){G.findD=G.dk;logp('🐾 Кіт кудись сховався…');startMg('find',{back:'evening'});}}
+function ladderDone(ok){G.late++;react('ladder');if(ok)logp('🪜 Заліз у вікно по драбині. '+HERO.t.guardCap+' нічого не помітила.');else{if(G.nerves>1)add({n:-1});rel('st_valya',-1,true);logp('🔦 '+HERO.t.guardCap+' спіймала тебе на драбині: −1 нерв');try{c34Strike('драбина');}catch(x){}}eveningIn();checkEnd();save();}
 
 // ---------- міні-ігри в грі (не більше 2 на день; драбина не рахується) ----------
 function canMg(){if(!SET.mg())return false;if(!G.mgD||G.mgD.dk!==G.dk)G.mgD={dk:G.dk,n:0};return G.mgD.n<3;}
@@ -1605,7 +1610,7 @@ function mgDone(r){const x=G.mg;G.mg=null;if(!x){toMap();return;}const k=x.k,win
  if(r==null){if(x.back==='evening'){G.phase='evening';save();return;}G.phase='result';next();return;}
  const d=Object.assign({},(MGFX[k]||[{},{}])[win?0:1]);if((d.n||0)<0&&G.nerves+d.n<1)delete d.n;
  if(k==='borsch'){if(win)G.jars+=2;else if(G.jars>0)G.jars--;}
- if((k==='quiz'||k==='riddle')&&win)rel('st_petro',1);
+ if((k==='quiz'||k==='riddle')&&win)rel('st_petro',1);try{if(k==='quiz')grade(win?5:3,'швидкий тест');if(k==='riddle'&&win)grade(5,'задача Петра Івановича');if(k==='find'&&!win)G.findFail=G.dk;if(k==='dial'&&(x.num==='101'||x.num==='104')){c34Dial(x.num,win);G.phase='result';next();return;}}catch(e){}
  if(k==='docs'&&DOCRES[x.who]){const W=DOCRES[x.who];add(win?W[2]:W[3]);toastLater(`🪪 ${win?W[0]:W[1]}`);if(x.then&&canMg())G.mgNext={k:x.then};if(x.back==='evening'){G.phase='evening';save();return;}G.phase='result';next();return;}
  if(k==='tram'&&(x.after||x.afterMeet!=null)){if(win){G.noBreak=1;toastLater('🚋 Встиг на Скарік — їдеш без поломок');}else toastLater('🚋 Скарік поїхав — довелось пішки');if(x.after)doAct(x.after.loc,x.after.k,win?'tram':'walk');else doMeet(x.afterMeet,win?'tram':'walk');render();return;}
  add(d);toastLater(`${MG[k].ic} ${(MGTXT[k]||['Вийшло','Не вийшло'])[win?0:1]}${fx(d)?' · '+fx(d):''}`);
@@ -1614,28 +1619,29 @@ function mgDone(r){const x=G.mg;G.mg=null;if(!x){toMap();return;}const k=x.k,win
 function eveMg(k){if(G.petD===G.dk||!canMg())return;G.petD=G.dk;startMg(k,{back:'evening'});save();}
 
 // ---------- вечір ----------
-function petFood(){if(!G.pet)return 0;return G.pet==='cat'?(G.petPure?60:30):(G.petPure?70:35);}
-function pobutCost(){const c=typeof crisisNow==='function'&&crisisNow();return Math.max(0,Math.round(HERO.pobut*(G.hard?1.3:1))+petFood()-(G.jars>0?50:0)+worldDinner()+(c&&c.k==='blackout'?40:0));}
-function petJoy(){if(!G.pet)return 0;return (G.pet==='dog'?1:0)+(G.petPure?(G.pet==='dog'?2:1):0);}
+function petFood(){if(!G.pet||G.catMom)return 0;return G.pet==='cat'?(G.petPure?60:30):(G.petPure?70:35);}
+function pobutCost(){const c=typeof crisisNow==='function'&&crisisNow();return Math.max(0,Math.round((c34On()&&G.dorm&&G.dorm.evicted?100:HERO.pobut)*(G.hard?1.3:1))+petFood()-(G.jars>0?50:0)+worldDinner()+(c&&c.k==='blackout'?40:0));}
+function petJoy(){if(!G.pet||G.catMom)return 0;return (G.pet==='dog'?1:0)+(G.petPure?(G.pet==='dog'?2:1):0);}
 function evening(pay){const c=pobutCost();if(pay==='debt'){G.debt=(G.debt||0)+c;add({h:-1});logp(`🤝 Діма позичив ${c} грн на вечерю — віддаси зі ${HERO.t.payGen}`);if(G.jars>0)G.jars--;}else if(pay){if(G.money<c)return;add({m:-c});if(G.jars>0)G.jars--;}else add({n:-2,h:-1});
  if(G.skip){const k=Math.min(2,Math.max(0,G.nerves-1));if(k)add({n:-k});}
  loanSettle();billsEvening();{const c=crisisNow();if(c&&c.k==='blackout'&&!G.items.power){add({n:-1});logp('🕯 Блекаут без павербанка: −1 нерв');}}
  const pj=petJoy();if(pj){add({h:pj});logp(`${G.pet==='cat'?'🐱':'🐕'} Вечір з ${G.pet==='cat'?(G.petPure?'персом':'котом'):(G.petPure?'хаскі':'псом')}: +${pj} 😊`);}
  G.evDone=true;checkEnd();save();}
-function sleep(){G.evDone=false;
+function sleep(){G.evDone=false;try{if(c34On()&&dorm().evicted)G.momTrip=1;}catch(x){}
  if(G.wk===1){G.wk=2;startDay();save();return;}
  if(G.wk===2){G.wk=0;G.day++;startDay();save();return;}
  if(dow()===4||G.mode==='day'){G.phase='payday';payday();save();return;}
  G.day++;startDay();save();}
 
 // ---------- зарплата і кінець ----------
-function payday(){react('pay');let z=HERO.zp;if(G.debt){add({m:-G.debt});G.payDebt=G.debt;G.debt=0;}if(G.courseW===Math.floor(G.day/5)&&G.course>=3)z+=150;if(G.mode==='day')z=0;z+=worldPay();{const c=typeof crisisNow==='function'&&crisisNow();if(c&&c.k==='cuts')z=r10(z*0.8);}add({m:z});G.pay={z};
- const last=G.mode==='day'||G.day+1>=G.days;
+function payday(){react('pay');let z=HERO.zp;try{z=c34Pay(z);}catch(x){}if(G.debt){add({m:-G.debt});G.payDebt=G.debt;G.debt=0;}if(G.courseW===Math.floor(G.day/5)&&G.course>=3)z+=150;if(G.mode==='day')z=0;z+=worldPay();{const c=typeof crisisNow==='function'&&crisisNow();if(c&&c.k==='cuts')z=r10(z*0.8);}add({m:z});G.pay={z};
+ const last=G.mode==='day'||G.day+1>=G.days;if(last){try{c34Session();}catch(x){}}if(G.payNote)toastLater(G.payNote);
  if(last&&P&&P.family&&P.famDream!=null){G.dreamOk=P.famDream;}else if(last){G.money+=G.jar||0;G.jar=0;G.dreamOk=G.money>=G.dream.cost;if(P&&P.family)P.famDream=G.dreamOk;if(G.dreamOk)add({m:-G.dream.cost,h:5});}
  G.payLast=last;}
 function afterPay(){if(G.payLast){finish();}else{G.wk=1;startDay();}save();}
 function checkEnd(){if(G.nerves<=0&&!G.ended){finish('nerves');}}
 function finish(why){const avg=DP.order.reduce((s,k)=>s+G.rel[k].r,0)/DP.order.length;let e='end10';
+ if(why==='expelled'||why==='prison'){e=why==='expelled'?'end12':'end13';const O=HERO.ends[e];G.ended={k:e,t:O[0],x:O[1]};G.hist.push(G.money);G.phase='end';if(!P)saveRel();try{achEnd();achOnEnd();statsOnEnd();}catch(x){}wipe();return;}
  const gamb=G.risk.w+G.risk.l>=Math.max(6,Math.ceil(G.days*1.4))&&Math.abs(G.risk.w-G.risk.l)<=Math.max(2,Math.round(G.days/5));
  if(why==='nerves'||why==='dead')e='end11';
  else if(HERO.id==='student'&&(G.money<0||G.debt>0))e='end9';
@@ -1671,11 +1677,11 @@ function initPeople(){G.rel={};DP.order.forEach(k=>G.rel[k]={r:DP.start[k]||0,pt
 function rel(k,x,whole){const o=G.rel[k];const was=o.r;
  if(x<0){if(o.mx>=2||whole){o.r=Math.max(0,o.r+x);o.pt=0;}}
  else{o.pt+=whole?3:x;while(o.pt>=3&&o.r<5&&o.upD!==G.dk){o.r++;o.pt-=3;o.upD=G.dk;}if(o.r>=5||o.upD===G.dk)o.pt=Math.min(o.pt,2);}
- o.mx=Math.max(o.mx,o.r);
+ o.mx=Math.max(o.mx,o.r);o.gm=Math.max(o.gm==null?o.r:o.gm,o.r);
  if(o.r>was){toastLater(`${PIC[k][0]} ${PN1(k)}: ${tierName(k)}`);if(HERO.id==='student'&&k==='st_dima'&&o.r>=3&&!G.secretFound){G.secretFound=1;msg(k,'Бро, є тема 🤫 Курʼєрка шукає людину на одну нічну доставку: 300 грн одразу. На карті тисни «🔐 Секрет». Тільки нікому!',null,true);}const T=DP.tup&&DP.tup[k];const t=T&&T[Math.min(T.length-1,TI(o.r))];if(t&&TI(o.r)>TI(was))msg(k,t,null,true);}
  else if(o.r<was){toastLater(`💔 ${PN1(k)} ${k==='st_dima'||k==='st_petro'?'образився':'образилась'}`);const sc='sorry_'+k;if(D.chains&&D.chains[sc]&&!G.queue.some(q=>q.id===sc))queueChain(sc,1);}}
 // ---------- повідомлення ----------
-function msg(f,t,o,force){const P=G.ph;const m={id:++P.nid,f,t:greet(t),o:o||null,d:G.day,st:o?'new':'read',me:false};P.m.push(m);if(P.m.length>200)P.m.splice(0,P.m.length-200);if(!force||o)P.unread++;else P.unread++;return m;}
+function msg(f,t,o,force){const P=G.ph;const m={id:++P.nid,f,t:greet(t),o:o||null,d:G.day,dk:G.dk,st:o?'new':'read',me:false};P.m.push(m);if(P.m.length>200)P.m.splice(0,P.m.length-200);if(!force||o)P.unread++;else P.unread++;return m;}
 function greet(t){const h=G.clock/60;const g=h<11?['Доброго ранку','доброго ранку']:h<17?['Доброго дня','доброго дня']:['Добрий вечір','добрий вечір'];return String(t).replace(/Добр(ий вечір|ого дня|ого ранку)/g,g[0]).replace(/добр(ий вечір|ого дня|ого ранку)/g,g[1]);}
 function me(f,t){G.ph.m.push({id:++G.ph.nid,f,t:greet(t),me:true,d:G.day});}
 // не більше 2 «самих» повідомлень на день, по одному між діями, у перший день — тиша, без повторів
@@ -1704,7 +1710,7 @@ function errandOffer(k){const locs=Object.keys(HERO.places).filter(l=>DP.it[l]&&
  lastIn().err={k,loc,it};return true;}
 function checkTasks(){G.tasks.forEach(t=>{if(!t.done&&!t.failed&&t.day===G.day&&G.pos===t.loc){t.done=1;authAdd(1);rel(t.k,1);msg(t.k,`✅ Дякую за «${t.item}»!${t.k==='st_mom'?' ❤️':' 🙏'}`,null,true);toastLater(`📌 Доручення виконано: ${t.item}`);}});}
 // відповідь на повідомлення з вибором
-function answer(id,i){const m=G.ph.m.find(x=>x.id===id);if(!m||m.st!=='new')return;m.st='done';const k=m.f;const lbl=m.o[i];me(k,lbl);
+function answer(id,i){const m=G.ph.m.find(x=>x.id===id);if(!m||m.st!=='new')return;m.st='done';const k=m.f;c34Answered(k);const lbl=m.o[i];me(k,lbl);
  if(m.err){if(i===0){G.tasks.push({k,loc:m.err.loc,item:m.err.it,day:G.day});if(k==='st_mom')add({m:100});msg(k,k==='st_mom'?'Дякую, синку ❤️ Гроші вже на картці':'Дякую! 🙏');}else msg(k,'Нічого, іншим разом 🙂');return;}
  if(m.npc!=null){const o=DP.npcm[m.npc].o[i];if(o){if(o[1])add(o[1]);if(o[2])msg(k,o[2]);relChat(k,o[1]&&(o[1].h||0)<0?0:1);}return;}
  if(m.init){const I=DP.init[k][m.init.j];const o=I.o[i];if(o){msg(k,o[2]);if(o[1]>0)relChat(k,1);}return;}
@@ -1723,7 +1729,7 @@ function writeOpts(k){if(!canWrite(k))return [];const st=storyNext(k);const out=
  const T=talkFor(k);if(T)out.push({a:'talk',l:T.me});
  return out;}
 function talkFor(k){const tt=tierOf(k);const used=G.rel[k].tu||(G.rel[k].tu={});const L=(DP.talk[k]||[]).map((x,j)=>({x,j})).filter(o=>(o.x.min||0)<=tt&&!used[o.j]);if(!L.length)return null;const o=L[0];return Object.assign({j:o.j},o.x);}
-function write(k,a){if(!canWrite(k))return;G.rel[k].wn.n++;
+function write(k,a){if(!canWrite(k))return;G.rel[k].wn.n++;c34Answered(k);
  if(a==='talk'){const T=talkFor(k);if(!T)return;G.rel[k].tu[T.j]=1;me(k,T.me);const q=Array.isArray(T.q)?T.q[Math.min(T.q.length-1,tierOf(k))]:T.q;const m=msg(k,q,T.o.map(x=>x[0]));m.talk={j:T.j};G.ph.unread--;return;}
  if(a==='inv'){const st=storyNext(k);if(!st)return;const s=G.rel[k].s;G.rel[k].invDk=G.dk;
   if(k==='st_oksana'&&DP.myo[s]){const D0=DP.myo[s];me(k,D0.me||'Привіт!');const m=msg(k,D0.q||st.q,D0.o?D0.o.map(x=>x[0]):[st.yes,st.no]);m.inv={k,s,myo:!!D0.o};}
@@ -2388,7 +2394,7 @@ function v1Album(){const all=albAll();const have=new Set(albGet());const n=all.f
  const tabs=ALB_PG.map(([k,nm])=>{const T=all.filter(x=>x.pg===k);if(!T.length)return '';return `<button data-a="albpg" data-k="${k}" class="${k===pg?'on':''}">${nm} <small>${T.filter(x=>have.has(x.t)).length}/${T.length}</small></button>`;}).join('');
  const nm=(ALB_PG.find(p=>p[0]===pg)||['',''])[1];
  return v1(`<button class="topback" data-a="tomenu">← Назад</button><div class="stephead"><h2>Альбом і досягнення</h2></div><img src="${SRC('img/core/skyline.webp')}" alt="" style="width:100%;max-height:190px;object-fit:cover;border-radius:14px;display:block;margin:0 0 10px">
- <div class="life"><div class="lfhead">📊 Мій Кривий Ріг</div>${s.games?`<p class="note">🎮 Ігор: <b>${s.games}</b> · 💰 найбільше в кінці: <b>${s.best} грн</b> · 🎉 мрій: <b>${s.dreams||0}</b> · 🏁 кінцівок: <b>${(s.ends||[]).length} з 11</b></p>`:'<p class="note">Тут зʼявиться твоя статистика після першої гри.</p>'}</div>
+ <div class="life"><div class="lfhead">📊 Мій Кривий Ріг</div>${s.games?`<p class="note">🎮 Ігор: <b>${s.games}</b> · 💰 найбільше в кінці: <b>${s.best} грн</b> · 🎉 мрій: <b>${s.dreams||0}</b> · 🏁 кінцівок: <b>${(s.ends||[]).length} з ${ENDN.length}</b></p>`:'<p class="note">Тут зʼявиться твоя статистика після першої гри.</p>'}</div>
  <div class="album"><div class="albcover" style="background-image:linear-gradient(rgba(30,20,50,.35),rgba(30,20,50,.85)),url(${SRC(V1+'cover.webp')})"><b>📒 Альбом Кривбасу</b><span>${n} з ${all.length} ${plN(all.length,['наліпки','наліпок','наліпок'])}</span><div class="sgbar"><i style="width:${Math.round(n/all.length*100)}%"></i></div><small>Кожна нова ситуація в грі — нова наліпка</small></div>
  <div class="albtabs">${tabs}</div><div class="albhead">${nm.split(' ')[0]} <b>${nm.split(' ').slice(1).join(' ')}</b> — ${L.filter(x=>have.has(x.t)).length} з ${L.length}</div>
  <div class="albgrid">${L.map(x=>have.has(x.t)?`<div class="stk2"><span class="sim" style="background-image:url(${SRC(x.art||V1+'cover.webp')})"></span><span class="stt">${esc(x.t)}</span></div>`:`<div class="stk2 lock"><span class="sim">?</span><span class="stt">Ще не зібрано</span></div>`).join('')}</div></div>`);}
@@ -2633,7 +2639,7 @@ function gameScreenV1(){if(!G)return null;switch(G.phase){
  case 'mg':return gl(poster(null,'🎮 Міні-гра',G.mg.k==='dial'&&G.mg.num?'Набери '+G.mg.num:MG[G.mg.k].n,`<p>${MG[G.mg.k].i||''}</p>`));
  case 'evening':return v1Evening();
  case 'payday':return v1Payday();
- case 'mom':return gl(poster(SI('home_visit'),'Понеділок, 6:00','Від мами — на пари',`<p>Мама загорнула пиріжки і перехрестила на дорогу. Пари о восьмій, а ти за 60 км.</p><button class="btn btn-choice" data-a="momroad" data-k="bus" ${G.money<40?'disabled':''}>🚌 Ранкова маршрутка<small>💰−40 · встигаєш спокійно</small></button><button class="btn btn-choice" data-a="momroad" data-k="train" ${G.money<15?'disabled':''}>🚆 Електричка о 5:20<small>💰−15 😌−1 · дешево, але рано</small></button>${G.money<15?'<button class="btn btn-choice" data-a="momroad" data-k="free">🙏 Мама дала на дорогу<small>без витрат</small></button>':''}`));
+ case 'mom':return gl(poster(SI('home_visit'),`${DOW[dow()]}, 6:00`,'Від мами — на пари',`<p>Мама загорнула пиріжки і перехрестила на дорогу. Пари о восьмій, а ти за 60 км.</p><button class="btn btn-choice" data-a="momroad" data-k="bus" ${G.money<40?'disabled':''}>🚌 Ранкова маршрутка<small>💰−40 · встигаєш спокійно</small></button><button class="btn btn-choice" data-a="momroad" data-k="train" ${G.money<15?'disabled':''}>🚆 Електричка о 5:20<small>💰−15 😌−1 · дешево, але рано</small></button>${G.money<15?'<button class="btn btn-choice" data-a="momroad" data-k="free">🙏 Мама дала на дорогу<small>без витрат</small></button>':''}`));
  case 'end':return v1End();}
  return null;}
 function v1Morning(){const n=G.news;const mt=UI.mt||0;const wd=wxToday();const W=WXD[wd]||WXD[''];const c=cityToday();const wc=wcard();const d=gDate();
@@ -2684,7 +2690,9 @@ function v1Evening(){const c=pobutCost();const s=G.day0;const pets=G.pet?` + к�
  let b=`<div style="color:var(--cream)"><table class="table"><tbody><tr><td><img src="${SRC(V1+HERO.card)}" alt="">${HERO.name}</td><td>${G.money} грн</td><td>${G.nerves} нервів</td><td>${G.happy} щ.</td></tr></tbody></table></div>
  <p><b>За день:</b> 💰${sg(G.money-s.m)} · 😌${sg(G.nerves-s.n)} · 😊${sg(G.happy-s.h)}${chg.length?'<br><b>Люди:</b> '+chg.join(' · '):''}<br><b>Тиждень:</b> 🎓 курсова ${G.courseW===Math.floor(G.day/5)?Math.min(3,G.course):0}/3 · 💪 форма ${G.forma}/3 · 🫙 ${G.jars}</p>
  <p>Продукти, комуналка, дрібниці. Вирішуй сам: заплатити чи затягнути пасок.${G.skip?' <b>Прогул: −2 нерви.</b>':''} ${qBtn('evening')}</p>${(G.loans||[]).some(l=>l.due<=G.day)?'<p class="note">🏦 Сьогодні банк спише кредит. Не вистачить — пеня 20% і колектор.</p>':''}`;
- if(G.pet&&!G.evDone&&G.petD!==G.dk&&canMg())b+=G.pet==='cat'?`<button class="btn btn-choice" data-a="evemg" data-k="pet">🐱 Погладити кота<small>міні-гра · вийде — 😌+1</small></button>`:`<button class="btn btn-choice" data-a="evemg" data-k="walk">🐕 Вигуляти пса<small>міні-гра · вийде — 😌+1 😊+1</small></button>`;
+ b=c34EveningHTML()+b;
+ if(G.catFound===G.dk)return gl(sayHTML(sLine('eve'))+poster(SI('evening_budget'),`${DOW[dow()]}, вечір`,'Вечеря і побут',b),dayHint());
+ if(G.pet&&!G.catMom&&!G.evDone&&G.petD!==G.dk&&canMg())b+=G.pet==='cat'?`<button class="btn btn-choice" data-a="evemg" data-k="pet">🐱 Погладити кота<small>міні-гра · вийде — 😌+1</small></button>`:`<button class="btn btn-choice" data-a="evemg" data-k="walk">🐕 Вигуляти пса<small>міні-гра · вийде — 😌+1 😊+1</small></button>`;
  b+=G.evDone?`<button class="btn btn-main" data-a="sleep">Лягти спати</button>`:`<div style="margin:12px 0"><div class="row2"><button class="btn btn-choice" style="margin:0" data-a="pay" ${G.money<c?'disabled':''}>Оплатити побут<small>💰−${c}: побут ${HERO.pobut}${pets}${G.jars>0?' − 50 закрутка':''}${din?(din>0?' + '+din+' дорожче':' − '+(-din)+' знижки'):''}</small></button><button class="btn btn-choice" style="margin:0;background:var(--sun)" data-a="eco" ${G.nerves<=2?'disabled':''}>Зекономити<small>${G.nerves<=2?'не вистачить сил':'😌−2 😊−1'}</small></button></div></div>`+(G.money<c&&G.nerves<=2?`<button class="btn btn-choice" data-a="debt">🤝 Позичити в Діми на вечерю<small>😊−1 · віддаси ${c} грн зі ${HERO.t.payGen}</small></button>`:'');
  const due=(G.bills||[]).map((x,i)=>({x,i})).filter(o=>o.x.due<=G.day);if(due.length)b=`<div class="billdue"><b>🧾 Сьогодні строк оплати:</b>${due.map(o=>`<button class="btn btn-choice" data-a="paybill" data-k="${o.i}" ${G.money>=o.x.amt?'':'disabled'}>${esc(o.x.t)}${o.x.late?' (з пенею)':''}<small>💰−${o.x.amt} · не оплатиш — пеня 20% і −1 нерв</small></button>`).join('')}</div>`+b;
  return gl(sayHTML(sLine('eve'))+poster(SI('evening_budget'),`${DOW[dow()]}, вечір`,'Вечеря і побут',b),dayHint());}
@@ -2693,16 +2701,16 @@ function v1Payday(){const p=G.pay;const last=G.payLast;
  if(last)b+=G.dreamOk?`<p>🎉 Мрія «${esc(G.dream.t)}» — твоя!</p>`:`<p>На мрію «${esc(G.dream.t)}» не вистачило ${G.dream.cost-G.money} грн.</p>`;
  return gl(sayHTML(sLine('pay',true))+poster(SI('payday'),`${DOW[dow()]}, вечір`,HERO.t.payDay,b+`<button class="btn btn-main" data-a="afterpay">${last?'Чим усе скінчилось?':'Далі'}</button>`));}
 function v1End(){const e=G.ended;const ok=G.rel.st_oksana;const H=G.hist.slice(-29);const s=statsGet();
- const endImg=SRC(endPath(e.k));const no=['end1','end2','end3','end4','end5','end6','end7','end8','end9','end10','end11'].indexOf(e.k)+1;
+ const endImg=SRC(endPath(e.k));const no=ENDN.findIndex(x=>x[0]===e.k)+1;
  let chart='';if(H.length>1){const mx=Math.max(...H,1),mn=Math.min(...H,0);const x=i=>14+i/(H.length-1)*292,y=v=>14+(1-(v-mn)/((mx-mn)||1))*62;const pts=H.map((v,i)=>x(i).toFixed(1)+','+y(v).toFixed(1)).join(' ');
   chart=`<svg class="fwchart" viewBox="0 0 320 106" role="img" aria-label="Гроші по днях"><line x1="14" x2="306" y1="${y(0)}" y2="${y(0)}" class="z"></line><polyline points="14,76 ${pts} 306,76" class="a"></polyline><polyline points="${pts}" class="l"></polyline>${H.map((v,i)=>`<circle cx="${x(i)}" cy="${y(v)}" r="3"></circle>`).join('')}<text x="306" y="${y(H[H.length-1])-8}" class="v">${H[H.length-1]} ₴</text></svg>`;}
  let worst=null;for(let i=1;i<H.length;i++){const d=H[i]-H[i-1];if(worst==null||d<worst.d)worst={i,d};}
  const ppl=DP.order.map(k=>{const r=Math.max(0,Math.min(5,G.rel[k].r));return `<span><img src="${SRC(PAV(k))}" alt=""><i>${esc(PN(k).split(' ')[0])}</i><em>${PIC[k][0].repeat(r)}${PIC[k][1].repeat(5-r)}</em></span>`;}).join('');
  const ft=UI.ft||0;const news=HERO.endHeadline();const wxs=wxSummary();
  const tab0=`<div class="paper2"><b>ВСЕ РІВНО · спецвипуск</b><h4>${esc(news)}</h4></div>${wxs?`<p class="wxsum">🌦 <b>Погода:</b> ${wxs}</p>`:''}`;
- const tab1=`${(G.newAch||[]).length?`<p><b>Нові досягнення:</b> ${G.newAch.map(esc).join(', ')}</p>`:'<p class="note">Нових досягнень цього разу немає.</p>'}<p class="note endcnt">Відкрито кінцівок: ${(s.ends||[]).length} з 11. Усі — у 📱 Галереї.</p>`;
+ const tab1=`${(G.newAch||[]).length?`<p><b>Нові досягнення:</b> ${G.newAch.map(esc).join(', ')}</p>`:'<p class="note">Нових досягнень цього разу немає.</p>'}<p class="note endcnt">Відкрито кінцівок: ${(s.ends||[]).length} з ${ENDN.length}. Усі — у 📱 Галереї.</p>`;
  const tab2=`<p style="font-size:17px">${esc(e.x)}</p><p>📒 Нових наліпок в альбомі: ${G.albNew||0}</p><div class="detail" style="margin:10px 0;color:var(--text)"><p>${esc(HERO.endStory())}</p></div>`;
- return `<div class="v1"><div class="tscr"><div class="fwrap"><p class="fkick">🏁 Підсумки · ${esc(MODES[G.mode].n)}${G.daily?' · Тиждень дня #'+G.daily:''}</p><h2 class="ftitle">${esc(HERO.endTitle())}</h2><div class="fends"><div class="endcard"><div class="endimg" style="background-image:url(${endImg})"></div><div class="endtx"><small>Кінцівка ${no} з 11</small><h3>${esc(e.t)}</h3><p>${esc(e.x)}</p></div></div></div>
+ return `<div class="v1"><div class="tscr"><div class="fwrap"><p class="fkick">🏁 Підсумки · ${esc(MODES[G.mode].n)}${G.daily?' · Тиждень дня #'+G.daily:''}</p><h2 class="ftitle">${esc(HERO.endTitle())}</h2><div class="fends"><div class="endcard"><div class="endimg" style="background-image:url(${endImg})"></div><div class="endtx"><small>Кінцівка ${no} з ${ENDN.length}</small><h3>${esc(e.t)}</h3><p>${esc(e.x)}</p></div></div></div>
  ${G.dreamOk&&G.dream.art?`<div class="lsfin okmore"><div class="lsimg" style="background-image:url(${SRC(HERO.img+G.dream.art+'.webp')})"></div><div><b>🎯 ${esc(G.dream.t)}</b><small>Мрія здійснилась. Ти на неї заробив сам.</small></div></div>`:''}<div class="lsfin okmore"><div class="lsimg" style="background-image:url(${SRC(ok.s>=6&&HERO.okEnd?HERO.img+HERO.okEnd+'.webp':PAV('st_oksana'))})"></div><div><b>💕 Оксана · ${Math.min(ok.s,6)} з 6</b><small>${ok.s>=6?'Ваша історія пройдена до кінця.':ok.r>=2?'Ви вже не чужі одне одному.':'Ви ще навіть не говорили. Напиши їй першим 😉'}</small><small><i>Далі буде в наступній грі ${HERO.t.whoIns} — ваша історія збережена.</i></small></div></div>
  <div class="fchips"><span>💰 ${G.money} грн</span><span>😌 ${G.nerves}</span><span>😊 ${G.happy}</span><span>🎯 мрія ${G.dreamOk?'✅':'❌'}</span></div>
  <section class="fweek"><h3>📊 ${G.mode==='day'?'Твій день':G.days>=20?'Твій місяць':G.days>5?'Твої два тижні':'Твій тиждень'}</h3>${chart}${worst?`<div class="fwrow"><p>🌧 <b>Найважчий день:</b> ${['Пн','Вт','Ср','Чт','Пт'][(worst.i-1)%5]||''} · 💰${worst.d}</p></div>`:''}<div class="fwppl"><b>💞 Твої люди</b><div>${ppl}</div></div></section>
@@ -2758,9 +2766,9 @@ function appNav(){const rows=[`<div class="phcon"><img src="${SRC(V1+HERO.card)}
 function appNews(){const c=wcard();return phHead('📰 Новини Кривбасу')+`<div class="phsec"><p>📰 <b>${esc(G.news.t)}</b></p><p>${esc(G.news.x)}</p></div>${G.news.heads.map(h=>`<div class="phsec"><p>🗞 ${esc(h)}</p></div>`).join('')}${c?`<div class="phsec"><p>🃏 <b>Цього тижня: ${esc(c.t)}.</b> ${esc(c.x)}</p></div>`:''}`;}
 function appWx(){const W=WXD[wxToday()]||WXD[''];const f=[1,2].map(o=>{const k=wxAt(o);const X=WXD[k]||WXD[''];return `<div class="phwxd"><span>${X[0]}</span><div><b>${o===1?'Завтра':'Післязавтра'}: ${X[1]}, ${wxTemp(o)}°</b>${X[2]?`<small>${X[2]}</small>`:''}</div></div>`;}).join('');
  return phHead('🌦 Погода')+`<div class="phwx"><div><span>${W[0]}</span><b>${wxTemp(0)}°</b><small>Сьогодні в Кривому Розі: ${W[1]}${W[2]?' · '+W[2]:''}</small></div></div><div class="phsec"><h4>Прогноз</h4>${f}</div>`;}
-var ENDN=[['end1','Мрія здійснилась'],['end2','Найкращий студент'],['end3','Назад до мами'],['end4','Свій підробіток'],['end5','Азарт'],['end6','Ледь дожив'],['end7','Щасливий студент'],['end8','Мрія і гроші'],['end9','Борги'],['end10','Тихе життя'],['end11','Нерви не витримали']];
+var ENDN=[['end1','Мрія здійснилась'],['end2','Найкращий студент'],['end3','Назад до мами'],['end4','Свій підробіток'],['end5','Азарт'],['end6','Ледь дожив'],['end7','Щасливий студент'],['end8','Мрія і гроші'],['end9','Борги'],['end10','Тихе життя'],['end11','Нерви не витримали'],['end12','Відрахування'],['end13','Вʼязниця']];
 function appGal(){const s=statsGet();const E=s.ends||[];const n=E.length;
- return phHead('📷 Галерея')+`${n?'':'<p class="note">Ще жодного кадру. Гайда в місто!</p>'}<div class="phsec"><h4>🏁 Кінцівки: ${n} з 11</h4><div class="phgal endgal">${ENDN.map(([k,t])=>E.includes(k)?`<div><img src="${SRC(endPath(k))}" alt=""><small>${t}</small></div>`:'<div class="lock"><span>❓</span><small>Ще не відкрито</small></div>').join('')}</div>
+ return phHead('📷 Галерея')+`${n?'':'<p class="note">Ще жодного кадру. Гайда в місто!</p>'}<div class="phsec"><h4>🏁 Кінцівки: ${n} з ${ENDN.length}</h4><div class="phgal endgal">${ENDN.map(([k,t])=>E.includes(k)?`<div><img src="${SRC(endPath(k))}" alt=""><small>${t}</small></div>`:'<div class="lock"><span>❓</span><small>Ще не відкрито</small></div>').join('')}</div>
  <h4 style="margin-top:10px">🎁 Бонуси за кінцівки</h4>${EBON.map(([k,t])=>`<p class="${n>=k?'':'dim'}">${n>=k?'✅':'🔒'} ${k} кінц. · ${t}</p>`).join('')}</div>`;}
 function appCal(){const base=gDate(0,0);const off=UI.calMo||0;const m=new Date(base.getFullYear(),base.getMonth()+off,1);const first=(m.getDay()+6)%7;const dim=new Date(m.getFullYear(),m.getMonth()+1,0).getDate();
  const gs=G.date0,ge=G.date0+(calIdx(G.days-1,0)+1)*864e5;const today=gDate().toDateString();const mark=dd=>{const t=dd.getTime();if(t<gs||t>=ge)return '';const ci=Math.round((t-gs)/864e5);const wd=ci%7;if(wd===4)return '💰';if(wd===2)return '🧾';if(wd>=5&&G.days>5)return '🌤';return '';};
@@ -2917,7 +2925,7 @@ function famSync(){if(!P||!P.family)return;if(G&&P.pl[P.cur]&&P.pl[P.cur].G===G)
 // ---------- 🧾 рахунки: сам платиш у Банку до кінця дня строку (як у 1.97) ----------
 function billsWeek(msg){const w=Math.floor(G.day/5);if(G.wk||G.mode==='day'&&G.day>0)return;if(G.billW===w)return;G.billW=w;
  const fam=P&&P.family&&P.pl.indexOf(P.pl[P.cur])>0;const k=G.hard?1.25:1;const add1=(t,amt,wd)=>G.bills.push({t,amt:r10(amt*k),due:G.mode==='day'?0:w*5+wd,late:0});
- if(!fam){HERO.bills.forEach(b=>add1(b.t,b.amt,b.dow));if(G.season==='winter')add1('Опалення',150,2);}
+ if(!fam){HERO.bills.forEach(b=>{if(b.t==='Гуртожиток'&&G.dorm&&G.dorm.evicted)return;add1(b.t,b.amt,b.dow);});if(G.season==='winter')add1('Опалення',150,2);}
  if(G.bills.length)msg.push(`🧾 Рахунки тижня: ${G.bills.map(b=>b.t+' '+b.amt).join(', ')} — оплати в 📱 Банку`);}
 function billsDue(){return (G.bills||[]).filter(b=>b.due<=G.day);}
 function payBill(i){const b=(G.bills||[])[i];if(!b||G.money<b.amt)return;add({m:-b.amt});G.bills.splice(i,1);toastLater(`✅ ${b.t} оплачено`);snd('coin');save();}
@@ -3002,6 +3010,7 @@ function doA(ds){const a=ds.a,k=ds.k;const b={dataset:ds,classList:{contains:c=>
   case 'ph':UI.phone=b.dataset.v;return go();
   case 'phx':UI.phone=null;return go();
   case 'ans':answer(+b.dataset.id,+b.dataset.i);save();return go();
+  case 'c34':c34Act(k);save();return go();
   case 'wr':write(k,b.dataset.v);save();return go();
   case 'help':askHelp(k);save();return go();
   case 'svc':useSvc(+k);save();return go();
@@ -3010,7 +3019,121 @@ function doA(ds){const a=ds.a,k=ds.k;const b={dataset:ds,classList:{contains:c=>
   case 'ladres':ladderDone(ds.v);return go();
  }}
 render();anthemAuto();
-try{Object.defineProperty(window,'G',{get:()=>G});window.hm=hm;window.kr3={save,render,D,setEv,UI};window.kr3i={playMg,newGame,startPars,momRoad,choose,next,toMap,actsAt,doAct,roads,goHome,evening,sleep,afterPay,payBill,canDo,blocked,effOf,pobutCost,curfew,stops,placeOf,meetsAt,doMeet,meetBlock,meetDay,ladderDone,mgDone,HERO,D,SET:()=>SET,heroId:()=>HERO.id,setHero,sitPool,cur:()=>({HERO,D,DP,D7}),newParty,t34:{G:()=>G,msg,rel,answer,react,startDay,arriveHome,evening:typeof eveningIn==='function'?eveningIn:null,UI:()=>UI,render}};Object.defineProperty(window,'P',{get:()=>P});}catch(e){}
+try{Object.defineProperty(window,'G',{get:()=>G});window.hm=hm;window.kr3={save,render,D,setEv,UI};window.kr3i={playMg,newGame,startPars,momRoad,choose,next,toMap,actsAt,doAct,roads,goHome,evening,sleep,afterPay,payBill,canDo,blocked,effOf,pobutCost,curfew,stops,placeOf,meetsAt,doMeet,meetBlock,meetDay,ladderDone,mgDone,HERO,D,SET:()=>SET,heroId:()=>HERO.id,setHero,sitPool,cur:()=>({HERO,D,DP,D7}),newParty,t34:{G:()=>G,skip:skipPars,c34:{u34,dorm,spoiled,good,c34Thr,avgGr},msg,rel,answer,react,startDay,arriveHome,evening:typeof eveningIn==='function'?eveningIn:null,UI:()=>UI,render}};Object.defineProperty(window,'P',{get:()=>P});}catch(e){}
+
+// ===================== Кривий Ріг 3.4 · наслідки: стосунки, мовчання, університет, гуртожиток =====================
+// пороги «н» за довжиною гри (5 / 10 / 20 днів пар)
+const C34T={1:{warn:1,talk:2,stip:3,exp:99},2:{warn:2,talk:3,stip:5,exp:7},4:{warn:3,talk:5,stip:8,exp:12}};
+function c34On(){return G&&HERO.id==='student'&&G.mode!=='day'&&!P;}
+function c34Thr(){const w=G.days>=20?4:G.days>=10?2:1;return C34T[w];}
+function u34(){if(!G.uni)G.uni={n:0,late:0,skips:0,cov:{},gr:[],jr:[],talked:0,warned:0,stipOff:false,exp:false};return G.uni;}
+function dorm(){if(!G.dorm)G.dorm={s:0,evicted:false,catHid:0};return G.dorm;}
+function spoiled(k){const o=G.rel[k];return !!o&&o.gm!=null&&o.r<o.gm;}
+function good(k){return !!G.rel[k]&&G.rel[k].r>=3&&!spoiled(k);}
+function jr(st,why){if(!c34On())return;u34().jr.push({dk:G.dk,day:G.day,st,why:why||''});}
+function avgGr(wk){const L=u34().gr.filter(x=>wk==null||Math.floor(x.day/5)===wk);return L.length?L.reduce((s,x)=>s+x.g,0)/L.length:null;}
+function grade(g,why){if(!c34On())return;u34().gr.push({day:G.day,g});jr(String(g),why);}
+function addN(why){if(!c34On())return;const U=u34();U.n++;jr('н',why);logp('📕 «н» у журналі: '+why);c34UniCheck();}
+function c34UniCheck(){const U=u34(),T=c34Thr();
+ if(U.n>=T.exp){U.exp=true;return;}
+ if(U.n>=T.stip&&!U.stipOff){U.stipOff=true;msg('st_petro','Через пропуски вам знімають стипендію. Відпрацюєте «н» на кафедрі — поговоримо про повернення.',null,true);toastLater('🎓 Стипендію знято: забагато «н»');if(G.hard&&!G.weedOffer){G.weedOffer=G.dk;c34WeedOffer();}return;}
+ if(U.n>=T.talk&&!U.talked){U.talked=1;queueChain('c34_talk',0);return;}
+ if(U.n>=T.warn&&!U.warned){U.warned=1;msg('st_oksana',good('st_oksana')?'Слухай, ще трохи пропусків — і Петро Іванович викличе до себе. Я хвилююсь 😬':'У тебе вже '+U.n+' «н». Ще трохи — і до Петра Івановича.',null,true);}}
+function c34ExpelCheck(){if(c34On()&&u34().exp&&G.phase!=='end'){finish('expelled');return true;}return false;}
+// пара: оцінка за те, як пройшов
+function c34Pars(c,ok){if(!c34On())return;const l=c.l||'';let g=null;
+ if(c.quiz||c.riddle){jr('✓','пара');return;}
+ if(/перш(у|а) парт/i.test(l))g=5;else if(/конспект/i.test(l))g=4;
+ else if(/друга відмітити/i.test(l)){if(ok===false){addN('викладач влаштував перекличку');return;}jr('✓','друг відмітив');return;}
+ else if(/чесно/i.test(l))g=ok?5:2;else if(/Списати/i.test(l))g=ok?3:2;else if(/перенести/i.test(l)){jr('✓','лабу перенесли');return;}
+ else if(/Писати самому/i.test(l))g=ok?5:3;else if(/Шпаргалка/i.test(l))g=ok?4:2;else if(/Оксану/i.test(l))g=ok?4:3;
+ if(g)grade(g,l);else jr('✓','пара');}
+// прогул: Оксана з добрими стосунками прикриває кожен другий (на рівні 5 — кожен, до 2 на тиждень)
+function c34Skip(){if(!c34On())return;const U=u34();U.skips++;const wk=Math.floor(G.day/5);let cov=false;
+ if(good('st_oksana')){if(G.rel.st_oksana.r>=5)cov=(U.cov[wk]||0)<2;else cov=U.skips%2===0;}
+ if(cov){U.cov[wk]=(U.cov[wk]||0)+1;jr('✓','Оксана прикрила');msg('st_oksana','Відмітила тебе 😉 Але з тебе кава.',null,true);logp('💕 Оксана прикрила прогул');}
+ else addN('прогул');}
+function c34Late(why){if(!c34On())return;const U=u34();
+ if(spoiled('st_oksana')){addN(why+' — Оксана одразу поставила «н»');return;}
+ U.late++;jr('зап',why);logp('⏰ Запізнився на пари: '+why+(U.late%3===0?'':' (три запізнення — «н»)'));if(U.late%3===0)addN('три запізнення');}
+function c34Morning(){if(!c34On())return;if(G.lateNight===G.dk-1&&rnd()<0.3)c34Late('проспав після нічної прогулянки');}
+// стипендія у пʼятницю
+function c34Pay(z){if(!c34On())return z;const U=u34(),wk=Math.floor(G.day/5),av=avgGr(wk);G.payNote='';
+ if(U.stipOff){G.payNote='🎓 Стипендію знято за «н». Відпрацюй пропуски на кафедрі.';return z-HERO.zp;}
+ if(av!=null&&av<3){G.payNote=`🎓 Середній бал за тиждень ${av.toFixed(1)} — стипендію цього разу не дали.`;return z-HERO.zp;}
+ const nW=U.jr.filter(x=>x.st==='н'&&Math.floor(x.day/5)===wk).length;
+ if(!nW&&av!=null&&av>=4.5){G.payNote='🏅 Тиждень без «н» і середній '+av.toFixed(1)+' — підвищена стипендія +200';return z+200;}
+ return z;}
+function c34Session(){if(!c34On())return;const U=u34(),av=avgGr();G.session=(av==null||av>=3)&&U.n<c34Thr().stip?'ok':'tails';}
+// мовчання: питання без відповіді до ранку
+const SILR={st_oksana:['Ти мене ігноруєш? 🙄',['Вибач, не бачив','Та зайнятий був']],st_dima:['Бро, ти живий? Чого мовчиш?',['Живий, вибач','Потім поговоримо']],st_petro:['Я чекаю на вашу відповідь.',['Вибачте, Петре Івановичу','Так, звісно']],st_valya:['Я з тобою говорю чи зі стіною? 😤',['Вибачте, тьотю Валю','Та чую я']]};
+function c34Silence(){if(!c34On()||!G.ph)return;const S=G.sil||(G.sil={});const hit={};
+ G.ph.m.forEach(m=>{if(!m.me&&m.st==='new'&&m.o&&m.dk!=null&&m.dk<G.dk){m.st='lost';hit[m.f]=1;}});
+ Object.keys(hit).forEach(k=>{if(!G.rel[k])return;S[k]=(S[k]||0)+1;const n=S[k];
+  if(k==='st_mom'){
+   if(n===1)msg(k,'Синку, ти чого мовчиш? Я хвилююсь 😟',['Все добре, мам ❤️','Вибач, закрутився']);
+   else if(n===2){rel(k,-1,true);msg('st_dima','Бро, тобі мама дзвонила, питала, чи ти живий. Набери її 🙏',null,true);msg(k,'Я вже Дімі писала. Ти взагалі там є? 😢',['Мам, вибач, я тут','Все нормально']);}
+   else{rel(k,-1,true);G.momVisit=G.dk;S[k]=0;msg(k,'Все, я їду до тебе. Буду ввечері.',null,true);}
+  }else if(SILR[k]){
+   if(n===1)msg(k,SILR[k][0],SILR[k][1]);
+   else{rel(k,-1,true);S[k]=0;msg(k,k==='st_petro'?'Зрозуміло.':'Ну й мовчи 😒',null,true);}
+  }});}
+function c34Answered(k){if(G&&G.sil)G.sil[k]=0;}
+// гуртожиток: попався на драбині
+function c34Strike(why){if(!c34On())return;const D=dorm();D.s++;
+ if(D.s===1)msg('st_valya','Перший і останній раз попереджаю. Ще раз — скарга в деканат 😤',null,true);
+ else if(D.s===2){add({m:-200});rel('st_petro',-1,true);msg('st_valya','Написала на тебе скаргу. Штраф 200 грн. Третій раз — виселю!',null,true);msg('st_petro','На вас скарга з гуртожитку. Неприємно.',null,true);toastLater('🧾 Скарга в деканат: −200 грн');}
+ else c34Evict('Тьотя Валя виселила тебе з гуртожитку');}
+function c34Evict(why){const D=dorm();if(D.evicted)return;D.evicted=true;D.s=Math.max(D.s,3);msg('st_valya','Збирай речі. Я тебе попереджала.',null,true);msg('st_mom','Синку, приїжджай, поживеш у мене. Тільки на пари вставати рано 🙏',null,true);toastLater('🧳 '+why+'. Живеш у мами в Лозуватці');logp('🧳 '+why);}
+// кіт у кімнаті
+function c34Cat(){if(!c34On()||G.pet!=='cat'||G.catMom)return;const D=dorm();if(D.evicted)return;
+ let p=good('st_valya')?0.02:spoiled('st_valya')?0.20:0.05;if(G.findFail===G.dk)p+=0.10;if(G.catPhotoValya)p+=0.05;
+ const again=D.catHid&&G.dk-D.catHid<=2;if(again)p=Math.max(p,0.30);
+ if(rnd()<p){if(again){G.catMom=true;D.catHid=0;msg('st_valya','Знову кіт! Все, неси його кудись. І це тобі ще одна скарга.',null,true);msg('st_mom','Привезли твого кота. Хай поживе в мене, нагодую 🐱',null,true);toastLater('😿 Валя знайшла кота вдруге — кіт поїхав до мами');c34Strike('кіт');}
+  else G.catFound=G.dk;}}
+// дії, що зʼявляються самі
+function c34Acts(loc){if(!c34On()||loc!=='uni')return [];const A=HERO.acts.uni.filter(a=>a.c34);const U=u34(),D=dorm();
+ return A.filter(a=>a.c34==='otrab'?U.n>0&&(U.talked||U.stipOff):a.c34==='peace'?D.evicted:a.c34==='chore'?(G.dk%3===0&&G.chore!==G.dk&&!D.evicted):false);}
+function c34DoAct(a){const U=u34(),D=dorm();
+ if(a.c34==='otrab'){U.n=Math.max(0,U.n-1);U.jr.push({dk:G.dk,day:G.day,st:'відпр',why:'відпрацював пропуск'});if(U.stipOff&&U.n<c34Thr().stip&&(avgGr()==null||avgGr()>=3)){U.stipOff=false;msg('st_petro','Пропуски відпрацьовані. Стипендію повертаємо з наступної пʼятниці.',null,true);toastLater('🎓 Стипендію повернуть з пʼятниці');}}
+ if(a.c34==='peace'){D.evicted=false;D.s=2;G.momTrip=0;rel('st_valya',3,true);msg('st_valya','Ну добре, повертайся. Але ще раз — і все 😤',null,true);}
+ if(a.c34==='chore'){G.chore=G.dk;G.choreMiss=0;rel('st_dima',1);}}
+function c34Chores(){if(!c34On())return;const D=dorm();if(D.evicted)return;const prev=G.dk-1;if(prev%3!==0||prev<3)return;if(G.chore===prev)return;
+ G.choreMiss=(G.choreMiss||0)+1;if(G.choreMiss>=2){G.choreMiss=0;rel('st_dima',-1,true);msg('st_dima','Знову не прибрав. Я тобі не прибиральник 😠',null,true);}else msg('st_dima','Бро, вчора була твоя черга прибирати 😒',null,true);}
+// чайник і газ
+function c34Daily(){if(!c34On())return;const D=dorm();
+ if(!G.kettleEv&&G.day>=1&&!D.evicted&&rnd()<0.12){G.kettleEv=G.dk;queueChain('c34_kettle',0);}
+ if(G.kettleHid&&!G.kettleDone&&G.dk-G.kettleHid>=2){G.kettleDone=1;if(rnd()<0.5)queueChain('c34_spark',0);}
+ if(!G.gasEv&&G.day>=2&&!D.evicted&&rnd()<(G.days>=20?0.04:0.08)){G.gasEv=G.dk;queueChain('c34_gas',0);}}
+function c34Choice(tag,c){const D=dorm();
+ if(tag==='talk_promise')rel('st_petro',1);
+ if(tag==='talk_otrab'){rel('st_petro',2);toastLater('🎓 На кафедрі можна відпрацювати «н»');}
+ if(tag==='kettle_give')G.kettleOff=1;
+ if(tag==='kettle_hide')G.kettleHid=G.dk;
+ if(tag==='kettle_fixed')G.kettleOff=1;
+ if(tag==='dial101'&&!canMg())c34Dial('101',true);
+ if(tag==='dial104'&&!canMg())c34Dial('104',true);
+ if(tag==='spark_self'){add({m:-300});c34Strike('розетка');}}
+function c34Dial(num,win){if(num==='101'){if(win){add({n:-1});toastLater('🚒 Рятувальники приїхали вчасно. Розетку замінять');}else{add({m:-300});toastLater('🔥 Обгоріла стіна й речі: −300 грн');c34Strike('пожежа');}}
+ if(num==='104'){if(win){rel('st_valya',3,true);add({h:2});toastLater('👵 Валя: «Ти герой, синку!»');}else{add({n:-1});toastLater('Газовики приїхали, але всіх вигнали на вулицю на годину');}}}
+// події 3.4 (ланцюжки)
+function c34Data(){const C=D_student.chains||(D_student.chains={});if(C.c34_talk)return;
+ C.c34_talk={t:'Розмова з Петром Івановичем',loc:'any',art:'petro_office',x:'Петро Іванович викликав до себе й постукав пальцем по журналу: «Стільки пропусків. Що будемо робити?»',c:[{l:'Пообіцяти, що більше не пропускатиму',h:-1,c34:'talk_promise',r:'«Подивимось». У журналі він поставив олівцем галочку біля твого прізвища.'},{l:'Попросити відпрацювати пропуски',n:-1,c34:'talk_otrab',r:'«Добре. Приходьте на кафедру — дам завдання за кожну пропущену пару».'}]};
+ C.c34_kettle={t:'Чайник у кімнаті',loc:'any',art:'valya_scold',x:'Тьотя Валя зазирнула в кімнату й побачила чайник: «У гуртожитку не можна! Проводка стара».',c:[{l:'Віддати чайник Валі',h:-1,c34:'kettle_give',r:'Валя забрала чайник. Тепер чай тільки в кавʼярні.'},{l:'Сховати під ліжко',c34:'kettle_hide',r:'Валя пішла. Чайник під ліжком, але розетка гріється…'},{l:'Викликати електрика Сергія',m:-120,c34:'kettle_fixed',r:'Сергій поставив нову розетку й показав Валі. Вона буркнула, але дозволила.'}]};
+ C.c34_spark={t:'Розетка заіскрила!',loc:'any',art:'socket_spark',x:'Ти ввімкнув схований чайник — розетка тріснула, посипались іскри, запахло паленим.',c:[{l:'Набрати 101',mg:'dial',mgo:{num:'101'},c34:'dial101',r:'Набираєш рятувальників…'},{l:'Гасити самому',n:-2,c34:'spark_self',r:'Загасив, але стіна чорна, а Валя все бачила.'}]};
+ C.c34_gas={t:'Запах газу',loc:'any',art:'gas_smell',x:'На кухні гуртожитку сильно пахне газом. Хтось лишив конфорку відкритою.',c:[{l:'Перекрити газ і набрати 104',mg:'dial',mgo:{num:'104'},c34:'dial104',r:'Набираєш газову службу…'},{l:'Відчинити вікно й піти',n:-1,r:'Вікно відчинив. Сподіваєшся, що хтось інший подзвонить.'}]};}
+// дії з вечора (кіт, мама)
+function c34Act(k){const D=dorm();
+ if(k==='cat_mom'){G.catMom=true;G.catFound=0;add({h:-2});msg('st_mom','Кіт у мене, не переживай. Їсть за двох 😄',null,true);}
+ if(k==='cat_hide'){G.catFound=0;D.catHid=G.dk;add({n:-1});}
+ if(k==='cat_move'){G.catFound=0;c34Evict('Ти поїхав разом із котом');}}
+function c34EveningHTML(){if(!c34On())return '';let b='';const D=dorm();
+ if(G.momVisit===G.dk&&!G.momVisitDone){G.momVisitDone=1;add({n:-1});G.jars+=2;logp('👩 Мама приїхала сама. Плакала, привезла 2 закрутки');}
+ if(G.momVisit===G.dk)b+=`<div class="c34ev"><img src="${SRC(HERO.img+'mom_visit.webp')}" alt=""><p><b>Мама приїхала сама.</b> Ти три дні не відповідав. Вона плакала, а потім нагодувала. 😌−1 · 🫙+2</p></div>`;
+ if(G.catFound===G.dk){const im=G.petPure?'valya_persian':'valya_cat';b+=`<div class="c34ev"><img src="${SRC(HERO.img+im+'.webp')}" alt=""><p><b>Тьотя Валя знайшла кота!</b> «Тварин у гуртожитку не можна. Вирішуй».</p><button class="btn btn-choice" data-a="c34" data-k="cat_mom">Віддати кота мамі<small>кіт поживе в мами · 😊−2</small></button><button class="btn btn-choice" data-a="c34" data-k="cat_hide">Сховати краще<small>😌−1 · знайде вдруге — кіт поїде до мами, і це скарга</small></button><button class="btn btn-choice" data-a="c34" data-k="cat_move">Виїхати разом з котом<small>житимеш у мами в Лозуватці</small></button></div>`;}
+ if(D.evicted)b+=`<p class="note">🧳 Ти живеш у мами в Лозуватці: вечеря дешевша, але зранку рання маршрутка.</p>`;
+ return b;}
+c34Data();
 
 document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('button'))snd('click');},true);
 
