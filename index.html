@@ -2669,7 +2669,7 @@ function gameScreenV1(){if(!G)return null;switch(G.phase){
  case 'mg':return gl(poster(null,'🎮 Міні-гра',G.mg.k==='dial'&&G.mg.num?'Набери '+G.mg.num:MG[G.mg.k].n,`<p>${MG[G.mg.k].i||''}</p>`));
  case 'evening':return v1Evening();
  case 'payday':return v1Payday();
- case 'mom':return gl(poster(SI('home_visit'),`${DOW[dow()]}, 6:00`,'Від мами — на пари',`<p>Мама загорнула пиріжки і перехрестила на дорогу. Пари о восьмій, а ти за 60 км.</p><button class="btn btn-choice" data-a="momroad" data-k="bus" ${G.money<40?'disabled':''}>🚌 Ранкова маршрутка<small>💰−40 · встигаєш спокійно</small></button><button class="btn btn-choice" data-a="momroad" data-k="train" ${G.money<15?'disabled':''}>🚆 Електричка о 5:20<small>💰−15 😌−1 · дешево, але рано</small></button>${G.money<15?'<button class="btn btn-choice" data-a="momroad" data-k="free">🙏 Мама дала на дорогу<small>без витрат</small></button>':''}`));
+ case 'mom':return gl(poster(SI('home_visit'),`${DOW[dow()]}, 6:00`,'Від мами — на пари',`<p>Мама загорнула пиріжки і перехрестила на дорогу. Пари о восьмій, а ти за 60 км.</p><button class="btn btn-choice" data-a="momroad" data-k="bus" ${G.money<40?'disabled':''}>🚌 Ранкова маршрутка<small>💰−40 · 6:40 · 🎲 25%: пробка й запізнення</small></button><button class="btn btn-choice" data-a="momroad" data-k="train" ${G.money<15?'disabled':''}>🚆 Електричка о 5:20<small>💰−15 😌−1 · дешево, але рано</small></button>${G.money<15?'<button class="btn btn-choice" data-a="momroad" data-k="free">🙏 Мама дала на дорогу<small>без витрат</small></button>':''}`));
  case 'end':return v1End();}
  return null;}
 function v1Morning(){const n=G.news;const mt=UI.mt||0;const wd=wxToday();const W=WXD[wd]||WXD[''];const c=cityToday();const wc=wcard();const d=gDate();
