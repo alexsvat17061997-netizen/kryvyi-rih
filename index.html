@@ -1177,6 +1177,14 @@ html,body{overflow-x:hidden}
 .phz{position:absolute;inset:0;z-index:30;background:rgba(0,0,0,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:16px}
 .phz img{max-width:100%;max-height:78%;border-radius:12px}
 .phz button{background:#fff;color:#222;border:0;border-radius:20px;padding:8px 18px;font-weight:600}
+.dk{display:flex;flex-direction:column;gap:8px;align-items:stretch}.dkimg{width:100%;height:110px;object-fit:cover;border-radius:10px}
+.dkt{font-size:14px;text-align:center}.dkt .red{color:#e53935}.dkarow{display:flex;align-items:center;justify-content:center;gap:10px;min-height:72px;font-size:14px}
+.dkh{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.dkc{width:44px;height:62px;border-radius:7px;background:#fff;color:#111;font-weight:800;font-size:17px;border:1px solid #aaa;display:inline-flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;padding:0;box-shadow:0 1px 2px rgba(0,0,0,.25)}
+.dkc i{font-style:normal;font-size:19px}.dkc.red{color:#d32f2f}.dkc.tr{background:#fff7d6;border-color:#e0b100}.dkc:disabled{opacity:1}
+.dkc.shake{animation:dksh .35s}@keyframes dksh{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.giglist{display:flex;flex-direction:column;gap:8px}.gig{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:inherit}
+.gig small{opacity:.8}.gig:disabled{opacity:.45}
 .camgal button{padding:0;border:0;background:none;border-radius:8px;overflow:hidden;aspect-ratio:2/3}
 .camgal img{width:100%;height:100%;object-fit:cover;display:block}
 .sendimg{display:block;width:140px;margin:6px auto 10px;border-radius:10px}
@@ -1323,7 +1331,7 @@ const HERO={id:'student',name:'Студент',tag:'пільговий прої�
  places:D.places,
  // дії по місцях: d — ефект, dur — хвилини, особливі прапорці
  acts:{
-  uni:[{k:'otrab',c34:'otrab',t:'Відпрацювати пропуск на кафедрі',d:{n:-1},dur:120,r:'Переписав пропущену лекцію й розвʼязав задачі. Одну «н» закрито.',art:'petro_office'},{k:'peace',c34:'peace',t:'Помиритися з тьотею Валею (торт)',d:{m:-150},dur:60,r:'Вибачився, допоміг Валі з Мурчиком і приніс торт. Можна повертатися в гуртожиток.',art:'valya_peace'},{k:'chore',c34:'chore',t:'Прибрати в кімнаті (твоя черга)',d:{h:1},dur:45,r:'Підмів, виніс сміття, Діма задоволений.',art:'dima_sweeps'},{k:'sleep',t:'Виспатися в гуртожитку',d:{n:2},dur:120,r:'Проспав до обіду. Світ став добрішим.',art:'dorm_morning'},
+  uni:[{k:'otrab',c34:'otrab',t:'Відпрацювати пропуск на кафедрі',d:{n:-1},dur:120,r:'Переписав пропущену лекцію й розвʼязав задачі. Одну «н» закрито.',art:'petro_office'},{k:'peace',c34:'peace',t:'Помиритися з тьотею Валею (торт)',d:{m:-150},dur:60,r:'Вибачився, допоміг Валі з Мурчиком і приніс торт. Можна повертатися в гуртожиток.',art:'valya_peace'},{k:'chore',c34:'chore',t:'Прибрати в кімнаті (твоя черга)',d:{h:1},dur:45,r:'Підмів, виніс сміття, Діма задоволений.',art:'dima_sweeps'},{k:'durak',c34:'durak',t:'Дурень з Дімою: хто програв — прибирає',d:{},dur:30,r:'Розклали карти на ліжку. Ставка — віник.',art:'durak'},{k:'tutor',c34:'tutor',t:'Репетиторство з математики (Вт і Чт)',d:{m:250,n:-1},dur:120,r:'Пояснив семикласнику дроби. Він нарешті зрозумів, а його мама заплатила.',art:'tutoring'},{k:'repair',c34:'repair',weekly:1,t:'Лагодити телефони разом з Дімою',d:{m:500,n:-2},dur:180,r:'Діма міняв екрани, ти — батареї. Поділили виручку чесно.',art:'phone_repair'},{k:'sleep',t:'Виспатися в гуртожитку',d:{n:2},dur:120,r:'Проспав до обіду. Світ став добрішим.',art:'dorm_morning'},
    {k:'cook',t:'Приготувати на кілька днів',d:{m:-100},dur:90,jars:3,r:'Каструля борщу на три вечори.',art:'dorm_kitchen'},
    {k:'lib',t:'Бібліотека: курсова',d:{n:-1},dur:120,course:1,r:'Ще один розділ курсової готовий.',art:'library'},
    {k:'dept',t:'Підробіток на кафедрі',d:{m:300,n:-1},dur:180,r:'Допоміг лаборантці розкласти журнали й протерти колби.',art:'petro_notice'},
@@ -1344,7 +1352,7 @@ const HERO={id:'student',name:'Студент',tag:'пільговий прої�
    {k:'look',t:'Подивитись, але не купити',d:{h:1},dur:60,r:'Поміряв кросівки мрії. Скоро.',art:'mall_sale'},
    {k:'food',t:'Фудкорт',d:{m:-200,h:1,n:1},dur:60,r:'Бургер і картопля. Студентське щастя.',art:'mall_foodcourt'}],
   bus:[{k:'parcel',t:'Забрати посилку від мами',d:{h:1},dur:30,jars:2,weekly:1,r:'Маршрутка з Лозуватки привезла закрутки й записку «Їж нормально».',art:'mom_parcel'}],
-  garages:[{k:'phones',t:'Ремонтувати телефони',d:{m:350,n:-1},dur:150,r:'Дві заміни екрана й одна батарея. Руки тремтять, гаманець радіє.',art:'phone_repair'},
+  garages:[{k:'weed',c34:'weed',t:'Віднести «посилку» (ризиковано)',d:{m:800,n:-1},dur:60,r:'Передав пакунок і швидко пішов. Гроші в кишені, серце калатає.',art:'shady_guy'},{k:'phones',t:'Ремонтувати телефони',d:{m:350,n:-1},dur:150,r:'Дві заміни екрана й одна батарея. Руки тремтять, гаманець радіє.',art:'phone_repair'},
    {k:'garage',t:'Допомогти в гаражах',d:{m:350,n:-1},dur:180,r:'Перебрали карбюратор. Руки в мастилі.',art:'garages'}],
   clinic:[{k:'vit',t:'Аптека: вітаміни',d:{m:-150,n:1},dur:30,r:'Вітамін С і порада фармацевтки.',art:'clinic_queue'},
     {k:'doc',t:'Прийом у лікаря',d:{m:-100,n:2},dur:90,r:'Лікарка вислухала, виписала ліки й сказала більше спати.',art:'doctor'}]},
@@ -1590,7 +1598,7 @@ function doAct(loc,k,rk){const a=findAct(loc,k);if(!a)return;let msg='';if(rk===
  if(d.m>0)G.work+=d.m;if(loc==='clinic')G.fluOk=1;
  if(a.rel)rel(a.rel,3,true);
  if(a.c34){try{c34DoAct(a);}catch(x){}}
- if(a.jars){G.jars+=a.jars;extra+=` 🫙 +${a.jars} закрутки.`;}
+ if(a.k==='cook'&&c34On()){G.borsch=(G.borsch||0)+3;extra+=' 🍲 Борщ на 3 вечері: вечеря по 70 грн.';}else if(a.jars){G.jars+=a.jars;extra+=` 🫙 +${a.jars} закрутки.`;}
  if(a.weekly)G.weekly[a.k]=Math.floor(G.day/5);
  const wk=Math.floor(G.day/5);
  if(a.course){if(G.courseW!==wk){G.courseW=wk;G.course=0;}G.course++;extra+=` Курсова ${Math.min(3,G.course)}/3.`;if(G.course===3)extra+=' 🎓 У пʼятницю стипендія +150.';}
@@ -1598,6 +1606,7 @@ function doAct(loc,k,rk){const a=findAct(loc,k);if(!a)return;let msg='';if(rk===
  const AMG={fish:'fish',haggle:'haggle',cook:'borsch',courier:'courier',code:'code'};if(a.k==='jump'&&canMg())G.mgNext={k:'docs',who:'instr',then:'para'};else if(a.k==='doc'&&canMg())G.mgNext={k:'docs',who:'doctor'};else if(AMG[a.k]&&canMg())G.mgNext={k:AMG[a.k]};
  if(busRide&&HERO.id==='student'&&!G.mgNext&&canMg()&&rnd()<0.2)G.mgNext={k:'docs',who:'driver'};
  if(a.k==='momtrip'){rel('st_mom',3,true);G.res={kind:'mom',t:a.t,art:HERO.img+a.art+'.webp',r:a.r+extra,d,road:msg};G.phase='result';save();return;}
+ if(G.prisonNow){G.prisonNow=0;finish('prison');save();return;}
  G.res={kind:'act',t:a.t,art:HERO.img+a.art+'.webp',r:a.r+extra,d,road:msg};G.phase='result';checkEnd();save();}
 function buy(k,price){if(G.money<price)return;if(k==='jars'){G.jars+=4;}else G.items[k]=1;add({m:-price});toastLater(`${HERO.items[k].ic} ${HERO.items[k].n} куплено`);save();}
 
@@ -1618,15 +1627,16 @@ function canMg(){if(!SET.mg())return false;if(!G.mgD||G.mgD.dk!==G.dk)G.mgD={dk:
 function startMg(k,ctx){canMg();G.mgD.n++;G.mg=Object.assign({},ctx||{},{k});G.phase='mg';}
 function quizQs(){let seen=[];try{seen=JSON.parse(localStorage.getItem('kr3-q')||'[]');}catch(e){}let idx=D.studq.map((_,i)=>i).filter(i=>!seen.includes(i));if(idx.length<3){seen=[];idx=D.studq.map((_,i)=>i);}
  const p=idx.sort(()=>rnd()-.5).slice(0,3);try{localStorage.setItem('kr3-q',JSON.stringify(seen.concat(p)));}catch(e){}return p.map(i=>D.studq[i]);}
-const MGFX={quiz:[{h:1},{n:-1}],fish:[{m:60},{}],haggle:[{m:30,h:1},{}],borsch:[{},{}],para:[{h:2},{n:-1}],pet:[{n:1},{}],find:[{h:1},{n:-1}],walk:[{n:1,h:1},{}],dial:[{h:2},{n:-1}],tram:[{h:1},{n:-1}]};
-const MGTXT={quiz:['Тест здано — викладач кивнув','Тест завалено'],fish:['Продав улов дідам','Без улову'],haggle:['Виторгував','Не поступились'],borsch:['Борщ удався: ще дві вечері','Діма зʼїв закрутку'],para:['Точно на мішень!','Сів у соняшники'],
+const MGFX={quiz:[{h:1},{n:-1}],fish:[{m:60},{}],haggle:[{m:30,h:1},{}],borsch:[{},{}],para:[{h:2},{n:-1}],pet:[{n:1},{}],find:[{h:1},{n:-1}],walk:[{n:1,h:1},{}],dial:[{h:2},{n:-1}],durak:[{h:1},{}],tram:[{h:1},{n:-1}]};
+const MGTXT={quiz:['Тест здано — викладач кивнув','Тест завалено'],fish:['Продав улов дідам','Без улову'],haggle:['Виторгував','Не поступились'],borsch:['Борщ удався — вистачить надовше','Борщ пригорів — вийде менше'],durak:['Діма програв — прибирає він 😎','Програв — прибирати тобі 🧹'],para:['Точно на мішень!','Сів у соняшники'],
  pet:['Кіт намуркотів спокою','Кіт образився'],find:['Кота знайдено','Кіт так і сидів у шафі до ночі'],walk:['Добре нагулялись','Пес вивалявся в калюжі'],dial:['Швидка вже їде — ти встиг','Подзвонили без тебе'],tram:['Встиг на Скарік','Довелось чекати наступний: +15 хв']};
 function mgDone(r){const x=G.mg;G.mg=null;if(!x){toMap();return;}const k=x.k,win=r===true;if(k==='fish'&&win)react('fish');
  if(k==='run'){G.phase='card';choose(x.ci,win);save();return;}
  if(k==='bus'){goHome(win?'bus':'walk',true,win?'🚐 Махнув — водій пригальмував':'🚐 Остання маршрутка пішла з-під носа — пішки');return;}
  if(r==null){if(x.back==='evening'){G.phase='evening';save();return;}G.phase='result';next();return;}
  const d=Object.assign({},(MGFX[k]||[{},{}])[win?0:1]);if((d.n||0)<0&&G.nerves+d.n<1)delete d.n;
- if(k==='borsch'){if(win)G.jars+=2;else if(G.jars>0)G.jars--;}
+ if(k==='borsch'){if(c34On()){G.borsch=Math.max(0,(G.borsch||0)+(win?1:-1));}else if(win)G.jars+=2;else if(G.jars>0)G.jars--;}
+ if(k==='durak'&&win)G.chore=G.dk;
  if((k==='quiz'||k==='riddle')&&win)rel('st_petro',1);try{if(k==='quiz')grade(win?5:3,'швидкий тест');if(k==='riddle'&&win)grade(5,'задача Петра Івановича');if(k==='find'&&!win)G.findFail=G.dk;if(k==='dial'&&(x.num==='101'||x.num==='104')){c34Dial(x.num,win);G.phase='result';next();return;}}catch(e){}
  if(k==='docs'&&DOCRES[x.who]){const W=DOCRES[x.who];add(win?W[2]:W[3]);toastLater(`🪪 ${win?W[0]:W[1]}`);if(x.then&&canMg())G.mgNext={k:x.then};if(x.back==='evening'){G.phase='evening';save();return;}G.phase='result';next();return;}
  if(k==='tram'&&(x.after||x.afterMeet!=null)){if(win){G.noBreak=1;toastLater('🚋 Встиг на Скарік — їдеш без поломок');}else toastLater('🚋 Скарік поїхав — довелось пішки');if(x.after)doAct(x.after.loc,x.after.k,win?'tram':'walk');else doMeet(x.afterMeet,win?'tram':'walk');render();return;}
@@ -1637,9 +1647,10 @@ function eveMg(k){if(G.petD===G.dk||!canMg())return;G.petD=G.dk;startMg(k,{back:
 
 // ---------- вечір ----------
 function petFood(){if(!G.pet||G.catMom)return 0;return G.pet==='cat'?(G.petPure?60:30):(G.petPure?70:35);}
-function pobutCost(){const c=typeof crisisNow==='function'&&crisisNow();return Math.max(0,Math.round((c34On()&&G.dorm&&G.dorm.evicted?100:HERO.pobut)*(G.hard?1.3:1))+petFood()-(G.jars>0?50:0)+worldDinner()+(c&&c.k==='blackout'?40:0));}
+function pobutCost(){const c=typeof crisisNow==='function'&&crisisNow();return Math.max(0,Math.round((c34On()&&G.dorm&&G.dorm.evicted?100:HERO.pobut)*(G.hard?1.3:1))+petFood()-(c34On()&&(G.borsch||0)>0?80:G.jars>0?50:0)+worldDinner()+(c&&c.k==='blackout'?40:0));}
 function petJoy(){if(!G.pet||G.catMom)return 0;return (G.pet==='dog'?1:0)+(G.petPure?(G.pet==='dog'?2:1):0);}
-function evening(pay){const c=pobutCost();if(pay==='debt'){G.debt=(G.debt||0)+c;add({h:-1});logp(`🤝 Діма позичив ${c} грн на вечерю — віддаси зі ${HERO.t.payGen}`);if(G.jars>0)G.jars--;}else if(pay){if(G.money<c)return;add({m:-c});if(G.jars>0)G.jars--;}else add({n:-2,h:-1});
+function useFood(){if(c34On()&&(G.borsch||0)>0)G.borsch--;else if(G.jars>0)G.jars--;}
+function evening(pay){const c=pobutCost();if(pay==='debt'){G.debt=(G.debt||0)+c;add({h:-1});logp(`🤝 Діма позичив ${c} грн на вечерю — віддаси зі ${HERO.t.payGen}`);useFood();}else if(pay){if(G.money<c)return;add({m:-c});useFood();}else add({n:-2,h:-1});
  if(G.skip){const k=Math.min(2,Math.max(0,G.nerves-1));if(k)add({n:-k});}
  loanSettle();billsEvening();{const c=crisisNow();if(c&&c.k==='blackout'&&!G.items.power){add({n:-1});logp('🕯 Блекаут без павербанка: −1 нерв');}}
  const pj=petJoy();if(pj){add({h:pj});logp(`${G.pet==='cat'?'🐱':'🐕'} Вечір з ${G.pet==='cat'?(G.petPure?'персом':'котом'):(G.petPure?'хаскі':'псом')}: +${pj} 😊`);}
@@ -1971,6 +1982,7 @@ const MG={
  fish:{ic:'🎣',n:'Рибалка',w:'Річка · «Порибалити з дідами»',i:'Чекай, поки поплавок пірне, і тисни «Підсікай!». 3 спроби.',f:gFish},
  haggle:{ic:'🧺',n:'Торг на ринку',w:'Ринок · «Поторгуватися за дрібниці»',i:'Зупини стрілку в зеленій зоні. 2 спроби.',f:gHaggle},
  ladder:{ic:'🪜',n:'Драбина в гуртожиток',w:'Прийшов після вахти, Валя не відчинила',i:'',f:null},
+ durak:{ic:'🃏',n:'Дурень з Дімою',w:'Гуртожиток · день прибирання',i:'Діма ходить картою. Відбий її старшою картою тієї ж масті або козирем. Нема чим — тисни «Беру». 5 ходів. Взяв 2 рази — програв і прибираєш.',f:gDurak},
  pet:{ic:'🐱',n:'Погладь кота',w:'Вечір удома, якщо є кіт',i:'Проводь пальцем по коту туди-сюди, поки шкала муркотіння не заповниться. Кіт настовбурчився і зʼявилось «Не чіпай!» — прибери палець, бо вкусить.',f:gPet},
  find:{ic:'🐾',n:'Знайди кота',w:'Вечір: кіт сховався (якщо є кіт), інколи',i:'Дивись, що ворухнеться, і тицяй туди. 3 раунди по 2 спроби.',f:gFind},
  walk:{ic:'🐕',n:'Вигул пса',w:'Вечір удома, якщо є пес',i:'Перемикай доріжку ◀ ▶ або свайпом. Обходь калюжі й котів, збирай кістки. 3 удари — програв.',f:gWalk},
@@ -2644,7 +2656,7 @@ function liveArt(img,title){const h=hsh(String(title)+(G?G.dk:0));const t=G?G.cl
 function poster(img,kick,title,body,cls){const LA=liveArt(img,title);return `<div class="poster flip"><div class="poster-in">${img?`<div class="artw ${cls||LA.cls}"><img class="art" src="${SRC(img)}" alt="" style="${LA.st}" onerror="this.parentNode.style.display='none'">${LA.cls==='night'?'<i class="fx vig"></i>':''}</div>`:''}<div class="sky"><div class="kicker">${kick}</div><h2 class="card-title">${esc(title)}</h2></div><div class="panel">${body}</div></div></div>`;}
 function gl(inner,hint){return `<div class="v1">${holTop()}<div class="tscr gtscr"><div class="gl">${gHeader()}${hint?`<div class="dayhint">${hint}</div>`:''}<div class="gbody nomap"><div class="gcard">${G.log.length?`<p class="last">${G.log.map(esc).join('<br>')}</p>`:''}${inner}</div></div></div></div></div>`;}
 function chBtn(c,i){let s=fx({m:c.m,n:c.n,h:c.h});const mgL=SET.mg()&&canMg()&&((c.risk&&/тіка|втек/i.test(c.l)&&!lethal(c))||/103|швидку/i.test(c.l)||(G.hard&&/102|поліці/i.test(c.l))||c.quiz||c.riddle||(c.mg&&MG[c.mg]));if(mgL)s=(s?s+' · ':'')+'🎮 міні-гра';if(c.risk)s=(s?s+' · ':'')+`🎲 ${Math.round(c.risk.p*100)}% удачі`+(lethal(c)?' · ☠️ можна не повернутись':'');const why=blocked(c,G.ev);
- return `<button class="btn btn-choice" data-a="choose" data-i="${i}" ${why?'disabled':''}>${esc(c.l)}<small>${why||s||'без наслідків'}</small></button>`;}
+ return `<button class="btn btn-choice" data-a="choose" data-i="${i}" ${why?'disabled':''}>${esc(c.l)}<small>${why||c.note||s||'без наслідків'}</small></button>`;}
 
 // ---------- екрани ----------
 function gameScreenV1(){if(!G)return null;switch(G.phase){
@@ -2708,10 +2720,10 @@ function v1Evening(){const c=pobutCost();const s=G.day0;const pets=G.pet?` + к�
  let b=`<div style="color:var(--cream)"><table class="table"><tbody><tr><td><img src="${SRC(V1+HERO.card)}" alt="">${HERO.name}</td><td>${G.money} грн</td><td>${G.nerves} нервів</td><td>${G.happy} щ.</td></tr></tbody></table></div>
  <p><b>За день:</b> 💰${sg(G.money-s.m)} · 😌${sg(G.nerves-s.n)} · 😊${sg(G.happy-s.h)}${chg.length?'<br><b>Люди:</b> '+chg.join(' · '):''}<br><b>Тиждень:</b> 🎓 курсова ${G.courseW===Math.floor(G.day/5)?Math.min(3,G.course):0}/3 · 💪 форма ${G.forma}/3 · 🫙 ${G.jars}</p>
  <p>Продукти, комуналка, дрібниці. Вирішуй сам: заплатити чи затягнути пасок.${G.skip?' <b>Прогул: −2 нерви.</b>':''} ${qBtn('evening')}</p>${(G.loans||[]).some(l=>l.due<=G.day)?'<p class="note">🏦 Сьогодні банк спише кредит. Не вистачить — пеня 20% і колектор.</p>':''}`;
- b=c34EveningHTML()+b;
+ b=c34EveningHTML()+borschNote()+b;
  if(G.catFound===G.dk)return gl(sayHTML(sLine('eve'))+poster(SI('evening_budget'),`${DOW[dow()]}, вечір`,'Вечеря і побут',b),dayHint());
  if(G.pet&&!G.catMom&&!G.evDone&&G.petD!==G.dk&&canMg())b+=G.pet==='cat'?`<button class="btn btn-choice" data-a="evemg" data-k="pet">🐱 Погладити кота<small>міні-гра · вийде — 😌+1</small></button>`:`<button class="btn btn-choice" data-a="evemg" data-k="walk">🐕 Вигуляти пса<small>міні-гра · вийде — 😌+1 😊+1</small></button>`;
- b+=G.evDone?`<button class="btn btn-main" data-a="sleep">Лягти спати</button>`:`<div style="margin:12px 0"><div class="row2"><button class="btn btn-choice" style="margin:0" data-a="pay" ${G.money<c?'disabled':''}>Оплатити побут<small>💰−${c}: побут ${HERO.pobut}${pets}${G.jars>0?' − 50 закрутка':''}${din?(din>0?' + '+din+' дорожче':' − '+(-din)+' знижки'):''}</small></button><button class="btn btn-choice" style="margin:0;background:var(--sun)" data-a="eco" ${G.nerves<=2?'disabled':''}>Зекономити<small>${G.nerves<=2?'не вистачить сил':'😌−2 😊−1'}</small></button></div></div>`+(G.money<c&&G.nerves<=2?`<button class="btn btn-choice" data-a="debt">🤝 Позичити в Діми на вечерю<small>😊−1 · віддаси ${c} грн зі ${HERO.t.payGen}</small></button>`:'');
+ b+=G.evDone?`<button class="btn btn-main" data-a="sleep">Лягти спати</button>`:`<div style="margin:12px 0"><div class="row2"><button class="btn btn-choice" style="margin:0" data-a="pay" ${G.money<c?'disabled':''}>Оплатити побут<small>💰−${c}: побут ${c34On()&&G.dorm&&G.dorm.evicted?100:HERO.pobut}${pets}${c34On()&&(G.borsch||0)>0?' − 80 борщ':G.jars>0?' − 50 закрутка':''}${din?(din>0?' + '+din+' дорожче':' − '+(-din)+' знижки'):''}</small></button><button class="btn btn-choice" style="margin:0;background:var(--sun)" data-a="eco" ${G.nerves<=2?'disabled':''}>Зекономити<small>${G.nerves<=2?'не вистачить сил':'😌−2 😊−1'}</small></button></div></div>`+(G.money<c&&G.nerves<=2?`<button class="btn btn-choice" data-a="debt">🤝 Позичити в Діми на вечерю<small>😊−1 · віддаси ${c} грн зі ${HERO.t.payGen}</small></button>`:'');
  const due=(G.bills||[]).map((x,i)=>({x,i})).filter(o=>o.x.due<=G.day);if(due.length)b=`<div class="billdue"><b>🧾 Сьогодні строк оплати:</b>${due.map(o=>`<button class="btn btn-choice" data-a="paybill" data-k="${o.i}" ${G.money>=o.x.amt?'':'disabled'}>${esc(o.x.t)}${o.x.late?' (з пенею)':''}<small>💰−${o.x.amt} · не оплатиш — пеня 20% і −1 нерв</small></button>`).join('')}</div>`+b;
  return gl(sayHTML(sLine('eve'))+poster(SI('evening_budget'),`${DOW[dow()]}, вечір`,'Вечеря і побут',b),dayHint());}
 function v1Payday(){const p=G.pay;const last=G.payLast;
@@ -2748,7 +2760,7 @@ function phHead(t){return `<div class="phtop"><button data-a="ph" data-v="home">
 function phoneV1(){const v=UI.phone;const wall=G.phase==='morning'?'city_morning':G.phase==='evening'||G.clock>=1080?'city_evening':'city_day';const d=gDate();
  let body='';const dead=(G.bat||0)<=0;
  if(v==='home')body=`<div class="phapps">${appList().map(([k,i,n])=>`<button data-a="ph" data-v="${k}"><span class="phai">${i}</span><small>${n}</small>${k==='msgs'&&G.ph.unread?`<i class="phbadge">${G.ph.unread}</i>`:''}</button>`).join('')}</div>`;
- else if(v==='radio')body=appRadio();else if(v==='msgs')body=appMsgs();else if(String(v).startsWith('th:'))body=appThread(v.slice(3));else if(v==='tasks')body=appTasks();else if(v==='dream')body=appDream();else if(v==='bank')body=appBank();else if(v==='docs')body=appDocs();else if(v==='contacts')body=appContacts();else if(v==='nav')body=appNav();else if(v==='news')body=appNews();else if(v==='wx')body=appWx();else if(v==='gal')body=appGal();else if(v==='cal')body=appCal();else if(v==='calls')body=appCalls();else if(v==='snake')body=appSnake();else if(v==='web')body=appWeb();else if(String(v).startsWith('send:'))body=appSend(+v.slice(5));else if(v==='loan')body=appLoan();
+ else if(v==='radio')body=appRadio();else if(v==='msgs')body=appMsgs();else if(String(v).startsWith('th:'))body=appThread(v.slice(3));else if(v==='tasks')body=appTasks();else if(v==='dream')body=appDream();else if(v==='bank')body=appBank();else if(v==='docs')body=appDocs();else if(v==='contacts')body=appContacts();else if(v==='nav')body=appNav();else if(v==='news')body=appNews();else if(v==='wx')body=appWx();else if(v==='gal')body=appGal();else if(v==='cal')body=appCal();else if(v==='calls')body=appCalls();else if(v==='snake')body=appSnake();else if(v==='web')body=appWeb();else if(v==='gig')body=appGig();else if(String(v).startsWith('send:'))body=appSend(+v.slice(5));else if(v==='loan')body=appLoan();
  return `<div class="v1"><div id="phov"><div class="phone${v==='home'?' home':''}" style="--wall:url(${MI(wall)})"><div class="phbar"><span>${hm(G.clock)}</span><span>${v==='radio'||v==='dream'?'Кривбас-Звʼязок':d.getDate()+' '+MON_G[d.getMonth()]}</span><span class="${(G.bat||0)<=20?'low':''}">${Math.max(0,G.bat||0)}% 🔋</span></div><div class="phscr">${body}</div><div class="phnav"><button data-a="ph" data-v="home" aria-label="Додому"></button></div><button class="phx" data-a="phx" aria-label="Закрити">✕</button>${UI.phz?`<div class="phz"><img src="${SRC(HERO.img+UI.phz+'.webp')}" alt=""><button data-a="phzx">✕ Закрити</button></div>`:''}</div></div></div>`;}
 function appMsgs(){const last={};G.ph.m.forEach(m=>last[m.f]=m);const L=DP.order.concat(DP.people.st_group?['st_group']:[]).filter(k=>last[k]).sort((a,b)=>last[b].id-last[a].id);
  return phHead('💬 Повідомлення')+`<div class="phlist">${L.length?L.map(k=>{const m=last[k];const un=G.ph.m.filter(x=>x.f===k&&!x.me&&!x.seen).length;const wt=G.ph.m.some(x=>x.f===k&&x.st==='new'&&x.o);return `<button class="phrow" data-a="ph" data-v="th:${k}"><img class="phic" src="${SRC(PAV(k))}" alt=""><span><b>${esc(PN(k))}</b><small>${esc((m.me?'Ти: ':'')+m.t).slice(0,60)}</small>${wt?'<em class="phwait">💬 чекає відповіді</em>':''}</span>${un?`<i>${un}</i>`:''}</button>`;}).join(''):'<p class="note">Поки тихо. Навіть шахраї не пишуть. Напиши комусь у «Контактах».</p>'}</div>`;}
@@ -2936,7 +2948,7 @@ function helpShow(k){const t=D7.help[k];if(!t)return;ovShow('qhelp',`<div class=
 function achList(){try{return JSON.parse(ST('kr3-ach2','[]'));}catch(e){return [];}}
 function achGet(k){if(!G||P&&!P.online&&false)return;const a=D7.ach.find(x=>x.k===k);if(!a)return;const L=achList();(G.achG=G.achG||[]);if(G.achG.includes(k))return;G.achG.push(k);if(!L.includes(k)){L.push(k);STS('kr3-ach2',JSON.stringify(L));achPop(a.t);(G.newAch=G.newAch||[]).push(a.t);}}
 function achPop(t){try{snd('ach');const d=document.createElement('div');d.className='v1';d.innerHTML=`<div class="achpop">🏆 Досягнення: ${esc(t)}</div>`;document.body.appendChild(d);setTimeout(()=>d.remove(),2800);}catch(e){}}
-function achEnd(){if(!G)return;const E=G.ended&&G.ended.k;const alive=E&&E!=='end11';if(alive)achGet('s_'+HERO.id);if(G.dreamOk)achGet('dream');if(G.dreamOk&&G.happy>=8)achGet('legend');if(alive&&!G.usedBus)achGet('nobus');if(alive&&!G.secretUsed&&!(G.jar>0))achGet('nosecret');if(E==='end11')achGet('collector');if(alive&&G.days>=20)achGet('month');if(alive&&G.hard)achGet('hard');}
+function achEnd(){if(!G)return;const E=G.ended&&G.ended.k;const alive=E&&!['end11','end12','end13'].includes(E);if(alive)achGet('s_'+HERO.id);if(G.dreamOk)achGet('dream');if(G.dreamOk&&G.happy>=8)achGet('legend');if(alive&&!G.usedBus)achGet('nobus');if(alive&&!G.secretUsed&&!(G.jar>0))achGet('nosecret');if(E==='end11')achGet('collector');if(alive&&G.days>=20)achGet('month');if(alive&&G.hard)achGet('hard');}
 // ---------- 👨‍👩‍👧 Сімейка: спільний гаманець і одна мрія ----------
 function famSync(){if(!P||!P.family)return;if(G&&P.pl[P.cur]&&P.pl[P.cur].G===G)P.money=G.money;P.pl.forEach(p=>{p.G.money=P.money;});}
 
@@ -3030,6 +3042,7 @@ function doA(ds){const a=ds.a,k=ds.k;const b={dataset:ds,classList:{contains:c=>
   case 'phzx':UI.phz=null;return go();
   case 'phsend':c34SendPhoto(k,+b.dataset.v);UI.phone='th:'+k;save();return go();
   case 'web':UI.web=k;return go();
+  case 'gig':c34Gig(+k);save();return go();
   case 'phx':UI.phone=null;return go();
   case 'ans':answer(+b.dataset.id,+b.dataset.i);save();return go();
   case 'c34':c34Act(k);save();return go();
@@ -3041,7 +3054,7 @@ function doA(ds){const a=ds.a,k=ds.k;const b={dataset:ds,classList:{contains:c=>
   case 'ladres':ladderDone(ds.v);return go();
  }}
 render();anthemAuto();
-try{Object.defineProperty(window,'G',{get:()=>G});window.hm=hm;window.kr3={save,render,D,setEv,UI};window.kr3i={playMg,newGame,startPars,momRoad,choose,next,toMap,actsAt,doAct,roads,goHome,evening,sleep,afterPay,payBill,canDo,blocked,effOf,pobutCost,curfew,stops,placeOf,meetsAt,doMeet,meetBlock,meetDay,ladderDone,mgDone,HERO,D,SET:()=>SET,heroId:()=>HERO.id,setHero,sitPool,cur:()=>({HERO,D,DP,D7}),newParty,t34:{G:()=>G,skip:skipPars,c34:{u34,dorm,spoiled,good,c34Thr,avgGr},msg,rel,answer,react,startDay,arriveHome,evening:typeof eveningIn==='function'?eveningIn:null,UI:()=>UI,render}};Object.defineProperty(window,'P',{get:()=>P});}catch(e){}
+try{Object.defineProperty(window,'G',{get:()=>G});window.hm=hm;window.kr3={save,render,D,setEv,UI};window.kr3i={playMg,newGame,startPars,momRoad,choose,next,toMap,actsAt,doAct,roads,goHome,evening,sleep,afterPay,payBill,canDo,blocked,effOf,pobutCost,curfew,stops,placeOf,meetsAt,doMeet,meetBlock,meetDay,ladderDone,mgDone,HERO,D,SET:()=>SET,heroId:()=>HERO.id,setHero,sitPool,cur:()=>({HERO,D,DP,D7}),newParty,t34:{G:()=>G,skip:skipPars,c34:{u34,dorm,spoiled,good,c34Thr,avgGr,addN,c34UniCheck},msg,rel,answer,react,startDay,arriveHome,evening:typeof eveningIn==='function'?eveningIn:null,UI:()=>UI,render}};Object.defineProperty(window,'P',{get:()=>P});}catch(e){}
 
 // ===================== Кривий Ріг 3.4 · наслідки: стосунки, мовчання, університет, гуртожиток =====================
 // пороги «н» за довжиною гри (5 / 10 / 20 днів пар)
@@ -3114,9 +3127,8 @@ function c34Cat(){if(!c34On()||G.pet!=='cat'||G.catMom)return;const D=dorm();if(
  if(rnd()<p){if(again){G.catMom=true;D.catHid=0;msg('st_valya','Знову кіт! Все, неси його кудись. І це тобі ще одна скарга.',null,true);msg('st_mom','Привезли твого кота. Хай поживе в мене, нагодую 🐱',null,true);toastLater('😿 Валя знайшла кота вдруге — кіт поїхав до мами');c34Strike('кіт');}
   else G.catFound=G.dk;}}
 // дії, що зʼявляються самі
-function c34Acts(loc){if(!c34On()||loc!=='uni')return [];const A=HERO.acts.uni.filter(a=>a.c34);const U=u34(),D=dorm();
- return A.filter(a=>a.c34==='otrab'?U.n>0&&(U.talked||U.stipOff):a.c34==='peace'?D.evicted:a.c34==='chore'?(G.dk%3===0&&G.chore!==G.dk&&!D.evicted):false);}
-function c34DoAct(a){const U=u34(),D=dorm();
+function c34Acts(loc){if(!c34On())return [];return (HERO.acts[loc]||[]).filter(a=>a.c34&&c34ActOk(a));}
+function c34DoAct(a){const U=u34(),D=dorm();c34Earn(a);
  if(a.c34==='otrab'){U.n=Math.max(0,U.n-1);U.jr.push({dk:G.dk,day:G.day,st:'відпр',why:'відпрацював пропуск'});if(U.stipOff&&U.n<c34Thr().stip&&(avgGr()==null||avgGr()>=3)){U.stipOff=false;msg('st_petro','Пропуски відпрацьовані. Стипендію повертаємо з наступної пʼятниці.',null,true);toastLater('🎓 Стипендію повернуть з пʼятниці');}}
  if(a.c34==='peace'){D.evicted=false;D.s=2;G.momTrip=0;rel('st_valya',3,true);msg('st_valya','Ну добре, повертайся. Але ще раз — і все 😤',null,true);}
  if(a.c34==='chore'){G.chore=G.dk;G.choreMiss=0;rel('st_dima',1);}}
@@ -3127,7 +3139,7 @@ function c34Daily(){if(!c34On())return;const D=dorm();
  if(!G.kettleEv&&G.day>=1&&!D.evicted&&rnd()<0.12){G.kettleEv=G.dk;queueChain('c34_kettle',0);}
  if(G.kettleHid&&!G.kettleDone&&G.dk-G.kettleHid>=2){G.kettleDone=1;if(rnd()<0.5)queueChain('c34_spark',0);}
  if(!G.gasEv&&G.day>=2&&!D.evicted&&rnd()<(G.days>=20?0.04:0.08)){G.gasEv=G.dk;queueChain('c34_gas',0);}}
-function c34Choice(tag,c){const D=dorm();
+function c34Choice(tag,c){const D=dorm();if(tag==='weed_yes')G.weed=1;
  if(tag==='talk_promise')rel('st_petro',1);
  if(tag==='talk_otrab'){rel('st_petro',2);toastLater('🎓 На кафедрі можна відпрацювати «н»');}
  if(tag==='kettle_give')G.kettleOff=1;
@@ -3207,8 +3219,56 @@ function appWeb(){const t=UI.web||'jr';const U=u34(),T=c34Thr();const tab=(k,l)=
 function appCam(){const C=G.cam||[];return `<div class="phsec"><h4>📸 Твої фото (${C.length})</h4>${C.length?`<div class="phgal camgal">${C.map((p,i)=>`<button data-a="ph" data-v="send:${i}"><img src="${SRC(HERO.img+p+'.webp')}" alt="" loading="lazy"></button>`).join('')}</div><p class="small">Натисни на фото, щоб надіслати.</p>`:'<p class="note">Фото зʼявляться, коли будеш ходити містом.</p>'}</div>`;}
 function appSend(i){const p=(G.cam||[])[i];if(!p)return appGal();return phHead('📤 Надіслати фото')+`<img class="sendimg" src="${SRC(HERO.img+p+'.webp')}" alt=""><div class="phlist">${DP.order.map(k=>`<button class="phrow" data-a="phsend" data-k="${k}" data-v="${i}"><img class="phic" src="${SRC(PAV(k))}" alt=""><span><b>${esc(PN(k))}</b></span></button>`).join('')}</div>`;}
 const IMH=p=>`<button class="phimg" data-a="phzoom" data-v="${p}"><img src="${SRC(HERO.img+p+'.webp')}" alt="" loading="lazy"></button>`;
-function appList(){return HERO.id==='student'?APPS.map(a=>a[0]==='snake'?['web','🌐','Браузер']:a):APPS;}
+function appList(){if(HERO.id!=='student')return APPS;const L=APPS.map(a=>a[0]==='snake'?['web','🌐','Браузер']:a);const i=L.findIndex(a=>a[0]==='bank');L.splice(i+1,0,['gig','💻','Фриланс']);return L;}
 
+// ===================== Кривий Ріг 3.4 · заробіток, дурень, борщ, фриланс =====================
+// 🃏 Дурень з Дімою: хто програв — прибирає
+function gDurak(stage,done){const S=['♠','♥','♦','♣'],R=['6','7','8','9','10','В','Д','К','Т'];let deck=[];S.forEach(s=>R.forEach((r,v)=>deck.push({s,r,v})));deck.sort(()=>Math.random()-.5);
+ const tr=deck[deck.length-1].s;let hand=deck.splice(0,6),round=0,took=0,over=false,att=null;const isR=s=>s==='♥'||s==='♦';
+ const w=el(`<div class="dk"><img class="dkimg" src="${SRC(HERO.img+'durak.webp')}" alt=""><div class="dkt">Козир: <b class="${isR(tr)?'red':''}">${tr}</b> · Хід <b class="dkr">1</b> з 5 · Взяв: <b class="dkn">0</b></div><div class="dkarow"><span>Діма ходить:</span><div class="dka"></div></div><div class="dkh"></div><button class="btn dktake">Беру 😩</button></div>`);stage.appendChild(w);
+ const card=(c,i)=>`<button class="dkc${isR(c.s)?' red':''}${c.s===tr?' tr':''}"${i!=null?` data-i="${i}"`:' disabled'}>${c.r}<i>${c.s}</i></button>`;
+ const beats=(c,a)=>(c.s===a.s&&c.v>a.v)||(c.s===tr&&a.s!==tr);
+ const draw=()=>{w.querySelector('.dkr').textContent=round;w.querySelector('.dkn').textContent=took;w.querySelector('.dka').innerHTML=att?card(att):'';hand.sort((a,b)=>(a.s===tr)-(b.s===tr)||S.indexOf(a.s)-S.indexOf(b.s)||a.v-b.v);w.querySelector('.dkh').innerHTML=hand.map((c,i)=>card(c,i)).join('');};
+ const nextAtt=()=>{while(hand.length<6&&deck.length>1)hand.push(deck.shift());
+  if(round>=5){over=true;att=null;draw();done(took<2,took<2?'Діма програв — віник його 😎':'Програв — прибирати тобі 🧹');return;}
+  round++;const pool=deck.slice(0,-1);const nt=pool.filter(c=>c.s!==tr);const c=(nt.length&&Math.random()<0.8?nt:pool)[Math.floor(Math.random()*(nt.length&&Math.random()<0.8?nt:pool).length)]||deck[0];att=deck.splice(deck.indexOf(c),1)[0];draw();};
+ w.querySelector('.dkh').onclick=e=>{const b=e.target.closest('[data-i]');if(!b||over||!att)return;e.stopPropagation();const c=hand[+b.dataset.i];
+  if(!beats(c,att)){b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');return;}hand.splice(+b.dataset.i,1);att=null;nextAtt();};
+ w.querySelector('.dktake').onclick=e=>{e.stopPropagation();if(over||!att)return;hand.push(att);took++;att=null;nextAtt();};
+ nextAtt();return ()=>{over=true;};}
+// 💻 фриланс у телефоні
+const GIGS=[{t:'Набрати конспект з фото для першокурсниці',m:80,dur:60},{t:'Перекласти інструкцію до пилососа',m:120,dur:120},{t:'Оформити реферат за методичкою',m:100,dur:90},{t:'Розшифрувати аудіо з наради',m:90,dur:90},{t:'Заповнити таблицю цін для магазину',m:70,dur:60},{t:'Підписати 40 фото для оголошень',m:110,dur:120},{t:'«Легкі 500 грн: просто перешли код із СМС»',m:0,dur:15,scam:1}];
+function gigList(){const n=GIGS.length-1;const a=G.dk*3;const L=[GIGS[a%n],GIGS[(a+1)%n]];if(G.dk%3===1)L.push(GIGS[n]);return L;}
+function appGig(){let b='';if(!c34On())return phHead('💻 Фриланс')+'<p class="note">Фриланс працює в грі на тиждень і довше.</p>';
+ const L=gigList();const busy=G.phase!=='map';const done=G.gigD===G.dk;
+ b+=`<p class="small">Дрібні замовлення онлайн. Один раз на день, забирає час і 😌−1.</p>`;
+ if(done)b+=`<p class="note">✅ Сьогодні вже працював. Нові замовлення — завтра.</p>`;else if(busy)b+=`<p class="note">Зараз не до того. Замовлення можна брати, коли ти вільний між справами.</p>`;
+ b+=`<div class="giglist">${L.map(g=>{const i=GIGS.indexOf(g);const late=G.clock+g.dur>22*60;const dis=done||busy||late||G.nerves<=1;return `<button class="gig" data-a="gig" data-k="${i}" ${dis?'disabled':''}><b>${esc(g.t)}</b><small>${g.scam?'💰+500 · ⏱ 15 хв':`💰+${g.m} · ⏱ ${g.dur>=60?(g.dur/60)+' год':g.dur+' хв'} · 😌−1`}${late&&!done?' · запізно':''}</small></button>`;}).join('')}</div>`;
+ return phHead('💻 Фриланс')+b;}
+function c34Gig(i){const g=GIGS[i];if(!g||G.gigD===G.dk||G.phase!=='map'||!c34On())return;G.gigD=G.dk;G.clock+=g.dur;
+ if(g.scam){add({m:-Math.min(200,Math.max(0,G.money)),n:-1});G.ph.m.push({id:++G.ph.nid,f:'st_dima',t:'Бро, ти що, переслав код?! Це шахраї. Дзвони в банк, блокуй картку 😱',d:G.day,dk:G.dk,st:'read',me:false});G.ph.unread++;toastLater('💳 Шахраї: зняли з картки до 200 грн. Код із СМС не пересилай нікому');save();return;}
+ add({m:g.m,n:-1});G.work+=g.m;toastLater(`💻 Фриланс: «${g.t}» · 💰+${g.m} · 😌−1`);save();}
+// дії 3.4 у місцях
+function c34ActOk(a){const U=u34(),D=dorm();switch(a.c34){
+ case 'otrab':return U.n>0&&(U.talked||U.stipOff);
+ case 'peace':return D.evicted;
+ case 'chore':return G.dk%3===0&&G.chore!==G.dk&&!D.evicted;
+ case 'durak':return G.dk%3===0&&G.chore!==G.dk&&G.durD!==G.dk&&!D.evicted;
+ case 'tutor':return (dow()===1||dow()===3)&&G.tutD!==G.dk;
+ case 'repair':return G.rel.st_dima.r>=3&&!D.evicted&&G.weekly.repair!==Math.floor(G.day/5);
+ case 'weed':return G.hard&&G.weed&&G.weedD!==G.dk;}return false;}
+function c34Earn(a){
+ if(a.c34==='durak'){G.durD=G.dk;if(canMg())G.mgNext={k:'durak'};else if(rnd()<0.5){G.chore=G.dk;toastLater('🃏 Діма програв — прибирає він');}else toastLater('🃏 Програв — прибирати тобі');}
+ if(a.c34==='tutor'){G.tutD=G.dk;G.tutN=(G.tutN||0)+1;if(G.tutN===1)msg('st_mom','Синку, ти репетитор? Я так тобою пишаюсь! ❤️',null,true);}
+ if(a.c34==='repair'){rel('st_dima',1);}
+ if(a.c34==='weed'){G.weedD=G.dk;G.weedN=(G.weedN||0)+1;if(rnd()<0.1*G.weedN){G.prisonNow=1;}}
+ if(a.c34==='weed_no'){}}
+function c34WeedOffer(){queueChain('c34_weed',0);}
+function c34EarnData(){const C=D_student.chains;if(C.c34_weed)return;
+ C.c34_weed={t:'«Легкий заробіток»',loc:'any',art:'shady_guy',x:'Біля гаражів до тебе підійшов незнайомий хлопець: «Чув, тобі стипендію зняли. Треба віднести посилку — 800 за раз. Нічого не питай».',c:[{l:'Відмовитись і піти',h:1,r:'«Ну як знаєш». Ти пішов, і на душі одразу стало легше.'},{l:'Погодитись',note:'💰+800 за раз · 🚔 щоразу більший ризик',c34:'weed_yes',r:'Тобі дали номер і сказали приходити до гаражів. Кожен раз ризик більший.'}]};}
+function borschNote(){return c34On()&&(G.borsch||0)>0?`<p class="note">🍲 Борщ ще на ${G.borsch} ${G.borsch===1?'вечір':'вечори'}: вечеря по 70 грн.</p>`:'';}
+
+c34EarnData();
 document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('button'))snd('click');},true);
 
 })();</script><script>if('serviceWorker' in navigator&&!/claude/.test(location.host)&&location.protocol.startsWith('http')){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{});});}</script></body></html>
