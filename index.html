@@ -1562,7 +1562,7 @@ function travel(to,k){const R=roads(to,G.clock);if(!R.d)return '';const x=R.o.fi
 function wactsAt(loc){return (HERO.wacts[loc]||[]).filter(a=>!(a.sat&&(G.wk!==1||G.slot!==1))&&!(a.need&&G.rel[a.need[0]].r<a.need[1]));}
 function findAct(loc,k){return (HERO.acts[loc]||[]).concat(HERO.wacts[loc]||[]).find(x=>x.k===k);}
 function actsAt(loc){if(G.wk){const W=wactsAt(loc);const B=(HERO.acts[loc]||[]).filter(a=>!a.c34&&!['lib','dept'].includes(a.k)&&!(a.weekly&&G.weekly[a.k]===Math.floor(G.day/5)));return W.concat(B).slice(0,3);}
- const X34=c34Acts(loc);const L=(HERO.acts[loc]||[]).filter(a=>!a.c34&&!(a.k==='dept'&&c34On()&&spoiled('st_petro'))&&!(a.weekly&&G.weekly[a.k]===Math.floor(G.day/5)));if(L.length<=3)return X34.concat(L);const s=G.day%L.length;const R=[0,1,2].map(i=>L[(s+i)%L.length]);
+ const X34=c34Acts(loc);const L=(HERO.acts[loc]||[]).filter(a=>!a.c34&&!(c34On()&&G.dorm&&G.dorm.evicted&&['sleep','cook'].includes(a.k))&&!(a.k==='dept'&&c34On()&&spoiled('st_petro'))&&!(a.weekly&&G.weekly[a.k]===Math.floor(G.day/5)));if(L.length<=3)return X34.concat(L);const s=G.day%L.length;const R=[0,1,2].map(i=>L[(s+i)%L.length]);
  // коли сил майже нема — у гуртожитку завжди можна виспатися
  if(loc===HERO.home&&G.nerves<=2&&!R.some(a=>a.k==='sleep')){const sl=L.find(a=>a.k==='sleep');if(sl)R[2]=sl;}return X34.concat(R);}
 function effOf(a){const d=Object.assign({},a.d);if(a.k==='run'&&G.items.gym)d.n=(d.n||0)+1;return d;}
@@ -1692,7 +1692,7 @@ function inbound(f,t,o,key){const k=key||(f+'|'+t);if(G.ph.seen[k]||!canInbound(
 // люди самі кличуть на свою наступну зустріч (Оксану кличе гравець): до двох запрошень на день, по одному між діями
 function storyInbound(){if(!G||G.phase==='end')return false;const P=G.ph;if(P.stD!==G.dk){P.stD=G.dk;P.stN=0;P.stS=-1;}if(P.stN>=2||P.stS===G.slot)return false;
  const R=DP.order.filter(k=>k!=='st_oksana'&&storyNext(k)&&G.rel[k].invDk!==G.dk&&!P.m.some(m=>m.f===k&&m.st==='new'));if(!R.length||rnd()>0.6)return false;
- const k=pick(R);const s=G.rel[k].s;const st=DP.stories[k][s];G.rel[k].invDk=G.dk;P.stN++;P.stS=G.slot;const m=msg(k,st.q,[st.yes,st.no]);m.inv={k,s,ib:1};return true;}
+ const R2=R.filter(k=>{const pr=P.m.filter(m=>m.f===k&&m.inv&&m.inv.s===G.rel[k].s);return !pr.length||G.dk-(pr[pr.length-1].dk||0)>=2;});if(!R2.length)return false;const k=pick(R2);const s=G.rel[k].s;const st=DP.stories[k][s];G.rel[k].invDk=G.dk;P.stN++;P.stS=G.slot;const nPr=P.m.filter(m=>m.f===k&&m.inv&&m.inv.s===s).length;const RE={st_petro:['Я досі чекаю вас на розмову.','Востаннє нагадую.'],st_mom:['Синку, я знову про своє.','Ну то як, синку?'],st_dima:['Бро, я знову про те саме.','Ну що, надумав?'],st_valya:['Я знову питаю.','Ну?']};const qt=nPr&&RE[k]?RE[k][Math.min(nPr-1,RE[k].length-1)]+' '+st.q:st.q;const m=msg(k,qt,[st.yes,st.no]);m.inv={k,s,ib:1};return true;}
 function tryInbound(){if(storyInbound())return;if(!canInbound()||rnd()>0.5)return;
  // відкладені відповіді (продовження розмов)
  const qi=G.ph.q.findIndex(x=>x.day<=G.day);if(qi>=0){const x=G.ph.q.splice(qi,1)[0];spendIn();msg(x.f,x.t);if(x.fx)add(x.fx);return;}
@@ -3084,7 +3084,7 @@ function c34Strike(why){if(!c34On())return;const D=dorm();D.s++;
  if(D.s===1)msg('st_valya','Перший і останній раз попереджаю. Ще раз — скарга в деканат 😤',null,true);
  else if(D.s===2){add({m:-200});rel('st_petro',-1,true);msg('st_valya','Написала на тебе скаргу. Штраф 200 грн. Третій раз — виселю!',null,true);msg('st_petro','На вас скарга з гуртожитку. Неприємно.',null,true);toastLater('🧾 Скарга в деканат: −200 грн');}
  else c34Evict('Тьотя Валя виселила тебе з гуртожитку');}
-function c34Evict(why){const D=dorm();if(D.evicted)return;D.evicted=true;D.s=Math.max(D.s,3);msg('st_valya','Збирай речі. Я тебе попереджала.',null,true);msg('st_mom','Синку, приїжджай, поживеш у мене. Тільки на пари вставати рано 🙏',null,true);toastLater('🧳 '+why+'. Живеш у мами в Лозуватці');logp('🧳 '+why);}
+function c34Evict(why){const D=dorm();if(D.evicted)return;D.evicted=true;G.bills=(G.bills||[]).filter(b=>b.t!=='Гуртожиток');D.s=Math.max(D.s,3);msg('st_valya','Збирай речі. Я тебе попереджала.',null,true);msg('st_mom','Синку, приїжджай, поживеш у мене. Тільки на пари вставати рано 🙏',null,true);toastLater('🧳 '+why+'. Живеш у мами в Лозуватці');logp('🧳 '+why);}
 // кіт у кімнаті
 function c34Cat(){if(!c34On()||G.pet!=='cat'||G.catMom)return;const D=dorm();if(D.evicted)return;
  let p=good('st_valya')?0.02:spoiled('st_valya')?0.20:0.05;if(G.findFail===G.dk)p+=0.10;if(G.catPhotoValya)p+=0.05;
